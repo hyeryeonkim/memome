@@ -15,7 +15,7 @@
 	<input type="hidden" name="redirectUri" value="../member/login"/>
 	<table>
 		<colgroup>
-			<col width="200"/>
+			<col width="100"/>
 		</colgroup>
 		<tbody>
 			<tr>
@@ -23,7 +23,7 @@
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요."
-						maxlength="30" />
+						maxlength="30" autofocus/>
 					</div>
 				</td>
 			</tr>

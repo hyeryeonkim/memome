@@ -29,6 +29,25 @@ a {
 }
 
 
+
+/* 테이블 관련 */
+.table-box > table {
+	width:100%;
+	border-collapse: collapse;
+}
+
+.table-box>table th, .table-box>table td {
+	border: 1px solid black;
+	padding: 10px;
+	text-align: left;
+}
+
+
+
+
+
+
+
 /* top-bar */
 
 .outer-box .top-bar .menu-box ul {
@@ -43,8 +62,23 @@ a {
 
 
 /* 폼 관련 */
-.form1 .form-control-box  input, .form1 .form-control-box textarea {
-	
+.form1 .form-control-box>input, .form1 .form-control-box>textarea {
+	width: 100%;
+	padding: 0;
+	display: block;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.form1 th {
+	word-break: keep-all;
+}
+
+
+.form1 .form-row>.form-control-label {
+	display: flex;
+	align-items: center;
+	padding: 10px;
 }
 
 
