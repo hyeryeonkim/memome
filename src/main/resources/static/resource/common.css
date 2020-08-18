@@ -1,0 +1,50 @@
+/* 노말라이즈 */
+
+body, ul, li, h1 {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+
+a {
+	color:inherit;  /* 색을 뺀다. black으로 만드는게 아니라 부모의 색으로 입힌다. */
+}
+
+
+
+/* 라이브러리 */
+.con {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.con {
+	max-width:1200px;
+	border:1px solid red;
+}
+
+.margin-top-10 {
+	margin-top:10px;
+}
+
+
+/* top-bar */
+
+.outer-box .top-bar .menu-box ul {
+	text-align:center;
+}
+
+.outer-box .top-bar .menu-box ul > li {
+	display:inline-block;
+	font-size:1.8rem;
+	margin:0 30px;
+}
+
+
+/* 폼 관련 */
+.form1 .form-control-box  input, .form1 .form-control-box textarea {
+	
+}
+
+
