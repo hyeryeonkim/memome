@@ -5,35 +5,56 @@
 <mapper namespace="com.sbs.khr.memome.dao.MemberDao">
 
 	<insert id="join" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO member
+		INSERT
+		INTO member
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		loginId = #{loginId},
+		loginId =
+		#{loginId},
 		loginPw = #{loginPw},
 		name = #{name},
 		nickname = #{nickname},
 		email = #{email}
 	</insert>
-	
+
 	<select id="getLoginIdDupCount" resultType="int">
-	SELECT COUNT(*) AS 
-	cnt
-	FROM member
-	WHERE loginId = #{loginId}
+		SELECT COUNT(*) AS
+		cnt
+		FROM member
+		WHERE loginId = #{loginId}
 	</select>
-	
+
 	<select id="getMemberByLoginId" resultType="Member">
-	SELECT *
-	FROM member
-	WHERE loginId = #{loginId}
+		SELECT *
+		FROM member
+		WHERE loginId = #{loginId}
 	</select>
-	
+
 	<select id="getMemberById" resultType="Member">
-	SELECT *
-	FROM member
-	WHERE id = #{id}
+		SELECT *
+		FROM member
+		WHERE id = #{id}
 	</select>
-	
-	
-	
+
+	<update id="memberDataUpdate">
+		UPDATE member
+		SET updateDate = NOW(),
+		nickname = #{nickname},
+		email = #{email}
+		WHERE id = #{id}
+	</update>
+
+
+	<update id="passwordUpdate">
+		UPDATE member
+		SET updateDate = NOW(),
+		loginPw = #{loginPw}
+	</update>
+
+	<select id="getMemberByNameAndEmail" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE name = #{name}
+		AND email = #{email}
+	</select>
 </mapper>

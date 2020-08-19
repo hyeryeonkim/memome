@@ -197,7 +197,6 @@ function MemberJoinForm__submit(form) {
 	} */
 	
 	form.loginPwReal.value = sha256(form.loginPw.value);
-	alert(form.loginPwReal.value);
 	form.loginPw.value = '';
 	form.loginPwConfirm.value = '';
 

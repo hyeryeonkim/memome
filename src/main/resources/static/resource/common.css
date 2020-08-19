@@ -21,12 +21,21 @@ a {
 
 .con {
 	max-width:1200px;
-	border:1px solid red;
+/* 	border:1px solid red; */
 }
 
 .margin-top-10 {
 	margin-top:10px;
 }
+
+.border-red-1 {
+	border:1px solid red;
+}
+
+
+
+
+
 
 
 
@@ -36,13 +45,19 @@ a {
 	border-collapse: collapse;
 }
 
-.table-box>table th, .table-box>table td {
+.table-box > table th, .table-box > table td {
 	border: 1px solid black;
 	padding: 10px;
 	text-align: left;
 }
 
-
+.table-box > table th > input , .table-box > table td > input {
+	width: 100%;
+	padding: 0;
+	display: block;
+	box-sizing: border-box;
+	padding: 10px;
+}
 
 
 
@@ -58,11 +73,27 @@ a {
 	display:inline-block;
 	font-size:1.8rem;
 	margin:0 30px;
+	width:200px;	
+}
+.outer-box .top-bar .menu-box ul > li > a {
+	display:block;
+	padding:20px;
+	
+	
+}
+
+.outer-box .top-bar .menu-box ul > li:hover > a {
+	background-color:black;
+	color:white;
+	
 }
 
 
+
+
+
 /* 폼 관련 */
-.form1 .form-control-box>input, .form1 .form-control-box>textarea {
+.form1 .form-control-box > input, .form1 .form-control-box>textarea {
 	width: 100%;
 	padding: 0;
 	display: block;

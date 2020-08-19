@@ -1,6 +1,17 @@
 server:
   port: 8088
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kim5638yw@gmail.com
+    password: sbs123414
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -13,4 +24,8 @@ spring:
 mybatis:
   type-aliases-package: com.sbs.khr.memome.dto
 custom:
+  siteName: memome
+  siteMainUri: http://localhost:8088/usr/home/main
   logoText: memome  
+  emailFrom: no-reply@localhost.com
+  emailFromName: memome

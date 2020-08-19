@@ -30,12 +30,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 			// beforeActionInterceptor 인터셉터가 모든 액션 실행전에 실행되도록 처리
 			registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/resource/**");
 		
-		
 		// 로그인 없이도 접속할 수 있는 URI 전부 기술
 				registry.addInterceptor(needToLoginInterceptor).addPathPatterns("/**").excludePathPatterns("/")
 						.excludePathPatterns("/resource/**").excludePathPatterns("/usr/home/main")
 						.excludePathPatterns("/usr/member/login").excludePathPatterns("/usr/member/doLogin")
-						.excludePathPatterns("/usr/member/join").excludePathPatterns("/usr/member/doJoin");
+						.excludePathPatterns("/usr/member/join").excludePathPatterns("/usr/member/doJoin")
+						.excludePathPatterns("/usr/member/findAccount").excludePathPatterns("/usr/member/doFindLoginId");
 						
 
 				// 로그인 상태에서 접속할 수 없는 URI 전부 기술
