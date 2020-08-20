@@ -45,6 +45,9 @@ public class MemberController {
 		// param에 id가 들어있다?????????? 샘한테 질문하기.
 		int newMemberId = memberService.join(param);
 		
+		String nickname = Util.getAsStr(param.get("nickname"));
+		model.addAttribute("alertMsg", nickname + "님, 회원가입을 감사드립니다.");
+		
 		String redirectUri = (String)param.get("redirectUri");
 		model.addAttribute("redirectUri", redirectUri);
 		

@@ -36,11 +36,12 @@
 			<tr>
 				<th>로그인</th>
 				<td>
-					<button type="submit">로그인</button>
+					<input type="submit" value="로그인" />
+<!-- 					<button type="submit">로그인</button> -->
 				</td>
 			</tr>
 			<tr>
-				<th>로그인 아이디, 비밀번호 찾기</th>
+				<th>아이디, 비밀번호 찾기</th>
 				<td>
 					<button type="button" onclick="location.href='../member/findAccount'">찾기</button>
 				</td>

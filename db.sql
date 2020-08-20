@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS `memome`;
 CREATE DATABASE `memome`;
 USE `memome`;
 
-
+# member 테이블 생성
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME,
@@ -20,3 +20,45 @@ CREATE TABLE `member` (
 
 SELECT *
 FROM `member`;
+
+# 게시판 테이블 생성
+CREATE TABLE `board`(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    delDate DATETIME,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    `code` CHAR(20) NOT NULL UNIQUE,
+    `name` CHAR(20) NOT NULL UNIQUE
+    
+);
+
+
+
+# 게시물 테이블 생성
+CREATE TABLE article (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    delDate DATETIME,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    title CHAR(200) NOT NULL,
+    `body` LONGTEXT NOT NULL,
+    boardId INT(10) UNSIGNED NOT NULL 
+);
+
+INSERT INTO `board`
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'free',
+`name` = '자유';
+
+INSERT INTO `board`
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'notice',
+`name` = '공지사항';
+
+SELECT *
+FROM article;

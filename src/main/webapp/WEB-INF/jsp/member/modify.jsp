@@ -51,7 +51,15 @@
 			</tr>
 			<tr>
 				<th>회원정보 변경</th>
-				<td><input type="submit" value="변경"/></td>
+				<td>
+				<input type="submit" value="변경"/>
+				</td>
+			</tr>
+			<tr>
+				<th>취소</th>
+				<td>
+				<button type="button" onclick="location.href='../member/myPage'">취소</button>
+				</td>
 			</tr>
 		</tbody>
 	</table>

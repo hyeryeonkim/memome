@@ -37,10 +37,10 @@
 				</td>
 			</tr>
 			<tr>
-				<th>로그인 비밀번호 확인</th>
+				<th>비밀번호 확인</th>
 				<td>
 					<div class="form-control-box">
-						<input type="password" name="loginPwConfirm" placeholder="로그인 비밀번호 확인을 입력해주세요."
+						<input type="password" name="loginPwConfirm" placeholder="비밀번호 확인을 입력해주세요."
 						maxlength="50" />
 					</div>
 				</td>
@@ -83,7 +83,8 @@
 			<tr>
 				<th>가입</th>
 				<td>
-					<button type="submit" >가입</button>
+					<input type="submit" value="가입" />
+<!-- 					<button type="submit" >가입</button> -->
 				</td>
 			</tr>
 			

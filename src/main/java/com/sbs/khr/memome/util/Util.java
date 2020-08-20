@@ -72,5 +72,16 @@ public class Util {
 	}
 
 
+	public static Map<String, Object> getNewMapOf(Map<String, Object> oldMap, String... keys) {
+		Map<String, Object> newMap = new HashMap<>();
+
+		for (String key : keys) {
+			newMap.put(key, oldMap.get(key));
+		}
+
+		return newMap;
+	}
+
+
 
 }

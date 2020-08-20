@@ -27,6 +27,18 @@ a {
 .margin-top-10 {
 	margin-top:10px;
 }
+.margin-top-20 {
+	margin-top:20px;
+}
+.margin-top-30 {
+	margin-top:30px;
+}
+.margin-top-40 {
+	margin-top:40px;
+}
+.margin-top-50 {
+	margin-top:50px;
+}
 
 .border-red-1 {
 	border:1px solid red;
@@ -101,10 +113,10 @@ a {
 	padding: 10px;
 }
 
+
 .form1 th {
 	word-break: keep-all;
 }
-
 
 .form1 .form-row>.form-control-label {
 	display: flex;
@@ -112,4 +124,7 @@ a {
 	padding: 10px;
 }
 
-
+.form1 .form-control-box>textarea {
+	height:400px;
+	resize:none;
+}
