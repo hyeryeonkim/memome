@@ -24,4 +24,8 @@ public interface MemberDao {
 
 	Member getMemberByNameAndEmail(Map<String, Object> param);
 
+	int getNicknameDupCount(@Param("nickname") String nickname);
+
+	int getEmailDupCount(@Param("email") String email);
+
 }

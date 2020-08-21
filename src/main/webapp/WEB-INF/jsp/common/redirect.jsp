@@ -15,4 +15,7 @@
 	if (redirectUri) {
 		location.replace(redirectUri);
 	}
+
+
+	
 </script>

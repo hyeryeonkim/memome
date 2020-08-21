@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="게시물 내용" />
+<%-- <c:set var="pageTitle" value="게시물 내용" /> --%>
 <%@ include file="../part/head.jspf"%>
 
-<%-- <h1 class="con">
-	<strong style="color: red;">${boardCode}</strong>게시판
+<h1 class="con">
+	<strong style="color: red;">${boardCode}</strong>게시물 내용
 </h1>
- --%>
+
 <div class="table-box con">
 	<table>
 		<colgroup>
@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>미구현</td>
+				<td>${article.extra.writer}</td>
 			</tr>
 			<tr>
 				<th>제목</th>

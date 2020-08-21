@@ -18,6 +18,6 @@ public interface ArticleDao {
 
 	List<Article> getForPrintArticles(@Param("id") int id);
 
-	Article getForPrintArticle(@Param("id") int id);
+	Article getForPrintArticleById(@Param("id") int id);
 	
 }

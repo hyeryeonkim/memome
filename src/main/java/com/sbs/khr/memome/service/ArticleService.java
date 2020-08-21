@@ -32,8 +32,8 @@ public class ArticleService {
 		return articleDao.getForPrintArticles(id);
 	}
 
-	public Article getForPrintArticle(int id) {
-		return articleDao.getForPrintArticle(id);
+	public Article getForPrintArticleById(int id) {
+		return articleDao.getForPrintArticleById(id);
 	}
 	
 }

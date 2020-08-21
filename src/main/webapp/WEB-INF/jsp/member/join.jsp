@@ -23,7 +23,8 @@
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요."
-						maxlength="30" autofocus/>
+						onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30" autofocus/>
+						<div class="message-msg"></div>
 					</div>
 				</td>
 			</tr>
@@ -58,8 +59,9 @@
 				<th>닉네임</th>
 				<td>
 					<div class="form-control-box">
-						<input type="text" name="nickname" placeholder="닉네임을 입력해주세요."
+						<input type="text" name="nickname" placeholder="닉네임을 입력해주세요." onkeyup="JoinForm__checkNicknameDup(this);"
 						maxlength="30" />
+						<div class="message-msg"></div>
 					</div>
 				</td>
 			</tr>
@@ -67,8 +69,9 @@
 				<th>이메일</th>
 				<td>
 					<div class="form-control-box">
-						<input type="email" name="email" placeholder="이메일을 입력해주세요."
+						<input type="email" name="email" placeholder="이메일을 입력해주세요." onkeyup="JoinForm__checkEmailDup(this);"
 						maxlength="50" />
+						<div class="message-msg"></div>
 					</div>
 				</td>
 			</tr>
@@ -112,12 +115,17 @@ function MemberJoinForm__submit(form) {
 		form.loginId.focus();
 	}
 
-	if ( form.loginId.value.length < 4 ) {
-		alert('로그인 아이디를 4자 이상 입력해주세요.');
-		return;
+	if ( form.loginId.value.length < 4 || form.loginId.value.length > 12 ) {
+		alert('아이디를 4~12자까지 입력해주세요.');
 		form.loginId.focus();
+		return;
 	}
 
+	if ( form.loginId.value.indexOf(' ') != -1 ) {
+		alert('아이디를 영문소문자와 숫자의 조합으로 입력해주세요.');
+		form.loginId.focus();
+		return;
+	}
 	
 	
 	form.loginPw.value = form.loginPw.value.trim();
@@ -128,11 +136,19 @@ function MemberJoinForm__submit(form) {
 		form.loginPw.focus();
 	}
 
-	if ( form.loginPw.value.length < 5 ) {
+	if ( form.loginPw.value.length < 4 || form.loginPw.value.length > 12 ) {
+		alert('로그인 비밀번호를 4~12자까지 입력해주세요.');
+		form.loginPw.value = "";
+		form.loginPwConfirm.value = "";
+		form.loginPw.focus();
+		return;
+	}
+
+/* 	if ( form.loginPw.value.length < 5 ) {
 		alert('비밀번호를 5자 이상 입력해주세요.');
 		return;
 		form.loginPw.focus();
-	}
+	} */
 	
 	
 	
@@ -158,9 +174,22 @@ function MemberJoinForm__submit(form) {
 		return;
 	}
 
+	if ( form.name.value.length < 2 ) {
+		alert('이름을 2자 이상 입력해주세요.');
+		form.name.focus();
+		return;
+	}
+	
+
 	form.nickname.value = form.nickname.value.trim();
 	if ( form.nickname.value.length == 0 ) {
 		alert('닉네임을 입력해주세요.');
+		form.nickname.focus();
+		return;
+	}
+
+	if ( form.nickname.value.length < 2 ) {
+		alert('닉네임을 2자 이상 입력해주세요.');
 		form.nickname.focus();
 		return;
 	}
@@ -205,9 +234,110 @@ function MemberJoinForm__submit(form) {
 	form.submit();
 	MemberJoinForm__submitDone = true;
 	
+}
+
+var JoinForm__validLoginId = '';
+function JoinForm__checkLoginIdDup(input) {
+	var form = input.form;
+
+	form.loginId.value = form.loginId.value.trim();
+
+	if ( form.loginId.value.length == 0 ) {
+		return;
+	}
+
+
+	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
+	$.get(  
+		'getLoginIdDup',  //    현재가  /s/member/join 이지만 아작스를 통해서 /s/member/getLoginIdDup 으로 주소가 바뀐다. 폼의 액션과 같다.
+		{
+			loginId: form.loginId.value 
+		},
+		function(data) {   //콜백 함수 : `getLoginIdDup`로 db에 다녀오면 실행되는 함수. 응답이 오면 후속 조치.
+			var $message = $(form.loginId).next();   // input 로그인 아이디의 동생인 msg...?
+
+			 
+			if ( data.resultCode.substr(0, 2) == 'S-' ) {
+				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
+				JoinForm__validLoginId = data.loginId;
+			}								
+			else {
+				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
+				JoinForm__validLoginId = '';
+			}
+	}, `json`);
 	
 }
 
+
+
+var JoinForm__validNickname = '';
+function JoinForm__checkNicknameDup(input) {
+	var form = input.form;
+
+	form.nickname.value = form.nickname.value.trim();
+
+	if ( form.nickname.value.length == 0 ) {
+		return;
+	}
+
+
+	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
+	$.get(  
+		'getNicknameDup',  //    현재가  /s/member/join 이지만 아작스를 통해서 /s/member/getLoginIdDup 으로 주소가 바뀐다. 폼의 액션과 같다.
+		{
+			nickname: form.nickname.value 
+		},
+		function(data) {   //콜백 함수 : `getLoginIdDup`로 db에 다녀오면 실행되는 함수. 응답이 오면 후속 조치.
+			var $message = $(form.nickname).next();   // input 로그인 아이디의 동생인 msg...?
+
+			 
+			if ( data.resultCode.substr(0, 2) == 'S-' ) {
+				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
+				JoinForm__validNickname = data.nickname;
+			}								
+			else {
+				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
+				JoinForm__validNickname = '';
+			}
+	}, `json`);
+	
+}
+
+
+
+var JoinForm__validEmail = '';
+function JoinForm__checkEmailDup(input) {
+	var form = input.form;
+
+	form.email.value = form.email.value.trim();
+
+	if ( form.email.value.length == 0 ) {
+		return;
+	}
+
+
+	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
+	$.get(  
+		'getEmailDup',  //    현재가  /s/member/join 이지만 아작스를 통해서 /s/member/getLoginIdDup 으로 주소가 바뀐다. 폼의 액션과 같다.
+		{
+			email: form.email.value 
+		},
+		function(data) {   //콜백 함수 : `getLoginIdDup`로 db에 다녀오면 실행되는 함수. 응답이 오면 후속 조치.
+			var $message = $(form.email).next();   // input 로그인 아이디의 동생인 msg...?
+
+			 
+			if ( data.resultCode.substr(0, 2) == 'S-' ) {
+				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
+				JoinForm__validEmail = data.email;
+			}								
+			else {
+				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
+				JoinForm__validEmail = '';
+			}
+	}, `json`);
+	
+}
 
 </script>
 

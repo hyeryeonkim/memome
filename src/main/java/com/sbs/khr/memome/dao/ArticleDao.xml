@@ -5,12 +5,14 @@
 <mapper namespace="com.sbs.khr.memome.dao.ArticleDao">
 
 	<insert id="write" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO article
+	INSERT
+	INTO article
 	SET regDate = NOW(),
 	updateDate = NOW(),
 	title = #{title},
 	body = #{body},
 	displayStatus = 1,
+	memberId = #{memberId},
 	boardId = #{boardId} 
 	</insert>
 	
@@ -20,19 +22,57 @@
 	WHERE code = #{boardCode}
 	</select>
 	
-	<select id="getForPrintArticles" resultType="Article">
-	SELECT *
-	FROM article
-	WHERE boardId = #{id}
-	ORDER BY id DESC 
+	
+	<!-- ON 은 조건을 의미(원하는 값) -->
+	<select id="getForPrintArticles" resultMap="article">
+	SELECT A.*,
+	M.nickname AS extra__writer
+	FROM article AS A
+	INNER JOIN member AS M
+	ON A.memberId = M.id  
+	WHERE A.displayStatus = 1
+	AND boardId = #{id}
+	ORDER BY A.id DESC 
 	</select>
 	
-	<select id ="getForPrintArticle" resultType="Article" >
-	SELECT *
-	FROM article
-	WHERE displayStatus = 1
-	AND id = #{id}
+	
+	<!-- ON 은 조건을 의미(원하는 값) -->
+	<select id ="getForPrintArticleById" resultMap="article" >
+	SELECT A.*,
+	M.nickname AS extra__writer
+	FROM article AS A
+	INNER JOIN member AS M
+	ON A.memberId = M.id
+	WHERE A.displayStatus = 1
+	AND A.id = #{id}
 	</select>
-
+	
+	
+	<!-- extra__writer를 사용하기 위해서는 자동 매핑이 되지 않으므로 
+	수동 매핑을 통해서 활용해야 한다.
+	작성자를 extra__writer로 사용하기 때문에 resultMap으로 활용하는 것이다. -->
+	<resultMap type="Article" id="article">
+		<id property="id" column="id" />
+		<id property="regDate" column="regDate" />
+		<id property="updateDate" column="updateDate" />
+		<id property="delStatus" column="delStatus" />
+		<id property="derDate" column="derDate" />
+		<id property="displayStatus" column="displayStatus" />
+		<id property="title" column="title" />
+		<id property="body" column="body" />
+		<id property="memberId" column="memberId" />
+		<id property="boardId" column="boardId" />
+		<association property="extra" javaType="map">
+			<id property="writer" column="extra__writer" />
+		</association>
+		
+	</resultMap>
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>
