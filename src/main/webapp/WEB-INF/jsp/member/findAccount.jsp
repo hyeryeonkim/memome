@@ -89,14 +89,9 @@
 
 
 
-
-
-
-
-
-
-
 <script>
+
+// 로그인 아이디 찾는 자바스크립트
 var findLoginIdForm__submitDone = false;
 function findLoginIdForm__submit(form) {
 	
@@ -122,9 +117,39 @@ function findLoginIdForm__submit(form) {
 	
 	form.submit();
 	findLoginIdForm__submitDone = true;
-	
-	
 }
+
+
+// 로그인 비밀번호 찾는 자바스크립트 
+var findLoginPwForm__submitDone = false;
+function findLoginPwForm__submit(form) {
+	
+	if ( findLoginPwForm__submitDone ) {
+		alert('처리중입니다.');
+		 return;
+	}
+
+	form.loginId.value = form.loginId.value.trim();
+	if ( form.loginId.value.length == 0 ) {
+		alert('로그인 아이디를 입력해주세요.');
+		form.loginId.focus();
+		return;
+	}
+
+	form.email.value = form.email.value.trim();
+	if ( form.email.value.length == 0 ) {
+		alert('이메일을 입력해주세요.');
+		form.email.focus();
+		return;
+	}
+
+	form.submit();
+	findLoginPwForm__submitDone = true;
+
+}
+
+
+
 
 
 </script>

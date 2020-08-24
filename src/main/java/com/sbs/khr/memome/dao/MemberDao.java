@@ -28,4 +28,10 @@ public interface MemberDao {
 
 	int getEmailDupCount(@Param("email") String email);
 
+	Member getMemberByLoginIdAndEmail(Map<String, Object> param);
+
+	Member getMemberByEmail(@Param("email") String email);
+
+	void saveTempPassword(Map<String, Object> param);
+
 }

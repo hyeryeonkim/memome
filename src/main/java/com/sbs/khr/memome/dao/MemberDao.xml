@@ -75,4 +75,30 @@
 		WHERE name = #{name}
 		AND email = #{email}
 	</select>
+	
+	<select id="getMemberByLoginIdAndEmail" resultType="Member">
+		SELECT *
+		FROM
+		member
+		WHERE loginId = #{loginId}
+		AND email = #{email}
+	</select>
+	
+	<select id="getMemberByEmail" resultType="Member">
+		SELECT *
+		FROM
+		member
+		WHERE email = #{email}
+	</select>
+	
+	<update id="saveTempPassword">
+		UPDATE member
+		SET updateDate = NOW(),
+		loginPw = #{tempPassword}
+		WHERE loginId = #{loginId}
+		AND email = #{email}
+	</update>
+	
+	
+	
 </mapper>

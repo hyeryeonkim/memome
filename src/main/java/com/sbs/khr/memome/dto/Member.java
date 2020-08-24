@@ -1,5 +1,7 @@
 package com.sbs.khr.memome.dto;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,6 @@ public class Member {
 	private String name;
 	private String nickname;
 	private String email;
+	private Map<String, Object> extra;
 	//private String cellphoneNo;
 }

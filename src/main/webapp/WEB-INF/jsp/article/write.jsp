@@ -38,6 +38,7 @@
 	</table>
 </form>
 
+
 <script>
 var ArticleWriteForm__submitDone = false;
 function ArticleWriteForm__submit(form) {

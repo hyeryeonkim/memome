@@ -69,4 +69,9 @@ var param = '${paramJson}';
 				</ul>
 			</div>
 		</div>
+		<c:if test="${isLogined}">
+			<c:if test="${isLoginedMember.extra.isNeedToChangePasswordForTemp}">
+				<div class="use-temp-password">현재 임시 비밀번호를 사용하고 있습니다.</div>
+			</c:if>
+		</c:if>
 		<h1 class="page-title-box con">${pageTitle}</h1>

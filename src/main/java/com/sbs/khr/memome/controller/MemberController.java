@@ -234,28 +234,37 @@ public class MemberController {
 		return "common/redirect";
 	}
 	
+	
+	@RequestMapping("/usr/member/doFindLoginPw")
+	public String doFindLoginPw(@RequestParam Map<String, Object> param, Model model, HttpServletRequest request) {
+
+		Member member = memberService.getMemberByLoginIdAndEmail(param);
+		
+		if (member != null) {
+			model.addAttribute("redirectUri", "/usr/member/login");
+			model.addAttribute("alertMsg", "임시 비밀번호를 가입하신 이메일로 발송드렸습니다.");
+		}
+
+		return "common/redirect";
+	}
+	
 	@RequestMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
 	public String getLoginIdDup(HttpServletRequest request) {
 		
 		String loginId = request.getParameter("loginId");
 		
-		System.out.println("된다 : " + loginId);
-		
 		ResultData checkLoginIdJoinableResultData = memberService.checkLoginIdJoinable(loginId);
 		
 		boolean valid = checkLoginIdJoinableResultData.isFail();
-		System.out.println("나는 boolean " + valid);
 		
 		// 필히 \을 붙여주어야 한다.
 		// 기존 blog에서 구현한 것과는 다르게 return "json:" 을 빼주었더니 되었음. 
 		// @ResponseBody 어노테이션도 입력해주었음.
 		if (valid) {
-				System.out.println("으아아아아악 왜 안되니 false야 ");
 			return "{\"msg\":\"이미 사용중인 아이디 입니다.\", \"resultCode\": \"F-1\", \"loginId\":\"" + loginId + "\"}";
 		}
 		else {
-			System.out.println("중복은 확인하나???? 나는 hong");
 			return "{\"msg\":\"사용할 수 있는 아이디 입니다.\", \"resultCode\": \"S-1\", \"loginId\":\"" + loginId + "\"}";
 		}
 		

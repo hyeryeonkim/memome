@@ -16,16 +16,19 @@ public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
-	
+
 	@Autowired
 	private MailService mailService;
-	
+
 	@Value("${custom.siteMainUri}")
 	private String siteMainUri;
-	
+
 	@Value("${custom.siteName}")
 	private String siteName;
-	
+
+	@Autowired
+	private AttrService attrService;
+
 	public int join(Map<String, Object> param) {
 		memberDao.join(param);
 
@@ -34,6 +37,7 @@ public class MemberService {
 		return Util.getAsInt(param.get("id"));
 	}
 
+	// 회원가입 완료 메일 발송 메서드
 	private void sendJoinCompleteMail(String email) {
 		String mailTitle = String.format("[%s] 가입이 완료되었습니다.", siteName);
 
@@ -44,7 +48,7 @@ public class MemberService {
 		mailService.send(email, mailTitle, mailBodySb.toString());
 
 	}
-	
+
 	// 로그인 아이디 중복 체크
 	public ResultData checkLoginIdJoinable(String loginId) {
 
@@ -56,6 +60,7 @@ public class MemberService {
 
 		return new ResultData("F-1", "이미 사용중인 로그인 아이디 입니다.", "loginId", loginId);
 	}
+
 	// 닉네임 중복 체크
 	public ResultData checkNicknameJoinable(String nickname) {
 
@@ -67,10 +72,10 @@ public class MemberService {
 
 		return new ResultData("F-1", "이미 사용중인 닉네임 입니다.", "nickname", nickname);
 	}
-	
+
 	// 이메일 중복 체크
 	public ResultData checkEmailJoinable(String email) {
-		
+
 		int count = memberDao.getEmailDupCount(email);
 
 		if (count == 0) {
@@ -79,13 +84,9 @@ public class MemberService {
 
 		return new ResultData("F-1", "이미 사용중인 이메일 입니다.", "email", email);
 	}
-	
+
 	public Member getMemberByLoginId(String loginId) {
 		return memberDao.getMemberByLoginId(loginId);
-	}
-
-	public Member getMemberById(int id) {
-		return memberDao.getMemberById(id);
 	}
 
 	public void memberDataUpdate(Map<String, Object> param) {
@@ -100,7 +101,67 @@ public class MemberService {
 		return memberDao.getMemberByNameAndEmail(param);
 	}
 
+	// 비밀번호 찾기 메서드(입력한 로그인 아이디와 이메일과 일치하는 회원을 찾아오는 메서드)
+	public Member getMemberByLoginIdAndEmail(Map<String, Object> param) {
 
+		String email = Util.getAsStr(param.get("email"));
 
+		String sha256TempPassword = Util.sha256(sendTempPasswordMail(email));
+
+		param.put("tempPassword", sha256TempPassword);
+
+		memberDao.saveTempPassword(param);
+
+		Member member = getMemberByLoginId(Util.getAsStr(param.get("loginId")));
+
+		attrService.setValue2("member", member.getId(), "extra", "useTempPassword", "1");
+
+		return memberDao.getMemberByLoginIdAndEmail(param);
+	}
+
+	// 임시 비밀번호를 사용하고 있는지 확인하기 위한 메서드
+	private boolean isNeedToChangePasswordForTemp(int memberId) {
+		return attrService.getValue("member", memberId, "extra", "useTempPassword").equals("1");
+	}
+
+	// getMemberByIdForSession
+	// 로그인한 회원이 있다면 실행되는 메서드
+	public Member getMemberById(int id) {
+
+		Member member = memberDao.getMemberById(id);
+		
+		  boolean isNeedToChangePasswordForTemp = isNeedToChangePasswordForTemp(member.getId());
+		  
+		  if ( member != null ) {
+			  member.getExtra().put("isNeedToChangePasswordForTemp", isNeedToChangePasswordForTemp);
+		  }
+		  
+		  
+		  System.out.println("member는? " + member);
+		 
+		
+		return member;
+	}
+
+	// 비밀번호를 찾기 위해 임시 비밀번호를 메일로 발송하기 위한 메서드
+	private String sendTempPasswordMail(String email) {
+
+		Member member = memberDao.getMemberByEmail(email);
+
+		String getTempPassword = Util.getTempPassword(10);
+
+		String mailTitle = String.format("[%s]에 요청하신 [%s]님의 임시 비밀번호를 확인해주세요.", siteName, member.getName());
+
+		StringBuilder mailBodySb = new StringBuilder();
+		mailBodySb.append("<h1>임시 비밀번호로 접속 후 비밀번호 변경하여 사용해주세요.</h1>");
+		mailBodySb.append("<h2>== 임시 비밀번호 ==</h2>");
+		mailBodySb.append("<strong>" + getTempPassword + "</strong>");
+		mailBodySb.append(String.format("<p><a href=\"%s\" target=\"_blank\">%s</a>로 이동</p>", siteMainUri, siteName));
+
+		mailService.send(email, mailTitle, mailBodySb.toString());
+
+		return getTempPassword;
+
+	}
 
 }
