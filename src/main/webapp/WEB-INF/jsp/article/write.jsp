@@ -8,7 +8,10 @@
 
 <form method="POST" action="${boardCode}-doWrite" class="form1 table-box con"
 		onsubmit="ArticleWriteForm__submit(this); return false;">
+		<input type="hidden" name="fileIdsStr"/>
+		<input type="hidden" name="redirectUri" value="/usr/article/${board.code}-detail?id=#id"/>
 	<table>
+	
 		<tbody>
 			<tr>
 				<th>제목</th>
@@ -23,6 +26,14 @@
 				<td>
 					<div class="form-control-box">
 						<textarea name="body" placeholder="내용을 입력해주세요." maxlength="2000"></textarea>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>첨부1 이미지</th>
+				<td>
+					<div class="form-control-box">
+						<input type="file" accept="image/*" name="file__article__0__common__attachment__1">
 					</div>
 				</td>
 			</tr>
@@ -61,8 +72,65 @@ function ArticleWriteForm__submit(form) {
 		return;
 	}
 
-	form.submit();
+
+	var maxSizeMb = 50;
+	var maxSize = maxSizeMb * 1024 * 1024 // 50MB 
+
+	if (form.file__article__0__common__attachment__1.value) {
+		if ( form.file__article__0__common__attachment__1.files[0].size > maxSize ) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			return;
+		} 
+	}
+
+
+	var startUploadFiles = function(onSuccess) {
+
+		var needToUpload = form.file__article__0__common__attachment__1.value.length > 0;
+
+		if (!needToUpload) {
+			needToUpload = form.file__article__0__common__attachment__2.value.length > 0;
+		}
+
+		if (!needToUpload) {
+			needToUpload = form.file__article__0__common__attachment__3.value.length > 0;
+		}
+	
+		
+		if ( needToUpload == false) {
+			onSuccess();
+			return;
+		}
+
+		var fileUploadFormData = new FormData(form); 
+
+		$.ajax({
+			url : './../file/doUploadAjax',
+			data : fileUploadFormData,
+			processData : false,
+			contentType : false,
+			dataType:"json",
+			type : 'POST',
+			success : onSuccess
+		});
+	}
+	
+
 	ArticleWriteForm__submitDone = true;
+
+	startUploadFiles(function(data) {
+		var fileIdsStr = '';
+
+		if ( data && data.body && data.body.fileIdsStr ) {
+			fileIdsStr = data.body.fileIdsStr;
+		}
+
+		form.fileIdsStr.value = fileIdsStr;
+		form.file__article__0__common__attachment__1.value = '';
+		
+		form.submit();
+	});
+
 }
 </script>
 

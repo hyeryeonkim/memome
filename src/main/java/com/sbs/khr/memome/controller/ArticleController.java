@@ -55,14 +55,16 @@ public class ArticleController {
 
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
-		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body");
+		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr");
 
 		newParam.put("boardId", board.getId());
 		newParam.put("memberId", loginedMemberId);
 
 		int newArticleId = articleService.write(newParam);
 
-		String redirectUri = "/usr/article/" + boardCode + "-list";
+		String redirectUri = Util.getAsStr(param.get("redirectUri"));
+		redirectUri = redirectUri.replace("#id", newArticleId + "");
+				
 
 		if (newArticleId != -1) {
 			model.addAttribute("redirectUri", redirectUri);
@@ -81,7 +83,6 @@ public class ArticleController {
 		int id = Util.getAsInt(param.get("id"));
 
 		Article article = articleService.getForPrintArticleById(id);
-		System.out.println("article의 extra는 ? : " + article);
 
 		model.addAttribute("article", article);
 

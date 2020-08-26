@@ -84,7 +84,7 @@ public class MemberController {
 
 		Member member = memberService.getMemberByLoginId(Util.getAsStr(param.get("loginId")));
 
-		if (member == null) {
+		if (member == null || member.isDelStatus() == true ) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", "존재하지 않는 회원입니다.");
 			return "common/redirect";
@@ -270,6 +270,7 @@ public class MemberController {
 		
 	}
 	
+	// 사용중인 닉네임 입니다 등 중복으로 고쳤으면 좋겠음..ㅠㅠ
 	@RequestMapping("/usr/member/getNicknameDup")
 	@ResponseBody
 	public String getNicknameDup(HttpServletRequest request) {
@@ -305,6 +306,29 @@ public class MemberController {
 		else {
 			return "{\"msg\":\"사용할 수 있는 이메일 입니다.\", \"resultCode\": \"S-1\", \"email\":\"" + email + "\"}";
 		}
-		
 	}
+	
+	@RequestMapping("/usr/member/passwordAccountDelete")
+	public String passwordAccountDelete() {
+		return "member/passwordAccountDelete";
+	}
+	
+	@RequestMapping("/usr/member/accountDelete")
+	public String doAccountDelete(Model model, HttpSession session, @RequestParam Map<String, Object> param) {
+		
+		
+		memberService.accountDelete(param);
+		
+		session.removeAttribute("loginedMemberId");
+		
+		String redirectUri = "/usr/home/main";
+		
+		model.addAttribute("redirectUri", redirectUri);
+		
+		return "common/redirect";
+	}
+	
+	
+	
+	
 }

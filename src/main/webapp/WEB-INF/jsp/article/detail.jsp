@@ -11,7 +11,7 @@
 <div class="table-box con">
 	<table>
 		<colgroup>
-<%-- 			<col width="200"/> --%>
+			<%-- 			<col width="200"/> --%>
 			<col class="table-first-col">
 		</colgroup>
 		<tbody>
@@ -35,6 +35,16 @@
 				<th>내용</th>
 				<td>${article.body}</td>
 			</tr>
+			<c:if test="${article.extra.file__common__attachment['1'] != null}">
+				<tr>
+					<th>첨부 파일 1</th>
+					<td>
+						<div class="img-box">
+							<img src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}" alt="image not supported" />
+						</div>
+					</td>
+				</tr>
+			</c:if>
 		</tbody>
 	</table>
 </div>

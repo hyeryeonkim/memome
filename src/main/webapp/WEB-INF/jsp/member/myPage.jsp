@@ -53,6 +53,10 @@
 				<th>비밀번호 변경</th>
 				<td><button type="button" onclick="location.href='../member/passwordPrivate'">비밀번호 변경</button></td>
 			</tr>
+			<tr>
+				<th>회원탈퇴</th>
+				<td><button type="button" onclick="location.href='../member/passwordAccountDelete'">회원탈퇴</button></td>
+			</tr>
 		</tbody>
 	</table>
 </div>

@@ -34,4 +34,6 @@ public interface MemberDao {
 
 	void saveTempPassword(Map<String, Object> param);
 
+	void accountDelete(Map<String, Object> param);
+
 }

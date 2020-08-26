@@ -20,14 +20,14 @@ public class MemberService {
 	@Autowired
 	private MailService mailService;
 
+	@Autowired
+	private AttrService attrService;
+
 	@Value("${custom.siteMainUri}")
 	private String siteMainUri;
 
 	@Value("${custom.siteName}")
 	private String siteName;
-
-	@Autowired
-	private AttrService attrService;
 
 	public int join(Map<String, Object> param) {
 		memberDao.join(param);
@@ -114,14 +114,14 @@ public class MemberService {
 
 		Member member = getMemberByLoginId(Util.getAsStr(param.get("loginId")));
 
-		attrService.setValue2("member", member.getId(), "extra", "useTempPassword", "1");
+		attrService.setValue2("member__" + member.getId() + "__extra__useTempPassword", "1");
 
 		return memberDao.getMemberByLoginIdAndEmail(param);
 	}
 
 	// 임시 비밀번호를 사용하고 있는지 확인하기 위한 메서드
 	private boolean isNeedToChangePasswordForTemp(int memberId) {
-		return attrService.getValue("member", memberId, "extra", "useTempPassword").equals("1");
+		return attrService.getValue("member__" + memberId + "__extra__useTempPassword").equals("1");
 	}
 
 	// getMemberByIdForSession
@@ -129,16 +129,10 @@ public class MemberService {
 	public Member getMemberById(int id) {
 
 		Member member = memberDao.getMemberById(id);
+
+		//boolean isNeedToChangePasswordForTemp = isNeedToChangePasswordForTemp(member.getId());
 		
-		  boolean isNeedToChangePasswordForTemp = isNeedToChangePasswordForTemp(member.getId());
-		  
-		  if ( member != null ) {
-			  member.getExtra().put("isNeedToChangePasswordForTemp", isNeedToChangePasswordForTemp);
-		  }
-		  
-		  
-		  System.out.println("member는? " + member);
-		 
+		//member.getExtra().put("isNeedToChangePasswordForTemp", isNeedToChangePasswordForTemp);
 		
 		return member;
 	}
@@ -162,6 +156,10 @@ public class MemberService {
 
 		return getTempPassword;
 
+	}
+
+	public void accountDelete(Map<String, Object> param) {
+		memberDao.accountDelete(param);
 	}
 
 }

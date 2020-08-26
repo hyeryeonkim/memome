@@ -5,27 +5,27 @@
 <mapper namespace="com.sbs.khr.memome.dao.AttrDao">
 
 	<select id="get" resultType="Attr">
-	 	<![CDATA[
+	 	
 		SELECT *
 		FROM attr
 		WHERE relId = #{relId}
 		AND relTypeCode = #{relTypeCode}
 		AND typeCode = #{typeCode}
 		AND type2Code = #{type2Code}
-		AND (expireDate >= NOW() OR expireDate IS NULL)
-		 ]]>
+		AND (expireDate <![CDATA[>=]]>NOW() OR expireDate IS NULL)
+		
 	</select>
 
 	<select id="getValue" resultType="String">
-	 	<![CDATA[
+	 	
 		SELECT value
 		FROM attr
 		WHERE relId = #{relId}
 		AND relTypeCode = #{relTypeCode}
 		AND typeCode = #{typeCode}
 		AND type2Code = #{type2Code}
-		AND (expireDate >= NOW() OR expireDate IS NULL)
-		 ]]>
+		AND (expireDate <![CDATA[ >=  ]]> NOW() OR expireDate IS NULL)
+		
 	</select>
 
 	<delete id="remove">
@@ -57,20 +57,7 @@
 		updateDate = NOW() , `value` =
 		#{value}
 	</insert>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 
 
