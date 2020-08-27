@@ -29,6 +29,11 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<!-- lodash 불러오기 -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>	
+	
+
 <!-- 공통(라이브러리) CSS -->
 <link rel="stylesheet" href="/resource/common.css" />
 <!-- 공통(라이브러리) JS -->
@@ -69,9 +74,11 @@ var param = '${paramJson}';
 				</ul>
 			</div>
 		</div>
+		<div class="con">반갑습니다. <strong>${loginedMember.nickname}</strong> 님.</div>
 		<c:if test="${isLogined}">
-			<c:if test="${isLoginedMember.extra.isNeedToChangePasswordForTemp}">
-				<div class="use-temp-password">현재 임시 비밀번호를 사용하고 있습니다.</div>
+			<c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
+				<div class="use-temp-password con">현재 임시 비밀번호를 사용하고 있습니다. 비밀번호를 
+				<a href="../member/myPage" style="color:red;">변경</a>해주세요.</div>
 			</c:if>
 		</c:if>
 		<h1 class="page-title-box con">${pageTitle}</h1>

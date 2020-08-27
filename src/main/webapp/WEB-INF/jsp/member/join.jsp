@@ -11,11 +11,11 @@
 
 <form action="doJoin" method="POST" class="table-box con form1"
 	onsubmit="MemberJoinForm__submit(this); return false;">
-	<input type="hidden" name="loginPwReal"/>
-	<input type="hidden" name="redirectUri" value="../member/login"/>
+	<input type="hidden" name="loginPwReal" /> <input type="hidden"
+		name="redirectUri" value="../member/login" />
 	<table>
 		<colgroup>
-			<col width="100"/>
+			<col width="100" />
 		</colgroup>
 		<tbody>
 			<tr>
@@ -23,7 +23,8 @@
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요."
-						onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30" autofocus/>
+							onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30"
+							autofocus />
 						<div class="message-msg"></div>
 					</div>
 				</td>
@@ -32,8 +33,8 @@
 				<th>로그인 비밀번호</th>
 				<td>
 					<div class="form-control-box">
-						<input type="password" name="loginPw" placeholder="로그인 비밀번호를 입력해주세요."
-						maxlength="50" />
+						<input type="password" name="loginPw"
+							placeholder="로그인 비밀번호를 입력해주세요." maxlength="50" />
 					</div>
 				</td>
 			</tr>
@@ -41,8 +42,8 @@
 				<th>비밀번호 확인</th>
 				<td>
 					<div class="form-control-box">
-						<input type="password" name="loginPwConfirm" placeholder="비밀번호 확인을 입력해주세요."
-						maxlength="50" />
+						<input type="password" name="loginPwConfirm"
+							placeholder="비밀번호 확인을 입력해주세요." maxlength="50" />
 					</div>
 				</td>
 			</tr>
@@ -51,7 +52,7 @@
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="name" placeholder="이름을 입력해주세요."
-						maxlength="30" />
+							maxlength="30" />
 					</div>
 				</td>
 			</tr>
@@ -59,8 +60,8 @@
 				<th>닉네임</th>
 				<td>
 					<div class="form-control-box">
-						<input type="text" name="nickname" placeholder="닉네임을 입력해주세요." onkeyup="JoinForm__checkNicknameDup(this);"
-						maxlength="30" />
+						<input type="text" name="nickname" placeholder="닉네임을 입력해주세요."
+							onkeyup="JoinForm__checkNicknameDup(this);" maxlength="30" />
 						<div class="message-msg"></div>
 					</div>
 				</td>
@@ -69,28 +70,26 @@
 				<th>이메일</th>
 				<td>
 					<div class="form-control-box">
-						<input type="email" name="email" placeholder="이메일을 입력해주세요." onkeyup="JoinForm__checkEmailDup(this);"
-						maxlength="50" />
+						<input type="email" name="email" placeholder="이메일을 입력해주세요."
+							onkeyup="JoinForm__checkEmailDup(this);" maxlength="50" />
 						<div class="message-msg"></div>
 					</div>
 				</td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<th>휴대전화</th> -->
-<!-- 				<td> -->
-<!-- 					<div class="form-control-box"> -->
-<!-- 						<input type="tel" name="cellphoneNo" placeholder="휴대전화 번호를 입력해주세요." maxlength="12" /> -->
-<!-- 					</div> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
+			<!-- 			<tr> -->
+			<!-- 				<th>휴대전화</th> -->
+			<!-- 				<td> -->
+			<!-- 					<div class="form-control-box"> -->
+			<!-- 						<input type="tel" name="cellphoneNo" placeholder="휴대전화 번호를 입력해주세요." maxlength="12" /> -->
+			<!-- 					</div> -->
+			<!-- 				</td> -->
+			<!-- 			</tr> -->
 			<tr>
 				<th>가입</th>
-				<td>
-					<input type="submit" value="가입" />
-<!-- 					<button type="submit" >가입</button> -->
+				<td><input type="submit" value="가입" /> <!-- 					<button type="submit" >가입</button> -->
 				</td>
 			</tr>
-			
+
 		</tbody>
 	</table>
 </form>
@@ -237,14 +236,12 @@ function MemberJoinForm__submit(form) {
 }
 
 var JoinForm__validLoginId = '';
-function JoinForm__checkLoginIdDup(input) {
-	var form = input.form;
 
-	form.loginId.value = form.loginId.value.trim();
 
-	if ( form.loginId.value.length == 0 ) {
-		return;
-	}
+
+// ★★★★★debounce 사용법★★★★★
+// 로그인 아이디 중복확인 시작 
+var checkLoginIdDup = _.debounce(function(form) {
 
 
 	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
@@ -255,8 +252,8 @@ function JoinForm__checkLoginIdDup(input) {
 		},
 		function(data) {   //콜백 함수 : `getLoginIdDup`로 db에 다녀오면 실행되는 함수. 응답이 오면 후속 조치.
 			var $message = $(form.loginId).next();   // input 로그인 아이디의 동생인 msg...?
-
-			 
+			
+			//checkLoginIdDup(data);
 			if ( data.resultCode.substr(0, 2) == 'S-' ) {
 				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
 				JoinForm__validLoginId = data.loginId;
@@ -265,22 +262,34 @@ function JoinForm__checkLoginIdDup(input) {
 				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
 				JoinForm__validLoginId = '';
 			}
-	}, `json`);
+
+			if ( form.loginId.value.length == 0 ) {
+				$message.empty();
+			}
+
+			
+	},`json`);
 	
-}
+}, 1000);
 
-
-
-var JoinForm__validNickname = '';
-function JoinForm__checkNicknameDup(input) {
+function JoinForm__checkLoginIdDup(input) {
 	var form = input.form;
 
-	form.nickname.value = form.nickname.value.trim();
+	form.loginId.value = form.loginId.value.trim();
 
-	if ( form.nickname.value.length == 0 ) {
+	if ( form.loginId.value.length == 0 ) {
 		return;
 	}
 
+	checkLoginIdDup(form);
+}
+
+//로그인 아이디 중복확인 끝 
+
+
+
+// 닉네임 중복확인 시작 
+var checkNicknameDup = _.debounce(function(form) {
 
 	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
 	$.get(  
@@ -300,22 +309,36 @@ function JoinForm__checkNicknameDup(input) {
 				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
 				JoinForm__validNickname = '';
 			}
+
+			if ( form.nickname.value.length == 0 ) {
+				$message.empty();
+			}
+
+			
 	}, `json`);
-	
-}
+}, 1000);
 
 
-
-var JoinForm__validEmail = '';
-function JoinForm__checkEmailDup(input) {
+var JoinForm__validNickname = '';
+function JoinForm__checkNicknameDup(input) {
 	var form = input.form;
 
-	form.email.value = form.email.value.trim();
+	form.nickname.value = form.nickname.value.trim();
 
-	if ( form.email.value.length == 0 ) {
+	if ( form.nickname.value.length == 0 ) {
 		return;
 	}
 
+	checkNicknameDup(form);		
+	
+}
+// 닉네임 중복확인 끝 
+
+
+
+
+// 이메일 중복확인 시작 
+var checkEmailDup = _.debounce(function(form) {
 
 	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
 	$.get(  
@@ -335,9 +358,32 @@ function JoinForm__checkEmailDup(input) {
 				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
 				JoinForm__validEmail = '';
 			}
+
+			if ( form.email.value.length == 0 ) {
+				$message.empty();
+			}
+			
 	}, `json`);
+}, 1000);
+
+
+
+
+var JoinForm__validEmail = '';
+function JoinForm__checkEmailDup(input) {
+	var form = input.form;
+
+	form.email.value = form.email.value.trim();
+
+	if ( form.email.value.length == 0 ) {
+		return;
+	}
+
+	checkEmailDup(form);
 	
 }
+
+//이메일 중복확인 끝 
 
 </script>
 
