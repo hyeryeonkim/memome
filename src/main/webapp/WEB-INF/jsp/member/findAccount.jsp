@@ -47,7 +47,7 @@
 
 
 
-<h3 class="con">로그인 비밀번호 찾기 (현재 미작동)</h3>
+<h3 class="con">로그인 비밀번호 찾기</h3>
 <form action="doFindLoginPw" method="POST" class="table-box con form1"
 	onsubmit="findLoginPwForm__submit(this); return false;">
 	<table>

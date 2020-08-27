@@ -12,6 +12,7 @@
 <form method="POST" action="doPasswordModify" class="form1 table-box con"
 	onsubmit="SubmitPasswordModify(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
+	<input type="hidden" name="id" value="${loginedMemberId }"/>
 	<table>
 		<colgroup>
 			<col width="200" />

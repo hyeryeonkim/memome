@@ -1,5 +1,6 @@
 package com.sbs.khr.memome.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,16 @@ public class MemberService {
 	}
 
 	public void passwordUpdate(Map<String, Object> param) {
+		
+		Member member = memberDao.getMemberById(Util.getAsInt(param.get("id")));
+		// attrService.setValue2("member__" + member.getId() + "__extra__useTempPassword", "1");
+		
+		System.out.println("member를 못불러오니 ?? : " + member);
+		
+		if ( attrService.getValue("member__" + member.getId() + "__extra__useTempPassword") != null ) {
+			attrService.remove("member__" + member.getId() + "__extra__useTempPassword");
+		}
+		
 		memberDao.passwordUpdate(param);
 	}
 
@@ -124,16 +135,28 @@ public class MemberService {
 		return attrService.getValue("member__" + memberId + "__extra__useTempPassword").equals("1");
 	}
 
-	// getMemberByIdForSession
-	// 로그인한 회원이 있다면 실행되는 메서드
 	public Member getMemberById(int id) {
 
-		Member member = memberDao.getMemberById(id);
+		return memberDao.getMemberById(id);
 
-		//boolean isNeedToChangePasswordForTemp = isNeedToChangePasswordForTemp(member.getId());
+	}
+
+	// getMemberByIdForSession
+	// 로그인한 회원이 있다면 실행되는 메서드
+	public Member getMemberByIdForSession(int id) {
+
+		Member member = getMemberById(id);
+
+		boolean isNeedToChangePasswordForTemp = isNeedToChangePasswordForTemp(member.getId());
 		
-		//member.getExtra().put("isNeedToChangePasswordForTemp", isNeedToChangePasswordForTemp);
 		
+		// Map은 (extra는) null로 시작된다.   setExtra를 통해서 new HashMap으로 만들어 사용한다!!!
+		if ( member.getExtra() == null ) {
+			member.setExtra(new HashMap<>());
+		}
+
+		member.getExtra().put("isNeedToChangePasswordForTemp", isNeedToChangePasswordForTemp);
+		System.out.println("뭐가 이리 느려?? : " + member.getExtra().get("isNeedToChangePasswordForTemp"));
 		return member;
 	}
 

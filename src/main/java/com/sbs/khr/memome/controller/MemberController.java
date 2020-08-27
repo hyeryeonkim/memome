@@ -244,6 +244,10 @@ public class MemberController {
 			model.addAttribute("redirectUri", "/usr/member/login");
 			model.addAttribute("alertMsg", "임시 비밀번호를 가입하신 이메일로 발송드렸습니다.");
 		}
+		else {
+			model.addAttribute("redirectUri", "/usr/member/findAccount");
+			model.addAttribute("alertMsg", "일치하는 회원정보가 존재하지 않습니다.");
+		}
 
 		return "common/redirect";
 	}

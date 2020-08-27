@@ -64,8 +64,7 @@
 	<update id="passwordUpdate">
 		UPDATE member
 		SET updateDate = NOW(),
-		loginPw =
-		#{loginPw}
+		loginPw = #{loginPw}
 	</update>
 
 	<select id="getMemberByNameAndEmail" resultMap="member">
