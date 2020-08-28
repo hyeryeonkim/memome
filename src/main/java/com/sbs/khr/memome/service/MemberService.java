@@ -95,15 +95,15 @@ public class MemberService {
 	}
 
 	public void passwordUpdate(Map<String, Object> param) {
-		
+
 		Member member = memberDao.getMemberById(Util.getAsInt(param.get("id")));
-		// attrService.setValue2("member__" + member.getId() + "__extra__useTempPassword", "1");
-		
-		
-		if ( attrService.getValue("member__" + member.getId() + "__extra__useTempPassword") != null ) {
+		// attrService.setValue2("member__" + member.getId() +
+		// "__extra__useTempPassword", "1");
+
+		if (attrService.getValue("member__" + member.getId() + "__extra__useTempPassword") != null) {
 			attrService.remove("member__" + member.getId() + "__extra__useTempPassword");
 		}
-		
+
 		memberDao.passwordUpdate(param);
 	}
 
@@ -124,7 +124,7 @@ public class MemberService {
 
 		Member member = getMemberByLoginId(Util.getAsStr(param.get("loginId")));
 
-		attrService.setValue2("member__" + member.getId() + "__extra__useTempPassword", "1");
+		attrService.setValue("member__" + member.getId() + "__extra__useTempPassword", "1", null);
 
 		return memberDao.getMemberByLoginIdAndEmail(param);
 	}
@@ -147,10 +147,9 @@ public class MemberService {
 		Member member = getMemberById(id);
 
 		boolean isNeedToChangePasswordForTemp = isNeedToChangePasswordForTemp(member.getId());
-		
-		
-		// Map은 (extra는) null로 시작된다.   setExtra를 통해서 new HashMap으로 만들어 사용한다!!!
-		if ( member.getExtra() == null ) {
+
+		// Map은 (extra는) null로 시작된다. setExtra를 통해서 new HashMap으로 만들어 사용한다!!!
+		if (member.getExtra() == null) {
 			member.setExtra(new HashMap<>());
 		}
 

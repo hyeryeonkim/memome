@@ -91,32 +91,7 @@ public class AttrService {
 		return attrDao.remove(relTypeCode, relId, typeCode, type2Code);
 	}
 	
-	public int setValue2(String name, String value) {
-		String[] nameBits = name.split("__");
-		String relTypeCode = nameBits[0];
-		int relId = Integer.parseInt(nameBits[1]);
-		String typeCode = nameBits[2];
-		String type2Code = nameBits[3];
 
-		return setValue2(relTypeCode, relId, typeCode, type2Code, value);
-	}
-
-	public int setValue2(String relTypeCode, int relId, String typeCode, String type2Code, String value) {
-		System.out.println("relTypeCode : " + relTypeCode);
-		System.out.println("relId : " + relId);
-		System.out.println("typeCode : " + typeCode);
-		System.out.println("type2Code : " + type2Code);
-		System.out.println("value : " + value);
-
-		attrDao.setValue2(relTypeCode, relId, typeCode, type2Code, value);
-		Attr attr = get(relTypeCode, relId, typeCode, type2Code);
-
-		if (attr != null) {
-			return attr.getId();
-		}
-
-		return -1;
-	}
 
 	
 

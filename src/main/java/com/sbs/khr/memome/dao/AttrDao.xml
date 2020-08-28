@@ -5,27 +5,31 @@
 <mapper namespace="com.sbs.khr.memome.dao.AttrDao">
 
 	<select id="get" resultType="Attr">
-	 	
+
 		SELECT *
 		FROM attr
 		WHERE relId = #{relId}
-		AND relTypeCode = #{relTypeCode}
+		AND relTypeCode =
+		#{relTypeCode}
 		AND typeCode = #{typeCode}
 		AND type2Code = #{type2Code}
-		AND (expireDate <![CDATA[>=]]>NOW() OR expireDate IS NULL)
-		
+		AND (expireDate <![CDATA[>=]]>NOW()
+		OR expireDate IS NULL)
+
 	</select>
 
 	<select id="getValue" resultType="String">
-	 	
+
 		SELECT value
 		FROM attr
 		WHERE relId = #{relId}
-		AND relTypeCode = #{relTypeCode}
+		AND relTypeCode =
+		#{relTypeCode}
 		AND typeCode = #{typeCode}
 		AND type2Code = #{type2Code}
-		AND (expireDate <![CDATA[ >=  ]]> NOW() OR expireDate IS NULL)
-		
+		AND (expireDate <![CDATA[ >=  ]]>
+		NOW() OR expireDate IS NULL)
+
 	</select>
 
 	<delete id="remove">
@@ -47,17 +51,8 @@
 		updateDate = NOW() , `value` =
 		#{value}, expireDate = #{expireDate}
 	</insert>
-	
-		<insert id="setValue2">
-		INSERT INTO attr (regDate, updateDate, `relTypeCode`,
-		`relId`, `typeCode`, `type2Code`, `value`)
-		VALUES (NOW(),
-		NOW(), #{relTypeCode}, #{relId}, #{typeCode}, #{type2Code}, #{value})
-		ON DUPLICATE KEY UPDATE
-		updateDate = NOW() , `value` =
-		#{value}
-	</insert>
-	
+
+
 
 
 
