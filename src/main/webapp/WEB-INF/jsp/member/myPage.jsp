@@ -47,11 +47,11 @@
 			</tr>
 			<tr>
 				<th>회원정보 변경</th>
-				<td><button type="button" onclick="location.href='../member/memberDataPrivate'">회원정보 변경</button></td>
+				<td><button type="button" onclick="location.href='../member/modify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">회원정보 변경</button></td>
 			</tr>
 			<tr>
 				<th>비밀번호 변경</th>
-				<td><button type="button" onclick="location.href='../member/passwordPrivate'">비밀번호 변경</button></td>
+				<td><button type="button" onclick="location.href='../member/passwordModify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">비밀번호 변경</button></td>
 			</tr>
 			<tr>
 				<th>회원탈퇴</th>

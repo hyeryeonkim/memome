@@ -11,7 +11,6 @@
 
 <form method="POST" action="doModify" class="form1 table-box con"
 	onsubmit="submitMemberDataModify(this); return false;">
-	<input type="hidden" name="id" value="${member.id}"/>
 	<table>
 		<colgroup>
 			<col width="200" />
@@ -19,35 +18,35 @@
 		<tbody>
 			<tr>
 				<th>회원번호</th>
-				<td><input type="text" name="id" value="${member.id}" readonly />
+				<td><input type="text" name="id" value="${loginedMember.id}" readonly />
 				</td>
 			</tr>
 			<tr>
 				<th>회원가입일</th>
-				<td><input type="text" name="regDate" value="${member.regDate}"
+				<td><input type="text" name="regDate" value="${loginedMember.regDate}"
 					readonly /></td>
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input type="text" name="name" value="${member.name}"
+				<td><input type="text" name="name" value="${loginedMember.name}"
 					readonly /></td>
 			</tr>
 			<tr>
-				<th>닉네임</th>
+				<th>닉네임(선택)</th>
 				<!-- 가능 -->
 				<td><input class="border-red-1" type="text" name="nickname"
-					value="${member.nickname}" /></td>
+					value="${loginedMember.nickname}" /></td>
 			</tr>
 			<tr>
-				<th>이메일</th>
+				<th>이메일(선택)</th>
 				<!-- 가능 -->
 				<td><input class="border-red-1" type="email" name="email"
-					value="${member.email}" /></td>
+					value="${loginedMember.email}" /></td>
 			</tr>
 			<tr>
 				<th>마지막 회원정보 변경일</th>
 				<td><input type="text" name="updateDate"
-					value="${member.updateDate}" readonly /></td>
+					value="${loginedMember.updateDate}" readonly /></td>
 			</tr>
 			<tr>
 				<th>회원정보 변경</th>

@@ -3,9 +3,11 @@ package com.sbs.khr.memome.util;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -25,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.cache.LoadingCache;
-import com.sbs.khr.memome.dto.Member;
 
 public class Util {
 	
@@ -372,6 +373,84 @@ public class Util {
 		}
 		
 		return false;
+	}
+	
+	
+	// uri를 입력 값을 정확하게 받기위해서(변수와 값을 명확하게 구분하기 위해서) 인코딩 해주는 메서드
+	public static String getUriEncoded(String str) {
+		try {
+			return URLEncoder.encode(str, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return str;
+		}
+	}
+	public static String getNewUriAndEncoded(String uri, String paramName, String pramValue) {
+		return getUriEncoded(getNewUri(uri, paramName, pramValue));
+	}
+	
+	public static String getNewUri(String uri, String paramName, String paramValue) {
+		uri = getNewUriRemoved(uri, paramName);
+
+		if (uri.contains("?")) {
+			uri += "&" + paramName + "=" + paramValue;
+		} else {
+			uri += "?" + paramName + "=" + paramValue;
+		}
+
+		uri = uri.replace("?&", "?");
+
+		return uri;
+	}
+	
+	public static String getNewUriRemoved(String uri, String paramName) {
+		String deleteStrStarts = paramName + "=";
+		int delStartPos = uri.indexOf(deleteStrStarts);
+
+		if (delStartPos != -1) {
+			int delEndPos = uri.indexOf("&", delStartPos);
+
+			if (delEndPos != -1) {
+				delEndPos++;
+				uri = uri.substring(0, delStartPos) + uri.substring(delEndPos, uri.length());
+			} else {
+				uri = uri.substring(0, delStartPos);
+			}
+		}
+
+		if (uri.charAt(uri.length() - 1) == '?') {
+			uri = uri.substring(0, uri.length() - 1);
+		}
+
+		if (uri.charAt(uri.length() - 1) == '&') {
+			uri = uri.substring(0, uri.length() - 1);
+		}
+
+		return uri;
+	}
+	
+	public static String getString(HttpServletRequest req, String paramName, String elseValue) {
+		if (req.getParameter(paramName) == null) {
+			return elseValue;
+		}
+
+		if (req.getParameter(paramName).trim().length() == 0) {
+			return elseValue;
+		}
+
+		return getString(req, paramName);
+	}
+	
+	public static String getString(HttpServletRequest req, String paramName) {
+		return req.getParameter(paramName);
+	}
+
+
+	public static String getDateStrLater(int seconds) {
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		String dateStr = format1.format(System.currentTimeMillis() + seconds * 1000);
+		
+		return dateStr;
 	}
 
 }

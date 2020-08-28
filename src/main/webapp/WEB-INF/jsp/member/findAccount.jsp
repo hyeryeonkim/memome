@@ -13,7 +13,7 @@
 	onsubmit="findLoginIdForm__submit(this); return false;">
 	<table>
 		<colgroup>
-			<col width="100"/>
+			<col width="100" />
 		</colgroup>
 		<tbody>
 			<tr>
@@ -21,7 +21,7 @@
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="name" placeholder="이름을 입력해주세요."
-						maxlength="30" autofocus/>
+							maxlength="30" autofocus />
 					</div>
 				</td>
 			</tr>
@@ -30,17 +30,17 @@
 				<td>
 					<div class="form-control-box">
 						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-						maxlength="50" />
+							maxlength="50" />
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th>로그인 아이디 찾기</th>
 				<td>
-					<button type="submit" >아이디 찾기</button>
+					<button type="submit">아이디 찾기</button>
 				</td>
 			</tr>
-			
+
 		</tbody>
 	</table>
 </form>
@@ -50,9 +50,10 @@
 <h3 class="con">로그인 비밀번호 찾기</h3>
 <form action="doFindLoginPw" method="POST" class="table-box con form1"
 	onsubmit="findLoginPwForm__submit(this); return false;">
+	<input type="hidden" name="redirectUri" value="/usr/member/login" />
 	<table>
 		<colgroup>
-			<col width="100"/>
+			<col width="100" />
 		</colgroup>
 		<tbody>
 			<tr>
@@ -60,7 +61,7 @@
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요."
-						maxlength="30" autofocus/>
+							maxlength="30" autofocus />
 					</div>
 				</td>
 			</tr>
@@ -69,17 +70,17 @@
 				<td>
 					<div class="form-control-box">
 						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-						maxlength="50" />
+							maxlength="50" />
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th>로그인 비밀번호 찾기</th>
 				<td>
-					<button type="submit" >비밀번호 찾기</button>
+					<button type="submit">비밀번호 찾기</button>
 				</td>
 			</tr>
-			
+
 		</tbody>
 	</table>
 </form>
@@ -90,68 +91,71 @@
 
 
 <script>
+	// 로그인 아이디 찾는 자바스크립트
+	var findLoginIdForm__submitDone = false;
+	function findLoginIdForm__submit(form) {
 
-// 로그인 아이디 찾는 자바스크립트
-var findLoginIdForm__submitDone = false;
-function findLoginIdForm__submit(form) {
-	
-	if (findLoginIdForm__submitDone) {
-		alert('처리중입니다.');
-		return;
-	}
-	
-	form.name.value = form.name.value.trim();
-	if ( form.name.value.length == 0 ) {
-		alert('이름을 입력해주세요.');
-		form.name.focus();
-		return;
-	}
+		if (findLoginIdForm__submitDone) {
+			alert('처리중입니다.');
+			return;
+		}
 
-	form.email.value = form.email.value.trim();
-	if ( form.email.value.length == 0 ) {
-		alert('이메일을 입력해주세요.');
-		form.email.focus();
-		return;
-	}
+		form.name.value = form.name.value.trim();
+		if (form.name.value.length == 0) {
+			alert('이름을 입력해주세요.');
+			form.name.focus();
+			return;
+		}
 
-	
-	form.submit();
-	findLoginIdForm__submitDone = true;
-}
+		form.email.value = form.email.value.trim();
+		if (form.email.value.length == 0) {
+			alert('이메일을 입력해주세요.');
+			form.email.focus();
+			return;
+		}
 
-
-// 로그인 비밀번호 찾는 자바스크립트 
-var findLoginPwForm__submitDone = false;
-function findLoginPwForm__submit(form) {
-	
-	if ( findLoginPwForm__submitDone ) {
-		alert('처리중입니다.');
-		 return;
-	}
-	
-	form.loginId.value = form.loginId.value.trim();
-	if ( form.loginId.value.length == 0 ) {
-		alert('로그인 아이디를 입력해주세요.');
-		form.loginId.focus();
-		return;
+		form.submit();
+		findLoginIdForm__submitDone = true;
 	}
 
-	form.email.value = form.email.value.trim();
-	if ( form.email.value.length == 0 ) {
-		alert('이메일을 입력해주세요.');
-		form.email.focus();
-		return;
+	// 로그인 비밀번호 찾는 자바스크립트 
+	var findLoginPwForm__submitDone = false;
+	function findLoginPwForm__submit(form) {
+
+		if (findLoginPwForm__submitDone) {
+			alert('처리중입니다.');
+			return;
+		}
+
+		form.loginId.value = form.loginId.value.trim();
+		form.loginId.value = form.loginId.value.replaceAll('-', '');
+		form.loginId.value = form.loginId.value.replaceAll('_', '');
+		form.loginId.value = form.loginId.value.replaceAll(' ', '');
+
+		if (form.loginId.value.length == 0) {
+			alert('로그인 아이디를 입력해주세요.');
+			form.loginId.focus();
+			return;
+		}
+
+		if (form.loginId.value.length < 4) {
+			alert('로그인 아이디를 4자 이상 입력해주세요.');
+			form.loginId.focus();
+			return;
+		}
+
+		form.email.value = form.email.value.trim();
+		form.email.value = form.email.value.replaceAll(' ', '');
+		if (form.email.value.length == 0) {
+			alert('이메일을 입력해주세요.');
+			form.email.focus();
+			return;
+		}
+
+		form.submit();
+		findLoginPwForm__submitDone = true;
+
 	}
-
-	form.submit();
-	findLoginPwForm__submitDone = true;
-
-}
-
-
-
-
-
 </script>
 
 

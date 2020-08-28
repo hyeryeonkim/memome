@@ -93,7 +93,7 @@
 	<update id="saveTempPassword">
 		UPDATE member
 		SET updateDate = NOW(),
-		loginPw = #{tempPassword}
+		loginPw = #{loginPw}
 		WHERE loginId = #{loginId}
 		AND email = #{email}
 	</update>

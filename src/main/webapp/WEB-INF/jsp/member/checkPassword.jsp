@@ -11,9 +11,10 @@
 
 
 
-<form method="POST" action="modify" class="table-box con"
-	onsubmit="submitModifyForm(this); return false;">
+<form method="POST" action="doCheckPassword" class="table-box con"
+	onsubmit="MemberCheckPasswordForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
+	<input type="hidden" name="redirectUri" value="${param.redirectUri}"/>
 	<table>
 		<colgroup>
 			<col width="200" />
@@ -25,7 +26,10 @@
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
-				<td><input type="submit" value="확인" /></td>
+				<td>
+					<button type="submit">확인</button>
+					<button type="button" onclick="history.back();">취소</button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -33,9 +37,9 @@
 
 
 <script>
-var submitModifyFormDone = false;
-function submitModifyForm(form) {
-	if ( submitModifyFormDone ) {
+var MemberCheckPasswordForm__submitDone = false;
+function MemberCheckPasswordForm__submit(form) {
+	if ( MemberCheckPasswordForm__submitDone ) {
 		alert('처리중입니다.');
 		return;
 	}
@@ -52,7 +56,7 @@ function submitModifyForm(form) {
 	form.loginPw.value = '';
 
 	form.submit();
-	submitModifyFormDone = true;
+	MemberCheckPasswordForm__submitDone = true;
 
 	
 }

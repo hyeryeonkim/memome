@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpServerErrorException;
 
 import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.dto.ResultData;
@@ -107,20 +108,26 @@ public class MemberController {
 			redirectUri = "/usr/home/main";
 		}
 
-		model.addAttribute("redirectUri", redirectUri);
-		model.addAttribute("alertMsg", String.format("%s님 반갑습니다.", member.getNickname()));
-
-		boolean isNeedToChangePasswordForTemp = memberService.isNeedToChangePasswordForTemp(member.getId());
-
-		if (isNeedToChangePasswordForTemp) {
-
-			model.addAttribute("alertMsg", String.format("%s 님. 현재 임시 패스워드를 사용중입니다.", member.getNickname()));
-
+		
+		
+		
+		// 관련 코드 삭제하기
+		//boolean isNeedToChangePasswordForTemp = memberService.isNeedToChangePasswordForTemp(member.getId());
+		
+		
+		boolean usingTempPassword = memberService.usingTempPassword(member.getId());
+		
+		if ( usingTempPassword ) {
+			redirectUri = "/usr/member/checkPassword?redirectUri=%2Fusr%2Fmember%2FmyPage";
+			model.addAttribute("alertMsg", String.format("%s 님. 현재 임시 패스워드를 사용하고 있습니다.", member.getNickname()));
+		}
+		else {
+			model.addAttribute("alertMsg", String.format("%s님 반갑습니다.", member.getNickname()));
 		}
 
+
 		boolean getDateForpasswordModify = Util.getDateForpasswordModify("2020-05-28");
-		
-		
+
 		// alert을 줄바꿈하고 싶어서 \n을 사용했는데 적용되지 않았음.
 		// \n을 사용하기 위해 혹시 \앞에 \을 1개 더 입력했더니 원하는대로 작동하였음.
 		if (getDateForpasswordModify) {
@@ -128,6 +135,10 @@ public class MemberController {
 			model.addAttribute("alertMsg2", "비밀번호를 변경하지 않은지 3개월이 경과하였습니다.\\n개인정보 보호를 위하여 비밀번호를 변경해주세요.");
 		}
 
+		System.out.println("악 이거 뭐야!!!! 왜 안되는데?? : " + Util.getUriEncoded("/usr/member/myPage"));
+		
+		model.addAttribute("redirectUri", redirectUri);
+		
 		return "common/redirect";
 	}
 
@@ -143,78 +154,60 @@ public class MemberController {
 	}
 
 	@RequestMapping("/usr/member/myPage")
-	public String showMyPage(HttpSession session, Model model, HttpServletRequest request) {
+	public String showMyPage(HttpSession session, Model model, HttpServletRequest request, String checkPasswordAuthCode ) {
 
 		Member member = memberService.getMemberById(Util.getAsInt(request.getAttribute("loginedMemberId")));
 
 		model.addAttribute("member", member);
+		
+		ResultData checkValidCheckPasswordAuthCodeResultData = memberService
+				.checkValidCheckPasswordAuthCode(member.getId(), checkPasswordAuthCode);
+
+		if (checkPasswordAuthCode == null || checkPasswordAuthCode.length() == 0) {
+			model.addAttribute("redirectUri", "/usr/member/checkPassword");
+			model.addAttribute("alertMsg", "비밀번호 체크 인증코드가 없습니다.");
+			return "common/redirect";
+		}
+
+		if (checkValidCheckPasswordAuthCodeResultData.isFail()) {
+			model.addAttribute("redirectUri", "/usr/member/checkPassword");
+			model.addAttribute("alertMsg", checkValidCheckPasswordAuthCodeResultData.getMsg());
+			return "common/redirect";
+		}
+
+	
+	
 
 		return "member/myPage";
 	}
 
-	@RequestMapping("/usr/member/memberDataPrivate")
-	public String showMemberDataPrivate(HttpSession session, Model model, HttpServletRequest request) {
-
-		Member member = memberService.getMemberById(Util.getAsInt(request.getAttribute("loginedMemberId")));
-
-		model.addAttribute("member", member);
-
-		return "member/memberDataPrivate";
-	}
-
-	@RequestMapping("/usr/member/passwordPrivate")
-	public String showPasswordPrivate(HttpSession session, Model model, HttpServletRequest request) {
-
-		Member member = memberService.getMemberById(Util.getAsInt(request.getAttribute("loginedMemberId")));
-
-		model.addAttribute("member", member);
-
-		return "member/passwordPrivate";
-	}
 
 	@RequestMapping("/usr/member/modify")
-	public String showModify(@RequestParam Map<String, Object> param, Model model, HttpServletRequest request) {
+	public String showModify(Model model, HttpServletRequest request, String checkPasswordAuthCode) {
 
-		Util.changeMapKey(param, "loginPwReal", "loginPw");
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 
-		Member member = memberService.getMemberById(Util.getAsInt(request.getAttribute("loginedMemberId")));
-
-		if (member.getLoginPw().equals(Util.getAsStr(param.get("loginPw"))) == false) {
-			model.addAttribute("historyBack", true);
-			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
-			return "common/redirect";
-		}
-
-		model.addAttribute("member", member);
 
 		return "member/modify";
 	}
 
 	@RequestMapping("/usr/member/passwordModify")
-	public String showPasswordModify(@RequestParam Map<String, Object> param, Model model, HttpServletRequest request) {
+	public String showPasswordModify(String checkPasswordAuthCode, Model model, HttpServletRequest request) {
 
-		Util.changeMapKey(param, "loginPwReal", "loginPw");
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 
-		Member member = memberService.getMemberById(Util.getAsInt(request.getAttribute("loginedMemberId")));
 
-		if (member.getLoginPw().equals(Util.getAsStr(param.get("loginPw"))) == false) {
-			model.addAttribute("historyBack", true);
-			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
-			return "common/redirect";
-		}
-
-		model.addAttribute("member", member);
 
 		return "member/passwordModify";
 	}
 
 	@RequestMapping("/usr/member/doModify")
 	public String doModify(@RequestParam Map<String, Object> param, Model model, HttpServletRequest request) {
-
-
+		
+		
 		memberService.memberDataUpdate(param);
 
-		String redirectUri = "/usr/member/myPage";
+		String redirectUri = "/usr/home/main";
 
 		model.addAttribute("redirectUri", redirectUri);
 
@@ -227,7 +220,7 @@ public class MemberController {
 		Util.changeMapKey(param, "loginPwReal", "loginPw");
 		memberService.passwordUpdate(param);
 
-		String redirectUri = "/usr/member/myPage";
+		String redirectUri = "/usr/home/main";
 
 		model.addAttribute("redirectUri", redirectUri);
 
@@ -256,14 +249,33 @@ public class MemberController {
 	public String doFindLoginPw(@RequestParam Map<String, Object> param, Model model, HttpServletRequest request) {
 
 		Member member = memberService.getMemberByLoginIdAndEmail(param);
-
-		if (member != null) {
-			model.addAttribute("redirectUri", "/usr/member/login");
-			model.addAttribute("alertMsg", "임시 비밀번호를 가입하신 이메일로 발송드렸습니다.");
-		} else {
-			model.addAttribute("redirectUri", "/usr/member/findAccount");
-			model.addAttribute("alertMsg", "일치하는 회원정보가 존재하지 않습니다.");
+		
+		
+		if ( member == null ) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", "해당 회원이 존재하지 않습니다.");
+			return "common/redirect";
 		}
+		
+		if ( member.getEmail().equals(Util.getAsStr(param.get("email"))) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", "이메일이 올바르지 않습니다.");
+			return "common/redirect";
+		}
+		
+		ResultData sendTempLoginPwToEmailResultData = memberService.sendTempLoginPwToEmail(member);
+		
+		
+		if (sendTempLoginPwToEmailResultData.isFail()) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", sendTempLoginPwToEmailResultData.getMsg());
+			return "common/redirect";
+		}
+		
+		
+		
+		model.addAttribute("redirectUri", Util.getAsStr(param.get("redirectUri")));
+		model.addAttribute("alertMsg", sendTempLoginPwToEmailResultData.getMsg());
 
 		return "common/redirect";
 	}
@@ -277,14 +289,13 @@ public class MemberController {
 		return memberService.checkLoginIdJoinable(loginId);
 
 	}
-	
-	
-	// 아무 기능도 하지 않는 메서드 
-	// -----  /usr/member/getLoginIdDup 를 원래 아래 코드들로 구현했었으나 
-	// 사용 가능, 중복 확인 문구가 memberService에서 처리하는 코드와 중복으로 작성되어 
-	// 코드를 개선하기 위해 연구한 결과 위의 코드로 짧게 처리했는데 
+
+	// 아무 기능도 하지 않는 메서드
+	// ----- /usr/member/getLoginIdDup 를 원래 아래 코드들로 구현했었으나
+	// 사용 가능, 중복 확인 문구가 memberService에서 처리하는 코드와 중복으로 작성되어
+	// 코드를 개선하기 위해 연구한 결과 위의 코드로 짧게 처리했는데
 	// 동일한 결과값을 보였음..... 대박
-	// loginId와 동일하게 nickname과 email도 코드를 수정하였음!! 
+	// loginId와 동일하게 nickname과 email도 코드를 수정하였음!!
 	@RequestMapping("/usr/member/getLoginIdDup2")
 	@ResponseBody
 	public String getLoginIdDup2(HttpServletRequest request) {
@@ -305,6 +316,7 @@ public class MemberController {
 		}
 
 	}
+
 	// 사용중인 닉네임 입니다 등 중복으로 고쳤으면 좋겠음..ㅠㅠ
 	@RequestMapping("/usr/member/getNicknameDup")
 	@ResponseBody
@@ -339,6 +351,41 @@ public class MemberController {
 		session.removeAttribute("loginedMemberId");
 
 		String redirectUri = "/usr/home/main";
+
+		model.addAttribute("redirectUri", redirectUri);
+
+		return "common/redirect";
+	}
+
+	// 회원정보 페이지 이동하기 전에 비밀번호 입력하기 위한 메서드
+	@RequestMapping("/usr/member/checkPassword")
+	public String checkPassword(Model model, HttpSession session, @RequestParam Map<String, Object> param) {
+
+		return "member/checkPassword";
+	}
+
+	@RequestMapping("/usr/member/doCheckPassword")
+	public String doCheckPassword(Model model, String redirectUri, String loginPwReal, HttpServletRequest request) {
+
+		String loginPw = loginPwReal;
+		Member loginedMember = (Member) request.getAttribute("loginedMember");
+
+		if (loginedMember.getLoginPw().equals(loginPw) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
+			return "common/redirect";
+		}
+
+		String authCode = memberService.getCheckPasswordAuthCode(loginedMember.getId());
+		
+		if (redirectUri == null || redirectUri.length() == 0) {
+			// authCode를 정확하게 입력하지 않았을 때, 비밀번호 확인을 누르면
+			// main으로 돌아가기에 myPage로 이동하도록 수정했음.
+			//redirectUri = "/usr/home/main";
+			redirectUri = "/usr/member/myPage";
+		}
+
+		redirectUri = Util.getNewUri(redirectUri, "checkPasswordAuthCode", authCode);
 
 		model.addAttribute("redirectUri", redirectUri);
 

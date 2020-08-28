@@ -2,6 +2,7 @@ package com.sbs.khr.memome.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -91,40 +92,37 @@ public class MemberService {
 	}
 
 	public void memberDataUpdate(Map<String, Object> param) {
+
 		memberDao.memberDataUpdate(param);
+
+		Member member = memberDao.getMemberByEmail(Util.getAsStr(param.get("email")));
+		attrService.remove("member__" + member.getId() + "__extra__modifyPrivateAuthCode");
+
 	}
 
 	public void passwordUpdate(Map<String, Object> param) {
 
 		Member member = memberDao.getMemberById(Util.getAsInt(param.get("id")));
-		// attrService.setValue2("member__" + member.getId() +
-		// "__extra__useTempPassword", "1");
 
-		if (attrService.getValue("member__" + member.getId() + "__extra__useTempPassword") != null) {
-			attrService.remove("member__" + member.getId() + "__extra__useTempPassword");
+		if (attrService.getValue("member__" + member.getId() + "__extra__modifyPrivateAuthCode") != null) {
+			attrService.remove("member__" + member.getId() + "__extra__modifyPrivateAuthCode");
+		}
+
+		if ( param.get("loginPw") != null ) {
+			setNotUsingTempPassword(member.getId());
 		}
 
 		memberDao.passwordUpdate(param);
 	}
 
+	
+
 	public Member getMemberByNameAndEmail(Map<String, Object> param) {
 		return memberDao.getMemberByNameAndEmail(param);
 	}
 
-	// 비밀번호 찾기 메서드(입력한 로그인 아이디와 이메일과 일치하는 회원을 찾아오는 메서드)
+	
 	public Member getMemberByLoginIdAndEmail(Map<String, Object> param) {
-
-		String email = Util.getAsStr(param.get("email"));
-
-		String sha256TempPassword = Util.sha256(sendTempPasswordMail(email));
-
-		param.put("tempPassword", sha256TempPassword);
-
-		memberDao.saveTempPassword(param);
-
-		Member member = getMemberByLoginId(Util.getAsStr(param.get("loginId")));
-
-		attrService.setValue("member__" + member.getId() + "__extra__useTempPassword", "1", null);
 
 		return memberDao.getMemberByLoginIdAndEmail(param);
 	}
@@ -158,10 +156,32 @@ public class MemberService {
 		return member;
 	}
 
-	// 비밀번호를 찾기 위해 임시 비밀번호를 메일로 발송하기 위한 메서드
-	private String sendTempPasswordMail(String email) {
+	public void accountDelete(Map<String, Object> param) {
+		memberDao.accountDelete(param);
+	}
 
-		Member member = memberDao.getMemberByEmail(email);
+	public String getCheckPasswordAuthCode(int memberId) {
+		// random 코드를 자동으로 만들어준다.
+		String authCode = UUID.randomUUID().toString();
+		attrService.setValue("member__" + memberId + "__extra__modifyPrivateAuthCode", authCode,
+				Util.getDateStrLater(60 * 60));
+
+		return authCode;
+	}
+
+	public ResultData checkValidCheckPasswordAuthCode(int memberId, String checkPasswordAuthCode) {
+
+		if (attrService.getValue("member__" + memberId + "__extra__modifyPrivateAuthCode")
+				.equals(checkPasswordAuthCode)) {
+
+			return new ResultData("S-1", "유효한 키 입니다.", "", "");
+		}
+		System.out.println("이게 작동안하나???????이거는 실패인데 checkPasswordAuthCodeㅠㅠ");
+		return new ResultData("F-1", "유효하지 않은 키 입니다.", "", "");
+
+	}
+
+	public ResultData sendTempLoginPwToEmail(Member member) {
 
 		String getTempPassword = Util.getTempPassword(10);
 
@@ -173,14 +193,52 @@ public class MemberService {
 		mailBodySb.append("<strong>" + getTempPassword + "</strong>");
 		mailBodySb.append(String.format("<p><a href=\"%s\" target=\"_blank\">%s</a>로 이동</p>", siteMainUri, siteName));
 
-		mailService.send(email, mailTitle, mailBodySb.toString());
+		ResultData sendResultData = mailService.send(member.getEmail(), mailTitle, mailBodySb.toString());
 
-		return getTempPassword;
+		if (sendResultData.isFail()) {
+			return sendResultData;
+		}
+
+		setTempPassword(member, getTempPassword);
+
+		return new ResultData("S-1", "계정의 이메일주소로 임시 패스워드가 발송되었습니다.");
 
 	}
 
-	public void accountDelete(Map<String, Object> param) {
-		memberDao.accountDelete(param);
+	public void setTempPassword(Member member, String getTempPassword) {
+		
+		Map<String, Object> passwordModifyParam = new HashMap<>();
+		passwordModifyParam.put("loginPw", Util.sha256(getTempPassword));
+		passwordModifyParam.put("loginId", member.getLoginId());
+		passwordModifyParam.put("email", member.getEmail());
+		System.out.println(passwordModifyParam);
+		
+		//주의할 점 : 필히 먼저 패스워드를 저장한 후에, 임시 패스워드를 사용 중이라고 set해야 한다.
+		// 그러지 않으면 임시패스 워드를 사용하고 있는 상태에서 패스워드가 입력되므로 바로 임시패스워드 사용 변수가 remove 된다.
+		memberDao.saveTempPassword(passwordModifyParam);
+		
+		setUsingTempPassword(member.getId());
+		
 	}
+	
+	public boolean usingTempPassword(int id) {
+		
+		String value = attrService.getValue("member", id, "extra", "useTempPassword");
+		
+		if ( value == null || value.equals("1") == false) {
+			return false;
+		}
+		return true;
+	}
+
+	public void setUsingTempPassword(int id) {
+		attrService.setValue("member", id, "extra", "useTempPassword", "1", null);
+	}
+	
+	public void setNotUsingTempPassword(int id) {
+		attrService.remove("member", id, "extra", "useTempPassword");
+	}
+
+	
 
 }
