@@ -22,8 +22,8 @@
 				<th>로그인 아이디</th>
 				<td>
 					<div class="form-control-box">
-						<input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요."
-							onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30"
+						<input type="text"   name="loginId" placeholder="로그인 아이디를 입력해주세요."
+							onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30" 
 							autofocus />
 						<div class="message-msg"></div>
 					</div>
@@ -51,7 +51,7 @@
 				<th>이름</th>
 				<td>
 					<div class="form-control-box">
-						<input type="text" name="name" placeholder="이름을 입력해주세요."
+						<input type="text"  name="name" placeholder="이름을 입력해주세요."
 							maxlength="30" />
 					</div>
 				</td>
@@ -71,7 +71,7 @@
 				<td>
 					<div class="form-control-box">
 						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-							onkeyup="JoinForm__checkEmailDup(this);" maxlength="50" />
+							onkeyup="JoinForm__checkEmailDup(this);" maxlength="50" style="ime-mode:inactive;"/>
 						<div class="message-msg"></div>
 					</div>
 				</td>
