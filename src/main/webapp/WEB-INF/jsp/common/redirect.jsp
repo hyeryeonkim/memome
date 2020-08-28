@@ -8,6 +8,10 @@
 	if (alertMsg) {
 		alert(alertMsg);
 	}
+	var alertMsg2 = '${alertMsg2}'.trim();
+	if (alertMsg2) {
+		alert(alertMsg2);
+	}
 	if (historyBack) {
 		history.back();
 	}

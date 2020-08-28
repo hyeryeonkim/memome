@@ -43,7 +43,7 @@
 			<tr>
 				<th>아이디, 비밀번호 찾기</th>
 				<td>
-					<button type="button" onclick="location.href='../member/findAccount'">찾기</button>
+					<input type="button" onclick="location.href='../member/findAccount'" value="찾기"/>
 				</td>
 			</tr>
 		</tbody>

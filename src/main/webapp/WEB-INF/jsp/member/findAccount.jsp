@@ -128,7 +128,7 @@ function findLoginPwForm__submit(form) {
 		alert('처리중입니다.');
 		 return;
 	}
-
+	
 	form.loginId.value = form.loginId.value.trim();
 	if ( form.loginId.value.length == 0 ) {
 		alert('로그인 아이디를 입력해주세요.');

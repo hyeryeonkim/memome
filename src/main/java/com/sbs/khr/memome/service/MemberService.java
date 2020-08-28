@@ -99,7 +99,6 @@ public class MemberService {
 		Member member = memberDao.getMemberById(Util.getAsInt(param.get("id")));
 		// attrService.setValue2("member__" + member.getId() + "__extra__useTempPassword", "1");
 		
-		System.out.println("member를 못불러오니 ?? : " + member);
 		
 		if ( attrService.getValue("member__" + member.getId() + "__extra__useTempPassword") != null ) {
 			attrService.remove("member__" + member.getId() + "__extra__useTempPassword");
@@ -131,7 +130,7 @@ public class MemberService {
 	}
 
 	// 임시 비밀번호를 사용하고 있는지 확인하기 위한 메서드
-	private boolean isNeedToChangePasswordForTemp(int memberId) {
+	public boolean isNeedToChangePasswordForTemp(int memberId) {
 		return attrService.getValue("member__" + memberId + "__extra__useTempPassword").equals("1");
 	}
 
