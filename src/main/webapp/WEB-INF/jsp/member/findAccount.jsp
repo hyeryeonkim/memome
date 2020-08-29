@@ -30,7 +30,7 @@
 				<td>
 					<div class="form-control-box">
 						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-							maxlength="50" />
+							maxlength="50" style="ime-mode:inactive;"/>
 					</div>
 				</td>
 			</tr>
@@ -70,7 +70,7 @@
 				<td>
 					<div class="form-control-box">
 						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-							maxlength="50" />
+							maxlength="50" style="ime-mode:inactive;"/>
 					</div>
 				</td>
 			</tr>

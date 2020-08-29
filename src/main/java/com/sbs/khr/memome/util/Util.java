@@ -317,7 +317,8 @@ public class Util {
 
 	public static boolean getDateForpasswordModify(String lastUpdateDate) {
 		
-		//String updateDateStr = member.getUpdateDate();
+		// 오늘 날짜를 구하기 위한 객체 선언 
+		Date date = new Date();
 		
 		// 1번 [ member의 마지막 updateDate를 String으로 뽑아온다. ] 
 		//String updateDateStr = "2020-05-28 10:11:11";
@@ -349,12 +350,12 @@ public class Util {
 		
 		
 		// 7번 [ date형태로 날짜를 셋팅한 캘린더에 셋팅한 날짜로부터 3개월이 경과되는 코드를 입력한다. ]
-		//cal.add(Calendar.MONTH, 3);
-		cal.add(Calendar.SECOND, 1);
+		cal.add(Calendar.MONTH, 3);
+		//cal.add(Calendar.SECOND, 1);
 		
 		
-		// 8번 [ 캘린더에서 현재 날짜를 얻어와 String 형태로 변환한다. ] 
-		// 경과한 날짜를 비교하기 쉽도록 (String.equlas(String))을 하기 위해서.
+		// 8번 [ 캘린더에서 마지막 updateDate 날짜로부터 3개월이 초과한 날을 가져온다. ] 
+		// 경과한 날짜를 비교하기 쉽도록 
 		String currentStr = transFormat.format(cal.getTime());	
 		
 		// 9 번 [ updateDateStr은 마지막으로 패스워드를 변경한 날짜를 String으로 불러온다. ]
@@ -365,12 +366,21 @@ public class Util {
 		System.out.println("3개월이 경과 한 날짜 : " + currentStr);
 		
 		
-		// 11번 [ 마지막으로 패스워드를 변경한 날짜와(String으로 형변환한 값)  
-		// if ( updatedateStr.equals(currentStr)) { ~~~~ 
-		if ( updateDateStr.equals(currentStr)) {
-			System.out.println("boolean이 이상한가 ???? : " + updateDateStr.equals(currentStr));
+		// 11번 [ 오늘의 날짜를 String으로 가져온다. ]
+		String today = transFormat.format(date);
+		
+		System.out.println("today : " + today);
+		
+		
+		
+		//12번  updateDate 마지막으로 패스워드를 변경한 날짜로부터 3개월이 초과한 currentStr 날짜와 오늘 날짜를 비교한다.
+		// 기준이 되는 today 오늘 날짜가 마지막 개인정보 변경일로부터 3개월 초과한 currentStr보다 크다면 1이다. 
+		// 그렇다면 return true.     
+		if ( today.compareTo(currentStr) == 1 ) {
 			return true;
 		}
+		
+		
 		
 		return false;
 	}

@@ -14,25 +14,23 @@ public interface MemberDao {
 
 	int getLoginIdDupCount(@Param("loginId") String loginId);
 
-	Member getMemberByLoginId(@Param("loginId") String loginId);
-
-	Member getMemberById(@Param("id") int id);
-
-	void memberDataUpdate(Map<String, Object> param);
-
-	void passwordUpdate(Map<String, Object> param);
-
-	Member getMemberByNameAndEmail(Map<String, Object> param);
-
 	int getNicknameDupCount(@Param("nickname") String nickname);
 
 	int getEmailDupCount(@Param("email") String email);
 
-	Member getMemberByLoginIdAndEmail(Map<String, Object> param);
+	Member getMemberById(@Param("id") int id);
+
+	Member getMemberByLoginId(@Param("loginId") String loginId);
 
 	Member getMemberByEmail(@Param("email") String email);
 
-	void saveTempPassword(Map<String, Object> param);
+	Member getMemberByNameAndEmail(Map<String, Object> param);
+
+	Member getMemberByLoginIdAndEmail(Map<String, Object> param);
+
+	void memberDataUpdate(Map<String, Object> param);
+
+	void passwordUpdate(Map<String, Object> param);
 
 	void accountDelete(Map<String, Object> param);
 

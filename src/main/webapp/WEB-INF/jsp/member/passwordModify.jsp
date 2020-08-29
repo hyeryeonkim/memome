@@ -13,6 +13,9 @@
 	onsubmit="SubmitPasswordModify(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
 	<input type="hidden" name="id" value="${loginedMemberId }"/>
+	<input type="hidden" name="loginId" value="${loginedMember.loginId}"/>
+	<input type="hidden" name="email" value="${loginedMember.email}"/>
+	
 	<table>
 		<colgroup>
 			<col width="200" />

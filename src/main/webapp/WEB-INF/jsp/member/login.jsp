@@ -11,7 +11,7 @@
 <form action="doLogin" method="POST" class="form1 table-box con"
 	onsubmit="MemberLoginForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
-	<input type="hidden" name="redirectUri" value="../home/main"/>
+	<input type="hidden" name="redirectUri" value="${param.redirectUri }"/>
 	<table>
 		<colgroup>
 			<col width="100" />

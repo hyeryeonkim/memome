@@ -30,25 +30,26 @@
 		FROM member
 		WHERE nickname = #{nickname}
 	</select>
-	
+
 	<select id="getEmailDupCount" resultType="int">
 		SELECT COUNT(*) AS
 		cnt
 		FROM member
 		WHERE email = #{email}
 	</select>
-	
-	<select id="getMemberByLoginId" resultMap="member">
+
+	<select id="getMemberByLoginId" resultType="Member">
 		SELECT *
 		FROM member
 		WHERE loginId = #{loginId}
 	</select>
 
-	<select id="getMemberById" resultMap="member">
+	<select id="getMemberById" resultType="Member">
 		SELECT *
 		FROM member
 		WHERE
-		id = #{id}
+		id
+		= #{id}
 	</select>
 
 	<update id="memberDataUpdate">
@@ -64,71 +65,51 @@
 	<update id="passwordUpdate">
 		UPDATE member
 		SET updateDate = NOW(),
-		loginPw = #{loginPw}
+		loginPw =
+		#{loginPw}
+		WHERE loginId = #{loginId}
+		AND email = #{email}
 	</update>
 
-	<select id="getMemberByNameAndEmail" resultMap="member">
+	<select id="getMemberByNameAndEmail" resultType="Member">
 		SELECT *
 		FROM
 		member
 		WHERE name = #{name}
 		AND email = #{email}
 	</select>
-	
-	<select id="getMemberByLoginIdAndEmail" resultMap="member">
+
+	<select id="getMemberByLoginIdAndEmail" resultType="Member">
 		SELECT *
 		FROM
 		member
 		WHERE loginId = #{loginId}
 		AND email = #{email}
 	</select>
-	
-	<select id="getMemberByEmail" resultMap="member">
+
+	<select id="getMemberByEmail" resultType="Member">
 		SELECT *
 		FROM
 		member
-		WHERE email = #{email}
+		WHERE
+		email = #{email}
 	</select>
-	
-	<update id="saveTempPassword">
-		UPDATE member
-		SET updateDate = NOW(),
-		loginPw = #{loginPw}
-		WHERE loginId = #{loginId}
-		AND email = #{email}
-	</update>
-	
-	
+
+
+
 	<update id="accountDelete">
 		UPDATE member
 		SET updateDate = NOW(),
 		delDate = NOW(),
-		delStatus = 1		
+		delStatus = 1
 		WHERE id = #{memberId}
 	</update>
-	
-	
-	
-	
-	<!-- extra__writer를 사용하기 위해서는 자동 매핑이 되지 않으므로 
-	수동 매핑을 통해서 활용해야 한다.
-	작성자를 extra__writer로 사용하기 때문에 resultMap으로 활용하는 것이다. -->
-	<resultMap type="Member" id="member">
-		<id property="id" column="id"	 />
-		<id property="regDate" column="regDate" />
-		<id property="updateDate" column="updateDate" />
-		<id property="delStatus" column="delStatus" />
-		<id property="derDate" column="derDate" />
-		<id property="loginId" column="loginId" />
-		<id property="loginPw" column="loginPw" />
-		<id property="name" column="name" />
-		<id property="nickname" column="nickname" />
-		<id property="email" column="email" />
-		<association property="extra" javaType="map">
-		</association>
-		
-	</resultMap>
-	
-	
-	
+
+
+
+
+
+
+
+
 </mapper>
