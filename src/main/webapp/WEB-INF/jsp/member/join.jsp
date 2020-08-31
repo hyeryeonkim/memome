@@ -22,8 +22,8 @@
 				<th>로그인 아이디</th>
 				<td>
 					<div class="form-control-box">
-						<input type="text"   name="loginId" placeholder="로그인 아이디를 입력해주세요."
-							onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30" 
+						<input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요."
+							onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30"
 							autofocus />
 						<div class="message-msg"></div>
 					</div>
@@ -51,7 +51,7 @@
 				<th>이름</th>
 				<td>
 					<div class="form-control-box">
-						<input type="text"  name="name" placeholder="이름을 입력해주세요."
+						<input type="text" name="name" placeholder="이름을 입력해주세요."
 							maxlength="30" />
 					</div>
 				</td>
@@ -71,19 +71,21 @@
 				<td>
 					<div class="form-control-box">
 						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-							onkeyup="JoinForm__checkEmailDup(this);" maxlength="50" style="ime-mode:inactive;"/>
+							onkeyup="JoinForm__checkEmailDup(this);" maxlength="50"
+							style="ime-mode: inactive;" />
 						<div class="message-msg"></div>
 					</div>
 				</td>
 			</tr>
-			<!-- 			<tr> -->
-			<!-- 				<th>휴대전화</th> -->
-			<!-- 				<td> -->
-			<!-- 					<div class="form-control-box"> -->
-			<!-- 						<input type="tel" name="cellphoneNo" placeholder="휴대전화 번호를 입력해주세요." maxlength="12" /> -->
-			<!-- 					</div> -->
-			<!-- 				</td> -->
-			<!-- 			</tr> -->
+			<tr>
+				<th>휴대전화</th>
+				<td>
+					<div class="form-control-box">
+						<input type="tel" name="cellphoneNo"
+							placeholder="휴대전화 번호를 입력해주세요." maxlength="13" />
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<th>가입</th>
 				<td><input type="submit" value="가입" /> <!-- 					<button type="submit" >가입</button> -->
@@ -114,17 +116,28 @@ function MemberJoinForm__submit(form) {
 		form.loginId.focus();
 	}
 
+
 	if ( form.loginId.value.length < 4 || form.loginId.value.length > 12 ) {
 		alert('아이디를 4~12자까지 입력해주세요.');
 		form.loginId.focus();
 		return;
 	}
 
+	
+	if(CheckLoginId(form.loginId.value) == false) {
+
+		alert('아이디를 영문소문자와 숫자의 조합으로 입력해주세요.');
+		form.loginId.focus();
+		return false;
+	}
+	
+		
+	/* 
 	if ( form.loginId.value.indexOf(' ') != -1 ) {
 		alert('아이디를 영문소문자와 숫자의 조합으로 입력해주세요.');
 		form.loginId.focus();
 		return;
-	}
+	} */
 	
 	
 	form.loginPw.value = form.loginPw.value.trim();
@@ -142,14 +155,6 @@ function MemberJoinForm__submit(form) {
 		form.loginPw.focus();
 		return;
 	}
-
-/* 	if ( form.loginPw.value.length < 5 ) {
-		alert('비밀번호를 5자 이상 입력해주세요.');
-		return;
-		form.loginPw.focus();
-	} */
-	
-	
 	
 	form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
 	if ( form.loginPwConfirm.value.length == 0 ) {
@@ -199,11 +204,15 @@ function MemberJoinForm__submit(form) {
 		form.email.focus();
 		return;
 	}
-
-	/* form.cellphoneNo.value = form.cellphoneNo.value.trim();
-	form.cellphoneNo.value = form.cellphoneNo.value.replaceAll('-', '');
-	form.cellphoneNo.value = form.cellphoneNo.value.replaceAll(' ', '');
 	
+
+	form.cellphoneNo.value = form.cellphoneNo.value.trim();
+	// 자바스크립트에는 replaceAll 이라는 함수는 없다고 한다.
+	//form.cellphoneNo.value = form.cellphoneNo.value.replaceAll('-', '');
+	
+	// ★★★★★ 자바스크립트 replace 정규 표현식 ★★★★★ 
+	form.cellphoneNo.value = form.cellphoneNo.value.replace(/-/g, "");
+	form.cellphoneNo.value = form.cellphoneNo.value.replace(/ /gi, ""); 
 	alert(form.cellphoneNo.value);
 
 	
@@ -219,11 +228,11 @@ function MemberJoinForm__submit(form) {
 		return;
 	}
 
-	if (isCellphoneNo(form.cellphoneNo.value)) {
+	if (isCellphoneNo(form.cellphoneNo.value) == false) {
 		form.cellphoneNo.focus();
 		alert('휴대전화번호를 정확히 입력해주세요.');
 		return;
-	} */
+	}
 	
 	form.loginPwReal.value = sha256(form.loginPw.value);
 	form.loginPw.value = '';

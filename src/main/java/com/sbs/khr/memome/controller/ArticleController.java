@@ -64,6 +64,11 @@ public class ArticleController {
 
 		String redirectUri = Util.getAsStr(param.get("redirectUri"));
 		redirectUri = redirectUri.replace("#id", newArticleId + "");
+		
+		// 게시물 작성 후, detail에서 목록으로 이동할 때, boardCode를 uri에서 받지를 못해서 이렇게 uri를 새로 만들어서 넘겨줌..
+		redirectUri = redirectUri.replace("-detail", boardCode + "-detail");
+		
+		System.out.println("게시물 상세보기 목록이동을 위한 redirectUri 한번 보자 : " + redirectUri);
 				
 
 		if (newArticleId != -1) {

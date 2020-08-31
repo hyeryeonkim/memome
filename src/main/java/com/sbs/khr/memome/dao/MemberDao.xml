@@ -14,7 +14,8 @@
 		loginPw = #{loginPw},
 		name = #{name},
 		nickname = #{nickname},
-		email = #{email}
+		email = #{email},
+		cellphoneNo = #{cellphoneNo}
 	</insert>
 
 	<select id="getLoginIdDupCount" resultType="int">

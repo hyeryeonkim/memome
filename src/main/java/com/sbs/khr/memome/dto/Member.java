@@ -22,5 +22,5 @@ public class Member {
 	private String nickname;
 	private String email;
 	private Map<String, Object> extra;
-	//private String cellphoneNo;
+	private String cellphoneNo;
 }
