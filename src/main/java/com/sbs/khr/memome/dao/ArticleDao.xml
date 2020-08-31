@@ -65,13 +65,7 @@
 		<association property="extra" javaType="map">
 			<id property="writer" column="extra__writer" />
 		</association>
-		
 	</resultMap>
-	
-	
-	
-	
-	
 	
 	
 

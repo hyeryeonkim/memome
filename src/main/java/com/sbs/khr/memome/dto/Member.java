@@ -13,6 +13,7 @@ public class Member {
 	private int id;
 	private String regDate;
 	private String updateDate;
+	private String passwordUpdateDate;
 	private boolean delStatus;
 	private String delDate;
 	private boolean authStatus;

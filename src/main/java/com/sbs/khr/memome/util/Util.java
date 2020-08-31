@@ -315,14 +315,14 @@ public class Util {
 	}
 
 
-	public static boolean getDateForpasswordModify(String lastUpdateDate) {
+	public static boolean getDateForpasswordModify(String lastPasswordUpdateDate) {
 		
 		// 오늘 날짜를 구하기 위한 객체 선언 
 		Date date = new Date();
 		
 		// 1번 [ member의 마지막 updateDate를 String으로 뽑아온다. ] 
 		//String updateDateStr = "2020-05-28 10:11:11";
-		String updateDateStr = lastUpdateDate;
+		String updateDateStr = lastPasswordUpdateDate;
 		
 		// 2번 [ 날짜를 출력할 폼을 지정한다. ]
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");

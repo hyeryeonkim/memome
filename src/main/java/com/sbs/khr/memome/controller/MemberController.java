@@ -129,12 +129,10 @@ public class MemberController {
 		Member member = memberService.getMemberById(Util.getAsInt(request.getAttribute("loginedMemberId")));
 
 		model.addAttribute("member", member);
-		
-		
-		
+
 		String checkValid = checkValidAuthCodeResultData(checkPasswordAuthCode, model, member.getId()).trim();
-		
-		// != null 이 아니면 실행하는 조건은 실행되지 않음. String은 무조건 null과 관련될 수 없나봄. 
+
+		// != null 이 아니면 실행하는 조건은 실행되지 않음. String은 무조건 null과 관련될 수 없나봄.
 		if (checkValid.length() > 0) {
 			return "common/redirect";
 		}
@@ -202,7 +200,8 @@ public class MemberController {
 	// authCode가 유효한지 확인해주는 메서드(2번 중복되는 내용을 메서드로 만들어서 활용했음)
 	public String checkValidAuthCodeResultData(String checkPasswordAuthCode, Model model, int loginedMemberId) {
 
-		ResultData checkValidCheckPasswordAuthCodeResultData = memberService.checkValidCheckPasswordAuthCode(loginedMemberId, checkPasswordAuthCode);
+		ResultData checkValidCheckPasswordAuthCodeResultData = memberService
+				.checkValidCheckPasswordAuthCode(loginedMemberId, checkPasswordAuthCode);
 
 		if (checkPasswordAuthCode == null || checkPasswordAuthCode.length() == 0) {
 

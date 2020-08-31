@@ -9,6 +9,7 @@
 		INTO member
 		SET regDate = NOW(),
 		updateDate = NOW(),
+		passwordUpdateDate = NOW(),
 		loginId =
 		#{loginId},
 		loginPw = #{loginPw},
@@ -48,9 +49,7 @@
 	<select id="getMemberById" resultType="Member">
 		SELECT *
 		FROM member
-		WHERE
-		id
-		= #{id}
+		WHERE id = #{id}
 	</select>
 
 	<update id="memberDataUpdate">
@@ -65,12 +64,13 @@
 
 	<update id="passwordUpdate">
 		UPDATE member
-		SET updateDate = NOW(),
+		SET passwordUpdateDate = NOW(),
 		loginPw =
 		#{loginPw}
 		WHERE loginId = #{loginId}
 		AND email = #{email}
 	</update>
+
 
 	<select id="getMemberByNameAndEmail" resultType="Member">
 		SELECT *
@@ -105,11 +105,6 @@
 		delStatus = 1
 		WHERE id = #{memberId}
 	</update>
-
-
-
-
-
 
 
 

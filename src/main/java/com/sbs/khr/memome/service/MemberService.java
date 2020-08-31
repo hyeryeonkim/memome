@@ -144,7 +144,7 @@ public class MemberService {
 	public Member getMemberByIdForSession(int id) {
 
 		Member member = getMemberById(id);
-
+		System.out.println("loginedMemberId를 왜 불러와????? 7번 회원이 어디서 나와???  " + id);
 		boolean isNeedToChangePasswordForTemp = isNeedToChangePasswordForTemp(member.getId());
 		
 		// ★★★★★
