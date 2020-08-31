@@ -34,8 +34,8 @@ public class MemberService {
 	
 	// 회원가입 
 	public int join(Map<String, Object> param) {
-		memberDao.join(param);
-
+		int id = memberDao.join(param);
+		attrService.setValue("member", id, "extra", "lastPasswordUpdateDate", "1", null);
 		sendJoinCompleteMail((String) param.get("email"));
 
 		return Util.getAsInt(param.get("id"));
@@ -99,13 +99,16 @@ public class MemberService {
 		memberDao.memberDataUpdate(param);
 
 		Member member = memberDao.getMemberByEmail(Util.getAsStr(param.get("email")));
-		attrService.remove("member__" + member.getId() + "__extra__modifyPrivateAuthCode");
 
 	}
 	// 비밀번호 변경 (업데이트 저장)
 	public void passwordUpdate(Map<String, Object> param) {
 
 		Member member = memberDao.getMemberById(Util.getAsInt(param.get("id")));
+		
+		if (attrService.getValue("member", member.getId(), "extra", "lastPasswordUpdateDate") != null ) {
+			attrService.updateValue("member", member.getId(), "extra", "lastPasswordUpdateDate", "1", null);
+		}
 
 		if (attrService.getValue("member__" + member.getId() + "__extra__modifyPrivateAuthCode") != null) {
 			attrService.remove("member__" + member.getId() + "__extra__modifyPrivateAuthCode");
@@ -117,6 +120,8 @@ public class MemberService {
 
 		memberDao.passwordUpdate(param);
 	}
+	
+	//public boolean checkLastPasswordUpdateDate
 
 	public Member getMemberByNameAndEmail(Map<String, Object> param) {
 		return memberDao.getMemberByNameAndEmail(param);
@@ -247,6 +252,16 @@ public class MemberService {
 			return false;
 		}
 		return true;
+	}
+	
+	// id = memberId
+	public String getLastPasswordModify(int id) {
+		
+		if ( attrService.getValue("member", id, "extra", "lastPasswordUpdateDate") != null ) {
+			return attrService.get("member", id, "extra", "lastPasswordUpdateDate").getUpdateDate();
+		}
+		
+		return "";
 	}
 
 }

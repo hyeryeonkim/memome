@@ -92,8 +92,10 @@ public class MemberController {
 		} else {
 			model.addAttribute("alertMsg", String.format("%s님 반갑습니다.", member.getNickname()));
 		}
-
-		boolean getDateForpasswordModify = Util.getDateForpasswordModify("2020-05-28");
+		
+		String lastPasswordModifyDate = memberService.getLastPasswordModify(member.getId());
+		
+		boolean getDateForpasswordModify = Util.getDateForpasswordModify(lastPasswordModifyDate);
 
 		// alert을 줄바꿈하고 싶어서 \n을 사용했는데 적용되지 않았음.
 		// \n을 사용하기 위해 혹시 \앞에 \을 1개 더 입력했더니 원하는대로 작동하였음.

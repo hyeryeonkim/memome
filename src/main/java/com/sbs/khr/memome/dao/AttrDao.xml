@@ -51,6 +51,11 @@
 		updateDate = NOW() , `value` =
 		#{value}, expireDate = #{expireDate}
 	</insert>
+	
+	<update id="updateValue">
+		UPDATE  attr 
+		SET updateDate = NOW();
+	</update>
 
 
 

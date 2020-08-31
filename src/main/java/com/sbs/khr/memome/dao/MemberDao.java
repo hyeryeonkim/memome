@@ -10,7 +10,7 @@ import com.sbs.khr.memome.dto.Member;
 @Mapper
 public interface MemberDao {
 
-	void join(Map<String, Object> param);
+	int join(Map<String, Object> param);
 
 	int getLoginIdDupCount(@Param("loginId") String loginId);
 

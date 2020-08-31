@@ -9,9 +9,7 @@
 		INTO member
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		passwordUpdateDate = NOW(),
-		loginId =
-		#{loginId},
+		loginId = #{loginId},
 		loginPw = #{loginPw},
 		name = #{name},
 		nickname = #{nickname},
@@ -64,9 +62,8 @@
 
 	<update id="passwordUpdate">
 		UPDATE member
-		SET passwordUpdateDate = NOW(),
-		loginPw =
-		#{loginPw}
+		SET updateDate = NOW(),
+		loginPw = #{loginPw}
 		WHERE loginId = #{loginId}
 		AND email = #{email}
 	</update>
