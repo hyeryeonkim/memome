@@ -317,7 +317,7 @@ public class MemberController {
 	@ResponseBody
 	public ResultData getCellphoneNoDup(HttpServletRequest request) {
 
-		String cellphoneNo = request.getParameter("cellphoneNo");
+		String cellphoneNo = request.getParameter("cellp	honeNo");
 
 		return memberService.checkCellphoneNoJoinable(cellphoneNo);
 
