@@ -6,7 +6,7 @@
 
 <h1 class="con"><strong style="color:red;">${boardCode}</strong>게시판<strong style="color:blue;"> 글쓰기</strong></h1>
 
-<form method="POST" action="${boardCode}-doWrite" class="form1 table-box con"
+<form method="POST" action="${boardCode}-doMemoWrite" class="form1 table-box con"
 		onsubmit="ArticleWriteForm__submit(this); return false;">
 		<input type="hidden" name="fileIdsStr"/>
 		<input type="hidden" name="redirectUri" value="/usr/article/${board.code}-detail?id=#id"/>

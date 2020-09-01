@@ -56,17 +56,17 @@ var param = ${paramJson};
 </head>
 <body>
 	<div class="loading-box flex-ai-c flex-jc-c">
-        <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+		<div class="lds-roller">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
 	<div class="outer-box">
 		<div class="top-bar margin-top-10">
 			<div class="menu-box">
@@ -74,6 +74,10 @@ var param = ${paramJson};
 					<li><a href="../home/main">홈</a></li>
 					<li><a href="../article/notice-list">공지사항</a></li>
 					<li><a href="../article/free-list">자유게시판</a></li>
+					<li><a href="../memo/memoyou-memoList">memoYOU</a></li>
+					<c:if test="${isLogined }">
+						<li><a href="../memo/memome-memoList">memoMe</a></li>
+					</c:if>
 					<c:if test="${isLogined == false}">
 						<li><a href="../member/join">회원가입</a></li>
 					</c:if>
@@ -81,7 +85,8 @@ var param = ${paramJson};
 						<li><a href="../member/login">로그인</a></li>
 					</c:if>
 					<c:if test="${isLogined}">
-						<li><a href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">회원정보</a></li>
+						<li><a
+							href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">회원정보</a></li>
 						<li><a href="../member/logout">로그아웃</a></li>
 					</c:if>
 

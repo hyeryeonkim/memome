@@ -6,21 +6,22 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
 import com.sbs.khr.memome.dto.Memo;
 
 @Mapper
-public interface ArticleDao {
-	
-	void write(Map<String, Object> param);
+public interface MemoDao {
 
 	Board getBoardByCode(@Param("boardCode") String boardCode);
 
-	List<Article> getForPrintArticles(@Param("id") int id);
+	List<Memo> getForPrintMemos( @Param("memberId") int memberId);
+	
+	List<Memo> getForAllPrintMemos();
 
-	Article getForPrintArticleById(@Param("id") int id);
+	List<Memo> makeCateForMemo();
 
-	List<Article> getForPrintArticlesByMemo();
+	int makeMemoCate(Map<String, Object> param);
 
+	
+	
 }

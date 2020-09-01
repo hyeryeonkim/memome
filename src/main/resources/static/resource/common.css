@@ -40,6 +40,11 @@ a {
 	margin-top:50px;
 }
 
+.margin-right {
+	margin-right:0;
+	margin-left:auto;
+}
+
 .border-red-1 {
 	border:1px solid red;
 }
@@ -54,14 +59,24 @@ a {
 	display:flex;
 }
 
+.flex-jc-sa {
+	justify-content: space-around;
+}
+
 .flex-jc-c {
 	justify-content: center;
 }
 
+.flex-jc-fe {
+	justify-content: flex-end;
+}
 .flex-ai-c {
 	align-items: center;
 }
 
+.flex-wrap {
+	flex-wrap: wrap;
+}
 
 
 /* 테이블 관련 */
@@ -84,8 +99,28 @@ a {
 	padding: 10px;
 }
 
+/* memo 테이블 관련 */
 
 
+.memo-table-box > table {
+/* 	border-collapse: collapse; */
+}
+
+
+
+.memo-table-box .memo-box {
+	border:1px solid black;
+	width:350px;
+	height:600px;
+	margin:10px 0;
+	
+}
+
+.memo-table-box  table th, .memo-table-box  table td {
+	border: 1px solid black;
+	padding: 10px;
+	text-align: left;
+}
 
 
 /* top-bar */
@@ -96,13 +131,13 @@ a {
 
 .outer-box .top-bar .menu-box ul > li {
 	display:inline-block;
-	font-size:1.8rem;
+	font-size:1.2rem;
 	margin:0 30px;
-	width:200px;	
+	width:120px;	
 }
 .outer-box .top-bar .menu-box ul > li > a {
 	display:block;
-	padding:20px;
+	padding:10px;
 	
 	
 }

@@ -13,6 +13,7 @@ import com.sbs.khr.memome.dao.ArticleDao;
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
 import com.sbs.khr.memome.dto.File;
+import com.sbs.khr.memome.dto.Memo;
 import com.sbs.khr.memome.util.Util;
 
 @Service
@@ -85,5 +86,10 @@ public class ArticleService {
 		
 		return article;
 	}
+
+	public List<Article> getForPrintArticlesByMemo() {
+		return articleDao.getForPrintArticlesByMemo();
+	}
+	
 	
 }

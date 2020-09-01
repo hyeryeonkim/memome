@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
+import com.sbs.khr.memome.dto.Memo;
 import com.sbs.khr.memome.service.ArticleService;
 import com.sbs.khr.memome.util.Util;
 
@@ -23,6 +23,7 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
+	
 
 	@RequestMapping("/usr/article/{boardCode}-list")
 	public String showList(@RequestParam Map<String, Object> param, Model model,
@@ -40,9 +41,10 @@ public class ArticleController {
 	}
 
 	@RequestMapping("/usr/article/{boardCode}-write")
-	public String showWrite(Model model, @PathVariable("boardCode") String boardCode) {
+	public String showWrite(Model model, @PathVariable("boardCode") String boardCode, String memoId) {
 
 		model.addAttribute("boardCode", boardCode);
+		model.addAttribute("memoId", memoId);
 
 		return "article/write";
 	}
@@ -55,8 +57,8 @@ public class ArticleController {
 
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
-		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr");
-
+		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr", "memoId");
+		
 		newParam.put("boardId", board.getId());
 		newParam.put("memberId", loginedMemberId);
 
@@ -68,7 +70,6 @@ public class ArticleController {
 		// 게시물 작성 후, detail에서 목록으로 이동할 때, boardCode를 uri에서 받지를 못해서 이렇게 uri를 새로 만들어서 넘겨줌..
 		redirectUri = redirectUri.replace("-detail", boardCode + "-detail");
 		
-		System.out.println("게시물 상세보기 목록이동을 위한 redirectUri 한번 보자 : " + redirectUri);
 				
 
 		if (newArticleId != -1) {

@@ -9,23 +9,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Article {
+public class Memo {
 	private int id;
 	private String regDate;
 	private String updateDate;
 	private boolean delStatus;
 	private String delDate;
 	private boolean displayStatus;
-	private String title;
-	private String body;
+	private String name;
 	private int memberId;
 	private int boardId;
-	private int memoId;
 	private Map<String, Object> extra;
-	
-	
-	public String getDetailLink(String boardCode) {
-		return "/usr/article/" + boardCode + "-detail?id=" + id;
-	}
-	
 }
