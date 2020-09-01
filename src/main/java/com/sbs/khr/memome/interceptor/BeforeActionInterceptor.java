@@ -21,9 +21,9 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 	@Value("${custom.logoText}")
 	private String siteName;
 
-	/*
-	 * @Value("${spring.profiles.active}") private String activeProfile;
-	 */
+	
+	  //@Value("${spring.profiles.active}") private String activeProfile;
+	 
 
 	@Autowired
 	private MemberService memberService;

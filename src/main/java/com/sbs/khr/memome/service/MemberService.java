@@ -34,11 +34,12 @@ public class MemberService {
 	
 	// 회원가입 
 	public int join(Map<String, Object> param) {
-		int id = memberDao.join(param);
+		memberDao.join(param);
+		int id = Util.getAsInt(param.get("id"));
 		attrService.setValue("member", id, "extra", "lastPasswordUpdateDate", "1", null);
 		sendJoinCompleteMail((String) param.get("email"));
 
-		return Util.getAsInt(param.get("id"));
+		return id;
 	}
 
 	// 회원가입 완료 메일 발송 메서드
