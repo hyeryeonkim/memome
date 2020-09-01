@@ -1,3 +1,8 @@
+// 범용성 있는 자바스크립트
+String.prototype.replaceAll = function(org, dest) {
+	return this.split(org).join(dest);
+}
+
 function isCellphoneNo(str) {
 	if (str.substr(0, 1) != '0') {
 

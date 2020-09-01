@@ -53,15 +53,18 @@
 
 
 <script>
-var MemberLoginForm__submitDone = false;
 function MemberLoginForm__submit(form) {
 	
-	if ( MemberLoginForm__submitDone ) {
+	if ( isNowLoading() ) {
 		alert('처리중입니다.');
 		return;
 	}
 
 	form.loginId.value = form.loginId.value.trim();
+	form.loginId.value = form.loginId.value.replaceAll('-', '');
+	form.loginId.value = form.loginId.value.replaceAll('_', '');
+	form.loginId.value = form.loginId.value.replaceAll(' ', '');
+	
 	if ( form.loginId.value.length == 0 ) {
 		alert('로그인 아이디를 입력해주세요.');
 		form.loginId.focus();
@@ -82,7 +85,7 @@ function MemberLoginForm__submit(form) {
 	
 		
 	form.submit();
-	MemberLoginForm__submitDone = true;
+	startLoading();
 	
 	
 }

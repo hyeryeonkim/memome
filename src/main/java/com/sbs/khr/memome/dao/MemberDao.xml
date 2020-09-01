@@ -37,6 +37,13 @@
 		FROM member
 		WHERE email = #{email}
 	</select>
+	
+	<select id="getCellphoneNoDupCount" resultType="int">
+		SELECT COUNT(*) AS
+		cnt
+		FROM member
+		WHERE cellphoneNo = #{cellphoneNo}
+	</select>
 
 	<select id="getMemberByLoginId" resultType="Member">
 		SELECT *

@@ -33,9 +33,8 @@
 
 
 <script>
-var submitAccountDeleteFormDone = false;
 function submitAccountDeleteForm(form) {
-	if ( submitAccountDeleteFormDone ) {
+	if ( isNowLoading() ) {
 		alert('처리중입니다.');
 		return;
 	}
@@ -52,7 +51,7 @@ function submitAccountDeleteForm(form) {
 	form.loginPw.value = '';
 	
 	form.submit();
-	submitAccountDeleteFormDone = true;
+	startLoading();
 
 	
 }

@@ -17,6 +17,8 @@ public interface MemberDao {
 	int getNicknameDupCount(@Param("nickname") String nickname);
 
 	int getEmailDupCount(@Param("email") String email);
+	
+	int getCellphoneNoDupCount(@Param("cellphoneNo") String cellphoneNo);
 
 	Member getMemberById(@Param("id") int id);
 
@@ -33,5 +35,7 @@ public interface MemberDao {
 	void passwordUpdate(Map<String, Object> param);
 
 	void accountDelete(Map<String, Object> param);
+
+	
 
 }

@@ -40,9 +40,8 @@
 
 <script>
 
-var SubmitPasswordModifyDone = false;
 function SubmitPasswordModify(form) {
-	if ( SubmitPasswordModifyDone ) {
+	if ( isNowLoading() ) {
 		alert('처리중입니다.')
 		return;
 	}
@@ -75,7 +74,7 @@ function SubmitPasswordModify(form) {
 	
 
 	form.submit();
-	SubmitPasswordModifyDone = true;
+	startLoading();
 
 	
 

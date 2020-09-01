@@ -311,6 +311,17 @@ public class MemberController {
 		return memberService.checkEmailJoinable(email);
 
 	}
+	
+	// ajax cellphoneNo 중복 확인
+	@RequestMapping("/usr/member/getCellphoneNoDup")
+	@ResponseBody
+	public ResultData getCellphoneNoDup(HttpServletRequest request) {
+
+		String cellphoneNo = request.getParameter("cellphoneNo");
+
+		return memberService.checkCellphoneNoJoinable(cellphoneNo);
+
+	}
 
 	@RequestMapping("/usr/member/passwordAccountDelete")
 	public String passwordAccountDelete() {

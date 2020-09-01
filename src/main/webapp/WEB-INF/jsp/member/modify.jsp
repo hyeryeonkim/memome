@@ -66,9 +66,8 @@
 
 <script>
 
-var submitMemberDataModifyDone = false;
 function submitMemberDataModify(form) {
-	if ( submitMemberDataModifyDone ) {
+	if ( isNowLoading() ) {
 		alert('처리중입니다.')
 		return;
 	}
@@ -89,7 +88,7 @@ function submitMemberDataModify(form) {
 	}
 
 	form.submit();
-	submitMemberDataModifyDone = true;
+	startLoading();
 
 	
 

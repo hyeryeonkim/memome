@@ -1,0 +1,12 @@
+/* ctrl + shift + f 눌렀을 때, 자꼬 분리되어서 따로 file 만들어 놓으신 것. */
+
+@keyframes lds-roller {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+

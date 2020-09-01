@@ -42,6 +42,7 @@
 
 <!-- 공통 CSS -->
 <link rel="stylesheet" href="/resource/app.css" />
+<link rel="stylesheet" href="/resource/keyframes.css" />
 <!-- 공통 JS -->
 <script src="/resource/app.js"></script>
 
@@ -54,6 +55,18 @@ var param = ${paramJson};
 
 </head>
 <body>
+	<div class="loading-box flex-ai-c flex-jc-c">
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
 	<div class="outer-box">
 		<div class="top-bar margin-top-10">
 			<div class="menu-box">

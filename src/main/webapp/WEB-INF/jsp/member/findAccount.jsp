@@ -92,10 +92,9 @@
 
 <script>
 	// 로그인 아이디 찾는 자바스크립트
-	var findLoginIdForm__submitDone = false;
 	function findLoginIdForm__submit(form) {
 
-		if (findLoginIdForm__submitDone) {
+		if ( isNowLoading() ) {
 			alert('처리중입니다.');
 			return;
 		}
@@ -115,14 +114,13 @@
 		}
 
 		form.submit();
-		findLoginIdForm__submitDone = true;
+		startLoading();
 	}
 
 	// 로그인 비밀번호 찾는 자바스크립트 
-	var findLoginPwForm__submitDone = false;
 	function findLoginPwForm__submit(form) {
 
-		if (findLoginPwForm__submitDone) {
+		if ( isNowLoading() ) {
 			alert('처리중입니다.');
 			return;
 		}
@@ -153,7 +151,7 @@
 		}
 
 		form.submit();
-		findLoginPwForm__submitDone = true;
+		startLoading();
 
 	}
 </script>

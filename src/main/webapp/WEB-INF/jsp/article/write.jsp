@@ -51,9 +51,8 @@
 
 
 <script>
-var ArticleWriteForm__submitDone = false;
 function ArticleWriteForm__submit(form) {
-	if ( ArticleWriteForm__submitDone ) {
+	if ( isNowLoading() ) {
 		alert('처리중입니다.');
 		return;
 	}
@@ -84,8 +83,11 @@ function ArticleWriteForm__submit(form) {
 	}
 
 
+	// 실행순서 1번 
+	// ★ 만약 needToUpload == false라면 다음꺼를 바로 실행시키고 꺼버린다.
+	 
 	var startUploadFiles = function(onSuccess) {
-
+		
 		var needToUpload = form.file__article__0__common__attachment__1.value.length > 0;
 
 		if (!needToUpload) {
@@ -96,7 +98,7 @@ function ArticleWriteForm__submit(form) {
 			needToUpload = form.file__article__0__common__attachment__3.value.length > 0;
 		}
 	
-		
+		// ★ false라면 다음꺼인 onSuccess();를 실행하고 꺼버린다. 	
 		if ( needToUpload == false) {
 			onSuccess();
 			return;
@@ -104,6 +106,9 @@ function ArticleWriteForm__submit(form) {
 
 		var fileUploadFormData = new FormData(form); 
 
+
+		// 실행순서 2번 ajax 호출 시작 
+		// 예) 실행시간 오후 1시
 		$.ajax({
 			url : './../file/doUploadAjax',
 			data : fileUploadFormData,
@@ -111,26 +116,43 @@ function ArticleWriteForm__submit(form) {
 			contentType : false,
 			dataType:"json",
 			type : 'POST',
-			success : onSuccess
+			success : onSuccess //-> 얘는 '함수'이다! 
+			// -> onSuccess는 실행순서 1번의 function(onSuccess)의 onSuccess를 의미
+			// ★★★★★ onSuccess는 3번보다 먼저 실행되지 않는다.
+			// 실행순서 3번보다 위에 있어서 먼저 실행될 것 같지만 그렇지 않다.
+			// ajax로 파일을 업로드 한 후, 한참 있다가 실행될 '예약 걸어놓은 함수'이다.
+			// 예) 실행시간 오후 1시로부터 1년 뒤
 		});
+		// 실행순서 3번 ajax 호출 끝
+		// 예) 실행시간 오후 2시
 	}
-	
-
-	ArticleWriteForm__submitDone = true;
-
+		
+	startLoading();
+	// 실행순서 4번 
+	// 다음꺼는 (function(data)부터 form.submit()까지이다.)
 	startUploadFiles(function(data) {
+		//'onSuccess는 startUploadfiles ajax 호출 결과 도착'을 의미한다.
 		var fileIdsStr = '';
-
+		
+		// ★ 먼저 upload한 file의 id를 게시물 작성하면서 같이 보낸다.
 		if ( data && data.body && data.body.fileIdsStr ) {
 			fileIdsStr = data.body.fileIdsStr;
 		}
 
+
+		// 실행순서 5번 
+		// 마지막에 file 번호들을 가지고 form의 정보를 전송한다.
+		
 		form.fileIdsStr.value = fileIdsStr;
 		form.file__article__0__common__attachment__1.value = '';
 		
 		form.submit();
 	});
-
+	/* 
+	 맨처음 실행되는 것은 startUploadFiles 함수이다.
+	 위의 함수를 실행하면 옆에 function이 실행되는게 아니라 
+	 실행순서 1번의 var startUploadFiles = ~~~ { 이게 실행된다. ! }
+	 */
 }
 </script>
 

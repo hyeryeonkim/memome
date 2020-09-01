@@ -37,9 +37,8 @@
 
 
 <script>
-var MemberCheckPasswordForm__submitDone = false;
 function MemberCheckPasswordForm__submit(form) {
-	if ( MemberCheckPasswordForm__submitDone ) {
+	if ( isNowLoading() ) {
 		alert('처리중입니다.');
 		return;
 	}
@@ -56,8 +55,7 @@ function MemberCheckPasswordForm__submit(form) {
 	form.loginPw.value = '';
 
 	form.submit();
-	MemberCheckPasswordForm__submitDone = true;
-
+	startLoading();
 	
 }
 </script>

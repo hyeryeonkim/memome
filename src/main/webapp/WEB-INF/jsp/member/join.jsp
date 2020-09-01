@@ -81,8 +81,9 @@
 				<th>휴대전화</th>
 				<td>
 					<div class="form-control-box">
-						<input type="tel" name="cellphoneNo"
-							placeholder="휴대전화 번호를 입력해주세요." maxlength="13" />
+						<input type="tel" name="cellphoneNo" onkeyup="JoinForm__checkCellphoneNoDup(this);"
+							placeholder="휴대전화 번호를 -없이 입력해주세요." maxlength="11" />
+							<div class="message-msg"></div>
 					</div>
 				</td>
 			</tr>
@@ -101,15 +102,29 @@
 
 
 <script>
-var MemberJoinForm__submitDone = false;
+
+var passLoginId = false;
+var passNickname = false;
+var passEmail = false;
+var passCellphoneNo = false;
+
+
 function MemberJoinForm__submit(form) {
+
 	
-	if (MemberJoinForm__submitDone) {
+	
+	if (isNowLoading()) {
 		alert('처리중입니다.');
 		return;
 	}
 
 	form.loginId.value = form.loginId.value.trim();
+	form.loginId.value = form.loginId.value.replaceAll('-', '');
+	form.loginId.value = form.loginId.value.replaceAll('_', '');
+	form.loginId.value = form.loginId.value.replaceAll(' ', '');
+	alert(form.loginId.value);
+
+	
 	if ( form.loginId.value.length == 0 ) {
 		alert('로그인 아이디를 입력해주세요.');
 		return;
@@ -131,6 +146,12 @@ function MemberJoinForm__submit(form) {
 		return false;
 	}
 	
+	if ( passLoginId == false) {
+		alert('사용중인 로그인 아이디 입니다.');
+		form.loginId.focus();
+		return;
+	}
+	
 		
 	/* 
 	if ( form.loginId.value.indexOf(' ') != -1 ) {
@@ -141,6 +162,7 @@ function MemberJoinForm__submit(form) {
 	
 	
 	form.loginPw.value = form.loginPw.value.trim();
+	
 	
 	if ( form.loginPw.value.length == 0 ) {
 		alert('비밀번호를 입력해주세요.');
@@ -198,21 +220,48 @@ function MemberJoinForm__submit(form) {
 		return;
 	}
 	
+	if ( passNickname == false ) {
+		alert('사용중인 닉네임 입니다.');
+		form.nickname.focus();
+		return;
+	}
+
+
+	
 	form.email.value = form.email.value.trim();
 	if ( form.email.value.length == 0 ) {
 		alert('이메일을 입력해주세요.');
 		form.email.focus();
 		return;
 	}
+
+	if ( passEmail == false ) {
+		alert('사용중인 이메일 입니다.');
+		form.email.focus();
+		return;
+	}
 	
 
 	form.cellphoneNo.value = form.cellphoneNo.value.trim();
-	// 자바스크립트에는 replaceAll 이라는 함수는 없다고 한다.
-	//form.cellphoneNo.value = form.cellphoneNo.value.replaceAll('-', '');
+	form.cellphoneNo.value = form.cellphoneNo.value.replaceAll('-', '');
+	form.cellphoneNo.value = form.cellphoneNo.value.replaceAll(' ', '');
+
+
 	
-	// ★★★★★ 자바스크립트 replace 정규 표현식 ★★★★★ 
+	// ↑ 위의 replaceAll은 샘이 'String.prototype.replaceAll(org, dest) 라는 함수를 js파일에 만들어 놓으셔서 가능한 것임.
+	
+	/*  [ 참고사항 ]      
+	자바스크립트에는 replaceAll 이라는 함수는 없다고 한다.
+	form.cellphoneNo.value = form.cellphoneNo.value.replaceAll('-', '');
+	 */
+
+
+	 
+	/* [ 참고사항 ] 
+	★★★★★ 자바스크립트 replace 정규 표현식 ★★★★★ 
 	form.cellphoneNo.value = form.cellphoneNo.value.replace(/-/g, "");
 	form.cellphoneNo.value = form.cellphoneNo.value.replace(/ /gi, ""); 
+	 */
 	alert(form.cellphoneNo.value);
 
 	
@@ -233,6 +282,12 @@ function MemberJoinForm__submit(form) {
 		alert('휴대전화번호를 정확히 입력해주세요.');
 		return;
 	}
+
+	if ( passCellphoneNo == false ) {
+		alert('사용중인 전화번호 입니다.');
+		form.cellphoneNo.focus();
+		return;
+	}
 	
 	form.loginPwReal.value = sha256(form.loginPw.value);
 	form.loginPw.value = '';
@@ -240,18 +295,17 @@ function MemberJoinForm__submit(form) {
 
 	
 	form.submit();
-	MemberJoinForm__submitDone = true;
+	startLoading();
 	
 }
 
+
+
+//★★★★★debounce 사용법★★★★★
+//로그인 아이디 중복확인 시작
 var JoinForm__validLoginId = '';
-
-
-
-// ★★★★★debounce 사용법★★★★★
-// 로그인 아이디 중복확인 시작 
 var checkLoginIdDup = _.debounce(function(form) {
-
+	
 
 	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
 	$.get(  
@@ -266,10 +320,12 @@ var checkLoginIdDup = _.debounce(function(form) {
 			if ( data.resultCode.substr(0, 2) == 'S-' ) {
 				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
 				JoinForm__validLoginId = data.loginId;
+				passLoginId = true;
 			}								
 			else {
 				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
 				JoinForm__validLoginId = '';
+				passLoginId = false;
 			}
 
 			if ( form.loginId.value.length == 0 ) {
@@ -296,8 +352,8 @@ function JoinForm__checkLoginIdDup(input) {
 //로그인 아이디 중복확인 끝 
 
 
-
 // 닉네임 중복확인 시작 
+var JoinForm__validNickname = '';
 var checkNicknameDup = _.debounce(function(form) {
 
 	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
@@ -313,10 +369,12 @@ var checkNicknameDup = _.debounce(function(form) {
 			if ( data.resultCode.substr(0, 2) == 'S-' ) {
 				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
 				JoinForm__validNickname = data.nickname;
+				passNickname = true;
 			}								
 			else {
 				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
 				JoinForm__validNickname = '';
+				passNickname = false;
 			}
 
 			if ( form.nickname.value.length == 0 ) {
@@ -328,7 +386,6 @@ var checkNicknameDup = _.debounce(function(form) {
 }, 1000);
 
 
-var JoinForm__validNickname = '';
 function JoinForm__checkNicknameDup(input) {
 	var form = input.form;
 
@@ -345,8 +402,8 @@ function JoinForm__checkNicknameDup(input) {
 
 
 
-
 // 이메일 중복확인 시작 
+var JoinForm__validEmail = '';
 var checkEmailDup = _.debounce(function(form) {
 
 	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
@@ -362,10 +419,12 @@ var checkEmailDup = _.debounce(function(form) {
 			if ( data.resultCode.substr(0, 2) == 'S-' ) {
 				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
 				JoinForm__validEmail = data.email;
+				passEmail = true;
 			}								
 			else {
 				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
 				JoinForm__validEmail = '';
+				passEmail = false;
 			}
 
 			if ( form.email.value.length == 0 ) {
@@ -376,9 +435,6 @@ var checkEmailDup = _.debounce(function(form) {
 }, 1000);
 
 
-
-
-var JoinForm__validEmail = '';
 function JoinForm__checkEmailDup(input) {
 	var form = input.form;
 
@@ -393,6 +449,55 @@ function JoinForm__checkEmailDup(input) {
 }
 
 //이메일 중복확인 끝 
+
+
+
+// 전화번호 중복확인 시작
+var JoinForm__validCellphoneNo = '';
+ 
+var checkCellphoneNoDup = _.debounce(function(form) {
+
+	//아작스.  일반 form은 페이지 이동을 통해서 db에 저장을 시키지만 아작스는 페이지 이동 없이 은밀하게 db에 다녀온다.
+	$.get(  
+		'getCellphoneNoDup',  //    현재가  /s/member/join 이지만 아작스를 통해서 /s/member/getLoginIdDup 으로 주소가 바뀐다. 폼의 액션과 같다.
+		{
+			cellphoneNo: form.cellphoneNo.value 
+		},
+		function(data) {   //콜백 함수 : `getLoginIdDup`로 db에 다녀오면 실행되는 함수. 응답이 오면 후속 조치.
+			var $message = $(form.cellphoneNo).next();   // input 로그인 아이디의 동생인 msg...?
+
+			 
+			if ( data.resultCode.substr(0, 2) == 'S-' ) {
+				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
+				JoinForm__validCellphoneNo = data.cellphoneNo;
+				passCellphoneNo = true;
+			}								
+			else {
+				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
+				JoinForm__validCellphoneNo = '';
+				passCellphoneNo = false;
+			}
+
+			if ( form.cellphoneNo.value.length == 0 ) {
+				$message.empty();
+			}
+			
+	}, `json`);
+}, 1000);
+
+
+function JoinForm__checkCellphoneNoDup(input) {
+	var form = input.form;
+
+	form.cellphoneNo.value = form.cellphoneNo.value.trim();
+
+	if ( form.cellphoneNo.value.length == 0 ) {
+		return;
+	}
+	checkCellphoneNoDup(form);
+	
+}
+// 전화번호 중복확인 끝 
 
 </script>
 

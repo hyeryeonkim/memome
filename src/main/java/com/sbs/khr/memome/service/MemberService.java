@@ -88,11 +88,27 @@ public class MemberService {
 
 		return new ResultData("F-1", "이미 사용중인 이메일 입니다.", "email", email);
 	}
+	
+	
+	// 전화번호 중복 체크 
+	public ResultData checkCellphoneNoJoinable(String cellphoneNo) {
+		int count = memberDao.getCellphoneNoDupCount(cellphoneNo);
+
+		if (count == 0) {
+			return new ResultData("S-1", "가입가능한 전화번호 입니다.", "cellphoneNo", cellphoneNo);
+		}
+
+		return new ResultData("F-1", "이미 사용중인 전화번호 입니다.", "cellphoneNo", cellphoneNo);
+
+	}
+
+
 
 	public Member getMemberByLoginId(String loginId) {
 		return memberDao.getMemberByLoginId(loginId);
 	}
 	
+		
 	// 회원정보 변경 (업데이트 저장)
 	public void memberDataUpdate(Map<String, Object> param) {
 
@@ -264,4 +280,5 @@ public class MemberService {
 		return "";
 	}
 
+	
 }
