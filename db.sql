@@ -151,13 +151,14 @@ DROP TABLE IF EXISTS hashtag ;
 CREATE TABLE hashtag (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
-    updateRegDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
     delDate DATETIME,
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     `relTypeCode` CHAR(20) NOT NULL,
     `relId` INT(10) UNSIGNED NOT NULL,
     tag CHAR(200) NOT NULL,
-    memberId INT(10) UNSIGNED NOT NULL
+    memberId INT(10) UNSIGNED NOT NULL,
+    tagNo INT(10) UNSIGNED NOT NULL
 );
 
 
@@ -183,6 +184,9 @@ FROM article;
 
 SELECT *
 FROM `file`;
+
+SELECT *
+FROM hashtag;
 
 TRUNCATE memo;
 TRUNCATE article;
