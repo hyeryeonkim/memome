@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
+import com.sbs.khr.memome.dto.Hashtag;
 import com.sbs.khr.memome.service.ArticleService;
 import com.sbs.khr.memome.service.HashtagService;
 import com.sbs.khr.memome.util.Util;
@@ -91,19 +92,20 @@ public class ArticleController {
 	}
 
 	@RequestMapping("/usr/article/{boardCode}-detail")
-	public String showDetail(@RequestParam Map<String, Object> param, Model model,
+	public String showDetail(@RequestParam Map<String, Object> param, HttpServletRequest request, Model model, 
 			@PathVariable("boardCode") String boardCode) {
 
 		int id = Util.getAsInt(param.get("id"));
 
 		Article article = articleService.getForPrintArticleById(id);
-
 		model.addAttribute("article", article);
 
 		Board board = articleService.getBoardByCode(boardCode);
-
 		model.addAttribute("board", board);
-
+		
+		String relTypeCode = "article";
+		List<Hashtag> hashtags = hashtagService.getForPrintHashtags(article.getId(), relTypeCode);
+		model.addAttribute("hashtags", hashtags);
 		return "article/detail";
 	}
 

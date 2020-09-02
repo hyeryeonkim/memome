@@ -4,9 +4,13 @@
 <%-- <c:set var="pageTitle" value="메인" /> --%>
 <%@ include file="../part/head.jspf"%>
 
-<h1 class="con"><strong style="color:red;">${boardCode}</strong>게시판</h1>
+<h1 class="con "><strong style="color:red;">${boardCode}</strong>게시판</h1>
 
-<div class="table-box con">
+
+<div class="con margin-top-50 flex flex-jc-fe">
+	<button type="button" onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
+</div>
+<div class="table-box con margin-top-10">
 	<table>
 		<colgroup>
 			<col class="table-first-col"/>
@@ -37,9 +41,7 @@
 	</table>
 </div>
 
-<div class="con margin-top-50">
-	<button type="button" onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
-</div>
+
 
 
 

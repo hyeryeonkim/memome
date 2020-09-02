@@ -9,7 +9,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 
-<div class="table-box con">
+<div class="table-box con margin-top-50">
 	<table>
 		<colgroup>
 			<col width="200"/>

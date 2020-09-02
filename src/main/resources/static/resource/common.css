@@ -40,6 +40,26 @@ a {
 	margin-top:50px;
 }
 
+.margin-bottom-10 {
+	margin-bottom:10px;
+}
+
+.margin-bottom-20 {
+	margin-bottom:20px;
+}
+
+.margin-bottom-30 {
+	margin-bottom:30px;
+}
+
+.margin-bottom-40 {
+	margin-bottom:40px;
+}
+
+.margin-bottom-50 {
+	margin-bottom:50px;
+}
+
 .margin-right {
 	margin-right:0;
 	margin-left:auto;
@@ -50,8 +70,10 @@ a {
 }
 
 .img-box > img, .img-box > svg {
-	width:100%;
+	width:70%;
 	display:block;
+	margin-right:auto;
+	margin-left:auto;
 }
 
 
@@ -61,6 +83,10 @@ a {
 
 .flex-jc-sa {
 	justify-content: space-around;
+}
+
+.flex-jc-sb {
+	justify-content: space-between;
 }
 
 .flex-jc-c {
@@ -117,8 +143,8 @@ a {
 }
 
 .memo-table-box  table th, .memo-table-box  table td {
-	border: 1px solid black;
-	padding: 10px;
+	border: 1px solid #d1d1e0;
+	padding: 0 10px;
 	text-align: left;
 }
 
@@ -176,3 +202,39 @@ a {
 	height:400px;
 	resize:none;
 }
+
+/* scroll bar 꾸미기 */
+::-webkit-scrollbar {
+					/* 스크롤바 전체 영역 */
+  width: 10px;
+} 
+::-webkit-scrollbar-track {
+					/* 스크롤이 움직이는 영역  */
+      background-color: #f9f9f9;
+} 
+::-webkit-scrollbar-thumb {
+					/*  스크롤  */
+      background-color: #ccff66; 
+  border-radius:30px;
+} 
+::-webkit-scrollbar-button:start:decrement, 
+::-webkit-scrollbar-button:end:increment {
+					/*  스크롤의 화살표가 포함된 영역   */
+  display:block;
+  height:8px;
+  background-color: #000;
+} 
+::-webkit-scrollbar-corner {
+					/*  상하+좌우 스크롤이 만나는 공간   */
+      background-color: red;
+} 
+
+/* 스크롤 상하방향 */
+
+::-webkit-scrollbar-button:vertical:incremen
+::-webkit-scrollbar-button:vertical:decrement
+
+
+/* 스크롤 좌우방향 */
+::-webkit-scrollbar-button:horizontal:increment 
+::-webkit-scrollbar-button:horizontal:decrement 

@@ -11,7 +11,7 @@
 
 
 
-<form method="POST" action="doCheckPassword" class="table-box con"
+<form method="POST" action="doCheckPassword" class="table-box con margin-top-50" 
 	onsubmit="MemberCheckPasswordForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
 	<input type="hidden" name="redirectUri" value="${param.redirectUri}"/>

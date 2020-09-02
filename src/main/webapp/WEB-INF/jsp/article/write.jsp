@@ -16,7 +16,6 @@
 		name="redirectUri" value="/usr/article/${board.code}-detail?id=#id" />
 	<input type="hidden" name="relTypeCode" value="article" />
 	<table>
-
 		<tbody>
 			<tr>
 				<th>제목</th>
@@ -36,15 +35,6 @@
 				</td>
 			</tr>
 			<tr>
-				<th>첨부1 이미지</th>
-				<td>
-					<div class="form-control-box">
-						<input type="file" accept="image/*"
-							name="file__article__0__common__attachment__1">
-					</div>
-				</td>
-			</tr>
-			<tr>
 				<th>태그(최대 10개)</th>
 				<td>
 					<div class="form-control-box">
@@ -54,6 +44,15 @@
 				</td>
 			</tr>
 			<tr>
+			<tr>
+				<th>첨부1 이미지</th>
+				<td>
+					<div class="form-control-box">
+						<input type="file" accept="image/*"
+							name="file__article__0__common__attachment__1" />
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<th>등록</th>
 				<td>
@@ -68,24 +67,23 @@
 
 
 <script>
-	var input__tag = '';
-	var input__tagWrited = false;
-	$(document).ready(function() {
+	/* 	var input__tag = '';
+	 var input__tagWrited = false;
+	 $(document).ready(function() {
 
-		$(".input-tag").keydown(function(key) {
-			if (key.keyCode == 13) {
-				alert("엔터키를 눌렀습니다.");
-				input__tag = $('.input-tag').val();
-				alert(input__tag + '를 찾았습니다.');
-				input__tagWrited = true;
-			}
-		});
-	});
+	 $(".input-tag").keydown(function(key) {
+	 if (key.keyCode == 13) {
+	 alert("엔터키를 눌렀습니다.");
+	 input__tag = $('.input-tag').val();
+	 alert(input__tag + '를 찾았습니다.');
+	 input__tagWrited = true;
+	 }
+	 });
+	 });
 
-	if (input__tagWrited) {
+	 if (input__tagWrited) {
 
-	}
-
+	 } */
 	function ArticleWriteForm__submit(form) {
 		if (isNowLoading()) {
 			alert('처리중입니다.');
@@ -112,14 +110,13 @@
 		form.tag.value = form.tag.value.replaceAll('_', '');
 		form.tag.value = form.tag.value.replaceAll(' ', '');
 
-		var tagValid = form.tag.value;
-		var results = tagValid.match(/#/g);
-		if (resluts != null) { // != null이 아니면 이라고 해주지 않으면 자바스크립트 오류가 난다고 한다.
-			if (results.length > 10) {
-				alert('해시태그를 10개 이하로 입력해주세요.'); // 2개이므로 2가 출력된다!
-				form.tag.focus();
-				return;
-			}
+		// 자바스크립트 특수 문자 일치 정규식
+		var temp = form.tag.value;
+		var count = (temp.match(/#/g) || []).length;
+		if (count > 10) {
+			alert('해시태그를 10개 이하로 입력해주세요.');
+			form.tag.focus();
+			return;
 		}
 
 		var maxSizeMb = 50;
@@ -136,7 +133,7 @@
 		// ★ 만약 needToUpload == false라면 다음꺼를 바로 실행시키고 꺼버린다.
 
 		var startUploadFiles = function(onSuccess) {
-
+			alert('안되나?');
 			var needToUpload = form.file__article__0__common__attachment__1.value.length > 0;
 
 			if (!needToUpload) {

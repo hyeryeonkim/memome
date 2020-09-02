@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
-import com.sbs.khr.memome.dto.Memo;
+import com.sbs.khr.memome.dto.Hashtag;
+import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.service.ArticleService;
+import com.sbs.khr.memome.service.HashtagService;
+import com.sbs.khr.memome.service.MemberService;
 import com.sbs.khr.memome.service.MemoService;
 import com.sbs.khr.memome.util.Util;
 
@@ -27,7 +30,30 @@ public class MemoController {
 	
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private HashtagService hashtagService;
+	
+	@Autowired
+	private MemberService memberService;
+	
+	@RequestMapping("/usr/memo/{writer}-memoMemberPage")
+	public String showMemoPage(@PathVariable("writer") String writer, Model model, HttpServletRequest request, int id) {
+		
+		List<Article> articles = articleService.getForPrintArticlesByMemberId(id);
+		model.addAttribute("articles", articles);
+		
+		
+		Member member = memberService.getMemberById(id);
+		model.addAttribute("member", member);
+		
+		
+		List<Hashtag> hashtags = hashtagService.getForPrintAllHashtags();
+		model.addAttribute("hashtags", hashtags);
 
+		return "memo/memoMemberPage";
+	}
+	
 	@RequestMapping("/usr/memo/{boardCode}-memoList")
 	public String showMemoList(@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request) {
 		Board board = memoService.getBoardByCode(boardCode);
@@ -42,7 +68,7 @@ public class MemoController {
 		}
 		
 		
-		if ( boardCode.equals("memoyou")) {
+		else if ( boardCode.equals("memoyou")) {
 			articles = articleService.getForPrintAllArticles();
 		}
 			
@@ -50,6 +76,10 @@ public class MemoController {
 		//List<Article> articles = articleService.getForPrintArticlesByMemo();
 		
 		model.addAttribute("articles", articles);
+		
+		
+		List<Hashtag> hashtags = hashtagService.getForPrintAllHashtags();
+		model.addAttribute("hashtags", hashtags);
 
 		return "memo/memoList";
 	}

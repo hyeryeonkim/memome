@@ -483,7 +483,7 @@ var checkCellphoneNoDup = _.debounce(function(form) {
 			}
 			
 	}, `json`);
-}, 1000);
+}, 500);
 
 
 function JoinForm__checkCellphoneNoDup(input) {
