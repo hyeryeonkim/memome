@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
-import com.sbs.khr.memome.dto.Memo;
 import com.sbs.khr.memome.service.ArticleService;
+import com.sbs.khr.memome.service.HashtagService;
 import com.sbs.khr.memome.util.Util;
 
 @Controller
@@ -23,6 +23,8 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private HashtagService hashtagService;
 	
 
 	@RequestMapping("/usr/article/{boardCode}-list")
@@ -52,17 +54,23 @@ public class ArticleController {
 	@RequestMapping("/usr/article/{boardCode}-doWrite")
 	public String doWrite(@RequestParam Map<String, Object> param, Model model,
 			@PathVariable("boardCode") String boardCode, HttpServletRequest request) {
+		
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
-		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr", "memoId");
+		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr");
 		
 		newParam.put("boardId", board.getId());
 		newParam.put("memberId", loginedMemberId);
 
 		int newArticleId = articleService.write(newParam);
+		
+		String tag = Util.getAsStr(param.get("tag"));
+		String relTypeCode = Util.getAsStr(param.get("relTypeCode"));
+		hashtagService.tagWrite(newArticleId, tag, loginedMemberId, relTypeCode);
+		
 
 		String redirectUri = Util.getAsStr(param.get("redirectUri"));
 		redirectUri = redirectUri.replace("#id", newArticleId + "");

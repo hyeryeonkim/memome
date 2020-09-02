@@ -46,8 +46,7 @@ CREATE TABLE article (
     title CHAR(200) NOT NULL,
     `body` LONGTEXT NOT NULL,
     memberId INT(10) UNSIGNED NOT NULL,
-    boardId INT(10) UNSIGNED NOT NULL,
-    memoId INT(10) UNSIGNED NOT NULL
+    boardId INT(10) UNSIGNED NOT NULL
 );
 
 # memo 카테고리  테이블 생성
@@ -148,6 +147,22 @@ ALTER TABLE `file` ADD UNIQUE INDEX (`relId`, `relTypeCode`, `typeCode`, `type2C
 # 파일 테이블의 기존 인덱스에 유니크가 걸려 있어서 relId가 0 인 동안 충돌이 발생할 수 있다. 그래서 일반 인덱스로 바꾼다.
 ALTER TABLE `file` DROP INDEX `relId`, ADD INDEX (`relId` , `relTypeCode` , `typeCode` , `type2Code` , `fileNo`); 
 
+DROP TABLE IF EXISTS hashtag ;
+CREATE TABLE hashtag (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateRegDate DATETIME NOT NULL,
+    delDate DATETIME,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    `relTypeCode` CHAR(20) NOT NULL,
+    `relId` INT(10) UNSIGNED NOT NULL,
+    tag CHAR(200) NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL
+);
+
+
+
+
 SELECT *
 FROM `attr`;
 
@@ -166,6 +181,10 @@ FROM memo;
 SELECT *
 FROM article;
 
+SELECT *
+FROM `file`;
 
 TRUNCATE memo;
 TRUNCATE article;
+TRUNCATE `file`;
+TRUNCATE hashtag;

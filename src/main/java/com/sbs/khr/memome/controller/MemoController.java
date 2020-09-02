@@ -24,6 +24,7 @@ public class MemoController {
 
 	@Autowired
 	private MemoService memoService;
+	
 	@Autowired
 	private ArticleService articleService;
 
@@ -34,24 +35,19 @@ public class MemoController {
 		
 		int loginedMemberId = (int)request.getAttribute("loginedMemberId");
 		
-		List<Memo> memos = null;
+		List<Article> articles = null;
 		
 		if ( boardCode.equals("memome")) {
-			memos = memoService.getForPrintMemos(loginedMemberId);
-			
+			articles = articleService.getForPrintArticlesByMemberId(loginedMemberId);
 		}
 		
 		
 		if ( boardCode.equals("memoyou")) {
-			memos = memoService.getForAllPrintMemos();
-			
+			articles = articleService.getForPrintAllArticles();
 		}
-		/*	
-		 * if ( memos == null ) { memos = memoService.makeCateForMemo(); }
-		 */
-		model.addAttribute("memos", memos);
-		
-		List<Article> articles = articleService.getForPrintArticlesByMemo();
+			
+		// memo를 관리할 폴더 관련 코드를 없애서 관련 코드는 사용하지 않음.  검토해서 관련 코드 다 삭제하기.
+		//List<Article> articles = articleService.getForPrintArticlesByMemo();
 		
 		model.addAttribute("articles", articles);
 
@@ -60,6 +56,7 @@ public class MemoController {
 
 	@RequestMapping("/usr/memo/{boardCode}-memoWrite")
 	public String showMemoWrite(@PathVariable("boardCode") String boardCode, Model model) {
+		model.addAttribute("boardCode", boardCode);
 		return "article/write";
 	}
 	

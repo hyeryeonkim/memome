@@ -24,9 +24,10 @@
 		폴더 생성</button>
 </div>
 <div class="memo-table-box con flex   flex-jc-sa flex-wrap">
-	<c:forEach items="${memos}" var="memo">
+	<c:forEach items="${articles}" var="article">
 		<div class="memo-box  flex flex-jc-sa "
-			onclick="location.href='../article/${boardCode}-write?memoId=${memo.id }'">
+			onclick="location.href='${article.getDetailLink(board.code)}'">
+
 			<table>
 				<colgroup>
 					<col width="120" />
@@ -35,36 +36,30 @@
 				<tbody>
 					<tr>
 						<th>작성자</th>
-						<td>${memo.extra.writer}</td>
+						<td>${article.extra.writer}</td>
 					</tr>
 					<tr>
-						<th>폴더명</th>
-						<td><a href="#">${memo.name}</a></td>
+						<th>제목</th>
+						<td><a href="#">${article.title}</a></td>
 					</tr>
-					<c:forEach items="${articles}" var="article">
-						<c:if test="${memo.id == article.memoId }">
-							<tr>
-								<th>메모</th>
-								<td><a href="#">${article.body }</a></td>
-								<c:if
-									test="${article.extra.file__common__attachment['1'] != null}">
-									<tr>
-										<th>첨부 파일 1</th>
-										<td>
-											<div class="img-box">
-												<img
-													src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
-													alt="image not supported" />
-											</div>
-										</td>
-									</tr>
-								</c:if>
-							</tr>
-						</c:if>
-					</c:forEach>
 
+					<tr>
+						<th>메모</th>
+						<td><a href="#">${article.body}</a></td>
+					</tr>
+					<c:if test="${article.extra.file__common__attachment['1'] != null}">
+						<tr>
+							<th>첨부 파일 1</th>
+							<td>
+								<div class="img-box">
+									<img
+										src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
+										alt="image not supported" />
+								</div>
+							</td>
+						</tr>
+					</c:if>
 				</tbody>
-
 			</table>
 		</div>
 	</c:forEach>

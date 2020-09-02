@@ -1,30 +1,23 @@
 package com.sbs.khr.memome.dto;
 
+
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Article {
+public class Hashtag {
 	private int id;
 	private String regDate;
 	private String updateDate;
 	private boolean delStatus;
 	private String delDate;
-	private boolean displayStatus;
-	private String title;
-	private String body;
+	private int relId;
+	private String tag;
 	private int memberId;
-	private int boardId;
-	private Map<String, Object> extra;
-	
-	
-	public String getDetailLink(String boardCode) {
-		return "/usr/article/" + boardCode + "-detail?id=" + id;
-	}
-	
 }

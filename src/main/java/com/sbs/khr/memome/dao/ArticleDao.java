@@ -23,4 +23,8 @@ public interface ArticleDao {
 
 	List<Article> getForPrintArticlesByMemo();
 
+	List<Article> getForPrintArticlesByMemberId(@Param("memberId") int memberId);
+
+	List<Article> getForPrintAllArticles();
+
 }

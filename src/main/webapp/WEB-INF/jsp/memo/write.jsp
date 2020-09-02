@@ -10,7 +10,6 @@
 		onsubmit="ArticleWriteForm__submit(this); return false;">
 		<input type="hidden" name="fileIdsStr"/>
 		<input type="hidden" name="redirectUri" value="/usr/article/${board.code}-detail?id=#id"/>
-		<input type="hidden" name="memoId" value="${memoId }"/>
 	<table>
 	
 		<tbody>
