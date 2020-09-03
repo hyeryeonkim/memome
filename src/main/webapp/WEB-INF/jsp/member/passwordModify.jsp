@@ -9,7 +9,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 
-<form method="POST" action="doPasswordModify" class="form1 table-box con"
+<form method="POST" action="doPasswordModify" class="form1 table-box con margin-top-50"
 	onsubmit="SubmitPasswordModify(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
 	<input type="hidden" name="id" value="${loginedMemberId }"/>

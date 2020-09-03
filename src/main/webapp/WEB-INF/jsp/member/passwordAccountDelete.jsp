@@ -11,7 +11,7 @@
 
 
 
-<form method="POST" action="accountDelete" class="table-box con"
+<form method="POST" action="accountDelete" class="table-box con margin-top-50"
 	onsubmit="submitAccountDeleteForm(this); return false;">
 	<input type="hidden" name="memberId" value="${loginedMemberId}"/>
 	<table>

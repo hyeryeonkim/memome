@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>${article.extra.writer}</td>
+				<td><a href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
 			</tr>
 			<tr>
 				<th>제목</th>

@@ -84,7 +84,6 @@ public class ArticleController {
 		if (newArticleId != -1) {
 			model.addAttribute("redirectUri", redirectUri);
 			model.addAttribute("alertMsg", newArticleId + "번 게시물이 생성되었습니다.");
-			model.addAttribute("redirectUri", redirectUri);
 			return "common/redirect";
 		}
 

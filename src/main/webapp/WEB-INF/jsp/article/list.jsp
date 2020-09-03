@@ -4,7 +4,13 @@
 <%-- <c:set var="pageTitle" value="메인" /> --%>
 <%@ include file="../part/head.jspf"%>
 
-<h1 class="con "><strong style="color:red;">${boardCode}</strong>게시판</h1>
+<c:if test="${boardCode eq 'notice' }">
+	<h1 class="con "><strong style="color:orange;">${boardCode}</strong>게시판</h1>
+</c:if>
+<c:if test="${boardCode eq 'free' }">
+	<h1 class="con "><strong style="color:gold;">${boardCode}</strong>게시판</h1>
+</c:if>
+
 
 
 <div class="con margin-top-50 flex flex-jc-fe">

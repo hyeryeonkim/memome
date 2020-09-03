@@ -93,7 +93,6 @@
 		form.title.value = form.title.value.trim();
 		if (form.title.value.length == 0) {
 			alert('제목을 입력해주세요.');
-			alert(input__tag + '를 찾았습니다.');
 			form.title.focus();
 			return;
 		}
@@ -113,11 +112,17 @@
 		// 자바스크립트 특수 문자 일치 정규식
 		var temp = form.tag.value;
 		var count = (temp.match(/#/g) || []).length;
+
+		var textCount = temp.split('#');
+		textCount = textCount-1;
+		
+		console.log(textCount);
 		if (count > 10) {
 			alert('해시태그를 10개 이하로 입력해주세요.');
 			form.tag.focus();
 			return;
 		}
+		
 
 		var maxSizeMb = 50;
 		var maxSize = maxSizeMb * 1024 * 1024 // 50MB 
