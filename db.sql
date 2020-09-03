@@ -161,7 +161,17 @@ CREATE TABLE hashtag (
     tagNo INT(10) UNSIGNED NOT NULL
 );
 
+UPDATE `board`
+SET updateDate = NOW(),
+`code` = 'memoME'
+WHERE id =3;
 
+
+
+UPDATE `board`
+SET updateDate = NOW(),
+`code` = 'memoYOU'
+WHERE id =4;
 
 
 SELECT *
@@ -184,6 +194,10 @@ FROM article;
 
 SELECT *
 FROM `file`;
+
+
+SELECT *
+FROM `board`;
 
 SELECT *
 FROM hashtag;
