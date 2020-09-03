@@ -75,9 +75,9 @@ var param = ${paramJson};
 					<li><a href="../home/main">홈</a></li>
 					<li><a href="../article/notice-list">공지사항</a></li>
 					<li><a href="../article/free-list">자유게시판</a></li>
-					<li><a href="../memo/memoyou-memoList">memoYOU</a></li>
+					<li><a href="../memo/memoYOU-memoList">memoYOU</a></li>
 					<c:if test="${isLogined }">
-						<li><a href="../memo/memome-memoList">memoME</a></li>
+						<li><a href="../memo/memoME-memoList">memoME</a></li>
 					</c:if>
 					<c:if test="${isLogined == false}">
 						<li><a href="../member/join">회원가입</a></li>

@@ -14,7 +14,7 @@
 
 
 <div class="con margin-top-50 flex flex-jc-fe">
-	<button type="button" onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
+	<button type="button" class="btn black" onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
 </div>
 <div class="table-box con margin-top-10">
 	<table>
@@ -46,8 +46,6 @@
 		</tbody>
 	</table>
 </div>
-
-
 
 
 

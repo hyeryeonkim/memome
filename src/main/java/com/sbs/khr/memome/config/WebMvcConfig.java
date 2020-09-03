@@ -41,7 +41,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 						.excludePathPatterns("/usr/test/test").excludePathPatterns("/usr/member/getEmailDup")
 						.excludePathPatterns("/usr/member/passwordAccountDelete").excludePathPatterns("/usr/member/doFindLoginPw")
 						.excludePathPatterns("/usr/file/showImg").excludePathPatterns("/usr/member/getCellphoneNoDup")
-						.excludePathPatterns("/usr/memo/memoyou-memoList");
+						.excludePathPatterns("/usr/memo/memoYOU-memoList");
 			
 				
 						

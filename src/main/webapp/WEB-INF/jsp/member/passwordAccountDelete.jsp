@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 				<th>회원탈퇴</th>
-				<td><input type="submit" value="탈퇴" onclick="if ( confirm('탈퇴하시겠습니까?') == false) return false;"/></td>
+				<td><input type="submit" class="btn black" value="탈퇴" onclick="if ( confirm('탈퇴하시겠습니까?') == false) return false;"/></td>
 			</tr>
 		</tbody>
 	</table>
@@ -57,6 +57,13 @@ function submitAccountDeleteForm(form) {
 }
 </script>
 
+
+<style>
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
+</style>
 
 
 

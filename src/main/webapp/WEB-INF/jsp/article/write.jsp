@@ -3,11 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <c:set var="pageTitle" value="메인" /> --%>
 <%@ include file="../part/head.jspf"%>
-
+<c:if test="${boardCode ne 'memoYOU'  && boardCode ne 'memoME' }">
 <h1 class="con">
 	<strong style="color: red;">${boardCode}</strong>게시판<strong
 		style="color: blue;"> 글쓰기</strong>
 </h1>
+</c:if>
+<c:if test="${boardCode eq 'memoYOU' || boardCode eq 'memoME'}">
+<h1 class="con">
+	<strong style="color: black;">${boardCode}</strong><strong
+		style="color: blue;"> MEMO</strong>
+</h1>
+</c:if>
 
 <form method="POST" action="${boardCode}-doWrite"
 	class="form1 table-box con"
@@ -16,6 +23,9 @@
 		name="redirectUri" value="/usr/article/${board.code}-detail?id=#id" />
 	<input type="hidden" name="relTypeCode" value="article" />
 	<table>
+	<colgroup>
+		<col width="150"/>
+	</colgroup>
 		<tbody>
 			<tr>
 				<th>제목</th>
@@ -48,7 +58,8 @@
 				<th>첨부1 이미지</th>
 				<td>
 					<div class="form-control-box">
-						<input type="file" accept="image/*"
+						<input type="file" accept="image/*"   
+						
 							name="file__article__0__common__attachment__1" />
 					</div>
 				</td>
@@ -57,7 +68,7 @@
 				<th>등록</th>
 				<td>
 					<div class="form-control-box">
-						<input type="submit" value="등록" />
+						<input type="submit" value="등록" class="btn black" />
 					</div>
 				</td>
 			</tr>
@@ -206,6 +217,24 @@
 		 */
 	}
 </script>
+
+<style>
+.table-box {
+	margin-top:50px;
+}
+.table-box table th {
+	text-align:center;
+	
+}
+
+.table-box {
+	border:5px solid black;
+}
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
+</style>
 
 
 

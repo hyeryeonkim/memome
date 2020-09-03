@@ -8,7 +8,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-<form action="doLogin" method="POST" class="form1 table-box con"
+<form action="doLogin" method="POST" class="form1 table-box con con2"
 	onsubmit="MemberLoginForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
 	<input type="hidden" name="redirectUri" value="${param.redirectUri }"/>
@@ -36,14 +36,14 @@
 			<tr>
 				<th>로그인</th>
 				<td>
-					<input type="submit" value="로그인" />
+					<input type="submit" value="로그인" class="btn black"/>
 <!-- 					<button type="submit">로그인</button> -->
 				</td>
 			</tr>
 			<tr>
 				<th>아이디, 비밀번호 찾기</th>
 				<td>
-					<input type="button" onclick="location.href='../member/findAccount'" value="찾기"/>
+					<input type="button"  class="btn black" onclick="location.href='../member/findAccount'" value="찾기"/>
 				</td>
 			</tr>
 		</tbody>
@@ -90,6 +90,27 @@ function MemberLoginForm__submit(form) {
 	
 }
 </script>
+
+<style>
+.con {
+	width:50%;
+	margin-top:5%;
+}
+.table-box table th {
+	text-align:center;
+	
+}
+
+.table-box {
+	border:5px solid black;
+}
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
+</style>
+
+
 
 
 

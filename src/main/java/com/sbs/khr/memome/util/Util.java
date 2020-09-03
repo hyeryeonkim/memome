@@ -371,16 +371,24 @@ public class Util {
 		
 		System.out.println("today : " + today);
 		
+		today = today.replace("-","");
+		currentStr = currentStr.replace("-","");
+		System.out.println("today : " + today);
+		System.out.println("currentStr : " + currentStr);
+		
+		int todayInt = Integer.parseInt(today);
+		int currentInt = Integer.parseInt(currentStr);
 		
 		
 		//12번  updateDate 마지막으로 패스워드를 변경한 날짜로부터 3개월이 초과한 currentStr 날짜와 오늘 날짜를 비교한다.
-		// 기준이 되는 today 오늘 날짜가 마지막 개인정보 변경일로부터 3개월 초과한 currentStr보다 크다면 1이다. 
+		// 기준이 되는 today 오늘 날짜가 마지막 개인정보 변경일로부터 3개월 초과한 currentStr보다 크다면 -1이다. 사전식으로 currentStr이 더 빠를테니까 
 		// 그렇다면 return true.     
-		if ( today.compareTo(currentStr) == 1 ) {
+		if ( todayInt > currentInt ) {
+			System.out.println("true " + true);
 			return true;
 		}
-		
-		
+		System.out.println(today.compareTo(currentStr));
+		System.out.println("false " + false);
 		
 		return false;
 	}

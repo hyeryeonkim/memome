@@ -5,20 +5,21 @@
 <%@ include file="../part/head.jspf"%>
 
 
-<c:if test="${board.code eq 'memoyou'}">
+<c:if test="${board.code eq 'memoYOU'}">
 	<h1 class="con">
 		<strong style="color: green">${board.code}</strong> 모두의 메모장
 	</h1>
 </c:if>
-<c:if test="${board.code eq 'memome'}">
+<c:if test="${board.code eq 'memoME'}">
 	<h1 class="con">
 		<strong style="color: blue">${board.code}</strong> 나만의 메모장
 	</h1>
 </c:if>
 
 <div class="con margin-top-50 flex flex-jc-fe">
-	<button type="button"
-		onclick="location.href='../article/${boardCode}-write'">메모 작성</button>
+	<button type="button" class="btn black"
+		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
+<%-- 	<a href="../article/${boardCode}-write" class="btn black">MEMO</a> --%>
 </div>
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"

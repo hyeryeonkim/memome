@@ -9,7 +9,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 
-<div class="table-box con margin-top-50">
+<div class="table-box con margin-top-50 con2">
 	<table>
 		<colgroup>
 			<col width="200"/>
@@ -47,22 +47,38 @@
 			</tr>
 			<tr>
 				<th>회원정보 변경</th>
-				<td><button type="button" onclick="location.href='../member/modify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">회원정보 변경</button></td>
+				<td><button type="button" class="btn black" onclick="location.href='../member/modify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">회원정보 변경</button></td>
 			</tr>
 			<tr>
 				<th>비밀번호 변경</th>
-				<td><button type="button" onclick="location.href='../member/passwordModify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">비밀번호 변경</button></td>
+				<td><button type="button"  class="btn black"  onclick="location.href='../member/passwordModify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">비밀번호 변경</button></td>
 			</tr>
 			<tr>
 				<th>회원탈퇴</th>
-				<td><button type="button" onclick="location.href='../member/passwordAccountDelete'">회원탈퇴</button></td>
+				<td><button type="button"  class="btn black"  onclick="location.href='../member/passwordAccountDelete'">회원탈퇴</button></td>
 			</tr>
 		</tbody>
 	</table>
 </div>
 
 
+<style>
+.con2 {
+	width:50%;
+	margin-top:5%;
+}
+.table-box table th {
+	text-align:center;
+	
+}
 
+.table-box {
+	border:5px solid black;
+}
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
 
 
 

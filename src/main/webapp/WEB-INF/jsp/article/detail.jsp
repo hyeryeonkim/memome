@@ -57,9 +57,16 @@
 </div>
 
 <div class="con margin-top-20 margin-bottom-20">
-	<button type="button"
+	<button type="button" class="btn black"
 		onclick="location.href='../article/${boardCode}-list'">목록</button>
 </div>
+
+<style>
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
+</style>
 
 
 

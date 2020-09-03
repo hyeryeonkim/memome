@@ -89,7 +89,7 @@
 			</tr>
 			<tr>
 				<th>가입</th>
-				<td><input type="submit" value="가입" /> <!-- 					<button type="submit" >가입</button> -->
+				<td><input type="submit" class=" btn black" value="가입" /> <!-- 					<button type="submit" >가입</button> -->
 				</td>
 			</tr>
 
@@ -500,6 +500,27 @@ function JoinForm__checkCellphoneNoDup(input) {
 // 전화번호 중복확인 끝 
 
 </script>
+
+
+<style>
+.con {
+	width:50%;
+	margin-top:5%;
+}
+.table-box table th {
+	text-align:center;
+	
+}
+
+.table-box {
+	border:5px solid black;
+}
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
+</style>
+
 
 
 

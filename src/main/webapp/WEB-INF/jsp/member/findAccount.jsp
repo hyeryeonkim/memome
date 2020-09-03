@@ -8,9 +8,10 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-<h3 class="con">로그인 아이디 찾기</h3>
+
 <form action="doFindLoginId" method="POST" class="table-box con form1"
 	onsubmit="findLoginIdForm__submit(this); return false;">
+	<div class="table-box-title">로그인 아이디 찾기</div>
 	<table>
 		<colgroup>
 			<col width="100" />
@@ -37,7 +38,7 @@
 			<tr>
 				<th>로그인 아이디 찾기</th>
 				<td>
-					<button type="submit">아이디 찾기</button>
+					<button type="submit" class="btn black">아이디 찾기</button>
 				</td>
 			</tr>
 
@@ -47,9 +48,10 @@
 
 
 
-<h3 class="con">로그인 비밀번호 찾기</h3>
+
 <form action="doFindLoginPw" method="POST" class="table-box con form1"
 	onsubmit="findLoginPwForm__submit(this); return false;">
+	<div class="table-box-title">비밀번호 찾기</div>
 	<input type="hidden" name="redirectUri" value="/usr/member/login" />
 	<table>
 		<colgroup>
@@ -77,7 +79,7 @@
 			<tr>
 				<th>로그인 비밀번호 찾기</th>
 				<td>
-					<button type="submit">비밀번호 찾기</button>
+					<button type="submit" class="btn black">비밀번호 찾기</button>
 				</td>
 			</tr>
 
@@ -156,6 +158,35 @@
 	}
 </script>
 
+
+<style>
+.con {
+	margin-top:3%;
+	width:30%;
+}
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
+
+
+.table-box {
+	border:5px solid black;
+}
+
+.table-box table th {
+	text-align:center;
+	
+}
+
+.table-box .table-box-title {
+	font-size:1.2rem;
+	padding:10px;
+	font-weight:bold;
+}
+
+
+</style>
 
 
 

@@ -63,12 +63,12 @@ public class MemoController {
 		
 		List<Article> articles = null;
 		
-		if ( boardCode.equals("memome")) {
+		if ( boardCode.equals("memoME")) {
 			articles = articleService.getForPrintArticlesByMemberId(loginedMemberId);
 		}
 		
 		
-		else if ( boardCode.equals("memoyou")) {
+		else if ( boardCode.equals("memoYOU")) {
 			articles = articleService.getForPrintAllArticles();
 		}
 			

@@ -11,7 +11,7 @@
 
 
 
-<form method="POST" action="doCheckPassword" class="table-box con margin-top-50" 
+<form method="POST" action="doCheckPassword" class="table-box con margin-top-50 con2" 
 	onsubmit="MemberCheckPasswordForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
 	<input type="hidden" name="redirectUri" value="${param.redirectUri}"/>
@@ -27,8 +27,8 @@
 			<tr>
 				<th>비밀번호 확인</th>
 				<td>
-					<button type="submit">확인</button>
-					<button type="button" onclick="history.back();">취소</button>
+					<button type="submit " class="btn black">확인</button>
+					<button type="button" class="btn black" onclick="history.back();">취소</button>
 				</td>
 			</tr>
 		</tbody>
@@ -60,6 +60,25 @@ function MemberCheckPasswordForm__submit(form) {
 }
 </script>
 
+
+<style>
+.con2 {
+	width:50%;
+	
+}
+.table-box table th {
+	text-align:center;
+	
+}
+
+.table-box {
+	border:5px solid black;
+}
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
+</style>
 
 
 

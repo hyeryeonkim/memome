@@ -87,7 +87,8 @@ public class MemberController {
 
 		String lastPasswordModifyDate = memberService.getLastPasswordModify(member.getId());
 
-		boolean getDateForpasswordModify = Util.getDateForpasswordModify("2020-06-02");
+		boolean getDateForpasswordModify = Util.getDateForpasswordModify("2020-03-03");
+		System.out.println("boolean 뭐야?? : " + getDateForpasswordModify);
 
 		if (usingTempPassword) {
 			redirectUri = "/usr/member/checkPassword?redirectUri=%2Fusr%2Fmember%2FmyPage";
@@ -97,15 +98,14 @@ public class MemberController {
 		// alert을 줄바꿈하고 싶어서 \n을 사용했는데 적용되지 않았음.
 		// \n을 사용하기 위해 혹시 \앞에 \을 1개 더 입력했더니 원하는대로 작동하였음.
 		else if (getDateForpasswordModify) {
-			model.addAttribute("alertMsg", String.format("%s 님. 비밀번호를 변경하지 않은지 3개월이 경과하였습니다.\\n개인정보 보호를 "
-					+ "위하여 비밀번호를 변경해주세요.", member.getNickname()));
+			System.out.println("악 또 뭐야 ");
+			model.addAttribute("alertMsg", String.format("%s 님. 비밀번호를 변경하지 않은지 3개월이 경과하였습니다.\\n개인정보 보호를 위하여 비밀번호를 변경해주세요.", member.getNickname()));
 		}
 
 		else {
 			model.addAttribute("alertMsg", String.format("%s님 반갑습니다.", member.getNickname()));
 		}
 
-		System.out.println("악 이거 뭐야!!!! 왜 안되는데?? : " + Util.getUriEncoded("/usr/member/myPage"));
 
 		model.addAttribute("redirectUri", redirectUri);
 

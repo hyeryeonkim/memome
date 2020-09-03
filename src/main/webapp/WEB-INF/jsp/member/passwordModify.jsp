@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<th>회원정보 변경</th>
-				<td><input type="submit" value="변경"/></td>
+				<td><input type="submit"  class="btn black" value="변경"/></td>
 			</tr>
 		</tbody>
 	</table>
@@ -84,6 +84,13 @@ function SubmitPasswordModify(form) {
 
 
 
+
+<style>
+.btn {
+	padding:0 25px;
+	font-size:1rem;
+}
+</style>
 
 
 
