@@ -122,7 +122,6 @@ function MemberJoinForm__submit(form) {
 	form.loginId.value = form.loginId.value.replaceAll('-', '');
 	form.loginId.value = form.loginId.value.replaceAll('_', '');
 	form.loginId.value = form.loginId.value.replaceAll(' ', '');
-	alert(form.loginId.value);
 
 	
 	if ( form.loginId.value.length == 0 ) {
@@ -262,7 +261,6 @@ function MemberJoinForm__submit(form) {
 	form.cellphoneNo.value = form.cellphoneNo.value.replace(/-/g, "");
 	form.cellphoneNo.value = form.cellphoneNo.value.replace(/ /gi, ""); 
 	 */
-	alert(form.cellphoneNo.value);
 
 	
 	if ( form.cellphoneNo.value.length == 0 ) {
@@ -321,7 +319,8 @@ var checkLoginIdDup = _.debounce(function(form) {
 				$message.empty().append('<div style="color:green;">' + data.msg + '</div>');
 				JoinForm__validLoginId = data.loginId;
 				passLoginId = true;
-			}								
+			}
+											
 			else {
 				$message.empty().append('<div style="color:red;">' + data.msg + '</div>');
 				JoinForm__validLoginId = '';
@@ -329,8 +328,10 @@ var checkLoginIdDup = _.debounce(function(form) {
 			}
 
 			if ( form.loginId.value.length == 0 ) {
-				$message.empty();
+				$message.empty().append('<div style="display:none;"></div>');
 			}
+			
+			
 
 			
 	},`json`);
@@ -342,9 +343,10 @@ function JoinForm__checkLoginIdDup(input) {
 
 	form.loginId.value = form.loginId.value.trim();
 
-	if ( form.loginId.value.length == 0 ) {
+	// 여기에서 입력값이 0이면 return을 해버려서 ajax에서 1개의 문자 입력 후 지웠을 때, div가 없어지지 않음.
+		/* if ( form.loginId.value.length == 0 ) {
 		return;
-	}
+	} */
 
 	checkLoginIdDup(form);
 }
@@ -391,9 +393,10 @@ function JoinForm__checkNicknameDup(input) {
 
 	form.nickname.value = form.nickname.value.trim();
 
-	if ( form.nickname.value.length == 0 ) {
+	// 여기에서 입력값이 0이면 return을 해버려서 ajax에서 1개의 문자 입력 후 지웠을 때, div가 없어지지 않음.
+	/* if ( form.nickname.value.length == 0 ) {
 		return;
-	}
+	} */
 
 	checkNicknameDup(form);		
 	
@@ -440,9 +443,9 @@ function JoinForm__checkEmailDup(input) {
 
 	form.email.value = form.email.value.trim();
 
-	if ( form.email.value.length == 0 ) {
+	/* if ( form.email.value.length == 0 ) {
 		return;
-	}
+	} */
 
 	checkEmailDup(form);
 	
@@ -491,9 +494,9 @@ function JoinForm__checkCellphoneNoDup(input) {
 
 	form.cellphoneNo.value = form.cellphoneNo.value.trim();
 
-	if ( form.cellphoneNo.value.length == 0 ) {
+/* 	if ( form.cellphoneNo.value.length == 0 ) {
 		return;
-	}
+	} */
 	checkCellphoneNoDup(form);
 	
 }
@@ -519,6 +522,21 @@ function JoinForm__checkCellphoneNoDup(input) {
 	padding:0 25px;
 	font-size:1rem;
 }
+
+/* 모바일 버전 */
+
+@media (max-width :1210px)  {
+    .con {
+    	width:80%;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+}
+
+
+
+
+
 </style>
 
 

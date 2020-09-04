@@ -7,8 +7,12 @@
 <h1 class="con margin-top-50 " style="text-align:right;">
 	<strong  style="color: red;">${member.nickname}</strong>&nbsp;Memo
 </h1>
-<div class="con margin-top-50 flex flex-jc-fe ">
-	<button type="button"
+<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down">
+	<button type="button" class="btn black"
+		onclick="location.href='../article/${boardCode}-write'">메모 작성</button>
+</div>
+<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+	<button type="button" class="btn black"
 		onclick="location.href='../article/${boardCode}-write'">메모 작성</button>
 </div>
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
@@ -23,49 +27,62 @@
 
 			<table>
 				<colgroup>
-					<col width="120" />
+					<col width="48" />
 					<col width="200" />
 				</colgroup>
 				<tbody>
-					<tr>
+				<%-- 	<tr>
 						<th>작성자</th>
 						<td><a href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
 					</tr>
 					<tr>
 						<th>작성일</th>
 						<td>${article.updateDate}</td>
+					</tr> --%>
+					<tr class="title">
+						<th>제목</th>
+						<td>${article.title}
+							<div class="border-title"></div>
+						</td>
 					</tr>
 					<tr>
-						<th>제목</th>
-						<td><a href="#">${article.title}</a></td>
+						<th></th>
+						<td></td>
+					</tr>
+					<tr>
+						<th></th>
+						<td></td>
+					</tr>
+					<tr>
+						<th></th>
+						<td></td>
+					</tr>
+					<tr class="body-tr">
+						<th>메모</th>
+						<td><div class="body-box" style="height: 250px;">${article.body}<c:if
+									test="${article.extra.file__common__attachment['1'] != null}">
+									<div class="img-box">
+										<img
+											src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
+											alt="image not supported" />
+									</div>
+								</c:if>
+							</div></td>
+					</tr>
+					<tr>
+						<th></th>
 					</tr>
 
-					<tr style="height:250px;">
-						<th>메모</th>
-						<td><a href="#">${article.body}</a></td>
-					</tr>
-					<c:if test="${article.extra.file__common__attachment['1'] != null}">
-						<tr>
-							<th>첨부 파일 1</th>
-							<td>
-								<div class="img-box">
-									<img
-										src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
-										alt="image not supported" />
-								</div>
-							</td>
-						</tr>
-					</c:if>
 					<tr>
 						<th>태그</th>
 						<td><c:forEach items="${hashtags}" var="hashtag">
-						<c:if test="${article.id == hashtag.relId }">
-				<strong style="font-size:0.8rem;" ><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-							</c:if></c:forEach></td>
+								<c:if test="${article.id == hashtag.relId }">
+									<strong style="font-size: 0.8rem;"><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+								</c:if>
+							</c:forEach></td>
 					</tr>
 				</tbody>
 			</table>
-
 		</div>
 	</c:forEach>
 </div>
@@ -73,6 +90,57 @@
 
 
 <style>
+table {
+	border-collapse: collapse;
+}
+
+html>body .memo-table-box .memo-box {
+	overflow: hidden;
+}
+
+.memo-table-box .memo-box {
+	padding-top: 20px;
+	margin-top:40px;
+	
+}
+
+.memo-table-box .memo-box th {
+	text-align: center;
+}
+
+.memo-table-box  .memo-box  tr:nth-child(2) th {
+	padding: 5px;
+}
+
+.memo-table-box  .memo-box  tr:nth-child(3) {
+	border: 2px solid black;
+	width: 400px;
+}
+
+.memo-table-box  .memo-box  tr:nth-child(4) th {
+	padding: 20px;
+}
+
+.memo-table-box  .memo-box  tr:nth-child(5) th {
+	vertical-align: top;
+}
+
+.memo-table-box  .memo-box  tr:nth-child(5) td {
+	vertical-align: top;
+}
+
+.memo-table-box .memo-box th, .memo-table-box .memo-box td {
+	border: none;
+}
+
+.memo-table-box .memo-box td img {
+	width: 100%;
+}
+
+html>body .memo-table-box .memo-box td {
+	backtground-color: red;
+	overflow: auto;
+}
 </style>
 
 

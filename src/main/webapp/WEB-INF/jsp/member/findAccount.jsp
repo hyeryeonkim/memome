@@ -185,6 +185,15 @@
 	font-weight:bold;
 }
 
+/* 모바일 버전 */
+
+@media (max-width :1210px)  {
+    .con {
+    	width:80%;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+}
 
 </style>
 

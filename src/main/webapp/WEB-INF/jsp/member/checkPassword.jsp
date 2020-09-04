@@ -17,7 +17,7 @@
 	<input type="hidden" name="redirectUri" value="${param.redirectUri}"/>
 	<table>
 		<colgroup>
-			<col width="200" />
+			<col width="130" />
 		</colgroup>
 		<tbody>
 			<tr>
@@ -26,8 +26,8 @@
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
-				<td>
-					<button type="submit " class="btn black">확인</button>
+				<td class="mobile-btn flex">
+					<button type="submit" class="btn black">확인</button>
 					<button type="button" class="btn black" onclick="history.back();">취소</button>
 				</td>
 			</tr>
@@ -78,6 +78,23 @@ function MemberCheckPasswordForm__submit(form) {
 	padding:0 25px;
 	font-size:1rem;
 }
+
+
+/* 모바일 버전 */
+
+@media (max-width :1210px)  {
+    .con2 {
+    	width:80%;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+}
+
+
+
+
+
+
 </style>
 
 

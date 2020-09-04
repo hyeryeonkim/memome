@@ -60,6 +60,24 @@ public class HashtagService {
 	public List<Hashtag> getForPrintAllHashtags() {
 		return hashtagDao.getForPrintAllHashtags();
 	}
+
+
+	public List<Hashtag> getForPrintHashtagsByRelId(int relId) {
+		
+		List<Hashtag> hashtags = hashtagDao.getForPrintHashtagsByRelId(relId); 
+		
+		System.out.println("hashtags 는? : " + hashtags);
+		
+		String[] tags = null;
+		
+		for ( int i = 0; i < hashtags.size(); i++ ) {
+			tags[i] = hashtags.get(i).getTag();
+		}	
+		
+		System.out.println("tags는?? : " + tags);
+		
+		return hashtags; 
+	}
 	
 	
 	

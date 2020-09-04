@@ -37,6 +37,26 @@ public class MemoController {
 	@Autowired
 	private MemberService memberService;
 	
+	
+	@RequestMapping("/usr/memo/{boardCode}-memoModify")
+	public String showMemoModify(@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request, int id) {
+		
+		Article article = articleService.getForPrintArticleById(id);
+		model.addAttribute("article", article);
+		
+		int loginedMemberId = (int)request.getAttribute("loginedMemberId");
+		Member member = memberService.getMemberById(loginedMemberId);
+		model.addAttribute("member", member);
+		
+		
+		List<Hashtag> hashtags = hashtagService.getForPrintHashtagsByRelId(id);
+		model.addAttribute("hashtags", hashtags);
+
+		return "memo/memoModify";
+	}
+	
+	
+	
 	@RequestMapping("/usr/memo/{writer}-memoMemberPage")
 	public String showMemoPage(@PathVariable("writer") String writer, Model model, HttpServletRequest request, int id) {
 		
@@ -60,6 +80,9 @@ public class MemoController {
 		model.addAttribute("board", board);
 		
 		int loginedMemberId = (int)request.getAttribute("loginedMemberId");
+		Member member = memberService.getMemberById(loginedMemberId);
+		
+		
 		
 		List<Article> articles = null;
 		
@@ -76,6 +99,7 @@ public class MemoController {
 		//List<Article> articles = articleService.getForPrintArticlesByMemo();
 		
 		model.addAttribute("articles", articles);
+		model.addAttribute("member", member);
 		
 		
 		List<Hashtag> hashtags = hashtagService.getForPrintAllHashtags();

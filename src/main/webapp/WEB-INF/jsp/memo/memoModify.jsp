@@ -4,16 +4,16 @@
 <%-- <c:set var="pageTitle" value="메인" /> --%>
 <%@ include file="../part/head.jspf"%>
 <c:if test="${boardCode ne 'memoYOU'  && boardCode ne 'memoME' }">
-<h1 class="con">
-	<strong style="color: red;">${boardCode}</strong>게시판<strong
-		style="color: blue;"> 글쓰기</strong>
-</h1>
+	<h1 class="con">
+		<strong style="color: red;">${boardCode}</strong>게시판<strong
+			style="color: blue;"> 글쓰기</strong>
+	</h1>
 </c:if>
 <c:if test="${boardCode eq 'memoYOU' || boardCode eq 'memoME'}">
-<h1 class="con">
-	<strong style="color: black;">${boardCode}</strong><strong
-		style="color: blue;"> MEMO</strong>
-</h1>
+	<h1 class="con">
+		<strong style="color: black;">${boardCode}</strong><strong
+			style="color: blue;"> MEMO MODIFY</strong>
+	</h1>
 </c:if>
 
 <form method="POST" action="${boardCode}-doWrite"
@@ -23,16 +23,16 @@
 		name="redirectUri" value="/usr/article/${board.code}-detail?id=#id" />
 	<input type="hidden" name="relTypeCode" value="article" />
 	<table>
-	<colgroup>
-		<col width="150"/>
-	</colgroup>
+		<colgroup>
+			<col width="150" />
+		</colgroup>
 		<tbody>
 			<tr>
 				<th>제목</th>
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="title" placeholder="제목을 입력해주세요."
-							autofocus maxlength="200" />
+							autofocus maxlength="200" value="${article.title}" />
 					</div>
 				</td>
 			</tr>
@@ -40,16 +40,16 @@
 				<th>내용</th>
 				<td>
 					<div class="form-control-box">
-						<textarea name="body" placeholder="내용을 입력해주세요." maxlength="2000"></textarea>
+						<textarea name="body" placeholder="내용을 입력해주세요." maxlength="2000">${article.body }</textarea>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th>태그(최대 10개)</th>
 				<td>
-					<div class="form-control-box">
+					<div class="form-control-box tag" >
 						<input type="text" name="tag" placeholder="#태그 입력"
-							class="input-tag" />
+							class="input-tag" value="${hashtags}"/>
 					</div>
 				</td>
 			</tr>
@@ -58,8 +58,7 @@
 				<th>첨부1 이미지</th>
 				<td>
 					<div class="form-control-box">
-						<input type="file" accept="image/*"   
-						
+						<input type="file" accept="image/*"
 							name="file__article__0__common__attachment__1" />
 					</div>
 				</td>
@@ -78,24 +77,13 @@
 
 
 <script>
-	/* 	var input__tag = '';
-	 var input__tagWrited = false;
-	 $(document).ready(function() {
+	
+	$('.tag').val(${hashtags}));
 
-	 $(".input-tag").keydown(function(key) {
-	 if (key.keyCode == 13) {
-	 alert("엔터키를 눌렀습니다.");
-	 input__tag = $('.input-tag').val();
-	 alert(input__tag + '를 찾았습니다.');
-	 input__tagWrited = true;
-	 }
-	 });
-	 });
 
-	 if (input__tagWrited) {
-
-	 } */
 	function ArticleWriteForm__submit(form) {
+
+		
 		if (isNowLoading()) {
 			alert('처리중입니다.');
 			return;
@@ -125,15 +113,14 @@
 		var count = (temp.match(/#/g) || []).length;
 
 		var textCount = temp.split('#');
-		textCount = textCount-1;
-		
+		textCount = textCount - 1;
+
 		console.log(textCount);
 		if (count > 10) {
 			alert('해시태그를 10개 이하로 입력해주세요.');
 			form.tag.focus();
 			return;
 		}
-		
 
 		var maxSizeMb = 50;
 		var maxSize = maxSizeMb * 1024 * 1024 // 50MB 
@@ -219,19 +206,20 @@
 
 <style>
 .table-box {
-	margin-top:50px;
+	margin-top: 50px;
 }
+
 .table-box table th {
-	text-align:center;
-	
+	text-align: center;
 }
 
 .table-box {
-	border:5px solid black;
+	border: 5px solid black;
 }
+
 .btn {
-	padding:0 25px;
-	font-size:1rem;
+	padding: 0 25px;
+	font-size: 1rem;
 }
 </style>
 

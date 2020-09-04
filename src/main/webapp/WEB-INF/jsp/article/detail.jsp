@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%-- <c:set var="pageTitle" value="게시물 내용" /> --%>
+<c:set var="boardCode" value="${boardCode }" />
 <%@ include file="../part/head.jspf"%>
+
 
 <h1 class="con">
 	<strong style="color: red;">${boardCode}</strong>게시물 내용
@@ -25,7 +28,8 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><a href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
+				<td><a
+					href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
 			</tr>
 			<tr>
 				<th>제목</th>
@@ -50,21 +54,29 @@
 			<tr>
 				<th>태그</th>
 				<td><c:forEach items="${hashtags}" var="hashtag">
-				#<strong><a href="#">${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong></c:forEach></td>
+				#<strong><a href="#">${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+					</c:forEach></td>
 			</tr>
 		</tbody>
 	</table>
 </div>
 
-<div class="con margin-top-20 margin-bottom-20">
-	<button type="button" class="btn black"
-		onclick="location.href='../article/${boardCode}-list'">목록</button>
-</div>
-
+<c:if test="${fn:contains(boardCode, 'memo') }">
+	<div class="con margin-top-20 margin-bottom-20">
+		<button type="button" class="btn black"
+			onclick="location.href='../memo/${boardCode}-memoList'">목록</button>
+	</div>
+</c:if>
+<c:if test="${fn:contains(boardCode, 'memo') == false }">
+	<div class="con margin-top-20 margin-bottom-20">
+		<button type="button" class="btn black"
+			onclick="location.href='../article/${boardCode}-list'">목록</button>
+	</div>
+</c:if>
 <style>
 .btn {
-	padding:0 25px;
-	font-size:1rem;
+	padding: 0 25px;
+	font-size: 1rem;
 }
 </style>
 

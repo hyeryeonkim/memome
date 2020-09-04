@@ -16,28 +16,35 @@
 	</h1>
 </c:if>
 
-<div class="con margin-top-50 flex flex-jc-fe">
+<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
 	<button type="button" class="btn black"
 		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
-<%-- 	<a href="../article/${boardCode}-write" class="btn black">MEMO</a> --%>
+</div>
+<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+	<button type="button" class="btn black"
+		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
 </div>
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
 		onclick="location.href='../memo/${boardCode}-makeMemoCate'">메모
 		폴더 생성</button>
 </div> --%>
+<script>
+	
+</script>
 <div class="memo-table-box con flex flex-jc-sb flex-wrap">
 	<c:forEach items="${articles}" var="article">
-		<div class="memo-box  flex flex-jc-sa "
-			onclick="location.href='${article.getDetailLink(board.code)}'"">
+		<c:if test="${article.memberId == member.id }">
+			<div class="memo-box  flex flex-jc-sa "
+				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
 
-			<table>
-				<colgroup>
-					<col width="48" />
-					<col width="200" />
-				</colgroup>
-				<tbody>
-					<%-- <tr>
+				<table>
+					<colgroup>
+						<col width="48" />
+						<col width="200" />
+					</colgroup>
+					<tbody>
+						<%-- <tr>
 						<th>작성자</th>
 						<td><a href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
 					</tr>
@@ -45,52 +52,122 @@
 						<th>작성일</th>
 						<td>${article.updateDate}</td>
 					</tr> --%>
-					<tr class="title">
-						<th>제목</th>
-						<td>${article.title}
-							<div class="border-title"></div>
-						</td>
-					</tr>
-					<tr>
-						<th></th>
-						<td></td>
-					</tr>
-					<tr>
-						<th></th>
-						<td></td>
-					</tr>
-					<tr>
-						<th></th>
-						<td></td>
-					</tr>
-					<tr class="body-tr">
-						<th>메모</th>
-						<td><div class="body-box" style="height: 250px;">${article.body}<c:if
-									test="${article.extra.file__common__attachment['1'] != null}">
-									<div class="img-box">
-										<img
-											src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
-											alt="image not supported" />
-									</div>
-								</c:if>
-							</div></td>
-					</tr>
-					<tr>
-						<th></th>
-					</tr>
 
-					<tr>
-						<th>태그</th>
-						<td><c:forEach items="${hashtags}" var="hashtag">
-								<c:if test="${article.id == hashtag.relId }">
-									<strong style="font-size: 0.8rem;"><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-								</c:if>
-							</c:forEach></td>
-					</tr>
-				</tbody>
-			</table>
+						<tr class="title">
+							<th>제목</th>
 
-		</div>
+							<td>${article.title}
+								<div class="border-title">회원번호${member.id},
+									게시물회원번호${article.memberId}</div>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td></td>
+						</tr>
+						<tr class="body-tr">
+							<th>메모</th>
+							<td><div class="body-box" style="height: 250px;">${article.body}<c:if
+										test="${article.extra.file__common__attachment['1'] != null}">
+										<div class="img-box">
+											<img
+												src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
+												alt="image not supported" />
+										</div>
+									</c:if>
+								</div></td>
+						</tr>
+						<tr>
+							<th></th>
+						</tr>
+
+						<tr>
+							<th>태그</th>
+							<td><c:forEach items="${hashtags}" var="hashtag">
+									<c:if test="${article.id == hashtag.relId }">
+										<strong style="font-size: 0.8rem;"><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+									</c:if>
+								</c:forEach></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</c:if>
+		<c:if test="${article.memberId != member.id }">
+			<div class="memo-box  flex flex-jc-sa "
+				onclick="location.href='${article.getDetailLink(board.code)}'">
+
+				<table>
+					<colgroup>
+						<col width="48" />
+						<col width="200" />
+					</colgroup>
+					<tbody>
+						<%-- <tr>
+						<th>작성자</th>
+						<td><a href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
+					</tr>
+					<tr>
+						<th>작성일</th>
+						<td>${article.updateDate}</td>
+					</tr> --%>
+
+						<tr class="title">
+							<th>제목</th>
+
+							<td>${article.title}
+								<div class="border-title">회원번호${member.id},
+									게시물회원번호${article.memberId}</div>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td></td>
+						</tr>
+						<tr class="body-tr">
+							<th>메모</th>
+							<td><div class="body-box" style="height: 250px;">${article.body}<c:if
+										test="${article.extra.file__common__attachment['1'] != null}">
+										<div class="img-box">
+											<img
+												src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
+												alt="image not supported" />
+										</div>
+									</c:if>
+								</div></td>
+						</tr>
+						<tr>
+							<th></th>
+						</tr>
+
+						<tr>
+							<th>태그</th>
+							<td><c:forEach items="${hashtags}" var="hashtag">
+									<c:if test="${article.id == hashtag.relId }">
+										<strong style="font-size: 0.8rem;"><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+									</c:if>
+								</c:forEach></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</c:if>
 	</c:forEach>
 </div>
 
@@ -107,8 +184,11 @@ html>body .memo-table-box .memo-box {
 
 .memo-table-box .memo-box {
 	padding-top: 20px;
-	margin-top:40px;
-	
+	margin-top: 40px;
+}
+
+.memo-table-box .memo-box:hover {
+	cursor: pointer;
 }
 
 .memo-table-box .memo-box th {

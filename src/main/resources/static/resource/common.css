@@ -246,7 +246,8 @@ a {
   text-decoration: none;
   color: #fff;
   position: relative;
-  display: inline-block0
+  display: inline-block;
+  
 }
 /* 버튼 */
 .btn {
@@ -256,4 +257,30 @@ a {
 
 .btn:hover{
 	background-color: #999999;
+	cursor:pointer;
+}
+
+
+
+/* 모바일 버튼 */
+/* mobile 버전 */
+@media (min-width :801px) {
+    .visible-on-sm-down {
+        display: none;
+    }
+}
+
+/* pc 버전 */
+@media (max-width :800px) {
+    .visible-on-md-up {
+        display: none;
+    }
+}
+
+
+@media (max-width :1210px)  {
+    .visible-on-sm-down button {
+    	padding: 5px 20px;
+    	font-size:1rem;
+    }
 }

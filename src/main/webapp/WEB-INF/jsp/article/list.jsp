@@ -6,15 +6,18 @@
 
 <c:if test="${boardCode eq 'notice' }">
 	<h1 class="con "><strong style="color:orange;">${boardCode}</strong>게시판</h1>
-</c:if>
+</c:if>	
 <c:if test="${boardCode eq 'free' }">
 	<h1 class="con "><strong style="color:gold;">${boardCode}</strong>게시판</h1>
 </c:if>
 
 
 
-<div class="con margin-top-50 flex flex-jc-fe">
-	<button type="button" class="btn black" onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
+<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+	<button type="button" class="btn black  " onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
+</div>
+<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down">
+	<button type="button" class="btn black  " onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
 </div>
 <div class="table-box con margin-top-10">
 	<table>
@@ -47,7 +50,8 @@
 	</table>
 </div>
 
-
+<style>
+</style>
 
 
 

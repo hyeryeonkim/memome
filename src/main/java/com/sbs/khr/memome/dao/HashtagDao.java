@@ -17,4 +17,6 @@ public interface HashtagDao {
 
 	List<Hashtag> getForPrintAllHashtags();
 
+	List<Hashtag> getForPrintHashtagsByRelId(@Param("relId") int relId);
+
 }

@@ -29,6 +29,13 @@
 	</update>
 	
 	
+	
+	<select id="getForPrintHashtagsByRelId" resultType="String">
+	SELECT tag
+	FROM hashtag
+	WHERE relId = #{relId}
+	</select>
+	
 	<select id="getForPrintHashtags" resultType="Hashtag">
 	SELECT *
 	FROM hashtag
