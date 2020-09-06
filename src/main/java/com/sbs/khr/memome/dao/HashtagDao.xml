@@ -4,50 +4,78 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sbs.khr.memome.dao.HashtagDao">
 
-	<insert id="tagWrite" >
+	<insert id="tagWrite">
 		INSERT INTO hashtag
 		SET regDate = NOW(),
 		updateDate = NOW(),
 		relTypeCode = #{relTypeCode},
 		relId = #{relId},
-		tag = #{tag},
-		memberId = #{memberId},
-		tagNo = #{tagNo}
+		tag =
+		#{tag},
+		memberId = #{memberId}
 	</insert>
+
+	<!-- <update id="update"> UPDATE hashtag <set> updateDate = NOW(), <if test="relTypeCode 
+		!= null">relTypeCode = #{relTypeCode},</if> <if test="relId != null">relId 
+		= #{relId},</if> <if test="memberId != null">memberId = #{memberId},</if> 
+		<if test="tag != null">tag = #{tag},</if> <if test="tagNo != null">tagNo 
+		= #{tagNo}</if> </set> WHERE id = #{id} </update> -->
+
+
+
+	<select id="getForPrintHashtagsByRelId" resultType="String">
+		SELECT tag
+		FROM hashtag
+		WHERE relId = #{relId}
+	</select>
+	<select id="getForPrintHashtagsByRelIdStr" resultType="String">
+		SELECT tag
+		FROM hashtag
+		WHERE relId = #{relId}
+	</select>
+	
+
+	<select id="getForPrintHashtags" resultType="Hashtag">
+		SELECT *
+		FROM hashtag
+		WHERE relId = #{relId}
+		AND relTypeCode = #{relTypeCode}
+	</select>
+
+	<select id="getForPrintAllHashtags" resultType="Hashtag">
+		SELECT *
+		FROM hashtag
+	</select>
+
+
+	<select id="getOriginTagByTagNo" resultType="int">
+		SELECT id
+		FROM hashtag
+		WHERE tagNo = #{tagNo}
+		AND relId = #{relId}
+	</select>
 
 	<update id="update">
 		UPDATE hashtag
-		<set>
-			updateDate = NOW(),
-			<if test="relTypeCode != null">relTypeCode = #{relTypeCode},</if>
-			<if test="relId != null">relId = #{relId},</if>
-			<if test="memberId != null">memberId = #{memberId},</if>
-			<if test="tag != null">tag = #{tag},</if>
-			<if test="tagNo != null">tagNo = #{tagNo}</if>
-		</set>
-		WHERE id = #{id}
+		SET updateDate = NOW(),
+		tag = #{tag}
+		WHERE relId = #{relId}
+		AND tagNo = #{tagNo}
 	</update>
+
+	<delete id="delete">
+		DELETE FROM hashtag
+		WHERE  relId = #{relId}
+		AND tag = #{tag}
+		AND  memberId = #{memberId}
+	</delete>
 	
 	
-	
-	<select id="getForPrintHashtagsByRelId" resultType="String">
-	SELECT tag
-	FROM hashtag
-	WHERE relId = #{relId}
-	</select>
-	
-	<select id="getForPrintHashtags" resultType="Hashtag">
-	SELECT *
-	FROM hashtag
-	WHERE relId = #{relId}
-	AND relTypeCode = #{relTypeCode}
-	</select>
-	
-	<select id="getForPrintAllHashtags" resultType="Hashtag">
-	SELECT *
-	FROM hashtag
-	</select>	
-	
-	
+	<delete id="hashtagDelete">
+		DELETE FROM hashtag
+		WHERE relId = #{relId}
+		AND  memberId = #{memberId}
+	</delete>
+
 
 </mapper>

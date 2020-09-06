@@ -16,17 +16,26 @@
 	</h1>
 </c:if>
 
-<form method="POST" action="${boardCode}-doWrite"
+<form method="POST" action="${boardCode}-doMemoModify"
 	class="form1 table-box con"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
-	<input type="hidden" name="fileIdsStr" /> <input type="hidden"
-		name="redirectUri" value="/usr/article/${board.code}-detail?id=#id" />
-	<input type="hidden" name="relTypeCode" value="article" />
+	<input type="hidden" name="relTypeCode" value="article" /> <input
+		type="hidden" name="fileIdsStr" /> <input type="hidden" name="id"
+		value="${param.id}" />
 	<table>
 		<colgroup>
 			<col width="150" />
 		</colgroup>
 		<tbody>
+			<tr>
+				<th>메모 번호</th>
+				<td>
+					<div class="form-control-box">
+						<input type="text" name="id" placeholder="제목을 입력해주세요." readonly
+							autofocus maxlength="200" value="${article.id}" />
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<th>제목</th>
 				<td>
@@ -47,22 +56,53 @@
 			<tr>
 				<th>태그(최대 10개)</th>
 				<td>
-					<div class="form-control-box tag" >
-						<input type="text" name="tag" placeholder="#태그 입력"
-							class="input-tag" value="${hashtags}"/>
+					<div class="form-control-box tag" id="tag">
+						<c:forEach items="tagBits" var="tag">
+							<%-- 							<c:if test="${tag.length() eq 0 == false }"> --%>
+							<input type="text" name="tag" placeholder="#태그 입력"
+								class="input-tag" value="${tagBits}" />
+							<%-- 							</c:if> --%>
+						</c:forEach>
 					</div>
 				</td>
 			</tr>
-			<tr>
-			<tr>
-				<th>첨부1 이미지</th>
-				<td>
-					<div class="form-control-box">
-						<input type="file" accept="image/*"
-							name="file__article__0__common__attachment__1" />
-					</div>
-				</td>
-			</tr>
+				<c:forEach var="i" begin="1" end="3" step="1">
+					<c:set var="fileNo" value="${String.valueOf(i)}" />
+					<c:set var="file"
+						value="${article.extra.file__common__attachment[fileNo]}" />
+					<tr>
+						<th>첨부파일 ${fileNo}
+							${appConfig.getAttachmentFileExtTypeDisplayName('article', i)}</th>
+						<td>
+							<div class="form-control-box">
+								<input type="file"
+									accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
+									name="file__article__${article.id}__common__attachment__${fileNo}">
+							</div> <c:if test="${file != null && file.fileExtTypeCode == 'video'}">
+								<div class="video-box">
+									<video controls
+										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}">
+									</video>
+								</div>
+							</c:if> <c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+								<div class="img-box img-box-auto">
+									<img
+										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}">
+								</div>
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<th>첨부파일 ${fileNo} 삭제</th>
+						<td>
+							<div class="form-control-box">
+								<label><input type="checkbox"
+									name="deleteFile__article__${article.id}__common__attachment__${fileNo}"
+									value="Y" /> 삭제 </label>
+							</div>
+						</td>
+					</tr>
+				</c:forEach>
 			<tr>
 				<th>등록</th>
 				<td>
@@ -71,22 +111,54 @@
 					</div>
 				</td>
 			</tr>
+			<tr>
+				<th>삭제</th>
+				<td>
+					<div class="form-control-box">
+						<button type="button" class="btn black" onclick="if( confirm('삭제하시겠습니까?') == false ) return false; location.href='/usr/memo/${boardCode}-doDelete?id=${param.id}' ">삭제</button>
+					</div>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </form>
 
 
-<script>
-	
-	$('.tag').val(${hashtags}));
 
+<script>
+	/* var tag = "${tagBits}";
+	tag = tag.split('#'); */
 
 	function ArticleWriteForm__submit(form) {
-
-		
 		if (isNowLoading()) {
 			alert('처리중입니다.');
 			return;
+		}
+
+		var fileInput1 = form["file__article__" + param.id + "__common__attachment__1"];
+		var fileInput2 = form["file__article__" + param.id + "__common__attachment__2"];
+		var fileInput3 = form["file__article__" + param.id + "__common__attachment__3"];
+
+		var deleteFileInput1 = form["deleteFile__article__" + param.id + "__common__attachment__1"];
+		var deleteFileInput2 = form["deleteFile__article__" + param.id + "__common__attachment__2"];
+		var deleteFileInput3 = form["deleteFile__article__" + param.id + "__common__attachment__3"];
+
+		if (fileInput1 && deleteFileInput1) {
+			if (deleteFileInput1.checked) {
+				fileInput1.value = '';
+			}
+		}
+
+		if (fileInput2 && deleteFileInput2) {
+			if (deleteFileInput2.checked) {
+				fileInput2.value = '';
+			}
+		}
+
+		if (fileInput3 && deleteFileInput3) {
+			if (deleteFileInput3.checked) {
+				fileInput3.value = '';
+			}
 		}
 
 		form.title.value = form.title.value.trim();
@@ -125,8 +197,22 @@
 		var maxSizeMb = 50;
 		var maxSize = maxSizeMb * 1024 * 1024 // 50MB 
 
-		if (form.file__article__0__common__attachment__1.value) {
-			if (form.file__article__0__common__attachment__1.files[0].size > maxSize) {
+		if (fileInput1 && fileInput1.value) {
+			if (fileInput1.files[0].size > maxSize) {
+				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+				return;
+			}
+		}
+
+		if (fileInput2 && fileInput2.value) {
+			if (fileInput2.files[0].size > maxSize) {
+				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+				return;
+			}
+		}
+
+		if (fileInput3 && fileInput3.value) {
+			if (fileInput3.files[0].size > maxSize) {
 				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
 				return;
 			}
@@ -136,17 +222,26 @@
 		// ★ 만약 needToUpload == false라면 다음꺼를 바로 실행시키고 꺼버린다.
 
 		var startUploadFiles = function(onSuccess) {
-			var needToUpload = form.file__article__0__common__attachment__1.value.length > 0;
-
+			var needToUpload = false;
 			if (!needToUpload) {
-				needToUpload = form.file__article__0__common__attachment__2.value.length > 0;
+				needToUpload = fileInput1 && fileInput1.value.length > 0;
 			}
-
 			if (!needToUpload) {
-				needToUpload = form.file__article__0__common__attachment__3.value.length > 0;
+				needToUpload = deleteFileInput1 && deleteFileInput1.checked;
 			}
-
-			// ★ false라면 다음꺼인 onSuccess();를 실행하고 꺼버린다. 	
+			if (!needToUpload) {
+				needToUpload = fileInput2 && fileInput2.value.length > 0;
+			}
+			if (!needToUpload) {
+				needToUpload = deleteFileInput2 && deleteFileInput2.checked;
+			}
+			if (!needToUpload) {
+				needToUpload = fileInput3 && fileInput3.value.length > 0;
+			}
+			if (!needToUpload) {
+				needToUpload = deleteFileInput3 && deleteFileInput3.checked;
+			}
+			// ★ false라면 다음꺼인 onSuccess();를 실행하고 꺼버린다.
 			if (needToUpload == false) {
 				onSuccess();
 				return;
@@ -191,10 +286,21 @@
 			// 마지막에 file 번호들을 가지고 form의 정보를 전송한다.
 
 			form.fileIdsStr.value = fileIdsStr;
-			form.file__article__0__common__attachment__1.value = '';
+
+
+			if (fileInput1) {
+				fileInput1.value = '';
+			}
+
+			if (fileInput2) {
+				fileInput2.value = '';
+			}
+
+			if (fileInput3) {
+				fileInput3.value = '';
+			}
 
 			form.submit();
-
 		});
 		/* 
 		 맨처음 실행되는 것은 startUploadFiles 함수이다.
@@ -220,6 +326,10 @@
 .btn {
 	padding: 0 25px;
 	font-size: 1rem;
+}
+
+.table-box .form-control-box .img-box img {
+	width: 30px;
 }
 </style>
 

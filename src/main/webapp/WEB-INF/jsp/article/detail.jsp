@@ -39,18 +39,27 @@
 				<th>내용</th>
 				<td>${article.body}</td>
 			</tr>
-			<c:if test="${article.extra.file__common__attachment['1'] != null}">
-				<tr>
-					<th>첨부 파일 1</th>
-					<td>
-						<div class="img-box">
-							<img
-								src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
-								alt="image not supported" />
-						</div>
-					</td>
-				</tr>
-			</c:if>
+			<c:forEach var="i" begin="1" end="3" step="1">
+				<c:set var="fileNo" value="${String.valueOf(i)}" />
+				<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}" />
+				<c:if test="${file != null}">
+					<tr>
+						<th>첨부파일 ${fileNo}</th>
+						<td>
+							<c:if test="${file.fileExtTypeCode == 'video'}">
+								<div class="video-box">
+									<video controls src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+								</div>
+							</c:if>
+							<c:if test="${file.fileExtTypeCode == 'img'}">
+								<div class="img-box img-box-auto">
+									<img src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}" alt="" />
+								</div>
+							</c:if>
+						</td>
+					</tr>
+				</c:if>
+			</c:forEach>
 			<tr>
 				<th>태그</th>
 				<td><c:forEach items="${hashtags}" var="hashtag">

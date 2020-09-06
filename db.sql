@@ -157,8 +157,8 @@ CREATE TABLE hashtag (
     `relTypeCode` CHAR(20) NOT NULL,
     `relId` INT(10) UNSIGNED NOT NULL,
     tag CHAR(200) NOT NULL,
-    memberId INT(10) UNSIGNED NOT NULL,
-    tagNo INT(10) UNSIGNED NOT NULL
+    memberId INT(10) UNSIGNED NOT NULL
+ #   tagNo int(10) unsigned not null
 );
 
 UPDATE `board`
@@ -190,17 +190,65 @@ SELECT *
 FROM memo;
 
 SELECT *
-FROM article;
+FROM article
+WHERE id= 24;
+
+UPDATE article
+SET delDate = NOW(),
+delStatus = 1
+WHERE memberId = 1
+AND id = 15
 
 SELECT *
-FROM `file`;
+FROM hashtag
+WHERE relId = 24
+AND memberId = 1;
+
+SELECT *
+FROM `file`
+WHERE relId = 24;
+
+DELETE FROM hashtag
+WHERE relId = 23
+AND  memberId = 1
+
+
+SELECT *
+FROM memo
+WHERE id= 17;
+
+
+
+
+
+
+SELECT *
+FROM `file`
+WHERE relId = 16;
+
+DELETE FROM FILE
+WHERE relId = 16;
 
 
 SELECT *
 FROM `board`;
 
 SELECT *
-FROM hashtag;
+FROM hashtag
+WHERE relId = 16;
+
+
+
+DELETE FROM hashtag
+WHERE relId = 90
+AND tag = '수정'
+AND  memberId = 1
+AND  tagNo= 3
+
+SELECT *
+FROM hashtag
+WHERE relId = 15;
+
 
 TRUNCATE memo;
 TRUNCATE article;

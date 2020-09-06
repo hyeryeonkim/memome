@@ -61,7 +61,40 @@ public class Util {
 		return object.toString();
 	}
 
+	public static boolean isNum(Object obj) {
+		if (obj == null) {
+			return false;
+		}
 
+		if (obj instanceof Long) {
+			return true;
+		} else if (obj instanceof Integer) {
+			return true;
+		} else if (obj instanceof String) {
+			try {
+				Integer.parseInt((String) obj);
+				return true;
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		}
+
+		return false;
+	}
+	
+	public static int getInt(HttpServletRequest req, String paramName) {
+		return Integer.parseInt(req.getParameter(paramName));
+	}
+
+	public static int getInt(HttpServletRequest req, String paramName, int elseValue) {
+		try {
+			return Integer.parseInt(req.getParameter(paramName));
+		} catch (NumberFormatException e) {
+			return elseValue;
+		}
+	}
+
+	
 	public static Map<String, Object> getParamMap(HttpServletRequest request) {
 		Map<String, Object> param = new HashMap<>();
 
@@ -468,6 +501,14 @@ public class Util {
 		
 		String dateStr = format1.format(System.currentTimeMillis() + seconds * 1000);
 		
+		return dateStr;
+	}
+	
+	public static String getNowDateStr() {
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String dateStr = format1.format(System.currentTimeMillis());
+
 		return dateStr;
 	}
 

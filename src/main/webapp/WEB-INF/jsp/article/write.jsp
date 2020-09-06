@@ -54,16 +54,18 @@
 				</td>
 			</tr>
 			<tr>
-			<tr>
-				<th>첨부1 이미지</th>
-				<td>
-					<div class="form-control-box">
-						<input type="file" accept="image/*"   
-						
-							name="file__article__0__common__attachment__1" />
-					</div>
-				</td>
-			</tr>
+			<c:forEach var="i" begin="1" end="3" step="1">
+				<c:set var="fileNo" value="${String.valueOf(i)}" />
+				<c:set var="fileExtTypeCode" value="${appConfig.getAttachmentFileExtTypeCode('article', i)}" />
+				<tr>
+					<th>첨부${fileNo} ${appConfig.getAttachmentFileExtTypeDisplayName('article', i)}</th>
+					<td>
+						<div class="form-control-box">
+							<input type="file" accept="${appConfig.getAttachemntFileInputAccept('article', i)}" name="file__article__0__common__attachment__${fileNo}">
+						</div>
+					</td>
+				</tr>
+			</c:forEach>
 			<tr>
 				<th>등록</th>
 				<td>
@@ -145,6 +147,19 @@
 			}
 		}
 
+		if (form.file__article__0__common__attachment__2.value) {
+			if (form.file__article__0__common__attachment__2.files[0].size > maxSize) {
+				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+				return;
+			}
+		}
+
+		if (form.file__article__0__common__attachment__3.value) {
+			if (form.file__article__0__common__attachment__3.files[0].size > maxSize) {
+				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+				return;
+			}
+		}
 		// 실행순서 1번 
 		// ★ 만약 needToUpload == false라면 다음꺼를 바로 실행시키고 꺼버린다.
 
@@ -205,6 +220,8 @@
 
 			form.fileIdsStr.value = fileIdsStr;
 			form.file__article__0__common__attachment__1.value = '';
+			form.file__article__0__common__attachment__2.value = '';
+			form.file__article__0__common__attachment__3.value = '';
 
 			form.submit();
 

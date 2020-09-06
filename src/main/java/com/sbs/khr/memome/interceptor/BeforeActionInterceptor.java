@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.sbs.khr.memome.config.AppConfig;
 import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.service.MemberService;
 import com.sbs.khr.memome.util.Util;
@@ -27,6 +28,9 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private AppConfig appConfig;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -106,6 +110,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("loginedMemberId", loginedMemberId);
 		request.setAttribute("isLogined", isLogined);
 		request.setAttribute("loginedMember", loginedMember);
+		
+		request.setAttribute("appConfig", appConfig);
 
 		// request.setAttribute("activeProfile", activeProfile);
 

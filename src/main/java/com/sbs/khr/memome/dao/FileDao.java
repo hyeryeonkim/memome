@@ -36,4 +36,6 @@ public interface FileDao {
 			@Param("typeCode") String typeCode, @Param("type2Code") String type2Code, @Param("fileNo") int fileNo);
 
 	void deleteFile(@Param("id") int id);
+
+	void deleteFileByRelId(@Param("relId") int relId);
 }

@@ -27,4 +27,8 @@ public interface ArticleDao {
 
 	List<Article> getForPrintAllArticles();
 
+	void memoModify(Map<String, Object> param);
+
+	void memoDelete(Map<String, Object> newParam);
+
 }

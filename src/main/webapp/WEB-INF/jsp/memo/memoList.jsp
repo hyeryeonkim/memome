@@ -34,10 +34,9 @@
 </script>
 <div class="memo-table-box con flex flex-jc-sb flex-wrap">
 	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.memberId == member.id }">
+		<c:if test="${article.memberId == member.id}">
 			<div class="memo-box  flex flex-jc-sa "
 				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
-
 				<table>
 					<colgroup>
 						<col width="48" />
@@ -75,14 +74,27 @@
 						</tr>
 						<tr class="body-tr">
 							<th>메모</th>
-							<td><div class="body-box" style="height: 250px;">${article.body}<c:if
-										test="${article.extra.file__common__attachment['1'] != null}">
-										<div class="img-box">
-											<img
-												src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
-												alt="image not supported" />
-										</div>
-									</c:if>
+							<td><div class="body-box" style="height: 250px;">${article.body}
+									<c:forEach var="i" begin="1" end="3" step="1">
+										<c:set var="fileNo" value="${String.valueOf(i)}" />
+										<c:set var="file"
+											value="${article.extra.file__common__attachment[fileNo]}" />
+										<c:if test="${file != null}">
+											<c:if test="${file.fileExtTypeCode == 'video'}">
+												<div class="video-box">
+													<video controls
+														src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+												</div>
+											</c:if>
+											<c:if test="${file.fileExtTypeCode == 'img'}">
+												<div class="img-box img-box-auto">
+													<img
+														src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+														alt="" />
+												</div>
+											</c:if>
+										</c:if>
+									</c:forEach>
 								</div></td>
 						</tr>
 						<tr>
@@ -101,10 +113,9 @@
 				</table>
 			</div>
 		</c:if>
-		<c:if test="${article.memberId != member.id }">
+		<c:if test="${article.memberId != member.id}">
 			<div class="memo-box  flex flex-jc-sa "
 				onclick="location.href='${article.getDetailLink(board.code)}'">
-
 				<table>
 					<colgroup>
 						<col width="48" />
@@ -142,14 +153,27 @@
 						</tr>
 						<tr class="body-tr">
 							<th>메모</th>
-							<td><div class="body-box" style="height: 250px;">${article.body}<c:if
-										test="${article.extra.file__common__attachment['1'] != null}">
-										<div class="img-box">
-											<img
-												src="/usr/file/showImg?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
-												alt="image not supported" />
-										</div>
-									</c:if>
+							<td><div class="body-box" style="height: 250px;">${article.body}
+									<c:forEach var="i" begin="1" end="3" step="1">
+										<c:set var="fileNo" value="${String.valueOf(i)}" />
+										<c:set var="file"
+											value="${article.extra.file__common__attachment[fileNo]}" />
+										<c:if test="${file != null}">
+											<c:if test="${file.fileExtTypeCode == 'video'}">
+												<div class="video-box">
+													<video controls
+														src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+												</div>
+											</c:if>
+											<c:if test="${file.fileExtTypeCode == 'img'}">
+												<div class="img-box img-box-auto">
+													<img
+														src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+														alt="" />
+												</div>
+											</c:if>
+										</c:if>
+									</c:forEach>
 								</div></td>
 						</tr>
 						<tr>
@@ -185,6 +209,11 @@ html>body .memo-table-box .memo-box {
 .memo-table-box .memo-box {
 	padding-top: 20px;
 	margin-top: 40px;
+}
+
+.memo-table-box .memo-box .video-box video, .memo-table-box .memo-box .img-box img
+	{
+	width: 100%;
 }
 
 .memo-table-box .memo-box:hover {

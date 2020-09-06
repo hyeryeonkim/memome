@@ -16,7 +16,9 @@ import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
 import com.sbs.khr.memome.dto.Hashtag;
 import com.sbs.khr.memome.dto.Member;
+import com.sbs.khr.memome.dto.ResultData;
 import com.sbs.khr.memome.service.ArticleService;
+import com.sbs.khr.memome.service.FileService;
 import com.sbs.khr.memome.service.HashtagService;
 import com.sbs.khr.memome.service.MemberService;
 import com.sbs.khr.memome.service.MemoService;
@@ -36,6 +38,8 @@ public class MemoController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private FileService fileService;
 	
 	
 	@RequestMapping("/usr/memo/{boardCode}-memoModify")
@@ -49,12 +53,61 @@ public class MemoController {
 		model.addAttribute("member", member);
 		
 		
-		List<Hashtag> hashtags = hashtagService.getForPrintHashtagsByRelId(id);
-		model.addAttribute("hashtags", hashtags);
+		String tagBits = hashtagService.getForPrintHashtagsByRelId(id);
+		tagBits.toString();
+		model.addAttribute("tagBits", tagBits);
+		System.out.println("tagBits : " + tagBits);
 
 		return "memo/memoModify";
 	}
 	
+
+	@RequestMapping("/usr/memo/{boardCode}-doMemoModify")
+	public String doMemoModify(@RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request) {
+		
+		ResultData resultData = hashtagService.getChechTagDup(Util.getAsStr(param.get("tag")));
+		
+		if ( resultData.isFail() ) {
+			model.addAttribute("alertMsg", resultData.getMsg());
+			model.addAttribute("historyBack", true);
+			return "common/redirect";
+		}
+		
+		int loginedMemberId = (int)request.getAttribute("loginedMemberId");
+		Map<String, Object > newParam = Util.getNewMapOf(param, "relTypeCode", "fileIdsStr", "id", "title", "body", "tag");
+		System.out.println("param file수정 시작 : " + param);
+		System.out.println("newParam file수정 시작 : " + newParam);
+		articleService.memoModify(newParam, loginedMemberId);
+		
+		
+		String redirectUri = "/usr/home/main";
+		model.addAttribute("redirectUri", redirectUri);
+		
+		
+		return "common/redirect";
+	}
+	
+	@RequestMapping("/usr/memo/{boardCode}-doDelete")
+	public String doDelete(@RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request) {
+		
+		
+		int memberId = (int)request.getAttribute("loginedMemberId");
+		Map<String, Object> newParam = Util.getNewMapOf(param, "id");
+		newParam.put("memberId", memberId);
+		hashtagService.hashtagDelete(newParam);  // hashtag를 먼저 지우니까 삭제가 되네.... 흠...
+		articleService.memoDelete(newParam);
+		
+		fileService.deleteFiles("article", Util.getAsInt(newParam.get("id")));
+		
+		
+		// 게시물 삭제
+		// 태그 삭제
+		// 파일 삭제
+		
+		System.out.println("newParam 테스트 고고 : " + newParam);
+		
+		return "home/main";
+	}
 	
 	
 	@RequestMapping("/usr/memo/{writer}-memoMemberPage")

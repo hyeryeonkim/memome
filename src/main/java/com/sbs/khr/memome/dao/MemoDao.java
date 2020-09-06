@@ -22,6 +22,10 @@ public interface MemoDao {
 
 	int makeMemoCate(Map<String, Object> param);
 
+	void memoModify(Map<String, Object> param);
+
+	void memoDelete(Map<String, Object> newParam);
+
 	
 	
 }
