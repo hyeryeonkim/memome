@@ -69,11 +69,15 @@ a {
 	border: 1px solid red;
 }
 
-.img-box>img, .img-box>svg {
+.img-box>img, .video-box>video {
 	width: 70%;
 	display: block;
 	margin-right: auto;
 	margin-left: auto;
+}
+
+.table-box table th {
+	text-align: center;
 }
 
 .flex {

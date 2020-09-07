@@ -9,7 +9,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 
-<form action="doJoin" method="POST" class="table-box con form1"
+<form action="doJoin" method="POST" class="table-box con form1 margin-top-50"
 	onsubmit="MemberJoinForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal" /> <input type="hidden"
 		name="redirectUri" value="../member/login" />
@@ -508,7 +508,6 @@ function JoinForm__checkCellphoneNoDup(input) {
 <style>
 .con {
 	width:50%;
-	margin-top:5%;
 }
 .table-box table th {
 	text-align:center;

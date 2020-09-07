@@ -83,6 +83,12 @@
 	</div>
 </c:if>
 <style>
+
+.table-box {
+}
+.table-box table th {
+	text-align: center;
+}
 .btn {
 	padding: 0 25px;
 	font-size: 1rem;

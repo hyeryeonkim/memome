@@ -96,9 +96,9 @@ public class ArticleService {
 		return articleDao.getForPrintArticlesByMemo();
 	}
 
-	public List<Article> getForPrintArticlesByMemberId(int memberId) {
+	public List<Article> getForPrintArticlesByMemberId(int memberId, int boardId) {
 
-		List<Article> articles = articleDao.getForPrintArticlesByMemberId(memberId);
+		List<Article> articles = articleDao.getForPrintArticlesByMemberId(memberId, boardId);
 
 		for (Article article : articles) {
 
@@ -116,9 +116,9 @@ public class ArticleService {
 	}
 
 	// 내가 쓴것과 상관없이 모든 사람의 memo(article)를 불러오는 메서드
-	public List<Article> getForPrintAllArticles() {
+	public List<Article> getForPrintAllArticles(int boardId) {
 
-		List<Article> articles = articleDao.getForPrintAllArticles();
+		List<Article> articles = articleDao.getForPrintAllArticles(boardId);
 
 		for (Article article : articles) {
 

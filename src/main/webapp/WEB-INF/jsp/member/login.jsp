@@ -8,7 +8,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-<form action="doLogin" method="POST" class="form1 table-box con con2"
+<form action="doLogin" method="POST" class="form1 table-box con con2 margin-top-50"
 	onsubmit="MemberLoginForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
 	<input type="hidden" name="redirectUri" value="${param.redirectUri }"/>
@@ -94,7 +94,6 @@ function MemberLoginForm__submit(form) {
 <style>
 .con {
 	width:50%;
-	margin-top:5%;
 }
 .table-box table th {
 	text-align:center;

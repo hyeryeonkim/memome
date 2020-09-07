@@ -32,6 +32,7 @@
 	ON A.memberId = M.id  
 	WHERE A.displayStatus = 1
 	AND A.delStatus = 0
+	AND A.boardId IN (3, 4)
 	ORDER BY A.id DESC 
 	</select>
 	
@@ -45,7 +46,7 @@
 	ON A.memberId = M.id  
 	WHERE A.displayStatus = 1
 	AND A.boardId = #{id}
-	AND A.delStatus= #{id}
+	AND A.delStatus= 0
 	ORDER BY A.id DESC 
 	</select>
 	
@@ -60,6 +61,7 @@
 	WHERE A.displayStatus = 1
 	AND A.memberId = #{memberId}
 	AND A.delStatus = 0
+	AND A.boardId IN (3, 4)
 	ORDER BY A.id DESC 
 	</select>
 	

@@ -23,9 +23,9 @@ public interface ArticleDao {
 
 	List<Article> getForPrintArticlesByMemo();
 
-	List<Article> getForPrintArticlesByMemberId(@Param("memberId") int memberId);
+	List<Article> getForPrintArticlesByMemberId(@Param("memberId") int memberId, @Param("boardId") int boardId);
 
-	List<Article> getForPrintAllArticles();
+	List<Article> getForPrintAllArticles(@Param("boardId") int boardId);
 
 	void memoModify(Map<String, Object> param);
 

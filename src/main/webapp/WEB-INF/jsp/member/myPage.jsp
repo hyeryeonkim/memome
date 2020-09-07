@@ -65,7 +65,6 @@
 <style>
 .con2 {
 	width:50%;
-	margin-top:5%;
 }
 .table-box table th {
 	text-align:center;

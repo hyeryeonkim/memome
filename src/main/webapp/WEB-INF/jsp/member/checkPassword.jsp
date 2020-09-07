@@ -28,7 +28,7 @@
 				<th>비밀번호 확인</th>
 				<td class="mobile-btn flex">
 					<button type="submit" class="btn black">확인</button>
-					<button type="button" class="btn black" onclick="history.back();">취소</button>
+					<button type="button" class="btn black" onclick="location.href='/usr/home/main'">취소</button>
 				</td>
 			</tr>
 		</tbody>

@@ -39,7 +39,7 @@
 				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
 				<table>
 					<colgroup>
-						<col width="48" />
+						<col width="50" />
 						<col width="200" />
 					</colgroup>
 					<tbody>
@@ -51,13 +51,13 @@
 						<th>작성일</th>
 						<td>${article.updateDate}</td>
 					</tr> --%>
-
+						
 						<tr class="title">
 							<th>제목</th>
 
 							<td>${article.title}
-								<div class="border-title">회원번호${member.id},
-									게시물회원번호${article.memberId}</div>
+<%-- 								<div class="border-title">회원번호${member.id}, --%>
+<%-- 									게시물회원번호${article.memberId}</div> --%>
 							</td>
 						</tr>
 						<tr>
@@ -118,7 +118,7 @@
 				onclick="location.href='${article.getDetailLink(board.code)}'">
 				<table>
 					<colgroup>
-						<col width="48" />
+						<col width="50" />
 						<col width="200" />
 					</colgroup>
 					<tbody>
@@ -135,9 +135,9 @@
 							<th>제목</th>
 
 							<td>${article.title}
-								<div class="border-title">회원번호${member.id},
-									게시물회원번호${article.memberId}</div>
-							</td>
+<%-- 								<div class="border-title">회원번호${member.id}, --%>
+<%-- 									게시물회원번호${article.memberId}</div> --%>
+<!-- 							</td> -->
 						</tr>
 						<tr>
 							<th></th>

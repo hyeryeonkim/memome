@@ -100,7 +100,7 @@ var param = ${paramJson};
 			</div>
 			<c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
 				<div class="use-temp-password con">
-					현재 임시 비밀번호를 사용하고 있습니다. 비밀번호를 <a href="../member/myPage"
+					현재 임시 비밀번호를 사용하고 있습니다. 비밀번호를 <a href="../member/checkPassword"
 						style="color: red;">변경</a>해주세요.
 				</div>
 			</c:if>
@@ -122,6 +122,12 @@ var param = ${paramJson};
 		</c:if>
 		<c:if test="${pageTitle eq '회원탈퇴' }">
 			<h1 class="page-title-box con" style="color:navy;">${pageTitle}</h1>
+		</c:if>
+		<c:if test="${pageTitle eq '회원가입' }">
+			<h1 class="page-title-box con" style="color:blue;">${pageTitle}</h1>
+		</c:if>
+		<c:if test="${pageTitle eq '로그인' }">
+			<h1 class="page-title-box con" style="color:purple;">${pageTitle}</h1>
 		</c:if>
 		
 		

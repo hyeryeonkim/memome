@@ -113,7 +113,11 @@ public class MemoController {
 	@RequestMapping("/usr/memo/{writer}-memoMemberPage")
 	public String showMemoPage(@PathVariable("writer") String writer, Model model, HttpServletRequest request, int id) {
 		
-		List<Article> articles = articleService.getForPrintArticlesByMemberId(id);
+		Board board = memoService.getBoardByCode("memoME");
+		
+		
+		
+		List<Article> articles = articleService.getForPrintArticlesByMemberId(id, board.getId());
 		model.addAttribute("articles", articles);
 		
 		
@@ -137,15 +141,16 @@ public class MemoController {
 		
 		
 		
+		
 		List<Article> articles = null;
 		
+		
 		if ( boardCode.equals("memoME")) {
-			articles = articleService.getForPrintArticlesByMemberId(loginedMemberId);
+			articles = articleService.getForPrintArticlesByMemberId(loginedMemberId, board.getId());
 		}
 		
-		
 		else if ( boardCode.equals("memoYOU")) {
-			articles = articleService.getForPrintAllArticles();
+			articles = articleService.getForPrintAllArticles(board.getId());
 		}
 			
 		// memo를 관리할 폴더 관련 코드를 없애서 관련 코드는 사용하지 않음.  검토해서 관련 코드 다 삭제하기.
