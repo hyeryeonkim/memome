@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
+import com.sbs.khr.memome.dto.File;
 import com.sbs.khr.memome.dto.Hashtag;
 import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.dto.ResultData;
@@ -109,11 +110,64 @@ public class MemoController {
 		return "home/main";
 	}
 	
+	// id = articleId
+	@RequestMapping("/usr/memo/{boardCode}-fork")
+	public String showFork(@RequestParam Map<String, Object> param, Model model, @PathVariable("boardCode") String boardCode, int id, HttpServletRequest request) {
+		
+		
+		Board board = articleService.getBoardByCode(boardCode);
+		
+		Article article = articleService.getForPrintArticleById(id);
+		System.out.println("article은 무엇?" + article);
+		String hashtags = hashtagService.getForPrintHashtagsByRelId(id);
+		
+		
+		
+		
+		
+		
+		String title = article.getTitle();
+		String body = article.getBody();
+		int memberId = (int) request.getAttribute("loginedMemberId");
+		int boardId = board.getId();
+		
+		param.put("title", title);
+		param.put("body", body);
+		param.put("memberId", memberId);
+		param.put("boardId", boardId);
+		
+		int newArticleId = articleService.write(param);
+		hashtagService.tagWrite(newArticleId, hashtags, memberId, "article");
+		
+		List<File> files = fileService.getFiles("article", id, "common", "attachment");
+		for ( File file : files ) {
+			int newFileId = fileService.saveFile(file.getRelTypeCode(), newArticleId, file.getTypeCode(), file.getType2Code(), file.getFileNo(), file.getOriginFileName(), file.getFileExtTypeCode(), file.getFileExtType2Code(), file.getFileExt(), file.getBody(), file.getFileSize());
+			System.out.println("newArticleId 으악 : " + newFileId);
+			System.out.println("file.getId() 으악 : " + file.getId());
+			
+			fileService.updateFork(newFileId, file.getId());
+		}
+		
+		
+
+		
+
+		if (newArticleId != -1) {
+			model.addAttribute("redirectUri", "/usr/memo/memoME-memoModify?id=" + newArticleId);
+			model.addAttribute("alertMsg", newArticleId + "번 게시물이 생성되었습니다.");
+			return "common/redirect";
+		}
+		
+		
+
+		return "home/main";
+	}
 	
 	@RequestMapping("/usr/memo/{writer}-memoMemberPage")
 	public String showMemoPage(@PathVariable("writer") String writer, Model model, HttpServletRequest request, int id) {
 		
-		Board board = memoService.getBoardByCode("memoME");
+		Board board = memoService.getBoardByCode("memoYOU");
+		model.addAttribute("board", board);
 		
 		
 		
@@ -150,7 +204,7 @@ public class MemoController {
 		}
 		
 		else if ( boardCode.equals("memoYOU")) {
-			articles = articleService.getForPrintAllArticles(board.getId());
+			articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId);
 		}
 			
 		// memo를 관리할 폴더 관련 코드를 없애서 관련 코드는 사용하지 않음.  검토해서 관련 코드 다 삭제하기.

@@ -51,6 +51,15 @@ public class ArticleController {
 
 		return "article/write";
 	}
+	
+	@RequestMapping("/usr/article/{boardCode}-fork")
+	public String showFork(Model model, @PathVariable("boardCode") String boardCode, String memoId) {
+
+		model.addAttribute("boardCode", boardCode);
+		model.addAttribute("memoId", memoId);
+
+		return "article/write";
+	}
 
 	@RequestMapping("/usr/article/{boardCode}-doWrite")
 	public String doWrite(@RequestParam Map<String, Object> param, Model model,

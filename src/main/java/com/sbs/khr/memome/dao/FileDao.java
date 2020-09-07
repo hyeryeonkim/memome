@@ -38,4 +38,6 @@ public interface FileDao {
 	void deleteFile(@Param("id") int id);
 
 	void deleteFileByRelId(@Param("relId") int relId);
+
+	void updateFork(@Param("newFileId") int newFileId, @Param("originFileId") int originFileId);
 }

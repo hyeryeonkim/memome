@@ -22,6 +22,7 @@ public class File {
 	private String type2Code;
 	private String relTypeCode;
 	private int relId;
+	private String originFileName;
 	private String fileExtTypeCode;
 	private String fileExtType2Code;
 	private byte[] body;

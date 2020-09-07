@@ -56,8 +56,8 @@
 							<th>제목</th>
 
 							<td>${article.title}
-<%-- 								<div class="border-title">회원번호${member.id}, --%>
-<%-- 									게시물회원번호${article.memberId}</div> --%>
+								<div class="border-title">회원번호${member.id},
+									게시물회원번호${article.memberId}</div>
 							</td>
 						</tr>
 						<tr>
@@ -135,9 +135,9 @@
 							<th>제목</th>
 
 							<td>${article.title}
-<%-- 								<div class="border-title">회원번호${member.id}, --%>
-<%-- 									게시물회원번호${article.memberId}</div> --%>
-<!-- 							</td> -->
+								<div class="border-title">회원번호${member.id},
+									게시물회원번호${article.memberId}</div>
+							</td>
 						</tr>
 						<tr>
 							<th></th>

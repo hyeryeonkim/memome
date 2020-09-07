@@ -71,15 +71,16 @@
 </div>
 
 <c:if test="${fn:contains(boardCode, 'memo') }">
-	<div class="con margin-top-20 margin-bottom-20">
+	<div class="con margin-top-20 margin-bottom-20 button-box">
 		<button type="button" class="btn black"
-			onclick="location.href='../memo/${boardCode}-memoList'">목록</button>
+			onclick="location.href='../memo/${boardCode}-memoList'">List</button>
+		<button type="button" class="btn black" onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
 	</div>
 </c:if>
 <c:if test="${fn:contains(boardCode, 'memo') == false }">
 	<div class="con margin-top-20 margin-bottom-20">
 		<button type="button" class="btn black"
-			onclick="location.href='../article/${boardCode}-list'">목록</button>
+			onclick="location.href='../article/${boardCode}-list'">LIST</button>
 	</div>
 </c:if>
 <style>

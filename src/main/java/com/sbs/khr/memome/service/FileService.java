@@ -146,4 +146,8 @@ public class FileService {
 		fileDao.deleteFileByRelId(relId);
 	}
 
+	public void updateFork(int newFileId, int originFileId) {
+		fileDao.updateFork(newFileId, originFileId);
+	}
+
 }

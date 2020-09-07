@@ -33,6 +33,7 @@
 	WHERE A.displayStatus = 1
 	AND A.delStatus = 0
 	AND A.boardId IN (3, 4)
+	AND A.memberId NOT IN(#{memberId})
 	ORDER BY A.id DESC 
 	</select>
 	
