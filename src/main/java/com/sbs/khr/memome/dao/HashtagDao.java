@@ -29,6 +29,10 @@ public interface HashtagDao {
 
 	void hashtagDelete(@Param("relId") int relId, @Param("memberId") int memberId);
 
+	List<String> getForPrintHashtagsById(@Param("id") int id);
+
+	Integer getForPrintHashtagBytag(@Param("tag") String tag);
+
 
 	
 

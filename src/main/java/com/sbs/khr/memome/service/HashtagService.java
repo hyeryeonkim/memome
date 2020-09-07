@@ -75,7 +75,7 @@ public class HashtagService {
 		System.out.println("tabBits는? : " + tagBits.toString());
 
 		List<String> tagStr = new ArrayList<>();
-		// String tag는 tag는!! String 이라서 null 일 수가 없지ㅠㅠ   length()가 0이 아니면이지!!!! 
+		// String tag는 tag는!! String 이라서 null 일 수가 없지ㅠㅠ length()가 0이 아니면이지!!!!
 		if (tag.length() != 0) {
 			for (int i = 0; i < tagBits.length; i++) {
 
@@ -244,15 +244,37 @@ public class HashtagService {
 	}
 
 	public void hashtagDelete(Map<String, Object> newParam) {
-		
+
 		int relId = Util.getAsInt(newParam.get("id"));
 		int memberId = Util.getAsInt(newParam.get("memberId"));
-		
+
 		System.out.println("relId 과연 : " + relId);
 		System.out.println("memberId 과연 : " + memberId);
-		
+
 		hashtagDao.hashtagDelete(relId, memberId);
+
+	}
+
+	// id = memberId
+	public List<String> getForPrintHashtagsById(int id) {
+		return hashtagDao.getForPrintHashtagsById(id);
+	}
+
+	public List<String> getHashtagStrForMypagePrint(List<String> hashtags) {
+
+		List<String> hashtag = new ArrayList<>();
 		
+		
+		// toString 흠... 어렵.... 
+		for (String tag : hashtags) {
+			if ( hashtag.toString().contains(tag) == false ) {
+				int count = hashtagDao.getForPrintHashtagBytag(tag);
+				hashtag.add(tag + " : " +  count);
+			}
+		}
+		
+		System.out.println("hashtag제대로 못담나? " + hashtag);
+		return hashtag;
 	}
 
 

@@ -83,10 +83,13 @@ function MemberCheckPasswordForm__submit(form) {
 /* 모바일 버전 */
 
 @media (max-width :1210px)  {
-    .con2 {
+    .con {
     	width:80%;
     	margin-left:auto;
     	margin-right:auto;
+    }
+    .btn {
+    	padding: 5px 20px;
     }
 }
 

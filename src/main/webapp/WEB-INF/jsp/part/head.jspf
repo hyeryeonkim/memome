@@ -21,8 +21,12 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
 	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
@@ -68,7 +72,7 @@ var param = ${paramJson};
 			<div></div>
 		</div>
 	</div>
-	<div class="outer-box">
+	<div class="outer-box ">
 		<div class="top-bar margin-top-10">
 			<div class="menu-box">
 				<ul>
@@ -106,29 +110,26 @@ var param = ${paramJson};
 			</c:if>
 		</c:if>
 		<c:if test="${pageTitle eq '메인' }">
-			<h1 class="page-title-box con" style="color:red;">${pageTitle}</h1>
+			<h1 class="page-title-box con" style="color: red;">${pageTitle}</h1>
 		</c:if>
 		<c:if test="${pageTitle eq '비밀번호 확인' }">
-			<h1 class="page-title-box con" style="color:navy;">${pageTitle}</h1>
+			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
 		</c:if>
 		<c:if test="${pageTitle eq 'My Page' }">
-			<h1 class="page-title-box con" style="color:navy;">${pageTitle}</h1>
+			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
 		</c:if>
 		<c:if test="${pageTitle eq '회원정보 변경' }">
-			<h1 class="page-title-box con" style="color:navy;">${pageTitle}</h1>
+			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
 		</c:if>
 		<c:if test="${pageTitle eq '비밀번호 변경' }">
-			<h1 class="page-title-box con" style="color:navy;">${pageTitle}</h1>
+			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
 		</c:if>
 		<c:if test="${pageTitle eq '회원탈퇴' }">
-			<h1 class="page-title-box con" style="color:navy;">${pageTitle}</h1>
+			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
 		</c:if>
 		<c:if test="${pageTitle eq '회원가입' }">
-			<h1 class="page-title-box con" style="color:blue;">${pageTitle}</h1>
+			<h1 class="page-title-box con" style="color: blue;">${pageTitle}</h1>
 		</c:if>
 		<c:if test="${pageTitle eq '로그인' }">
-			<h1 class="page-title-box con" style="color:purple;">${pageTitle}</h1>
+			<h1 class="page-title-box con" style="color: purple;">${pageTitle}</h1>
 		</c:if>
-		
-		
-		

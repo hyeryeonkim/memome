@@ -9,11 +9,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 
-<form method="POST" action="doModify" class="form1 table-box con"
+<form method="POST" action="doModify" class="form1 table-box con margin-top-50"
 	onsubmit="submitMemberDataModify(this); return false;">
 	<table>
 		<colgroup>
-			<col width="200" />
+			<col width="110" />
 		</colgroup>
 		<tbody>
 			<tr>
@@ -44,7 +44,7 @@
 					value="${loginedMember.email}" /></td>
 			</tr>
 			<tr>
-				<th>마지막 회원정보 변경일</th>
+				<th>마지막 수정일</th>
 				<td><input type="text" name="updateDate"
 					value="${loginedMember.updateDate}" readonly /></td>
 			</tr>
@@ -98,10 +98,33 @@ function submitMemberDataModify(form) {
 
 
 <style>
+
+.con {
+	width:50%;
+}
+.table-box table th {
+	text-align:center;
+	
+}
+
+.table-box {
+	border:5px solid black;
+}
 .btn {
 	padding:0 25px;
 	font-size:1rem;
 }
+
+/* 모바일 버전 */
+
+@media (max-width :1210px)  {
+    .con {
+    	width:80%;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+}
+
 </style>
 
 

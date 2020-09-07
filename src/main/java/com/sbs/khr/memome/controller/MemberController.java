@@ -1,5 +1,7 @@
 package com.sbs.khr.memome.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sbs.khr.memome.dto.Hashtag;
 import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.dto.ResultData;
+import com.sbs.khr.memome.service.HashtagService;
 import com.sbs.khr.memome.service.MemberService;
 import com.sbs.khr.memome.util.Util;
 
@@ -22,6 +26,8 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private HashtagService hashtagService;
 
 	// 회원가입
 	@RequestMapping("/usr/member/join")
@@ -132,6 +138,10 @@ public class MemberController {
 		Member member = memberService.getMemberById(Util.getAsInt(request.getAttribute("loginedMemberId")));
 
 		model.addAttribute("member", member);
+		
+		List<String> hashtags = hashtagService.getForPrintHashtagsById(member.getId());
+		List<String> myhashtags = hashtagService.getHashtagStrForMypagePrint(hashtags);
+		model.addAttribute("myhashtags", myhashtags);
 
 		String checkValid = checkValidAuthCodeResultData(checkPasswordAuthCode, model, member.getId()).trim();
 
@@ -141,6 +151,8 @@ public class MemberController {
 		}
 		return "member/myPage";
 	}
+
+	
 
 	// 개인정보 변경
 	@RequestMapping("/usr/member/modify")

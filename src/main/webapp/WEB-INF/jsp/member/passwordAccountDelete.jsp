@@ -16,7 +16,7 @@
 	<input type="hidden" name="memberId" value="${loginedMemberId}"/>
 	<table>
 		<colgroup>
-			<col width="200" />
+			<col width="80" />
 		</colgroup>
 		<tbody>
 			<tr>
@@ -59,10 +59,32 @@ function submitAccountDeleteForm(form) {
 
 
 <style>
+
+.con {
+	width:50%;
+}
+.table-box table th {
+	text-align:center;
+	
+}
+
+
 .btn {
 	padding:0 25px;
 	font-size:1rem;
 }
+
+
+/* 모바일 버전 */
+
+@media (max-width :1210px)  {
+    .con {
+    	width:80%;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+}
+
 </style>
 
 

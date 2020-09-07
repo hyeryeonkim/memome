@@ -18,7 +18,7 @@
 	
 	<table>
 		<colgroup>
-			<col width="200" />
+			<col width="110" />
 		</colgroup>
 		<tbody>
 			<tr>
@@ -102,6 +102,19 @@ function SubmitPasswordModify(form) {
 
 .table-box {
 	border:5px solid black;
+}
+
+/* 모바일 버전 */
+
+@media (max-width :1210px)  {
+    .con {
+    	width:80%;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+    .btn {
+    
+    }
 }
 </style>
 

@@ -7,7 +7,8 @@
 	<insert id="tagWrite">
 		INSERT INTO hashtag
 		SET regDate = NOW(),
-		updateDate = NOW(),
+		updateDate =
+		NOW(),
 		relTypeCode = #{relTypeCode},
 		relId = #{relId},
 		tag =
@@ -22,7 +23,12 @@
 		= #{tagNo}</if> </set> WHERE id = #{id} </update> -->
 
 
-
+	
+	<select id="getForPrintHashtagsById" resultType="String">
+		SELECT tag
+		FROM hashtag
+		WHERE memberId = #{id}
+	</select>
 	<select id="getForPrintHashtagsByRelId" resultType="String">
 		SELECT tag
 		FROM hashtag
@@ -33,7 +39,7 @@
 		FROM hashtag
 		WHERE relId = #{relId}
 	</select>
-	
+
 
 	<select id="getForPrintHashtags" resultType="Hashtag">
 		SELECT *
@@ -44,13 +50,15 @@
 
 	<select id="getForPrintAllHashtags" resultType="Hashtag">
 		SELECT *
-		FROM hashtag
+		FROM
+		hashtag
 	</select>
 
 
 	<select id="getOriginTagByTagNo" resultType="int">
 		SELECT id
-		FROM hashtag
+		FROM
+		hashtag
 		WHERE tagNo = #{tagNo}
 		AND relId = #{relId}
 	</select>
@@ -65,17 +73,26 @@
 
 	<delete id="delete">
 		DELETE FROM hashtag
-		WHERE  relId = #{relId}
-		AND tag = #{tag}
-		AND  memberId = #{memberId}
+		WHERE relId = #{relId}
+		AND tag =
+		#{tag}
+		AND memberId = #{memberId}
 	</delete>
-	
-	
+
+
 	<delete id="hashtagDelete">
 		DELETE FROM hashtag
 		WHERE relId = #{relId}
-		AND  memberId = #{memberId}
+		AND memberId
+		= #{memberId}
 	</delete>
-
+	
+	
+	<select id="getForPrintHashtagBytag" resultType="int">
+		SELECT COUNT(*) AS
+		cnt
+		FROM hashtag
+		WHERE tag = #{tag}
+	</select>
 
 </mapper>
