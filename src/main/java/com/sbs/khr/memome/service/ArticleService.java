@@ -169,4 +169,8 @@ public class ArticleService {
 	public void memoDelete(Map<String, Object> newParam) {
 			articleDao.memoDelete(newParam);
 	}
+
+	public Article getforprintArticleByRelId(int relId, int memberId) {
+		return articleDao.getForPrintArticleByRelId(relId, memberId);
+	}
 }

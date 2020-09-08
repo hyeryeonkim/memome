@@ -31,4 +31,6 @@ public interface ArticleDao {
 
 	void memoDelete(Map<String, Object> newParam);
 
+	Article getForPrintArticleByRelId(@Param("relId") int relId, @Param("memberId") int memberId);
+
 }

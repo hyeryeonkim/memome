@@ -1,5 +1,6 @@
 package com.sbs.khr.memome.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -186,7 +187,7 @@ public class MemoController {
 	}
 	
 	@RequestMapping("/usr/memo/{boardCode}-memoList")
-	public String showMemoList(@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request) {
+	public String showMemoList(@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request, String searchKeywordType, String searchKeyword) {
 		Board board = memoService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
 		
@@ -194,31 +195,76 @@ public class MemoController {
 		Member member = memberService.getMemberById(loginedMemberId);
 		
 		
-		
-		
 		List<Article> articles = null;
-		
+		List<Hashtag> hashtags = null;
 		
 		if ( boardCode.equals("memoME")) {
 			articles = articleService.getForPrintArticlesByMemberId(loginedMemberId, board.getId());
+			if ( searchKeyword != null && searchKeywordType != null ) {
+				hashtags = makeNewHashtagsForSearch(searchKeyword); 
+				articles = makeNewArticleForSearch(hashtags, member.getId());
+				
+			}
+			
 		}
+		
 		
 		else if ( boardCode.equals("memoYOU")) {
 			articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId);
 		}
+		
+		
 			
 		// memo를 관리할 폴더 관련 코드를 없애서 관련 코드는 사용하지 않음.  검토해서 관련 코드 다 삭제하기.
 		//List<Article> articles = articleService.getForPrintArticlesByMemo();
+		if ( searchKeyword == null && searchKeywordType == null ) {
+			hashtags = hashtagService.getForPrintAllHashtags();
+		}
 		
 		model.addAttribute("articles", articles);
 		model.addAttribute("member", member);
 		
-		
-		List<Hashtag> hashtags = hashtagService.getForPrintAllHashtags();
 		model.addAttribute("hashtags", hashtags);
 
 		return "memo/memoList";
 	}
+
+	private List<Article> makeNewArticleForSearch(List<Hashtag> hashtags, int memberId) {
+		
+		List<Article> newArticles = new ArrayList<>();
+		Article article = null;
+		for ( Hashtag hashtag : hashtags ) {
+			article = articleService.getforprintArticleByRelId(hashtag.getRelId(), memberId);
+			if ( newArticles.contains(article) == false ) {
+				newArticles.add(article);
+			}
+		}
+		return newArticles;
+	}
+
+
+	private List<Hashtag> makeNewHashtagsForSearch(String searchKeyword) {
+		
+		List<Integer> hashtag = hashtagService.getForprintHashtagsRelIdsByTag(searchKeyword);
+		
+		System.out.println("hashtag relId 출력 : " + hashtag);
+		
+		List<Hashtag> newHashtag = new ArrayList<>();
+		
+		for ( int relId : hashtag ) {
+			System.out.println(" relId 출력 : " + relId);
+			
+			List<Hashtag> hashtag2 = hashtagService.getForPrintHashtagSearchByRelId(relId);
+			newHashtag.addAll(hashtag2);
+		}
+		
+		System.out.println("newHashtag  출력 : " + newHashtag);
+		
+		
+		
+		return newHashtag;
+	}
+
 
 	@RequestMapping("/usr/memo/{boardCode}-memoWrite")
 	public String showMemoWrite(@PathVariable("boardCode") String boardCode, Model model) {

@@ -112,6 +112,19 @@
 	AND id = #{id}
 	</update>
 	
+	<select id="getForPrintArticleByRelId" resultMap="article">
+	SELECT A.*,
+	M.nickname AS extra__writer
+	FROM article AS A
+	INNER JOIN member AS M
+	ON A.memberId = M.id  
+	WHERE A.displayStatus = 1
+	AND A.memberId = #{memberId}
+	AND A.delStatus = 0
+	AND A.boardId IN (3, 4)
+	AND A.id = #{relId}
+	ORDER BY A.id DESC 
+	</select>
 	
 	<!-- extra__writer를 사용하기 위해서는 자동 매핑이 되지 않으므로 
 	수동 매핑을 통해서 활용해야 한다.
