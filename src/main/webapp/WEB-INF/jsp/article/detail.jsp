@@ -29,7 +29,7 @@
 			<tr>
 				<th>작성자</th>
 				<td><a
-					href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
+					href="../memo/memberPage-memoList?id=${article.memberId}">${article.extra.writer}</a></td>
 			</tr>
 			<tr>
 				<th>제목</th>
@@ -41,22 +41,23 @@
 			</tr>
 			<c:forEach var="i" begin="1" end="3" step="1">
 				<c:set var="fileNo" value="${String.valueOf(i)}" />
-				<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}" />
+				<c:set var="file"
+					value="${article.extra.file__common__attachment[fileNo]}" />
 				<c:if test="${file != null}">
 					<tr>
 						<th>첨부파일 ${fileNo}</th>
-						<td>
-							<c:if test="${file.fileExtTypeCode == 'video'}">
+						<td><c:if test="${file.fileExtTypeCode == 'video'}">
 								<div class="video-box">
-									<video controls src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+									<video controls
+										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
 								</div>
-							</c:if>
-							<c:if test="${file.fileExtTypeCode == 'img'}">
+							</c:if> <c:if test="${file.fileExtTypeCode == 'img'}">
 								<div class="img-box img-box-auto">
-									<img src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}" alt="" />
+									<img
+										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+										alt="" />
 								</div>
-							</c:if>
-						</td>
+							</c:if></td>
 					</tr>
 				</c:if>
 			</c:forEach>
@@ -70,26 +71,20 @@
 	</table>
 </div>
 
-<c:if test="${fn:contains(boardCode, 'memo') }">
-	<div class="con margin-top-20 margin-bottom-20 button-box">
-		<button type="button" class="btn black"
-			onclick="location.href='../memo/${boardCode}-memoList'">List</button>
-		<button type="button" class="btn black" onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
-	</div>
-</c:if>
-<c:if test="${fn:contains(boardCode, 'memo') == false }">
-	<div class="con margin-top-20 margin-bottom-20">
-		<button type="button" class="btn black"
-			onclick="location.href='../article/${boardCode}-list'">LIST</button>
-	</div>
-</c:if>
+<div class="con margin-top-20 margin-bottom-20 button-box">
+	<button type="button" class="btn black" onclick="history.back();">List</button>
+	<button type="button" class="btn black"
+		onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
+</div>
 <style>
-
 .table-box {
+	
 }
+
 .table-box table th {
 	text-align: center;
 }
+
 .btn {
 	padding: 0 25px;
 	font-size: 1rem;

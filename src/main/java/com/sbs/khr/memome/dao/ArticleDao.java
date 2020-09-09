@@ -33,7 +33,7 @@ public interface ArticleDao {
 
 	Article getForPrintArticleByRelId(@Param("relId") int relId, @Param("memberId") int memberId);
 
-	List<Article> getArticlesContainsTagSearchResultByMemberId(@Param("boardId") int boardId, @Param("memberId") int memberId, @Param("tag") String searchKeyword);
+	List<Article> getArticlesContainsTagSearchResultByMemberId(@Param("memberId") int memberId, @Param("tag") String searchKeyword);
 
 	List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(@Param("memberId") int memberId, @Param("tag") String searchKeyword);
 

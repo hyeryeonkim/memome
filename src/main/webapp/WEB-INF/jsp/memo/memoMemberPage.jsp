@@ -9,17 +9,34 @@
 </h1>
 <div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down">
 	<button type="button" class="btn black"
-		onclick="location.href='../article/${boardCode}-write'">메모 작성</button>
+		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
 </div>
 <div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
 	<button type="button" class="btn black"
-		onclick="location.href='../article/${boardCode}-write'">메모 작성</button>
+		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
 </div>
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
 		onclick="location.href='../memo/${boardCode}-makeMemoCate'">메모
 		폴더 생성</button>
 </div> --%>
+<div class="search con flex flex-jc-fe padding-10-0">
+	<div class="search-box ">
+		<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
+		<form action="../memo/${boardCode}-tagSearchResult" 
+			class="flex">
+		<!-- <input type="hidden" name="page" value="1" /> -->
+			<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
+			<input type="hidden" name="searchKeywordType" value="tag" />
+			<div class="tag-box flex flex-jc-sb">#
+			<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
+					value="${param.searchKeyword}" class="box" />
+				<button type="submit" class="search-button btn black"><i style="font-size:1.2rem;" class="fas fa-search"></i></button>
+			</div>
+		</form>
+	</div>
+</div>
+
 <div class="memo-table-box con flex flex-jc-sb flex-wrap">
 	<c:forEach items="${articles}" var="article">
 		<div class="memo-box  flex flex-jc-sa "
@@ -107,6 +124,22 @@
 <style>
 table {
 	border-collapse: collapse;
+}
+
+
+.search .search-box button {
+	padding: 0 20px;
+}
+
+.search .search-box form .tag-box {
+	padding: 10px 0;
+	width:280px;
+	font-size:1.5rem;
+}
+
+.search .search-box form .tag-box input {
+	padding: 5px;
+	border: 1px solid black;
 }
 
 html>body .memo-table-box .memo-box {

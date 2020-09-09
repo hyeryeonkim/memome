@@ -1,6 +1,5 @@
 package com.sbs.khr.memome.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,21 +45,22 @@ public class MemoController {
 
 	@RequestMapping("/usr/memo/{boardCode}-tagSearchResult")
 	public String showMemoSearchResult(@PathVariable("boardCode") String boardCode, Model model,
-			HttpServletRequest request, String searchKeywordType, String searchKeyword) {
+			HttpServletRequest request, String searchKeywordType, String searchKeyword, Integer id) {
 
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 
-		Member member = memberService.getMemberById(loginedMemberId);
+		Member member = null;
 
 		List<Article> articles = null;
 
 		if (boardCode.equals("memoME")) {
 			if (searchKeyword != null && searchKeywordType != null) {
-				articles = articleService.getArticlesContainsTagSearchResultByMemberId(board.getId(), loginedMemberId,
+				articles = articleService.getArticlesContainsTagSearchResultByMemberId( loginedMemberId,
 						searchKeyword);
+				member = memberService.getMemberById(loginedMemberId);
 			}
 		}
 
@@ -68,8 +68,18 @@ public class MemoController {
 			if (searchKeyword != null && searchKeywordType != null) {
 				articles = articleService.getArticlesContainsTagSearchResultByMemberIdForMemoYou(loginedMemberId,
 						searchKeyword);
+				member = memberService.getMemberById(loginedMemberId);
 			}
 		}
+		
+		if (boardCode.equals("memberPage") && id != null) {
+			if (searchKeyword != null && searchKeywordType != null) {
+				articles = articleService.getArticlesContainsTagSearchResultByMemberId(id, searchKeyword);
+				member = memberService.getMemberById(id);
+			}
+		}
+		
+		
 
 		List<Hashtag> hashtags = hashtagService.getForPrintAllHashtags();
 
@@ -153,13 +163,16 @@ public class MemoController {
 		Board board = articleService.getBoardByCode(boardCode);
 
 		Article article = articleService.getForPrintArticleById(id);
-		System.out.println("article은 무엇?" + article);
 		String hashtags = hashtagService.getForPrintHashtagsByRelId(id);
 
 		String title = article.getTitle();
 		String body = article.getBody();
 		int memberId = (int) request.getAttribute("loginedMemberId");
+		
 		int boardId = board.getId();
+		if ( boardId == 5 ) {
+			boardId = 3;
+		}
 
 		param.put("title", title);
 		param.put("body", body);
@@ -174,8 +187,6 @@ public class MemoController {
 			int newFileId = fileService.saveFile(file.getRelTypeCode(), newArticleId, file.getTypeCode(),
 					file.getType2Code(), file.getFileNo(), file.getOriginFileName(), file.getFileExtTypeCode(),
 					file.getFileExtType2Code(), file.getFileExt(), file.getBody(), file.getFileSize());
-			System.out.println("newArticleId 으악 : " + newFileId);
-			System.out.println("file.getId() 으악 : " + file.getId());
 
 			fileService.updateFork(newFileId, file.getId());
 		}
@@ -189,38 +200,32 @@ public class MemoController {
 		return "home/main";
 	}
 
-	@RequestMapping("/usr/memo/{writer}-memoMemberPage")
-	public String showMemoPage(@PathVariable("writer") String writer, Model model, HttpServletRequest request, int id) {
-
-		Board board = memoService.getBoardByCode("memoYOU");
-		model.addAttribute("board", board);
-
-		List<Article> articles = articleService.getForPrintArticlesByMemberId(id, board.getId());
-		model.addAttribute("articles", articles);
-
-		Member member = memberService.getMemberById(id);
-		model.addAttribute("member", member);
-
-		List<Hashtag> hashtags = hashtagService.getForPrintAllHashtags();
-		model.addAttribute("hashtags", hashtags);
-
-		return "memo/memoMemberPage";
-	}
-
+	
+	// id = 작성자 id
 	@RequestMapping("/usr/memo/{boardCode}-memoList")
-	public String showMemoList(@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request) {
+	public String showMemoList(@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request, Integer id) {
 		Board board = memoService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-		Member member = memberService.getMemberById(loginedMemberId);
+		
 
 		List<Article> articles = null;
-
-		if (boardCode.equals("memoME")) {
-			articles = articleService.getForPrintArticlesByMemberId(loginedMemberId, board.getId());
-		} else if (boardCode.equals("memoYOU")) {
-			articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId);
+		
+		if ( id == null ) {
+			if (boardCode.equals("memoME")) {
+				articles = articleService.getForPrintArticlesByMemberId(loginedMemberId, board.getId());
+			}
+			if (boardCode.equals("memoYOU")) {
+				articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId);
+			}
+			Member member = memberService.getMemberById(loginedMemberId);
+			model.addAttribute("member", member);
+		}
+		if ( boardCode.equals("memberPage")) {
+			articles = articleService.getForPrintArticlesByMemberId(id, board.getId());
+			Member member = memberService.getMemberById(id);
+			model.addAttribute("member", member);
 		}
 
 		// memo를 관리할 폴더 관련 코드를 없애서 관련 코드는 사용하지 않음. 검토해서 관련 코드 다 삭제하기.
@@ -228,46 +233,14 @@ public class MemoController {
 		List<Hashtag> hashtags = hashtagService.getForPrintAllHashtags();
 
 		model.addAttribute("articles", articles);
-		model.addAttribute("member", member);
+		
 
 		model.addAttribute("hashtags", hashtags);
 
 		return "memo/memoList";
 	}
 
-	/*
-	 * private List<Article> makeNewArticleForSearch(List<Hashtag> hashtags, int
-	 * memberId) {
-	 * 
-	 * List<Article> newArticles = new ArrayList<>(); Article article = null; for (
-	 * Hashtag hashtag : hashtags ) { article =
-	 * articleService.getforprintArticleByRelId(hashtag.getRelId(), memberId); if (
-	 * newArticles.contains(article) == false ) { newArticles.add(article); } }
-	 * return newArticles; }
-	 */
 
-	/*
-	 * private List<Hashtag> makeNewHashtagsForSearch(String searchKeyword) {
-	 * 
-	 * List<Integer> hashtag =
-	 * hashtagService.getForprintHashtagsRelIdsByTag(searchKeyword);
-	 * 
-	 * System.out.println("hashtag relId 출력 : " + hashtag);
-	 * 
-	 * List<Hashtag> newHashtag = new ArrayList<>();
-	 * 
-	 * for ( int relId : hashtag ) { System.out.println(" relId 출력 : " + relId);
-	 * 
-	 * List<Hashtag> hashtag2 =
-	 * hashtagService.getForPrintHashtagSearchByRelId(relId);
-	 * newHashtag.addAll(hashtag2); }
-	 * 
-	 * System.out.println("newHashtag  출력 : " + newHashtag);
-	 * 
-	 * 
-	 * 
-	 * return newHashtag; }
-	 */
 
 	@RequestMapping("/usr/memo/{boardCode}-memoWrite")
 	public String showMemoWrite(@PathVariable("boardCode") String boardCode, Model model) {

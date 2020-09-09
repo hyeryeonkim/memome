@@ -28,46 +28,6 @@ public class TestController {
 		return "<h1>TestController 입니다.</h1>";
 	}
 
-	/*
-	 * @RequestMapping("/usr/test2/test2")
-	 * 
-	 * @ResponseBody public String showTest() {
-	 * 
-	 * Calendar cal = Calendar.getInstance();
-	 * 
-	 * cal.setTime(new Date());
-	 * 
-	 * DateFormat current = new SimpleDateFormat("yyyy-MM-dd");
-	 * 
-	 * //String currentStr = current + "";
-	 * 
-	 * 
-	 * 
-	 * //System.out.println("current: " + current.format(cal.getTime()));
-	 * System.out.println("currentStr: " + currentStr);
-	 * 
-	 * cal.add(Calendar.MONTH, 3);
-	 * 
-	 * //String after = current.format(cal.getTime()); //String after =
-	 * "2020-08-28";
-	 * 
-	 * DateFormat after = new SimpleDateFormat(current.format(cal.getTime()));
-	 * 
-	 * String afterStr = after + "";
-	 * 
-	 * System.out.println("after: " + current.format(cal.getTime()));
-	 * 
-	 * System.out.println("afterStr를 출력해봅시다! : " + after);
-	 * 
-	 * if ( currentStr.equals(afterStr)) { System.out.println("3개월이 경과되었습니다!!!!! ");
-	 * }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * return "<h1>TestController 입니다.</h1>"; }
-	 * 
-	 */
 	@RequestMapping("/usr/test3/test3")
 	@ResponseBody
 	public String showTest3() {

@@ -15,6 +15,11 @@
 		<strong style="color: blue">${board.code}</strong> 태그 검색 결과
 	</h1>
 </c:if>
+<c:if test="${board.code eq 'memberPage'}">
+	<h1 class="con">
+		<strong style="color: gold">${board.code}<strong style="color: skyblue">${member.nickname }</strong>  </strong> 태그 검색 결과
+	</h1>
+</c:if>
 
 
 
@@ -38,7 +43,7 @@
 
 <div class="memo-table-box con flex flex-jc-sb flex-wrap">
 	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.memberId == member.id}">
+		<c:if test="${article.memberId == loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
 				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
 				<table>
@@ -109,7 +114,8 @@
 							<th>태그</th>
 							<td><c:forEach items="${hashtags}" var="hashtag">
 									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+										<strong style="font-size: 0.8rem;"><a href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 									</c:if>
 								</c:forEach></td>
 						</tr>
@@ -117,7 +123,7 @@
 				</table>
 			</div>
 		</c:if>
-		<c:if test="${article.memberId != member.id}">
+		<c:if test="${article.memberId != loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
 				onclick="location.href='${article.getDetailLink(board.code)}'">
 				<table>
@@ -188,7 +194,8 @@
 							<th>태그</th>
 							<td><c:forEach items="${hashtags}" var="hashtag">
 									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+										<strong style="font-size: 0.8rem;"><a href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 									</c:if>
 								</c:forEach></td>
 						</tr>

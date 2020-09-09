@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
 import com.sbs.khr.memome.dto.Hashtag;
+import com.sbs.khr.memome.dto.ResultData;
 import com.sbs.khr.memome.service.ArticleService;
 import com.sbs.khr.memome.service.HashtagService;
 import com.sbs.khr.memome.util.Util;
@@ -65,6 +66,13 @@ public class ArticleController {
 	public String doWrite(@RequestParam Map<String, Object> param, Model model,
 			@PathVariable("boardCode") String boardCode, HttpServletRequest request) {
 		
+		ResultData resultData = hashtagService.getChechTagDup(Util.getAsStr(param.get("tag")));
+
+		if (resultData.isFail()) {
+			model.addAttribute("alertMsg", resultData.getMsg());
+			model.addAttribute("historyBack", true);
+			return "common/redirect";
+		}
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 

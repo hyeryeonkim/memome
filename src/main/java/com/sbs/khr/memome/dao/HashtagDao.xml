@@ -95,17 +95,5 @@
 		WHERE tag = #{tag}
 	</select>
 	
-<!-- 	<select id="getForprintHashtagsRelIdsByTag" resultType="Integer">
-		SELECT relId
-		FROM hashtag
-		WHERE tag = #{tag}
-	</select>
-	
-	<select id="getForPrintHashtagSearchByRelId" resultType="Hashtag">
-		SELECT *
-		FROM hashtag
-		WHERE relId = #{relId}
-	</select> -->
-	
 
 </mapper>

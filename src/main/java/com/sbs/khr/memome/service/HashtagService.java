@@ -35,17 +35,10 @@ public class HashtagService {
 			hashtagDao.tagWrite(relId, hashTagBits[i], memberId, relTypeCode);
 		}
 
-		/*
-		 * if ( hashTagBits.length > 2 ) { for ( int i = 3; i <= hashTagBits.length; i++
-		 * ) { hashTagDao.tagUpdate(relId, hashTagBits[i], memberId, relTypeCode); } }
-		 */
 
 		System.out.println("hashTagBits의 길이 : " + hashTagBits.length);
 		System.out.println("hashTagBits 그대로 : " + hashTagBits);
 
-		/*
-		 * for ( int i = 0; i < hashTagBits.length; i++ ) { //hashTagBits[i + 1]. = }
-		 */
 
 	}
 
@@ -107,9 +100,6 @@ public class HashtagService {
 
 		List<String> arr2 = new ArrayList<>();
 
-		/*
-		 * for ( int i = 1; i < arr.length; i++ ) { arr2.add(i-1, arr[i]); }
-		 */
 
 		System.out.println("arr2 : " + arr2);
 
@@ -159,10 +149,6 @@ public class HashtagService {
 		System.out.println("다지웠을때는 newTag.size()는? : " + newTag.size());
 		// System.out.println("다지웠을때는 origintagStr.get(0)? : " + origintagStr.get(0));
 
-		/*
-		 * for (String newTag : tag) { if (origintagStr.contains(newTag) == false) {
-		 * hashtagDao.tagWrite(relId, newTag, memberId, "article"); } }
-		 */
 		if (newTag.size() == 1) {
 			for (int i = 0; i < origintagStr.size(); i++) {
 				System.out.println("다지웠을때는 newTag.size()는? : " + newTag.size());
@@ -178,11 +164,6 @@ public class HashtagService {
 			}
 		}
 
-		/*
-		 * if (newTagStr.length() > origintagStr.size()) { for (int i = 0; i <
-		 * newTagStr.length(); i++) { if (newTagStr.contains(origintagStr.get(i + 1)) ==
-		 * false) { hashtagDao.delete(relId, origintagStr.get(i + 1), memberId); } } }
-		 */
 		if (newTag.size() <= origintagStr.size()) {
 			for (int i = 0; i < origintagStr.size(); i++) {
 				if (newTag.contains(origintagStr.get(i)) == false) {
@@ -194,7 +175,7 @@ public class HashtagService {
 			}
 		}
 
-		if (newTag.size() > origintagStr.size()) {
+		if (newTag.size() >= origintagStr.size()) {
 			for (int i = 0; i < origintagStr.size(); i++) {
 				if (newTag.contains(origintagStr.get(i)) == false) {
 					hashtagDao.delete(relId, origintagStr.get(i), memberId);
@@ -205,41 +186,6 @@ public class HashtagService {
 			}
 		}
 
-		/*
-		 * if (origintagStr.size() > tag.length) { for (String originTag : origintagStr)
-		 * { if (newTagStr.contains(originTag) == false) { hashtagDao.delete(relId,
-		 * originTag, memberId); } } }
-		 */
-		/*
-		 * if (origintagStr.size() == 0) { for (int i = 0; i < tag.length; i++) {
-		 * hashtagDao.tagWrite(relId, tag[i + 1], memberId, "article"); } }
-		 */
-
-		/*
-		 * if (origintagStr.size() > 0) { for (int i = 0; i < tag.length; i++) {
-		 * //System.out.println("tag[" + (i + 1) + "] : " + tag[i + 1]);
-		 * 
-		 * if (newTagStr.contains(origintagStr.get(i)) == false) {
-		 * System.out.println("다르다"); System.out.println("newTagStr : " +
-		 * newTagStr.toString()); System.out.println("tag[ " + i + "] : " + tag[i + 1]);
-		 * hashtagDao.tagWrite(relId, tag[i + 1], memberId, "article"); } } }
-		 */
-
-		/*
-		 * if ( tag.length > origintagStr.size()) { for ( int i = 0; i <
-		 * origintagStr.size(); i++ ) { if ( tag[i].equals(origintagStr.get(i)) ==
-		 * false) { hashtagDao.tagWrite(relId, tag[i], memberId, "article"); } } for (
-		 * int i = origintagStr.size(); i < newTagStr.length(); i++ ) {
-		 * hashtagDao.tagWrite(relId, tag[i], memberId, "article"); } }
-		 */
-
-		/*
-		 * for ( int i = origintagStr.size(); i > newTagStr.length(); i-- ) { if (
-		 * tag[i].equals(origintagStr.get(i)) == false) { hashtagDao.tagWrite(relId,
-		 * tag[i], memberId, "article"); }
-		 * 
-		 * }
-		 */
 
 	}
 
@@ -277,15 +223,6 @@ public class HashtagService {
 		return hashtag;
 	}
 
-
-
-	/*
-	 * public List<Integer> getForprintHashtagsRelIdsByTag(String tag) { return
-	 * hashtagDao.getForprintHashtagsRelIdsByTag(tag); }
-	 * 
-	 * public List<Hashtag> getForPrintHashtagSearchByRelId(int relId) { return
-	 * hashtagDao.getForPrintHashtagSearchByRelId(relId); }
-	 */
 
 
 }

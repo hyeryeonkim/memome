@@ -15,6 +15,11 @@
 		<strong style="color: blue">${board.code}</strong> 나만의 메모장
 	</h1>
 </c:if>
+<c:if test="${board.code eq 'memberPage'}">
+	<h1 class="con">
+		<strong style="color: orange">이웃 <strong style="color: green">MEMO</strong>${member.nickname}</strong>
+	</h1>
+</c:if>
 
 
 
@@ -34,29 +39,50 @@
 <script>
 	
 </script>
-
-<div class="search con flex flex-jc-fe padding-10-0">
-	<div class="search-box ">
-		<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
-		<form action="../memo/${boardCode}-tagSearchResult" 
-			class="flex">
-		<!-- <input type="hidden" name="page" value="1" /> -->
-			<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-			<input type="hidden" name="searchKeywordType" value="tag" />
-			<div class="tag-box flex flex-jc-sb">#
-			<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
-					value="${param.searchKeyword}" class="box" />
-				<button type="submit" class="search-button btn black"><i style="font-size:1.2rem;" class="fas fa-search"></i></button>
-			</div>
-		</form>
+<c:if test="${boardCode eq 'memberPage' == false }">
+	<div class="search con flex flex-jc-fe padding-10-0">
+		<div class="search-box ">
+			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
+			<form action="../memo/${boardCode}-tagSearchResult" class="flex">
+				<!-- <input type="hidden" name="page" value="1" /> -->
+				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
+				<input type="hidden" name="searchKeywordType" value="tag" />
+				<div class="tag-box flex flex-jc-sb">
+					<input type="text" name="searchKeyword" placeholder="검색할 태그를 입력해주세요."
+						value="${param.searchKeyword}" class="box" />
+					<button type="submit" class="search-button btn black">
+						<i style="font-size: 1.2rem;" class="fas fa-search"></i>
+					</button>
+				</div>
+			</form>
+		</div>
 	</div>
-</div>
-
+</c:if>
+<c:if test="${boardCode eq 'memberPage'}">
+	<div class="search con flex flex-jc-fe padding-10-0">
+		<div class="search-box ">
+			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
+			<form action="../memo/${boardCode}-tagSearchResult" class="flex">
+				<!-- <input type="hidden" name="page" value="1" /> -->
+				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
+				<input type="hidden" name="id" value="${param.id}" />
+				<input type="hidden" name="searchKeywordType" value="tag" />
+				<div class="tag-box flex flex-jc-sb">
+					<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
+						value="${param.searchKeyword}" class="box" />
+					<button type="submit" class="search-button btn black">
+						<i style="font-size: 1.2rem;" class="fas fa-search"></i>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</c:if>
 
 
 <div class="memo-table-box con flex flex-jc-sb flex-wrap">
 	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.memberId == member.id}">
+		<c:if test="${article.memberId == loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
 				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
 				<table>
@@ -73,7 +99,7 @@
 						<th>작성일</th>
 						<td>${article.updateDate}</td>
 					</tr> --%>
-						
+
 						<tr class="title">
 							<th>제목</th>
 
@@ -127,7 +153,9 @@
 							<th>태그</th>
 							<td><c:forEach items="${hashtags}" var="hashtag">
 									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+										<strong style="font-size: 0.8rem;"><a
+											href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+												#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 									</c:if>
 								</c:forEach></td>
 						</tr>
@@ -135,7 +163,7 @@
 				</table>
 			</div>
 		</c:if>
-		<c:if test="${article.memberId != member.id}">
+		<c:if test="${article.memberId != loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
 				onclick="location.href='${article.getDetailLink(board.code)}'">
 				<table>
@@ -206,7 +234,9 @@
 							<th>태그</th>
 							<td><c:forEach items="${hashtags}" var="hashtag">
 									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"><a href="#">#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+										<strong style="font-size: 0.8rem;"><a
+											href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+												#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 									</c:if>
 								</c:forEach></td>
 						</tr>
@@ -220,9 +250,8 @@
 
 
 <style>
-
 input[type="submit"] {
-	font-family:FontAwesome;
+	font-family: FontAwesome;
 }
 
 .search .search-box button {
@@ -231,8 +260,8 @@ input[type="submit"] {
 
 .search .search-box form .tag-box {
 	padding: 10px 0;
-	width:280px;
-	font-size:1.5rem;
+	width: 280px;
+	font-size: 1.5rem;
 }
 
 .search .search-box form .tag-box input {
