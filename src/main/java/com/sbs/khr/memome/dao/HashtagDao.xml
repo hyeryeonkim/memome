@@ -16,24 +16,18 @@
 		memberId = #{memberId}
 	</insert>
 
-	<!-- <update id="update"> UPDATE hashtag <set> updateDate = NOW(), <if test="relTypeCode 
-		!= null">relTypeCode = #{relTypeCode},</if> <if test="relId != null">relId 
-		= #{relId},</if> <if test="memberId != null">memberId = #{memberId},</if> 
-		<if test="tag != null">tag = #{tag},</if> <if test="tagNo != null">tagNo 
-		= #{tagNo}</if> </set> WHERE id = #{id} </update> -->
-
-
-	
 	<select id="getForPrintHashtagsById" resultType="String">
 		SELECT tag
 		FROM hashtag
 		WHERE memberId = #{id}
 	</select>
+	
 	<select id="getForPrintHashtagsByRelId" resultType="String">
 		SELECT tag
 		FROM hashtag
 		WHERE relId = #{relId}
 	</select>
+	
 	<select id="getForPrintHashtagsByRelIdStr" resultType="String">
 		SELECT tag
 		FROM hashtag

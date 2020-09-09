@@ -48,8 +48,9 @@
 				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
 				<input type="hidden" name="searchKeywordType" value="tag" />
 				<div class="tag-box flex flex-jc-sb">
-					<input type="text" name="searchKeyword" placeholder="검색할 태그를 입력해주세요."
-						value="${param.searchKeyword}" class="box" />
+					<input type="text" name="searchKeyword"
+						placeholder="검색할 태그를 입력해주세요." value="${param.searchKeyword}"
+						class="box" />
 					<button type="submit" class="search-button btn black">
 						<i style="font-size: 1.2rem;" class="fas fa-search"></i>
 					</button>
@@ -65,8 +66,8 @@
 			<form action="../memo/${boardCode}-tagSearchResult" class="flex">
 				<!-- <input type="hidden" name="page" value="1" /> -->
 				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-				<input type="hidden" name="id" value="${param.id}" />
-				<input type="hidden" name="searchKeywordType" value="tag" />
+				<input type="hidden" name="id" value="${param.id}" /> <input
+					type="hidden" name="searchKeywordType" value="tag" />
 				<div class="tag-box flex flex-jc-sb">
 					<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
 						value="${param.searchKeyword}" class="box" />
@@ -234,9 +235,17 @@
 							<th>태그</th>
 							<td><c:forEach items="${hashtags}" var="hashtag">
 									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"><a
-											href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-												#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+										<strong style="font-size: 0.8rem;"> <c:if
+												test="${board.code eq 'memberPage' }">
+												<a
+													href="../memo/${board.code}-tagSearchResult?id=${member.id}&searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+													#${hashtag.tag}</a>
+											</c:if> <c:if test="${board.code eq 'memberPage' == false }">
+												<a
+													href="../memo/${board.code}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+													#${hashtag.tag}</a>
+											</c:if> &nbsp;&nbsp;&nbsp;&nbsp;
+										</strong>
 									</c:if>
 								</c:forEach></td>
 						</tr>

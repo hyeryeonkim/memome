@@ -17,7 +17,9 @@
 </c:if>
 <c:if test="${board.code eq 'memberPage'}">
 	<h1 class="con">
-		<strong style="color: gold">${board.code}<strong style="color: skyblue">${member.nickname }</strong>  </strong> 태그 검색 결과
+		<strong style="color: gold">이웃 <strong style="color: skyblue">
+				${member.nickname }</strong>
+		</strong> 태그 검색 결과
 	</h1>
 </c:if>
 
@@ -25,11 +27,11 @@
 
 <div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
 	<button type="button" class="btn black"
-		onclick="location.href='../memo/${boardCode}-memoList'">BACK</button>
+		onclick="history.back();">BACK</button>
 </div>
 <div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
 	<button type="button" class="btn black"
-		onclick="location.href='../memo/${boardCode}-memoList'">BACK</button>
+		onclick="history.back();">BACK</button>
 </div>
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
@@ -60,7 +62,7 @@
 						<th>작성일</th>
 						<td>${article.updateDate}</td>
 					</tr> --%>
-						
+
 						<tr class="title">
 							<th>제목</th>
 
@@ -114,8 +116,17 @@
 							<th>태그</th>
 							<td><c:forEach items="${hashtags}" var="hashtag">
 									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"><a href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+										<strong style="font-size: 0.8rem;"> <c:if
+												test="${board.code ne 'memberPage' }">
+												<a
+													href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+													#${hashtag.tag}</a>
+											</c:if> <c:if test="${board.code eq 'memberPage'  }">
+												<a
+													href="../memo/${boardCode}-tagSearchResult?id=${param.id }&searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+													#${hashtag.tag}</a>
+											</c:if> &nbsp;&nbsp;&nbsp;&nbsp;
+										</strong>
 									</c:if>
 								</c:forEach></td>
 						</tr>
@@ -194,8 +205,17 @@
 							<th>태그</th>
 							<td><c:forEach items="${hashtags}" var="hashtag">
 									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"><a href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+										<strong style="font-size: 0.8rem;"> <c:if
+												test="${board.code ne 'memberPage' }">
+												<a
+													href="../memo/${board.code}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+													#${hashtag.tag}</a>
+											</c:if> <c:if test="${board.code eq 'memberPage'  }">
+												<a
+													href="../memo/${board.code}-tagSearchResult?id=${param.id }&searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+													#${hashtag.tag}</a>
+											</c:if> &nbsp;&nbsp;&nbsp;&nbsp;
+										</strong>
 									</c:if>
 								</c:forEach></td>
 						</tr>
@@ -209,9 +229,8 @@
 
 
 <style>
-
 input[type="submit"] {
-	font-family:FontAwesome;
+	font-family: FontAwesome;
 }
 
 .search .search-box button {
@@ -220,8 +239,8 @@ input[type="submit"] {
 
 .search .search-box form .tag-box {
 	padding: 10px 0;
-	width:280px;
-	font-size:1.5rem;
+	width: 280px;
+	font-size: 1.5rem;
 }
 
 .search .search-box form .tag-box input {

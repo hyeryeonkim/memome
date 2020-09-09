@@ -56,7 +56,7 @@ public class MemoController {
 
 		List<Article> articles = null;
 
-		if (boardCode.equals("memoME")) {
+		if (boardCode.equals("memoME") && id == null) {
 			if (searchKeyword != null && searchKeywordType != null) {
 				articles = articleService.getArticlesContainsTagSearchResultByMemberId( loginedMemberId,
 						searchKeyword);
@@ -64,7 +64,7 @@ public class MemoController {
 			}
 		}
 
-		if (boardCode.equals("memoYOU")) {
+		if (boardCode.equals("memoYOU") && id == null) {
 			if (searchKeyword != null && searchKeywordType != null) {
 				articles = articleService.getArticlesContainsTagSearchResultByMemberIdForMemoYou(loginedMemberId,
 						searchKeyword);
