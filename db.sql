@@ -89,6 +89,12 @@ updateDate = NOW(),
 `code` = 'memoyou',
 `name` = '모두의메모';
 
+INSERT INTO `board`
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'memberPage',
+`name` = '회원메모';
+
 
 SELECT *
 FROM `member`;
@@ -174,6 +180,8 @@ SET updateDate = NOW(),
 WHERE id =4;
 
 
+
+
 SELECT *
 FROM `attr`;
 
@@ -218,9 +226,17 @@ FROM memo
 WHERE id= 17;
 
 
+UPDATE FILE A
+JOIN FILE B
+ON A.fileNo = B.fileNo
+SET A.body = B.body
+WHERE A.id = 75
+AND B.id = 71
 
+SELECT *
+FROM `file`;
 
-
+DESC `file`;
 
 SELECT *
 FROM `file`
@@ -229,6 +245,8 @@ WHERE relId = 16;
 DELETE FROM FILE
 WHERE relId = 16;
 
+SELECT *
+FROM attr;
 
 SELECT *
 FROM `board`;
@@ -247,10 +265,35 @@ AND  tagNo= 3
 
 SELECT *
 FROM hashtag
-WHERE relId = 15;
+WHERE relId = 10;
+
+    SELECT A.*,	
+    GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
+    FROM  article AS A
+    INNER JOIN hashtag AS HT2
+    ON A.id = HT2.relId
+    INNER JOIN hashtag AS HT
+    ON A.id = HT.relId
+    WHERE HT.tag = '웁스'
+    AND HT.relTypeCode = 'article'
+    AND A.displayStatus = 1
+    AND A.memberId = 1
+    AND A.delStatus = 0
+    GROUP BY A.id
+    ORDER BY A.id DESC
+    
+    SELECT *
+    FROM article;
+
+SELECT *
+FROM board;
 
 
-TRUNCATE memo;
-TRUNCATE article;
-TRUNCATE `file`;
-TRUNCATE hashtag;
+
+
+
+DESC board;
+
+
+
+
