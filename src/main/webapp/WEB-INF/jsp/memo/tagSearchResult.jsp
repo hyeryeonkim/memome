@@ -7,12 +7,12 @@
 
 <c:if test="${board.code eq 'memoYOU'}">
 	<h1 class="con">
-		<strong style="color: green">${board.code}</strong> 모두의 메모장
+		<strong style="color: green">${board.code}</strong> 태그 검색 결과
 	</h1>
 </c:if>
 <c:if test="${board.code eq 'memoME'}">
 	<h1 class="con">
-		<strong style="color: blue">${board.code}</strong> 나만의 메모장
+		<strong style="color: blue">${board.code}</strong> 태그 검색 결과
 	</h1>
 </c:if>
 
@@ -20,11 +20,11 @@
 
 <div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
 	<button type="button" class="btn black"
-		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
+		onclick="location.href='../memo/${boardCode}-memoList'">BACK</button>
 </div>
 <div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
 	<button type="button" class="btn black"
-		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
+		onclick="location.href='../memo/${boardCode}-memoList'">BACK</button>
 </div>
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
@@ -34,24 +34,6 @@
 <script>
 	
 </script>
-
-<div class="search con flex flex-jc-fe padding-10-0">
-	<div class="search-box ">
-		<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
-		<form action="../memo/${boardCode}-tagSearchResult" 
-			class="flex">
-		<!-- <input type="hidden" name="page" value="1" /> -->
-			<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-			<input type="hidden" name="searchKeywordType" value="tag" />
-			<div class="tag-box flex flex-jc-sb">#
-			<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
-					value="${param.searchKeyword}" class="box" />
-				<button type="submit" class="search-button btn black"><i style="font-size:1.2rem;" class="fas fa-search"></i></button>
-			</div>
-		</form>
-	</div>
-</div>
-
 
 
 <div class="memo-table-box con flex flex-jc-sb flex-wrap">

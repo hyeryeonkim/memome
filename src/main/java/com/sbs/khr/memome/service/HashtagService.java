@@ -279,13 +279,13 @@ public class HashtagService {
 
 
 
-	public List<Integer> getForprintHashtagsRelIdsByTag(String tag) {
-		return hashtagDao.getForprintHashtagsRelIdsByTag(tag);
-	}
-
-	public List<Hashtag> getForPrintHashtagSearchByRelId(int relId) {
-		return hashtagDao.getForPrintHashtagSearchByRelId(relId);
-	}
+	/*
+	 * public List<Integer> getForprintHashtagsRelIdsByTag(String tag) { return
+	 * hashtagDao.getForprintHashtagsRelIdsByTag(tag); }
+	 * 
+	 * public List<Hashtag> getForPrintHashtagSearchByRelId(int relId) { return
+	 * hashtagDao.getForPrintHashtagSearchByRelId(relId); }
+	 */
 
 
 }

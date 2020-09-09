@@ -114,6 +114,10 @@ public class ArticleController {
 		String relTypeCode = "article";
 		List<Hashtag> hashtags = hashtagService.getForPrintHashtags(article.getId(), relTypeCode);
 		model.addAttribute("hashtags", hashtags);
+		
+		
+		
+		
 		return "article/detail";
 	}
 

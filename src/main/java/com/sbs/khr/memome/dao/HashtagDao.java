@@ -33,9 +33,11 @@ public interface HashtagDao {
 
 	Integer getForPrintHashtagBytag(@Param("tag") String tag);
 
-	List<Integer> getForprintHashtagsRelIdsByTag(@Param("tag") String tag);
-
-	List<Hashtag> getForPrintHashtagSearchByRelId(@Param("relId") int relId);
+	/*
+	 * List<Integer> getForprintHashtagsRelIdsByTag(@Param("tag") String tag);
+	 * 
+	 * List<Hashtag> getForPrintHashtagSearchByRelId(@Param("relId") int relId);
+	 */
 
 
 	

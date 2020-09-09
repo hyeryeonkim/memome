@@ -100,27 +100,30 @@ public class ArticleService {
 
 		List<Article> articles = articleDao.getForPrintArticlesByMemberId(memberId, boardId);
 
-		for (Article article : articles) {
-
-			List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
-			Map<String, File> filesMap = new HashMap<>();
-
-			for (File file : files) {
-				filesMap.put(file.getFileNo() + "", file);
-			}
-
-			Util.putExtraVal(article, "file__common__attachment", filesMap);
-
-		}
-		return articles;
+		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
+		
+		
+		return getArticlesPutFiles;
 	}
 
 	// 내가 쓴것과 상관없이 모든 사람의 memo(article)를 불러오는 메서드
 	public List<Article> getForPrintAllArticles(int boardId, int memberId) {
 
 		List<Article> articles = articleDao.getForPrintAllArticles(boardId, memberId);
+		
+		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
 
-		for (Article article : articles) {
+				
+
+		return getArticlesPutFiles;
+	}
+	
+	
+	// articles 를 불러올 때, articleId로 files를 얻어서 extra에 담는 메서드
+	public List<Article> getArticlesPutFiles(List<Article> articlesNotHaveFiles ) {
+		
+		
+		for (Article article : articlesNotHaveFiles) {
 
 			List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
 			Map<String, File> filesMap = new HashMap<>();
@@ -132,13 +135,11 @@ public class ArticleService {
 			Util.putExtraVal(article, "file__common__attachment", filesMap);
 
 		}
-		
-		
-		
 
-		return articles;
+		return articlesNotHaveFiles;
 	}
-
+	
+	
 	public void memoModify(Map<String, Object> param, int memberId) {
 		articleDao.memoModify(param);
 		hashtagService.hashtagModify(param, memberId);
@@ -172,5 +173,17 @@ public class ArticleService {
 
 	public Article getforprintArticleByRelId(int relId, int memberId) {
 		return articleDao.getForPrintArticleByRelId(relId, memberId);
+	}
+	
+	// 태그 검색 결과를 얻어오는 메서드(memoME용) 
+	public List<Article> getArticlesContainsTagSearchResultByMemberId(int boardId, int memberId,
+			String searchKeyword) {
+		return articleDao.getArticlesContainsTagSearchResultByMemberId(boardId, memberId, searchKeyword);
+	}
+	
+	// 태그 검색 결과를 얻어오는 메서드(memoYOU용)
+	public List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(int memberId,
+			String searchKeyword) {
+		return articleDao.getArticlesContainsTagSearchResultByMemberIdForMemoYou(memberId, searchKeyword);
 	}
 }
