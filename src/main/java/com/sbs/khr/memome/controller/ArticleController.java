@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
 import com.sbs.khr.memome.dto.Hashtag;
+import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.dto.ResultData;
 import com.sbs.khr.memome.service.ArticleService;
 import com.sbs.khr.memome.service.HashtagService;
+import com.sbs.khr.memome.service.MemberService;
 import com.sbs.khr.memome.util.Util;
 
 @Controller
@@ -27,11 +29,13 @@ public class ArticleController {
 	private ArticleService articleService;
 	@Autowired
 	private HashtagService hashtagService;
+	@Autowired
+	private MemberService memberService;
 	
 
 	@RequestMapping("/usr/article/{boardCode}-list")
 	public String showList(@RequestParam Map<String, Object> param, Model model,
-			@PathVariable("boardCode") String boardCode) {
+			@PathVariable("boardCode") String boardCode, HttpServletRequest request) {
 
 		Board board = articleService.getBoardByCode(boardCode);
 		System.out.println("나는 무슨 보드? : " + board);
@@ -40,6 +44,14 @@ public class ArticleController {
 		List<Article> articles = articleService.getForPrintArticles(board.getId());
 
 		model.addAttribute("articles", articles);
+		
+		
+		int loginedMemberId = (int)request.getAttribute("loginedMemberId");
+		
+		Member member = memberService.getMemberById(loginedMemberId);
+		
+		model.addAttribute("member", member);
+		
 
 		return "article/list";
 	}
@@ -93,8 +105,14 @@ public class ArticleController {
 		String redirectUri = Util.getAsStr(param.get("redirectUri"));
 		redirectUri = redirectUri.replace("#id", newArticleId + "");
 		
-		// 게시물 작성 후, detail에서 목록으로 이동할 때, boardCode를 uri에서 받지를 못해서 이렇게 uri를 새로 만들어서 넘겨줌..
-		redirectUri = redirectUri.replace("-detail", boardCode + "-detail");
+		if ( boardCode.contains("memo")) {
+			redirectUri = "/usr/memo/" + boardCode + "-memoList";
+		}
+		
+		else {
+			redirectUri = "./" + boardCode + "-list";
+		}
+		
 		
 				
 
@@ -109,11 +127,18 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/{boardCode}-detail")
 	public String showDetail(@RequestParam Map<String, Object> param, HttpServletRequest request, Model model, 
-			@PathVariable("boardCode") String boardCode) {
-
+			@PathVariable("boardCode") String boardCode, String listUrl) {
+		if ( listUrl == null ) {
+			listUrl = "./" + boardCode + "-list";
+		}
+		
+		model.addAttribute("listUrl", listUrl);
+		
 		int id = Util.getAsInt(param.get("id"));
+		
+		Member member = memberService.getMemberById((int)request.getAttribute("loginedMemberId"));
 
-		Article article = articleService.getForPrintArticleById(id);
+		Article article = articleService.getForPrintArticleById(member, id);
 		model.addAttribute("article", article);
 
 		Board board = articleService.getBoardByCode(boardCode);
@@ -127,6 +152,52 @@ public class ArticleController {
 		
 		
 		return "article/detail";
+	}
+	
+	@RequestMapping("/usr/article/{boardCode}-modify")
+	public String showModify(Model model, @RequestParam Map<String, Object> param, HttpServletRequest req, @PathVariable("boardCode") String boardCode, String listUrl) {
+		//model.addAttribute("listUrl", listUrl);
+		
+		Board board = articleService.getBoardByCode(boardCode);
+		model.addAttribute("board", board);
+		
+		int id = Integer.parseInt((String) param.get("id"));
+		
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
+		Article article = articleService.getForPrintArticleById(loginedMember, id);
+
+		model.addAttribute("article", article);
+		
+		
+		String tagBits = hashtagService.getForPrintHashtagsByRelId(id);
+		tagBits.toString();
+		model.addAttribute("tagBits", tagBits);
+
+		return "article/modify";
+	}
+	
+	
+	@RequestMapping("/usr/article/{boardCode}-doModify")
+	public String doMemoModify(@RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCode,
+			Model model, HttpServletRequest request) {
+
+		ResultData resultData = hashtagService.getChechTagDup(Util.getAsStr(param.get("tag")));
+
+		if (resultData.isFail()) {
+			model.addAttribute("alertMsg", resultData.getMsg());
+			model.addAttribute("historyBack", true);
+			return "common/redirect";
+		}
+
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+		Map<String, Object> newParam = Util.getNewMapOf(param, "relTypeCode", "fileIdsStr", "id", "title", "body",
+				"tag");
+		articleService.articleModify(newParam, loginedMemberId);
+
+		String redirectUri = "./" + boardCode+ "-detail?id=" + param.get("id");
+		model.addAttribute("redirectUri", redirectUri);
+
+		return "common/redirect";
 	}
 
 }

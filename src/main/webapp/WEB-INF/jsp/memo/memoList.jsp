@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <c:set var="pageTitle" value="메인" /> --%>
 <%@ include file="../part/head.jspf"%>
+<%@ include file="../part/toastuiEditor.jspf"%>
 
 
 <c:if test="${board.code eq 'memoYOU'}">
@@ -123,27 +124,31 @@
 						</tr>
 						<tr class="body-tr">
 							<th>메모</th>
-							<td><div class="body-box" style="height: 250px;">${article.body}
-									<c:forEach var="i" begin="1" end="3" step="1">
-										<c:set var="fileNo" value="${String.valueOf(i)}" />
-										<c:set var="file"
-											value="${article.extra.file__common__attachment[fileNo]}" />
-										<c:if test="${file != null}">
-											<c:if test="${file.fileExtTypeCode == 'video'}">
-												<div class="video-box">
-													<video controls
-														src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-												</div>
-											</c:if>
-											<c:if test="${file.fileExtTypeCode == 'img'}">
-												<div class="img-box img-box-auto">
-													<img
-														src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-														alt="" />
-												</div>
-											</c:if>
+							<td>
+							<div class=" body-box "  style="height: 250px;">
+							<script type="text/x-template">${article.body}</script>
+								<div class="toast-editor toast-editor-viewer"
+									></div> <%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
+								<c:forEach var="i" begin="1" end="3" step="1">
+									<c:set var="fileNo" value="${String.valueOf(i)}" />
+									<c:set var="file"
+										value="${article.extra.file__common__attachment[fileNo]}" />
+									<c:if test="${file != null}">
+										<c:if test="${file.fileExtTypeCode == 'video'}">
+											<div class="video-box">
+												<video controls
+													src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+											</div>
 										</c:if>
-									</c:forEach>
+										<c:if test="${file.fileExtTypeCode == 'img'}">
+											<div class="img-box img-box-auto">
+												<img
+													src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+													alt="" />
+											</div>
+										</c:if>
+									</c:if>
+								</c:forEach>
 								</div></td>
 						</tr>
 						<tr>
@@ -204,27 +209,31 @@
 						</tr>
 						<tr class="body-tr">
 							<th>메모</th>
-							<td><div class="body-box" style="height: 250px;">${article.body}
-									<c:forEach var="i" begin="1" end="3" step="1">
-										<c:set var="fileNo" value="${String.valueOf(i)}" />
-										<c:set var="file"
-											value="${article.extra.file__common__attachment[fileNo]}" />
-										<c:if test="${file != null}">
-											<c:if test="${file.fileExtTypeCode == 'video'}">
-												<div class="video-box">
-													<video controls
-														src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-												</div>
-											</c:if>
-											<c:if test="${file.fileExtTypeCode == 'img'}">
-												<div class="img-box img-box-auto">
-													<img
-														src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-														alt="" />
-												</div>
-											</c:if>
+							<td>
+							<div class=" body-box "  style="height: 250px;">
+							<script type="text/x-template">${article.body}</script>
+								<div class="toast-editor toast-editor-viewer"
+									></div> <%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
+								<c:forEach var="i" begin="1" end="3" step="1">
+									<c:set var="fileNo" value="${String.valueOf(i)}" />
+									<c:set var="file"
+										value="${article.extra.file__common__attachment[fileNo]}" />
+									<c:if test="${file != null}">
+										<c:if test="${file.fileExtTypeCode == 'video'}">
+											<div class="video-box">
+												<video controls
+													src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+											</div>
 										</c:if>
-									</c:forEach>
+										<c:if test="${file.fileExtTypeCode == 'img'}">
+											<div class="img-box img-box-auto">
+												<img
+													src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+													alt="" />
+											</div>
+										</c:if>
+									</c:if>
+								</c:forEach>
 								</div></td>
 						</tr>
 						<tr>

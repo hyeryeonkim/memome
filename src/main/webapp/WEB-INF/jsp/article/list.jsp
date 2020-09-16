@@ -5,24 +5,41 @@
 <%@ include file="../part/head.jspf"%>
 
 <c:if test="${boardCode eq 'notice' }">
-	<h1 class="con "><strong style="color:orange;">${boardCode}</strong>게시판</h1>
-</c:if>	
+	<h1 class="con ">
+		<strong style="color: orange;">${boardCode}</strong>게시판
+	</h1>
+</c:if>
 <c:if test="${boardCode eq 'free' }">
-	<h1 class="con "><strong style="color:gold;">${boardCode}</strong>게시판</h1>
+	<h1 class="con ">
+		<strong style="color: gold;">${boardCode}</strong>게시판
+	</h1>
 </c:if>
 
 
-
-<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
-	<button type="button" class="btn black  " onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
-</div>
-<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down">
-	<button type="button" class="btn black  " onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
-</div>
+<c:if test="${member.id eq 1 && boardCode eq 'notice' }">
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+		<button type="button" class="btn black  "
+			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
+	</div>
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down">
+		<button type="button" class="btn black  "
+			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
+	</div>
+</c:if>
+<c:if test="${boardCode eq 'notice' == false }">
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+		<button type="button" class="btn black  "
+			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
+	</div>
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down">
+		<button type="button" class="btn black  "
+			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
+	</div>
+</c:if>
 <div class="table-box con margin-top-10">
 	<table>
 		<colgroup>
-			<col class="table-first-col"/>
+			<col class="table-first-col" />
 			<col width="200" />
 		</colgroup>
 		<thead>
@@ -36,13 +53,10 @@
 			<c:forEach items="${articles}" var="article">
 				<tr>
 					<td>${article.id}</td>
-					<td>
-						${article.regDate}
+					<td>${article.regDate}</td>
+					<td><a href="${article.getDetailLink(board.code)}">${article.title}</a>
 					</td>
-					<td>
-					<a href="${article.getDetailLink(board.code)}">${article.title}</a>
-					</td>	
-						<%-- <br />
+					<%-- <br />
 						작성 : ${article.extra.writer} --%>
 				</tr>
 			</c:forEach>

@@ -10,6 +10,37 @@ a {
 }
 
 /* 라이브러리 */
+.break-all {
+	word-break:break-all;
+}
+
+/* 라이브러리 중 토스트에디터 직접 관련된 것 시작 */
+/* 이 작업을 통해서 유튜브 영상 크기가 쫙 꽉차게 변함 */
+.abs-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.relative {
+  position: relative;
+}
+
+.ratio-16-9::after {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+
+.ratio-1-1::after {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+/* 라이브러리 중 토스트에디터 직접 관련된 것 끝 */
+
 .con {
 	margin-left: auto;
 	margin-right: auto;
@@ -287,4 +318,57 @@ a {
     	padding: 5px 20px;
     	font-size:1rem;
     }
+}
+
+
+@media ( max-width :800px ) {
+  .table-box.table-box-vertical>table td {
+    margin-top: 10px;
+  }
+  .table-box.table-box-vertical td>.btn {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    border-radius: 4px;
+  }
+  .table-box.table-box-vertical td>.btn+.btn {
+    margin-top: 10px;
+  }
+  .table-box.table-box-vertical tr {
+    padding-bottom: 20px;
+  }
+  .table-box.table-box-vertical .tr-do>th {
+    display: none !important;
+  }
+}
+
+
+.te-ww-container .tui-editor-contents {
+  padding-left: 10px !important;
+  padding-right: 10px;
+}
+
+.te-md-container .te-preview {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.tui-md-code-block.CodeMirror-linebackground {
+  left: 10px !important;
+  right: 0 !important;
+}
+
+.tui-editor-defaultUI pre.CodeMirror-line {
+  padding-left: 10px !important;
+  padding-right: 0 !important;
+}
+
+.tui-editor-defaultUI pre {
+  word-break: break-all !important;
+  white-space: pre-wrap;
+}
+
+.tui-editor-contents pre {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

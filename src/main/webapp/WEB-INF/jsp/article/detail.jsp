@@ -5,6 +5,7 @@
 <%-- <c:set var="pageTitle" value="게시물 내용" /> --%>
 <c:set var="boardCode" value="${boardCode }" />
 <%@ include file="../part/head.jspf"%>
+<%@ include file="../part/toastuiEditor.jspf"%>
 
 
 <h1 class="con">
@@ -37,7 +38,11 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td>${article.body}</td>
+				<%--<td>${article.body}</td> --%>
+				<td>
+				    <script type="text/x-template">${article.body}</script>
+                    <div class="toast-editor toast-editor-viewer"></div>
+				</td>
 			</tr>
 			<c:forEach var="i" begin="1" end="3" step="1">
 				<c:set var="fileNo" value="${String.valueOf(i)}" />
@@ -72,9 +77,16 @@
 </div>
 
 <div class="con margin-top-20 margin-bottom-20 button-box">
-	<button type="button" class="btn black" onclick="history.back();">List</button>
-	<button type="button" class="btn black"
-		onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
+	<button type="button" class="btn black" onclick="location.href=	'${listUrl}'">List</button>
+	<c:if test="${fn:contains(boardCode, 'memo') }">
+		<button type="button" class="btn black"
+			onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
+	</c:if>
+
+	<c:if test="${fn:contains(boardCode, 'memo') == false && article.extra.memberCanModify}">
+		<button type="button" class="btn black"
+			onclick="location.href='../article/${boardCode}-modify?id=${param.id}'">Modify</button>
+	</c:if>
 </div>
 <style>
 .table-box {

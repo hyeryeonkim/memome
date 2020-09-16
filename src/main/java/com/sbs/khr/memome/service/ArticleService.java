@@ -14,6 +14,7 @@ import com.sbs.khr.memome.dao.MemoDao;
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
 import com.sbs.khr.memome.dto.File;
+import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.util.Util;
 
 @Service
@@ -24,10 +25,10 @@ public class ArticleService {
 
 	@Autowired
 	private FileService fileService;
-	
+
 	@Autowired
 	private HashtagService hashtagService;
-	
+
 	@Autowired
 	private MemoDao memoDao;
 
@@ -55,7 +56,8 @@ public class ArticleService {
 		}
 
 		if (fileIdsStr != null && fileIdsStr.length() > 0) {
-			List<Integer> fileIds = Arrays.asList(fileIdsStr.split(",")).stream().map(s -> Integer.parseInt(s.trim())).collect(Collectors.toList());
+			List<Integer> fileIds = Arrays.asList(fileIdsStr.split(",")).stream().map(s -> Integer.parseInt(s.trim()))
+					.collect(Collectors.toList());
 
 			// 파일이 먼저 생성된 후에, 관련 데이터가 생성되는 경우에는, file의 relId가 일단 0으로 저장된다.
 			// 그것을 뒤늦게라도 이렇게 고처야 한다.
@@ -79,7 +81,6 @@ public class ArticleService {
 
 		Article article = articleDao.getForPrintArticleById(id);
 
-
 		List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
 
 		Map<String, File> filesMap = new HashMap<>();
@@ -101,8 +102,7 @@ public class ArticleService {
 		List<Article> articles = articleDao.getForPrintArticlesByMemberId(memberId, boardId);
 
 		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
-		
-		
+
 		return getArticlesPutFiles;
 	}
 
@@ -110,19 +110,15 @@ public class ArticleService {
 	public List<Article> getForPrintAllArticles(int boardId, int memberId) {
 
 		List<Article> articles = articleDao.getForPrintAllArticles(boardId, memberId);
-		
-		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
 
-				
+		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
 
 		return getArticlesPutFiles;
 	}
-	
-	
+
 	// articles 를 불러올 때, articleId로 files를 얻어서 extra에 담는 메서드
-	public List<Article> getArticlesPutFiles(List<Article> articlesNotHaveFiles ) {
-		
-		
+	public List<Article> getArticlesPutFiles(List<Article> articlesNotHaveFiles) {
+
 		for (Article article : articlesNotHaveFiles) {
 
 			List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
@@ -138,38 +134,78 @@ public class ArticleService {
 
 		return articlesNotHaveFiles;
 	}
-	
-	
+
 	public void memoModify(Map<String, Object> param, int memberId) {
 		articleDao.memoModify(param);
 		hashtagService.hashtagModify(param, memberId);
-		
+
 	}
 
 	public void memoDelete(Map<String, Object> newParam) {
-			articleDao.memoDelete(newParam);
+		articleDao.memoDelete(newParam);
 	}
 
 	public Article getforprintArticleByRelId(int relId, int memberId) {
 		return articleDao.getForPrintArticleByRelId(relId, memberId);
 	}
-	
-	// 태그 검색 결과를 얻어오는 메서드(memoME용) 
+
+	// 태그 검색 결과를 얻어오는 메서드(memoME용)
 	public List<Article> getArticlesContainsTagSearchResultByMemberId(int memberId, String searchKeyword) {
-		
-		List<Article> articles = articleDao.getArticlesContainsTagSearchResultByMemberId(memberId, searchKeyword); 
+
+		List<Article> articles = articleDao.getArticlesContainsTagSearchResultByMemberId(memberId, searchKeyword);
 		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
-		
+
 		return getArticlesPutFiles;
 	}
-	
+
 	// 태그 검색 결과를 얻어오는 메서드(memoYOU용)
-	public List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(int memberId,
-			String searchKeyword) {
-		
-		List<Article> articles = articleDao.getArticlesContainsTagSearchResultByMemberIdForMemoYou(memberId, searchKeyword);
+	public List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(int memberId, String searchKeyword) {
+
+		List<Article> articles = articleDao.getArticlesContainsTagSearchResultByMemberIdForMemoYou(memberId,
+				searchKeyword);
 		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
-		
+
 		return getArticlesPutFiles;
 	}
+
+	public Article getForPrintArticleById(Member member, int id) {
+		Article article = articleDao.getForPrintArticleById(id);
+
+		updateForPrintInfo(member, article);
+
+		List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
+
+		Map<String, File> filesMap = new HashMap<>();
+
+		for (File file : files) {
+			filesMap.put(file.getFileNo() + "", file);
+		}
+
+		Util.putExtraVal(article, "file__common__attachment", filesMap);
+
+		return article;
+	}
+
+	private void updateForPrintInfo(Member member, Article article) {
+		Util.putExtraVal(article, "memberCanDelete", memberCanDelete(member, article));
+		Util.putExtraVal(article, "memberCanModify", memberCanModify(member, article));
+	}
+
+	// 액터가 해당 댓글을 수정할 수 있는지 알려준다.
+	public boolean memberCanModify(Member member, Article article) {
+		return member != null && member.getId() == article.getMemberId() ? true : false;
+	}
+
+	// 액터가 해당 댓글을 삭제할 수 있는지 알려준다.
+	public boolean memberCanDelete(Member member, Article article) {
+		return memberCanModify(member, article);
+	}
+
+	public void articleModify(Map<String, Object> param, int memberId) {
+		articleDao.articleModify(param);
+		hashtagService.hashtagModify(param, memberId);
+
+	}
+
+
 }

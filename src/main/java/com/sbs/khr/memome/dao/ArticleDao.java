@@ -37,4 +37,6 @@ public interface ArticleDao {
 
 	List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(@Param("memberId") int memberId, @Param("tag") String searchKeyword);
 
+	void articleModify(Map<String, Object> param);
+
 }

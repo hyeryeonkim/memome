@@ -23,3 +23,32 @@ function CheckLoginId(str) {
 	var valid3 = /[0-9]/g;
 	return (valid1.test(str) && valid2.test(str) && valid3.test(str));
 };
+
+
+// 토스트 에디터 관련(toast editor)
+function jq_attr($el, attrName, elseValue) {
+	var value = $el.attr(attrName);
+
+	if (value === undefined || value === "") {
+		return elseValue;
+	}
+
+	return value;
+}	
+
+// 토스트 에디터 관련(toast editor)
+function getUriParams(uri) {
+	uri = uri.trim();
+	uri = uri.replaceAll('&amp;', '&');
+	if (uri.indexOf('#') !== -1) {
+		var pos = uri.indexOf('#');
+		uri = uri.substr(0, pos);
+	}
+
+	var params = {};
+
+	uri.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
+		params[key] = value;
+	});
+	return params;
+}

@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <c:set var="pageTitle" value="메인" /> --%>
 <%@ include file="../part/head.jspf"%>
+<%@ include file="../part/toastuiEditor.jspf"%>
+
 <c:if test="${boardCode ne 'memoYOU'  && boardCode ne 'memoME' }">
 <h1 class="con">
 	<strong style="color: red;">${boardCode}</strong>게시판<strong
@@ -17,11 +19,12 @@
 </c:if>
 
 <form method="POST" action="${boardCode}-doWrite"
-	class="form1 table-box con"
+	class="form1 table-box table-box-vertical con"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
 	<input type="hidden" name="fileIdsStr" /> <input type="hidden"
 		name="redirectUri" value="/usr/article/${board.code}-detail?id=#id" />
 	<input type="hidden" name="relTypeCode" value="article" />
+	<input type="hidden" name="body"/>
 	<table>
 	<colgroup>
 		<col width="150"/>
@@ -40,7 +43,20 @@
 				<th>내용</th>
 				<td>
 					<div class="form-control-box">
-						<textarea name="body" placeholder="내용을 입력해주세요." maxlength="2000"></textarea>
+						<script type="text/x-template">
+# 제목
+![img](https://placekitten.com/200/287)
+이미지는 이렇게 씁니다.
+
+# 유투브 동영상 첨부
+
+아래와 같이 첨부할 수 있습니다.
+
+```youtube
+https://www.youtube.com/watch?v=LmgWxezH7cc
+```
+                        </script>
+						<div data-relTypeCode="article" data-relId="0" class="toast-editor input-body"></div>
 					</div>
 				</td>
 			</tr>
@@ -110,13 +126,18 @@
 			return;
 		}
 
-		form.body.value = form.body.value.trim();
-		if (form.body.value.length == 0) {
+		var bodyEditor = $(form).find('.toast-editor.input-body').data('data-toast-editor');
+
+		var body = bodyEditor.getMarkdown().trim();
+
+		if (body.length == 0) {
 			alert('내용을 입력해주세요.');
-			form.body.focus();
+			bodyEditor.focus();
 			return;
 		}
 
+		form.body.value = body;
+		
 		form.tag.value = form.tag.value.trim();
 		form.tag.value = form.tag.value.replaceAll('-', '');
 		form.tag.value = form.tag.value.replaceAll('_', '');
@@ -222,6 +243,10 @@
 			form.file__article__0__common__attachment__1.value = '';
 			form.file__article__0__common__attachment__2.value = '';
 			form.file__article__0__common__attachment__3.value = '';
+
+			if (bodyEditor.inBodyFileIdsStr) {
+				form.fileIdsStr.value += bodyEditor.inBodyFileIdsStr;
+			}
 
 			form.submit();
 

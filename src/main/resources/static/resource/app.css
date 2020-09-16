@@ -9,6 +9,22 @@ html, input, button, h1, h2, h3 {
 	letter-spacing: -.5px;
 }
 
+html,
+input,
+button {
+    letter-spacing: -.5px;
+    word-spacing: 2px;
+    work-break:break-all;
+}
+
+h1,
+h2,
+h3 {
+    letter-spacing: -1px;
+}
+
+
+
 /* 커스텀 */
 .table-first-col {
 	width: 100px;

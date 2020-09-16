@@ -8,7 +8,7 @@
 <c:if test="${boardCode ne 'memoYOU'  && boardCode ne 'memoME' }">
 	<h1 class="con">
 		<strong style="color: red;">${boardCode}</strong>게시판<strong
-			style="color: blue;"> 글쓰기</strong>
+			style="color: blue;"> 수정</strong>
 	</h1>
 </c:if>
 <c:if test="${boardCode eq 'memoYOU' || boardCode eq 'memoME'}">
@@ -18,24 +18,33 @@
 	</h1>
 </c:if>
 
-<form method="POST" action="${boardCode}-doMemoModify"
+<form method="POST" action="${boardCode}-doModify"
 	class="form1 table-box con"
-	onsubmit="ArticleWriteForm__submit(this); return false;">
+	onsubmit="ArticleModifyForm__submit(this); return false;">
 	<input type="hidden" name="relTypeCode" value="article" /> <input
 		type="hidden" name="fileIdsStr" /> <input type="hidden" name="id"
 		value="${param.id}" />
-		<input type="hidden" name="body"/>
+	<input type="hidden" name="body"/>
 	<table>
 		<colgroup>
 			<col width="150" />
 		</colgroup>
 		<tbody>
 			<tr>
-				<th>메모 번호</th>
+				<th>번호</th>
 				<td>
 					<div class="form-control-box">
 						<input type="text" name="id" placeholder="제목을 입력해주세요." readonly
 							autofocus maxlength="200" value="${article.id}" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td>
+					<div class="form-control-box">
+						<input type="text" name="id" placeholder="제목을 입력해주세요." readonly
+							autofocus maxlength="200" value="${article.updateDate}" />
 					</div>
 				</td>
 			</tr>
@@ -50,12 +59,13 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				 <td>
-                    <div class="form-control-box">
-                        <script type="text/x-template">${article.body}</script>
-                        <div data-relTypeCode="article" data-relId="${article.id}" class="toast-editor input-body"></div>
-                    </div>
-                </td>
+				<td>
+					<div class="form-control-box">
+						<script type="text/x-template">${article.body}</script>
+						<div data-relTypeCode="article" data-relId="${article.id}"
+							class="toast-editor input-body"></div>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th>태그(최대 10개)</th>
@@ -70,48 +80,48 @@
 					</div>
 				</td>
 			</tr>
-				<c:forEach var="i" begin="1" end="3" step="1">
-					<c:set var="fileNo" value="${String.valueOf(i)}" />
-					<c:set var="file"
-						value="${article.extra.file__common__attachment[fileNo]}" />
-					<tr>
-						<th>첨부파일 ${fileNo}
-							${appConfig.getAttachmentFileExtTypeDisplayName('article', i)}</th>
-						<td>
-							<div class="form-control-box">
-								<input type="file"
-									accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
-									name="file__article__${article.id}__common__attachment__${fileNo}">
-							</div> <c:if test="${file != null && file.fileExtTypeCode == 'video'}">
-								<div class="video-box">
-									<video controls
-										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}">
-									</video>
-								</div>
-							</c:if> <c:if test="${file != null && file.fileExtTypeCode == 'img'}">
-								<div class="img-box img-box-auto">
-									<img
-										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}">
-								</div>
-							</c:if>
-						</td>
-					</tr>
-					<tr>
-						<th>첨부파일 ${fileNo} 삭제</th>
-						<td>
-							<div class="form-control-box">
-								<label><input type="checkbox"
-									name="deleteFile__article__${article.id}__common__attachment__${fileNo}"
-									value="Y" /> 삭제 </label>
+			<c:forEach var="i" begin="1" end="3" step="1">
+				<c:set var="fileNo" value="${String.valueOf(i)}" />
+				<c:set var="file"
+					value="${article.extra.file__common__attachment[fileNo]}" />
+				<tr>
+					<th>첨부파일 ${fileNo}
+						${appConfig.getAttachmentFileExtTypeDisplayName('article', i)}</th>
+					<td>
+						<div class="form-control-box">
+							<input type="file"
+								accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
+								name="file__article__${article.id}__common__attachment__${fileNo}">
+						</div> <c:if test="${file != null && file.fileExtTypeCode == 'video'}">
+							<div class="video-box">
+								<video controls
+									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}">
+								</video>
 							</div>
-						</td>
-					</tr>
-				</c:forEach>
+						</c:if> <c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+							<div class="img-box img-box-auto">
+								<img
+									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}">
+							</div>
+						</c:if>
+					</td>
+				</tr>
+				<tr>
+					<th>첨부파일 ${fileNo} 삭제</th>
+					<td>
+						<div class="form-control-box">
+							<label><input type="checkbox"
+								name="deleteFile__article__${article.id}__common__attachment__${fileNo}"
+								value="Y" /> 삭제 </label>
+						</div>
+					</td>
+				</tr>
+			</c:forEach>
 			<tr>
-				<th>등록</th>
+				<th>수정</th>
 				<td>
 					<div class="form-control-box">
-						<input type="submit" value="등록" class="btn black" />
+						<input type="submit" value="수정" class="btn black" />
 					</div>
 				</td>
 			</tr>
@@ -119,7 +129,8 @@
 				<th>삭제</th>
 				<td>
 					<div class="form-control-box">
-						<button type="button" class="btn black" onclick="if( confirm('삭제하시겠습니까?') == false ) return false; location.href='/usr/memo/${boardCode}-doDelete?id=${param.id}' ">삭제</button>
+						<button type="button" class="btn black"
+							onclick="if( confirm('삭제하시겠습니까?') == false ) return false; location.href='/usr/memo/${boardCode}-doDelete?id=${param.id}' ">삭제</button>
 					</div>
 				</td>
 			</tr>
@@ -133,19 +144,25 @@
 	/* var tag = "${tagBits}";
 	tag = tag.split('#'); */
 
-	function ArticleWriteForm__submit(form) {
+	function ArticleModifyForm__submit(form) {
 		if (isNowLoading()) {
 			alert('처리중입니다.');
 			return;
 		}
 
-		var fileInput1 = form["file__article__" + param.id + "__common__attachment__1"];
-		var fileInput2 = form["file__article__" + param.id + "__common__attachment__2"];
-		var fileInput3 = form["file__article__" + param.id + "__common__attachment__3"];
+		var fileInput1 = form["file__article__" + param.id
+				+ "__common__attachment__1"];
+		var fileInput2 = form["file__article__" + param.id
+				+ "__common__attachment__2"];
+		var fileInput3 = form["file__article__" + param.id
+				+ "__common__attachment__3"];
 
-		var deleteFileInput1 = form["deleteFile__article__" + param.id + "__common__attachment__1"];
-		var deleteFileInput2 = form["deleteFile__article__" + param.id + "__common__attachment__2"];
-		var deleteFileInput3 = form["deleteFile__article__" + param.id + "__common__attachment__3"];
+		var deleteFileInput1 = form["deleteFile__article__" + param.id
+				+ "__common__attachment__1"];
+		var deleteFileInput2 = form["deleteFile__article__" + param.id
+				+ "__common__attachment__2"];
+		var deleteFileInput3 = form["deleteFile__article__" + param.id
+				+ "__common__attachment__3"];
 
 		if (fileInput1 && deleteFileInput1) {
 			if (deleteFileInput1.checked) {
@@ -175,7 +192,7 @@
 		var bodyEditor = $(form).find('.toast-editor.input-body').data('data-toast-editor');
 
 		var body = bodyEditor.getMarkdown().trim();
-		
+
 		if (body.length == 0) {
 			alert('내용을 입력해주세요.');
 			bodyEditor.focus();
@@ -184,7 +201,6 @@
 
 		form.body.value = body;
 
-		
 		form.tag.value = form.tag.value.trim();
 		form.tag.value = form.tag.value.replaceAll('-', '');
 		form.tag.value = form.tag.value.replaceAll('_', '');
@@ -300,7 +316,6 @@
 			if (bodyEditor.inBodyFileIdsStr) {
 				form.fileIdsStr.value += bodyEditor.inBodyFileIdsStr;
 			}
-
 
 			if (fileInput1) {
 				fileInput1.value = '';

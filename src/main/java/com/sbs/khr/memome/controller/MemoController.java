@@ -128,7 +128,7 @@ public class MemoController {
 		System.out.println("newParam file수정 시작 : " + newParam);
 		articleService.memoModify(newParam, loginedMemberId);
 
-		String redirectUri = "/usr/home/main";
+		String redirectUri = "/usr/memo/" + boardCode + "-memoList";
 		model.addAttribute("redirectUri", redirectUri);
 
 		return "common/redirect";
