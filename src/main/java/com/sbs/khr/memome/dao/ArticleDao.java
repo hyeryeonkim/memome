@@ -17,15 +17,15 @@ public interface ArticleDao {
 
 	Board getBoardByCode(@Param("boardCode") String boardCode);
 
-	List<Article> getForPrintArticles(@Param("id") int id);
+	List<Article> getForPrintArticles(@Param("id") int id, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom);
 
 	Article getForPrintArticleById(@Param("id") int id);
 
 	List<Article> getForPrintArticlesByMemo();
 
-	List<Article> getForPrintArticlesByMemberId(@Param("memberId") int memberId, @Param("boardId") int boardId);
+	List<Article> getForPrintArticlesByMemberId(@Param("memberId") int memberId, @Param("boardId") int boardId, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom);
 
-	List<Article> getForPrintAllArticles(@Param("boardId") int boardId, @Param("memberId") int memberId);
+	List<Article> getForPrintAllArticles(@Param("boardId") int boardId, @Param("memberId") int memberId, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom);
 
 	void memoModify(Map<String, Object> param);
 
@@ -38,5 +38,14 @@ public interface ArticleDao {
 	List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(@Param("memberId") int memberId, @Param("tag") String searchKeyword);
 
 	void articleModify(Map<String, Object> param);
+
+	List<Article> getForPrintArticleContainsTags(@Param("boardId") int boardId, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom, @Param("tag") String searchKeyword);
+
+	int getForPrintListArticlesCount(@Param("boardId") int boardId);
+
+	List<Article> getarticlescontainsTagBoardSearchResult(@Param("tag") String searchKeyword);
+
+	List<Article> getForPrintArticlesSearchCount(@Param("boardId") int boardId, @Param("tag") String searchKeyword);
+
 
 }

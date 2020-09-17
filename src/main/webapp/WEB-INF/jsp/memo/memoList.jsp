@@ -45,9 +45,10 @@
 		<div class="search-box ">
 			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
 			<form action="../memo/${boardCode}-tagSearchResult" class="flex">
-				<!-- <input type="hidden" name="page" value="1" /> -->
+				<input type="hidden" name="page" value="1" />
 				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-				<input type="hidden" name="searchKeywordType" value="tag" />
+				<input type="hidden" name="boardCode" value="${boardCode}" /> <input
+					type="hidden" name="searchKeywordType" value="tag" />
 				<div class="tag-box flex flex-jc-sb">
 					<input type="text" name="searchKeyword"
 						placeholder="검색할 태그를 입력해주세요." value="${param.searchKeyword}"
@@ -125,31 +126,32 @@
 						<tr class="body-tr">
 							<th>메모</th>
 							<td>
-							<div class=" body-box "  style="height: 250px;">
-							<script type="text/x-template">${article.body}</script>
-								<div class="toast-editor toast-editor-viewer"
-									></div> <%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
-								<c:forEach var="i" begin="1" end="3" step="1">
-									<c:set var="fileNo" value="${String.valueOf(i)}" />
-									<c:set var="file"
-										value="${article.extra.file__common__attachment[fileNo]}" />
-									<c:if test="${file != null}">
-										<c:if test="${file.fileExtTypeCode == 'video'}">
-											<div class="video-box">
-												<video controls
-													src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-											</div>
+								<div class=" body-box " style="height: 250px;">
+									<script type="text/x-template">${article.body}</script>
+									<div class="toast-editor toast-editor-viewer"></div>
+									<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
+									<c:forEach var="i" begin="1" end="3" step="1">
+										<c:set var="fileNo" value="${String.valueOf(i)}" />
+										<c:set var="file"
+											value="${article.extra.file__common__attachment[fileNo]}" />
+										<c:if test="${file != null}">
+											<c:if test="${file.fileExtTypeCode == 'video'}">
+												<div class="video-box">
+													<video controls
+														src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+												</div>
+											</c:if>
+											<c:if test="${file.fileExtTypeCode == 'img'}">
+												<div class="img-box img-box-auto">
+													<img
+														src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+														alt="" />
+												</div>
+											</c:if>
 										</c:if>
-										<c:if test="${file.fileExtTypeCode == 'img'}">
-											<div class="img-box img-box-auto">
-												<img
-													src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-													alt="" />
-											</div>
-										</c:if>
-									</c:if>
-								</c:forEach>
-								</div></td>
+									</c:forEach>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th></th>
@@ -210,31 +212,32 @@
 						<tr class="body-tr">
 							<th>메모</th>
 							<td>
-							<div class=" body-box "  style="height: 250px;">
-							<script type="text/x-template">${article.body}</script>
-								<div class="toast-editor toast-editor-viewer"
-									></div> <%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
-								<c:forEach var="i" begin="1" end="3" step="1">
-									<c:set var="fileNo" value="${String.valueOf(i)}" />
-									<c:set var="file"
-										value="${article.extra.file__common__attachment[fileNo]}" />
-									<c:if test="${file != null}">
-										<c:if test="${file.fileExtTypeCode == 'video'}">
-											<div class="video-box">
-												<video controls
-													src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-											</div>
+								<div class=" body-box " style="height: 250px;">
+									<script type="text/x-template">${article.body}</script>
+									<div class="toast-editor toast-editor-viewer"></div>
+									<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
+									<c:forEach var="i" begin="1" end="3" step="1">
+										<c:set var="fileNo" value="${String.valueOf(i)}" />
+										<c:set var="file"
+											value="${article.extra.file__common__attachment[fileNo]}" />
+										<c:if test="${file != null}">
+											<c:if test="${file.fileExtTypeCode == 'video'}">
+												<div class="video-box">
+													<video controls
+														src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+												</div>
+											</c:if>
+											<c:if test="${file.fileExtTypeCode == 'img'}">
+												<div class="img-box img-box-auto">
+													<img
+														src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+														alt="" />
+												</div>
+											</c:if>
 										</c:if>
-										<c:if test="${file.fileExtTypeCode == 'img'}">
-											<div class="img-box img-box-auto">
-												<img
-													src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-													alt="" />
-											</div>
-										</c:if>
-									</c:if>
-								</c:forEach>
-								</div></td>
+									</c:forEach>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th></th>
@@ -264,10 +267,41 @@
 		</c:if>
 	</c:forEach>
 </div>
+<div class="con page-box">
+	<ul class="flex flex-jc-c">
+		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
+		<li class="${i == cPage ? 'current' : ''}"><a
+			href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
+			class="block">${i}</a></li>
+		</c:forEach>
+	</ul>
+</div>
+<div class="con">총 게시물 수 : ${totalCount}</div>
 
 
 
 <style>
+
+
+.page-box>ul>li>a {
+	padding: 0 10px;
+	text-decoration: underline;
+	color: #787878;
+}
+
+.page-box>ul>li:hover>a {
+	color: black;
+}
+
+.page-box>ul>li.current>a {
+	color: red;
+}
+
+
+
+
+
+
 input[type="submit"] {
 	font-family: FontAwesome;
 }

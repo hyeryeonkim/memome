@@ -74,6 +74,7 @@ public class MemoController {
 		
 		if (boardCode.equals("memberPage") && id != null) {
 			if (searchKeyword != null && searchKeywordType != null) {
+				
 				articles = articleService.getArticlesContainsTagSearchResultByMemberId(id, searchKeyword);
 				member = memberService.getMemberById(id);
 			}
@@ -203,27 +204,39 @@ public class MemoController {
 	
 	// id = 작성자 id
 	@RequestMapping("/usr/memo/{boardCode}-memoList")
-	public String showMemoList(@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request, Integer id) {
+	public String showMemoList(@RequestParam Map<String, Object> param,@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request, Integer id) {
 		Board board = memoService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+		
+		int page = 1;
+
+		if (param.get("page") != null) {
+			page = Util.getAsInt(param.get("page"));
+		}
+		
+		String searchKeyword = Util.getAsStr(param.get("searchKeyword"));
+		
+		int itemsInAPage = 6;
+		int limitFrom = (page - 1) * itemsInAPage;
+		int totalCount = articleService.getForPrintListArticlesCount(board.getId()) - 1;
 		
 
 		List<Article> articles = null;
 		
 		if ( id == null ) {
 			if (boardCode.equals("memoME")) {
-				articles = articleService.getForPrintArticlesByMemberId(loginedMemberId, board.getId());
+				articles = articleService.getForPrintArticlesByMemberId(loginedMemberId, board.getId(), itemsInAPage, limitFrom);
 			}
 			if (boardCode.equals("memoYOU")) {
-				articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId);
+				articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId, itemsInAPage, limitFrom);
 			}
 			Member member = memberService.getMemberById(loginedMemberId);
 			model.addAttribute("member", member);
 		}
 		if ( boardCode.equals("memberPage")) {
-			articles = articleService.getForPrintArticlesByMemberId(id, board.getId());
+			articles = articleService.getForPrintArticlesByMemberId(id, board.getId(), itemsInAPage, limitFrom);
 			Member member = memberService.getMemberById(id);
 			model.addAttribute("member", member);
 		}
@@ -236,6 +249,11 @@ public class MemoController {
 		
 
 		model.addAttribute("hashtags", hashtags);
+		
+		int totalPage = (int) Math.ceil(totalCount / (double) itemsInAPage);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("cPage", page);
 
 		return "memo/memoList";
 	}

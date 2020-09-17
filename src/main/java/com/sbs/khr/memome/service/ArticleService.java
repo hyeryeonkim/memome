@@ -73,8 +73,8 @@ public class ArticleService {
 		return articleDao.getBoardByCode(boardCode);
 	}
 
-	public List<Article> getForPrintArticles(int id) {
-		return articleDao.getForPrintArticles(id);
+	public List<Article> getForPrintArticles(int id, int itemsInAPage, int limitFrom) {
+		return articleDao.getForPrintArticles(id, itemsInAPage, limitFrom);
 	}
 
 	public Article getForPrintArticleById(int id) {
@@ -97,9 +97,9 @@ public class ArticleService {
 		return articleDao.getForPrintArticlesByMemo();
 	}
 
-	public List<Article> getForPrintArticlesByMemberId(int memberId, int boardId) {
+	public List<Article> getForPrintArticlesByMemberId(int memberId, int boardId, int itemsInAPage, int limitFrom) {
 
-		List<Article> articles = articleDao.getForPrintArticlesByMemberId(memberId, boardId);
+		List<Article> articles = articleDao.getForPrintArticlesByMemberId(memberId, boardId, itemsInAPage, limitFrom);
 
 		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
 
@@ -107,9 +107,9 @@ public class ArticleService {
 	}
 
 	// 내가 쓴것과 상관없이 모든 사람의 memo(article)를 불러오는 메서드
-	public List<Article> getForPrintAllArticles(int boardId, int memberId) {
+	public List<Article> getForPrintAllArticles(int boardId, int memberId, int itemsInAPage, int limitFrom) {
 
-		List<Article> articles = articleDao.getForPrintAllArticles(boardId, memberId);
+		List<Article> articles = articleDao.getForPrintAllArticles(boardId, memberId, itemsInAPage, limitFrom);
 
 		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
 
@@ -206,6 +206,32 @@ public class ArticleService {
 		hashtagService.hashtagModify(param, memberId);
 
 	}
+
+	public List<Article> getForPrintArticleContainsTags(int boardId, int itemsInAPage, String searchKeyword,
+			int limitFrom) {
+		
+		List<Article> articles = articleDao.getForPrintArticleContainsTags(boardId, itemsInAPage, limitFrom, searchKeyword);
+		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
+
+		return getArticlesPutFiles;
+	}
+
+	public int getForPrintListArticlesCount(int boardId) {
+		return articleDao.getForPrintListArticlesCount(boardId);
+	}
+
+	public List<Article> getarticlescontainsTagBoardSearchResult(String searchKeyword) {
+		List<Article> articles = articleDao.getarticlescontainsTagBoardSearchResult(searchKeyword);
+		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
+
+		return getArticlesPutFiles;
+	}
+
+	public List<Article> getForPrintArticlesSearchCount(int boardId, String searchKeyword) {
+		return articleDao.getForPrintArticlesSearchCount(boardId,searchKeyword);
+	}
+
+
 
 
 }

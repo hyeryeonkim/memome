@@ -13,13 +13,15 @@
 		body = #{body},
 		displayStatus = 1,
 		memberId = #{memberId},
-		boardId = #{boardId}
+		boardId =
+		#{boardId}
 	</insert>
 
 	<select id="getBoardByCode" resultType="Board">
 		SELECT *
 		FROM board
-		WHERE code = #{boardCode}
+		WHERE
+		code = #{boardCode}
 	</select>
 
 
@@ -29,13 +31,20 @@
 		M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN member AS M
-		ON A.memberId = M.id
+		ON
+		A.memberId = M.id
 		WHERE A.displayStatus = 1
 		AND A.delStatus = 0
-		AND A.boardId IN (3, 4)
+		AND
+		A.boardId IN (3, 4)
 		AND A.memberId NOT IN(#{memberId})
 		ORDER BY A.id DESC
+		LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
+
+
+
+
 
 
 	<!-- ON 은 조건을 의미(원하는 값) -->
@@ -44,11 +53,14 @@
 		M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN member AS M
-		ON A.memberId = M.id
+		ON
+		A.memberId = M.id
 		WHERE A.displayStatus = 1
 		AND A.boardId = #{id}
-		AND A.delStatus= 0
+		AND
+		A.delStatus= 0
 		ORDER BY A.id DESC
+		LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
 
 
@@ -58,12 +70,14 @@
 		M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN member AS M
-		ON A.memberId = M.id
+		ON
+		A.memberId = M.id
 		WHERE A.displayStatus = 1
 		AND A.memberId = #{memberId}
 		AND A.delStatus = 0
 		AND A.boardId IN (3, 4)
 		ORDER BY A.id DESC
+		LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
 
 
@@ -74,10 +88,12 @@
 		M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN member AS M
-		ON A.memberId = M.id
+		ON
+		A.memberId = M.id
 		WHERE A.displayStatus = 1
 		AND A.delStatus = 0
-		ORDER BY A.id DESC
+		ORDER BY
+		A.id DESC
 	</select>
 
 
@@ -88,10 +104,12 @@
 		M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN member AS M
-		ON A.memberId = M.id
+		ON
+		A.memberId = M.id
 		WHERE A.displayStatus = 1
 		AND A.id = #{id}
-		AND A.delStatus = 0
+		AND
+		A.delStatus = 0
 	</select>
 
 	<update id="memoModify">
@@ -103,7 +121,7 @@
 		</set>
 		WHERE id = #{id}
 	</update>
-	
+
 	<update id="articleModify">
 		UPDATE article
 		<set>
@@ -118,7 +136,8 @@
 		UPDATE article
 		SET delDate = NOW(),
 		delStatus = 1
-		WHERE memberId = #{memberId}
+		WHERE
+		memberId = #{memberId}
 		AND id = #{id}
 	</update>
 
@@ -127,13 +146,15 @@
 		M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN member AS M
-		ON A.memberId = M.id
+		ON
+		A.memberId = M.id
 		WHERE A.displayStatus = 1
-		AND A.memberId = #{memberId}
+		AND A.memberId = #{memberId},
 		AND A.delStatus = 0
 		AND A.boardId IN (3, 4)
 		AND A.id = #{relId}
-		ORDER BY A.id DESC
+		ORDER BY
+		A.id DESC
 	</select>
 
 	<!-- AND A.boardId = #{boardId} 이거는 뺏음. memoYOU에서 입력하면 boardId를 기억해버려서 불러오는데 
@@ -142,38 +163,102 @@
 		resultMap="article">
 		SELECT A.*,
 		GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
-		FROM article AS A
+		FROM
+		article AS A
 		INNER JOIN hashtag AS HT2
 		ON A.id = HT2.relId
-		INNER JOIN hashtag AS HT
+		INNER JOIN
+		hashtag AS HT
 		ON A.id = HT.relId
 		WHERE HT.tag = #{tag}
-		AND HT.relTypeCode = 'article'
+		AND HT.relTypeCode
+		= 'article'
 		AND A.displayStatus = 1
 		AND A.memberId = #{memberId}
-		AND A.delStatus = 0
+		AND
+		A.delStatus = 0
 		GROUP BY A.id
 		ORDER BY A.id DESC
 	</select>
-	
-	
-	<select id="getArticlesContainsTagSearchResultByMemberIdForMemoYou"	resultMap="article">
+
+
+	<select
+		id="getArticlesContainsTagSearchResultByMemberIdForMemoYou"
+		resultMap="article">
 		SELECT A.*,
 		GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
-		FROM article AS A
+		FROM
+		article AS A
 		INNER JOIN hashtag AS HT2
 		ON A.id = HT2.relId
-		INNER JOIN hashtag AS HT
+		INNER JOIN
+		hashtag AS HT
 		ON A.id = HT.relId
 		WHERE HT.tag = #{tag}
-		AND HT.relTypeCode = 'article'
+		AND HT.relTypeCode
+		= 'article'
 		AND A.displayStatus = 1
 		AND A.memberId NOT IN(#{memberId})
 		AND A.delStatus = 0
 		GROUP BY A.id
 		ORDER BY A.id DESC
 	</select>
+
+	<select id="getForPrintArticleContainsTags" resultMap="article">
+		SELECT A.*,
+		GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
+		FROM
+		article AS A
+		INNER JOIN hashtag AS HT2
+		ON A.id = HT2.relId
+		INNER JOIN
+		hashtag AS HT
+		ON A.id = HT.relId
+		WHERE HT.tag = #{tag}
+		AND HT.relTypeCode
+		= 'article'
+		AND A.displayStatus = 1
+		AND A.delStatus = 0
+		AND A.boardId = #{boardId}
+		GROUP BY A.id
+		ORDER BY A.id DESC
+		LIMIT #{limitFrom}, #{itemsInAPage}
+	</select>
 	
+	
+	<select id="getForPrintArticlesSearchCount" resultMap="article">
+		SELECT A.*,
+		GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
+		FROM
+		article AS A
+		INNER JOIN hashtag AS HT2
+		ON A.id = HT2.relId
+		INNER JOIN
+		hashtag AS HT
+		ON A.id = HT.relId
+		WHERE HT.tag = #{tag}
+		AND HT.relTypeCode
+		= 'article'
+		AND A.displayStatus = 1
+		AND A.delStatus = 0
+		AND A.boardId = #{boardId}
+		GROUP BY A.id
+		ORDER BY A.id DESC
+	</select>
+	
+	
+	
+	
+	<select id="getForPrintListArticlesCount" resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article
+		WHERE displayStatus = 1
+		AND delStatus = 0
+		AND boardId = #{boardId}
+	</select>
+	
+	
+
 
 	<!-- extra__writer를 사용하기 위해서는 자동 매핑이 되지 않으므로 수동 매핑을 통해서 활용해야 한다. 작성자를 extra__writer로 
 		사용하기 때문에 resultMap으로 활용하는 것이다. -->
