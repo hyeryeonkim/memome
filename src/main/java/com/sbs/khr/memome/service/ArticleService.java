@@ -150,19 +150,19 @@ public class ArticleService {
 	}
 
 	// 태그 검색 결과를 얻어오는 메서드(memoME용)
-	public List<Article> getArticlesContainsTagSearchResultByMemberId(int memberId, String searchKeyword) {
+	public List<Article> getArticlesContainsTagSearchResultByMemberId(int memberId, String searchKeyword, int itemsInAPage, int limitFrom) {
 
-		List<Article> articles = articleDao.getArticlesContainsTagSearchResultByMemberId(memberId, searchKeyword);
+		List<Article> articles = articleDao.getArticlesContainsTagSearchResultByMemberId(memberId, searchKeyword, itemsInAPage, limitFrom);
 		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
 
 		return getArticlesPutFiles;
 	}
 
 	// 태그 검색 결과를 얻어오는 메서드(memoYOU용)
-	public List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(int memberId, String searchKeyword) {
+	public List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(int memberId, String searchKeyword, int itemsInAPage, int limitFrom) {
 
 		List<Article> articles = articleDao.getArticlesContainsTagSearchResultByMemberIdForMemoYou(memberId,
-				searchKeyword);
+				searchKeyword, itemsInAPage, limitFrom);
 		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
 
 		return getArticlesPutFiles;
@@ -220,16 +220,44 @@ public class ArticleService {
 		return articleDao.getForPrintListArticlesCount(boardId);
 	}
 
-	public List<Article> getarticlescontainsTagBoardSearchResult(String searchKeyword) {
-		List<Article> articles = articleDao.getarticlescontainsTagBoardSearchResult(searchKeyword);
-		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
-
-		return getArticlesPutFiles;
-	}
+	/*
+	 * public List<Article> getarticlescontainsTagBoardSearchResult(String
+	 * searchKeyword) { List<Article> articles =
+	 * articleDao.getarticlescontainsTagBoardSearchResult(searchKeyword);
+	 * List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
+	 * 
+	 * return getArticlesPutFiles; }
+	 */
 
 	public List<Article> getForPrintArticlesSearchCount(int boardId, String searchKeyword) {
 		return articleDao.getForPrintArticlesSearchCount(boardId,searchKeyword);
 	}
+
+	public int getForPrintMemoMeAndYouListArticlesCount() {
+		return articleDao.getForPrintMemoMeAndYouListArticlesCount();
+	}
+
+	public int getForPrintListArticlesCountFromMemberId(int boardId, int memberId) {
+		return articleDao.getForPrintListArticlesCountFromMemberId(boardId, memberId);
+	}
+
+	public int getForPrintListArticlesCountRemoveMe(int memberId) {
+		return articleDao.getForPrintListArticlesCountRemoveMe(memberId);
+	}
+
+	public List<Article> getForPrintArticlesSearchCountFromMemoYou(int memberId, String searchKeyword) {
+		return articleDao.getForPrintArticlesSearchCountFromMemoYou(memberId, searchKeyword);
+	}
+
+	public int getForPrintArticlesByMemberIdFromBoardId34(int memberId) {
+		return articleDao.getForPrintArticlesByMemberIdFromBoardIdYouAndMe(memberId);
+	}
+
+	// memberId = 사용자 1인 페이지로 이동했을 때, 그 회원의 정보를 찾아오는 메서드
+	public List<Article> getForPrintArticlesSearchCountFromOtherMember(Integer memberId, String searchKeywordType) {
+		return articleDao.getForPrintArticlesSearchCountFromOtherMember(memberId, searchKeywordType);
+	}
+
 
 
 

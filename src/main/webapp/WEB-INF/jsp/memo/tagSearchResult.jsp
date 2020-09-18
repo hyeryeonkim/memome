@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <c:set var="pageTitle" value="메인" /> --%>
 <%@ include file="../part/head.jspf"%>
+<%@ include file="../part/toastuiEditor.jspf"%>
 
 
 <c:if test="${board.code eq 'memoYOU'}">
@@ -25,14 +26,31 @@
 
 
 
-<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
-	<button type="button" class="btn black"
-		onclick="history.back();">BACK</button>
-</div>
-<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
-	<button type="button" class="btn black"
-		onclick="history.back();">BACK</button>
-</div>
+
+<c:if test="${board.code eq 'memberPage' == false }">
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
+		<button type="button" class="btn black"
+			onclick="location.href=	'../memo/${board.code}-memoList'">BACK</button>
+	</div>
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+		<button type="button" class="btn black"
+			onclick="location.href=	'../memo/${board.code}-memoList'">BACK</button>
+	</div>
+</c:if>
+<c:if test="${board.code eq 'memberPage' }">
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
+		<button type="button" class="btn black"
+			onclick="location.href=	'../memo/${board.code}-memoList?id=${param.id }'">BACK</button>
+	</div>
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+		<button type="button" class="btn black"
+			onclick="location.href=	'../memo/${board.code}-memoList?id=${param.id }'">BACK</button>
+	</div>
+</c:if>
+
+
+
+
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
 		onclick="location.href='../memo/${boardCode}-makeMemoCate'">메모
@@ -85,7 +103,11 @@
 						</tr>
 						<tr class="body-tr">
 							<th>메모</th>
-							<td><div class="body-box" style="height: 250px;">${article.body}
+							<td>
+								<div class=" body-box " style="height: 250px;">
+									<script type="text/x-template">${article.body}</script>
+									<div class="toast-editor toast-editor-viewer"></div>
+									<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
 									<c:forEach var="i" begin="1" end="3" step="1">
 										<c:set var="fileNo" value="${String.valueOf(i)}" />
 										<c:set var="file"
@@ -106,7 +128,8 @@
 											</c:if>
 										</c:if>
 									</c:forEach>
-								</div></td>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th></th>
@@ -174,7 +197,11 @@
 						</tr>
 						<tr class="body-tr">
 							<th>메모</th>
-							<td><div class="body-box" style="height: 250px;">${article.body}
+							<td>
+								<div class=" body-box " style="height: 250px;">
+									<script type="text/x-template">${article.body}</script>
+									<div class="toast-editor toast-editor-viewer"></div>
+									<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
 									<c:forEach var="i" begin="1" end="3" step="1">
 										<c:set var="fileNo" value="${String.valueOf(i)}" />
 										<c:set var="file"
@@ -195,7 +222,8 @@
 											</c:if>
 										</c:if>
 									</c:forEach>
-								</div></td>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th></th>
@@ -225,10 +253,34 @@
 		</c:if>
 	</c:forEach>
 </div>
+<div class="con page-box">
+	<ul class="flex flex-jc-c">
+		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
+			<li class="${i == cPage ? 'current' : ''}"><a
+				href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}"
+				class="block">${i}</a></li>
+		</c:forEach>
+	</ul>
+</div>
+<div class="con">총 게시물 수 : ${totalCount}</div>
 
 
 
 <style>
+.page-box>ul>li>a {
+	padding: 0 10px;
+	text-decoration: underline;
+	color: #787878;
+}
+
+.page-box>ul>li:hover>a {
+	color: black;
+}
+
+.page-box>ul>li.current>a {
+	color: red;
+}
+
 input[type="submit"] {
 	font-family: FontAwesome;
 }

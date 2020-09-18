@@ -47,7 +47,7 @@
 			<form action="../memo/${boardCode}-tagSearchResult" class="flex">
 				<input type="hidden" name="page" value="1" />
 				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-				<input type="hidden" name="boardCode" value="${boardCode}" /> <input
+				<input
 					type="hidden" name="searchKeywordType" value="tag" />
 				<div class="tag-box flex flex-jc-sb">
 					<input type="text" name="searchKeyword"
@@ -58,6 +58,9 @@
 					</button>
 				</div>
 			</form>
+			<!-- <script>
+					form.searchKeyword.value = '';
+				</script> -->
 		</div>
 	</div>
 </c:if>
@@ -267,15 +270,32 @@
 		</c:if>
 	</c:forEach>
 </div>
+<c:if test="${boardCode eq 'memberPage' == false }">
 <div class="con page-box">
 	<ul class="flex flex-jc-c">
 		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
-		<li class="${i == cPage ? 'current' : ''}"><a
+		<li class="${i == cPage ? 'current' : ''}">
+	
+		<a
 			href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
 			class="block">${i}</a></li>
 		</c:forEach>
 	</ul>
 </div>
+</c:if>
+<c:if test="${boardCode eq 'memberPage' }">
+<div class="con page-box">
+	<ul class="flex flex-jc-c">
+		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
+		<li class="${i == cPage ? 'current' : ''}">
+	
+		<a
+			href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}"
+			class="block">${i}</a></li>
+		</c:forEach>
+	</ul>
+</div>
+</c:if>
 <div class="con">총 게시물 수 : ${totalCount}</div>
 
 

@@ -49,7 +49,7 @@ public class ArticleController {
 
 		int itemsInAPage = 5;
 		int limitFrom = (page - 1) * itemsInAPage;
-		int totalCount = articleService.getForPrintListArticlesCount(board.getId()) - 1;
+		int totalCount = articleService.getForPrintListArticlesCount(board.getId());
 
 		List<Article> articles = null;
 		
@@ -118,7 +118,11 @@ public class ArticleController {
 		}
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-
+		
+		if ( boardCode.equals("memoYOU")) {
+			boardCode = "memoME";
+		}
+		
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
 		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr");

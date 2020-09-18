@@ -44,43 +44,87 @@ public class MemoController {
 	private FileService fileService;
 
 	@RequestMapping("/usr/memo/{boardCode}-tagSearchResult")
-	public String showMemoSearchResult(@PathVariable("boardCode") String boardCode, Model model,
-			HttpServletRequest request, String searchKeywordType, String searchKeyword, Integer id) {
+	public String showMemoSearchResult(@RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCode, Model model,
+			HttpServletRequest request, Integer id) {
 
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
+		
+		System.out.println("board 코드가 뭔데 : " + board);
 
+		
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-
+		
 		Member member = null;
 
 		List<Article> articles = null;
+		
+		int page = 1;
 
+		if (param.get("page") != null) {
+			page = Util.getAsInt(param.get("page"));
+		}
+		
+		String searchKeyword = Util.getAsStr(param.get("searchKeyword"));
+		String searchKeywordType = Util.getAsStr(param.get("searchKeywordType"));
+		
+		int itemsInAPage = 6;
+		int limitFrom = (page - 1) * itemsInAPage;
+		int totalCount = 0;
+		
+		
+		
 		if (boardCode.equals("memoME") && id == null) {
-			if (searchKeyword != null && searchKeywordType != null) {
+			System.out.println("너는실행되면안돼 ");
+			if (searchKeyword.length() != 0 && searchKeywordType.length() != 0) {
 				articles = articleService.getArticlesContainsTagSearchResultByMemberId( loginedMemberId,
-						searchKeyword);
+						searchKeyword, itemsInAPage, limitFrom);
 				member = memberService.getMemberById(loginedMemberId);
+				List<Article> articles2  = articleService.getForPrintArticlesSearchCount(board.getId(), searchKeyword);
+				totalCount = articles2.size();
+				for ( Article article : articles2 ) {
+					if ( article.getMemberId() == loginedMemberId ) {
+						--totalCount;
+					}
+				}
+				totalCount = articles2.size() - totalCount;
 			}
 		}
+		
+		
+		
 
-		if (boardCode.equals("memoYOU") && id == null) {
-			if (searchKeyword != null && searchKeywordType != null) {
+		if (boardCode.equals("memoYOU") && id == null ) {
+			
+			if (searchKeyword.length() != 0 && searchKeywordType.length() != 0) {
 				articles = articleService.getArticlesContainsTagSearchResultByMemberIdForMemoYou(loginedMemberId,
-						searchKeyword);
+						searchKeyword, itemsInAPage, limitFrom);	
 				member = memberService.getMemberById(loginedMemberId);
+				List<Article> articles2  = articleService.getForPrintArticlesSearchCountFromMemoYou(loginedMemberId, searchKeyword);
+				System.out.println("articles2가잘못됐나" + articles2);
+				totalCount = articles2.size();
 			}
 		}
+		
 		
 		if (boardCode.equals("memberPage") && id != null) {
-			if (searchKeyword != null && searchKeywordType != null) {
-				
-				articles = articleService.getArticlesContainsTagSearchResultByMemberId(id, searchKeyword);
+			
+			if (searchKeyword.length() != 0 && searchKeywordType.length() != 0) {
+				System.out.println("실행은되니??");
+				articles = articleService.getArticlesContainsTagSearchResultByMemberId(id, searchKeyword, itemsInAPage, limitFrom);
 				member = memberService.getMemberById(id);
+				List<Article> articles2  = articleService.getForPrintArticlesSearchCountFromOtherMember(id, searchKeyword);
+				System.out.println("articles2 : " + articles2);
+				totalCount = articles2.size();
 			}
 		}
 		
 		
+		
+		int totalPage = (int) Math.ceil(totalCount / (double) itemsInAPage);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("cPage", page);
 
 		List<Hashtag> hashtags = hashtagService.getForPrintAllHashtags();
 
@@ -202,6 +246,7 @@ public class MemoController {
 	}
 
 	
+	
 	// id = 작성자 id
 	@RequestMapping("/usr/memo/{boardCode}-memoList")
 	public String showMemoList(@RequestParam Map<String, Object> param,@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request, Integer id) {
@@ -216,11 +261,13 @@ public class MemoController {
 			page = Util.getAsInt(param.get("page"));
 		}
 		
-		String searchKeyword = Util.getAsStr(param.get("searchKeyword"));
-		
 		int itemsInAPage = 6;
 		int limitFrom = (page - 1) * itemsInAPage;
-		int totalCount = articleService.getForPrintListArticlesCount(board.getId()) - 1;
+		int totalCount = 0;
+		
+		System.out.println("boardCode한번 보자 : " + boardCode);
+		
+		
 		
 
 		List<Article> articles = null;
@@ -231,15 +278,30 @@ public class MemoController {
 			}
 			if (boardCode.equals("memoYOU")) {
 				articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId, itemsInAPage, limitFrom);
+				totalCount = articleService.getForPrintMemoMeAndYouListArticlesCount();
 			}
+			
 			Member member = memberService.getMemberById(loginedMemberId);
 			model.addAttribute("member", member);
 		}
+		
+		
+		if ( loginedMemberId > 0  && boardCode.equals("memoME")) {
+			 totalCount = articleService.getForPrintListArticlesCountFromMemberId(board.getId(), loginedMemberId);
+		}
+		
+		if ( loginedMemberId > 0  && boardCode.equals("memoYOU")) {
+			 totalCount = articleService.getForPrintListArticlesCountRemoveMe(loginedMemberId);
+		}
+		
+		
 		if ( boardCode.equals("memberPage")) {
 			articles = articleService.getForPrintArticlesByMemberId(id, board.getId(), itemsInAPage, limitFrom);
 			Member member = memberService.getMemberById(id);
 			model.addAttribute("member", member);
+			totalCount = articleService.getForPrintArticlesByMemberIdFromBoardId34(id);
 		}
+		
 
 		// memo를 관리할 폴더 관련 코드를 없애서 관련 코드는 사용하지 않음. 검토해서 관련 코드 다 삭제하기.
 		// List<Article> articles = articleService.getForPrintArticlesByMemo();

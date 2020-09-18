@@ -38,7 +38,8 @@
 		AND
 		A.boardId IN (3, 4)
 		AND A.memberId NOT IN(#{memberId})
-		ORDER BY A.id DESC
+		ORDER BY A.id
+		DESC
 		LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
 
@@ -77,7 +78,8 @@
 		AND A.delStatus = 0
 		AND A.boardId IN (3, 4)
 		ORDER BY A.id DESC
-		LIMIT #{limitFrom}, #{itemsInAPage}
+		LIMIT
+		#{limitFrom}, #{itemsInAPage}
 	</select>
 
 
@@ -149,10 +151,12 @@
 		ON
 		A.memberId = M.id
 		WHERE A.displayStatus = 1
-		AND A.memberId = #{memberId},
+		AND A.memberId =
+		#{memberId},
 		AND A.delStatus = 0
 		AND A.boardId IN (3, 4)
-		AND A.id = #{relId}
+		AND A.id =
+		#{relId}
 		ORDER BY
 		A.id DESC
 	</select>
@@ -177,8 +181,10 @@
 		AND A.memberId = #{memberId}
 		AND
 		A.delStatus = 0
+		AND A.boardId IN (3,4)
 		GROUP BY A.id
 		ORDER BY A.id DESC
+		LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
 
 
@@ -202,62 +208,170 @@
 		AND A.delStatus = 0
 		GROUP BY A.id
 		ORDER BY A.id DESC
+		LIMIT #{limitFrom},
+		#{itemsInAPage}
 	</select>
 
 	<select id="getForPrintArticleContainsTags" resultMap="article">
-		SELECT A.*,
+		SELECT
+		A.*,
 		GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
 		FROM
 		article AS A
-		INNER JOIN hashtag AS HT2
+		INNER
+		JOIN hashtag AS HT2
 		ON A.id = HT2.relId
 		INNER JOIN
 		hashtag AS HT
-		ON A.id = HT.relId
+		ON A.id =
+		HT.relId
 		WHERE HT.tag = #{tag}
 		AND HT.relTypeCode
 		= 'article'
-		AND A.displayStatus = 1
+		AND
+		A.displayStatus = 1
 		AND A.delStatus = 0
 		AND A.boardId = #{boardId}
-		GROUP BY A.id
+		GROUP
+		BY A.id
 		ORDER BY A.id DESC
 		LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
-	
-	
+
+
 	<select id="getForPrintArticlesSearchCount" resultMap="article">
-		SELECT A.*,
+		SELECT
+		A.*,
 		GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
 		FROM
 		article AS A
-		INNER JOIN hashtag AS HT2
+		INNER
+		JOIN hashtag AS HT2
 		ON A.id = HT2.relId
 		INNER JOIN
 		hashtag AS HT
-		ON A.id = HT.relId
+		ON A.id =
+		HT.relId
 		WHERE HT.tag = #{tag}
 		AND HT.relTypeCode
 		= 'article'
-		AND A.displayStatus = 1
+		AND
+		A.displayStatus = 1
 		AND A.delStatus = 0
 		AND A.boardId = #{boardId}
-		GROUP BY A.id
+		GROUP
+		BY A.id
 		ORDER BY A.id DESC
 	</select>
-	
-	
-	
-	
+
+
+
+
 	<select id="getForPrintListArticlesCount" resultType="int">
-		SELECT COUNT(*) AS cnt
+		SELECT
+		COUNT(*) AS cnt
 		FROM article
 		WHERE displayStatus = 1
 		AND delStatus = 0
 		AND boardId = #{boardId}
 	</select>
-	
-	
+
+
+
+
+	<select id="getForPrintMemoMeAndYouListArticlesCount"
+		resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article
+		WHERE displayStatus = 1
+		AND delStatus = 0
+		AND boardId IN (3, 4)
+	</select>
+
+	<select id="getForPrintListArticlesCountFromMemberId"
+		resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article
+		WHERE displayStatus = 1
+		AND delStatus = 0
+		AND boardId = #{boardId}
+		AND memberId = #{memberId}
+	</select>
+
+	<select id="getForPrintListArticlesCountRemoveMe"
+		resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article
+		WHERE displayStatus = 1
+		AND delStatus = 0
+		AND boardId IN (3, 4)
+		AND memberId NOT IN(#{memberId})
+
+	</select>
+
+
+	<select id="getForPrintArticlesSearchCountFromMemoYou"
+		resultMap="article">
+		SELECT A.*,
+		GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
+		FROM
+		article AS A
+		INNER JOIN hashtag AS HT2
+		ON A.id = HT2.relId
+		INNER JOIN
+		hashtag AS HT
+		ON A.id = HT.relId
+		WHERE HT.tag = #{tag}
+		AND HT.relTypeCode
+		= 'article'
+		AND A.displayStatus = 1
+		AND A.delStatus = 0
+		AND A.boardId IN
+		(3, 4)
+		AND A.memberId NOT IN(#{memberId})
+		GROUP BY A.id
+		ORDER BY A.id
+		DESC
+	</select>
+
+
+
+	<select id="getForPrintArticlesSearchCountFromOtherMember"
+		resultMap="article">
+		SELECT A.*,
+		GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr
+		FROM
+		article AS A
+		INNER
+		JOIN hashtag AS HT2
+		ON A.id = HT2.relId
+		INNER JOIN
+		hashtag AS HT
+		ON A.id =
+		HT.relId
+		WHERE HT.tag = #{tag}
+		AND HT.relTypeCode
+		= 'article'
+		AND
+		A.displayStatus = 1
+		AND A.memberId = #{memberId}
+		AND A.delStatus = 0
+		AND
+		A.boardId IN (3,4)
+		GROUP BY A.id
+		ORDER BY A.id DESC
+	</select>
+
+	<select id="getForPrintArticlesByMemberIdFromBoardIdYouAndMe"
+		resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM article
+		WHERE displayStatus = 1
+		AND delStatus = 0
+		AND boardId IN (3, 4)
+		AND memberId = #{memberId}
+
+	</select>
 
 
 	<!-- extra__writer를 사용하기 위해서는 자동 매핑이 되지 않으므로 수동 매핑을 통해서 활용해야 한다. 작성자를 extra__writer로 

@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.sbs.khr.memome.dto.Article;
 import com.sbs.khr.memome.dto.Board;
-import com.sbs.khr.memome.dto.Memo;
 
 @Mapper
 public interface ArticleDao {
@@ -33,9 +32,9 @@ public interface ArticleDao {
 
 	Article getForPrintArticleByRelId(@Param("relId") int relId, @Param("memberId") int memberId);
 
-	List<Article> getArticlesContainsTagSearchResultByMemberId(@Param("memberId") int memberId, @Param("tag") String searchKeyword);
+	List<Article> getArticlesContainsTagSearchResultByMemberId(@Param("memberId") int memberId, @Param("tag") String searchKeyword, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom);
 
-	List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(@Param("memberId") int memberId, @Param("tag") String searchKeyword);
+	List<Article> getArticlesContainsTagSearchResultByMemberIdForMemoYou(@Param("memberId") int memberId, @Param("tag") String searchKeyword, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom);
 
 	void articleModify(Map<String, Object> param);
 
@@ -43,9 +42,23 @@ public interface ArticleDao {
 
 	int getForPrintListArticlesCount(@Param("boardId") int boardId);
 
-	List<Article> getarticlescontainsTagBoardSearchResult(@Param("tag") String searchKeyword);
+	//List<Article> getarticlescontainsTagBoardSearchResult(@Param("tag") String searchKeyword);
 
 	List<Article> getForPrintArticlesSearchCount(@Param("boardId") int boardId, @Param("tag") String searchKeyword);
+
+	int getForPrintMemoMeAndYouListArticlesCount();
+
+	int getForPrintListArticlesCountFromMemberId(@Param("boardId") int boardId, @Param("memberId") int memberId);
+
+	//int getForPrintMemoFromBoardId(@Param("boardId") int boardId);
+
+	int getForPrintListArticlesCountRemoveMe(@Param("memberId") int memberId);
+
+	List<Article> getForPrintArticlesSearchCountFromMemoYou(@Param("memberId") int memberId, @Param("tag") String searchKeyword);
+
+	int getForPrintArticlesByMemberIdFromBoardIdYouAndMe(@Param("memberId") int memberId);
+
+	List<Article> getForPrintArticlesSearchCountFromOtherMember(@Param("memberId") Integer memberId, @Param("tag") String searchKeywordType);
 
 
 }
