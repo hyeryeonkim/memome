@@ -103,6 +103,7 @@ input[type="submit"] {
 	font-family: FontAwesome;
 }
 
+
 .search .search-box button {
 	padding: 0 20px;
 }

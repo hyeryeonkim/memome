@@ -204,9 +204,15 @@ public class MemoController {
 	@RequestMapping("/usr/memo/{boardCode}-fork")
 	public String showFork(@RequestParam Map<String, Object> param, Model model,
 			@PathVariable("boardCode") String boardCode, int id, HttpServletRequest request) {
+		
+		if ( boardCode.equals("memoME") == false) {
+			boardCode = "memoME";
+		}
 
 		Board board = articleService.getBoardByCode(boardCode);
-
+		
+		
+		
 		Article article = articleService.getForPrintArticleById(id);
 		String hashtags = hashtagService.getForPrintHashtagsByRelId(id);
 

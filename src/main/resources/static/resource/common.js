@@ -52,3 +52,10 @@ function getUriParams(uri) {
 	});
 	return params;
 }
+
+// 댓글 수정 관련 
+function getHtmlEncoded(raw) {
+	return raw.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+		return '&#' + i.charCodeAt(0) + ';';
+	});
+}

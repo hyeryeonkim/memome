@@ -298,19 +298,31 @@ a {
 
 
 /* 모바일 버튼 */
-/* mobile 버전 */
+/* PC 버전 */
 @media (min-width :801px) {
     .visible-on-sm-down {
         display: none;
     }
+  
 }
 
-/* pc 버전 */
+/* 모바일(mobile) 버전 */
 @media (max-width :800px) {
     .visible-on-md-up {
         display: none;
     }
+     .mobile {
+    	  display: none;
+    }
+     .add {
+	display:block;
+	}
+	
+	.remove {
+		display:none;
+	}
 }
+
 
 
 @media (max-width :1210px)  {
@@ -319,6 +331,8 @@ a {
     	font-size:1rem;
     }
 }
+
+
 
 
 @media ( max-width :800px ) {
@@ -372,3 +386,4 @@ a {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+

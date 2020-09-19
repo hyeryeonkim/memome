@@ -176,7 +176,7 @@
 		</c:if>
 		<c:if test="${article.memberId != loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
-				onclick="location.href='${article.getDetailLink(board.code)}'">
+				onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }'">
 				<table>
 					<colgroup>
 						<col width="50" />

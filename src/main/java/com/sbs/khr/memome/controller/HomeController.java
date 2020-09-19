@@ -17,4 +17,17 @@ public class HomeController {
 	public String showIndex() {
 		return "redirect:/usr/home/main";
 	}
+	
+	
+	@RequestMapping("/usr/home/mobileMain")
+	public String showMobileMain() {
+		return "home/mobileMain";
+	}
+	
+
+	@RequestMapping("/usr/home/mainTest")
+	public String showIndex2() {
+		return "home/mainTest";
+	}
+	
 }

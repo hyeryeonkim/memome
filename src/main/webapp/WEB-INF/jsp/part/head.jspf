@@ -57,10 +57,10 @@
 <%="<script>"%>
 var param = ${paramJson};
 <%="</script>"%>
-
 </head>
 <body>
-	<div class="loading-box flex-ai-c flex-jc-c">
+	<!--PC버전 -->
+	<div class="loading-box flex-ai-c flex-jc-c visible-on-md-up">
 		<div class="lds-roller">
 			<div></div>
 			<div></div>
@@ -73,7 +73,7 @@ var param = ${paramJson};
 		</div>
 	</div>
 	<div class="outer-box ">
-		<div class="top-bar margin-top-10">
+		<div class="top-bar margin-top-10 visible-on-md-up">
 			<div class="menu-box">
 				<ul>
 					<li><a href="../home/main">홈</a></li>
@@ -109,9 +109,9 @@ var param = ${paramJson};
 				</div>
 			</c:if>
 		</c:if>
-		<c:if test="${pageTitle eq '메인' }">
+		<%-- <c:if test="${pageTitle eq '메인' }">
 			<h1 class="page-title-box con" style="color: red;">${pageTitle}</h1>
-		</c:if>
+		</c:if> --%>
 		<c:if test="${pageTitle eq '비밀번호 확인' }">
 			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
 		</c:if>
@@ -133,3 +133,52 @@ var param = ${paramJson};
 		<c:if test="${pageTitle eq '로그인' }">
 			<h1 class="page-title-box con" style="color: purple;">${pageTitle}</h1>
 		</c:if>
+
+
+		<!--모바일 버전 -->
+		<div class="loading-box flex-ai-c flex-jc-c visible-on-sm-down">
+			<div class="lds-roller">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+
+
+		<div class="outer-box ">
+			<div id="mobile-top-bar"
+				class="top-bar margin-top-10 visible-on-sm-down mobile">
+				<div class="menu-box">
+					<script>
+						setTimeout(function() {
+							jQuery('#mobile-top-bar').addClass('add');
+						});
+					</script>
+					<ul>
+						<li><a href="../home/mobileMain">홈</a></li>
+						<li><a href="../article/notice-list">공지사항</a></li>
+						<li><a href="../article/free-list">자유게시판</a></li>
+						<li><a href="../memo/memoYOU-memoList">memoYOU</a></li>
+						<c:if test="${isLogined }">
+							<li><a href="../memo/memoME-memoList">memoME</a></li>
+						</c:if>
+						<c:if test="${isLogined == false}">
+							<li><a href="../member/join">회원가입</a></li>
+						</c:if>
+						<c:if test="${isLogined == false}">
+							<li><a href="../member/login">로그인</a></li>
+						</c:if>
+						<c:if test="${isLogined}">
+							<li><a
+								href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">회원정보</a></li>
+							<li><a href="../member/logout">로그아웃</a></li>
+						</c:if>
+
+					</ul>
+				</div>
+			</div>
