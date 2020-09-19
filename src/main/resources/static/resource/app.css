@@ -171,3 +171,13 @@ h3 {
     width: 100%;
     background-color: white;
 }
+
+@media (max-width :800px) {
+    .table-first-col {
+        width: 65px;
+    }
+
+    .table-first-col-tight {
+        width: 30px;
+    }
+}

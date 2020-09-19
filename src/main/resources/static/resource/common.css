@@ -100,11 +100,35 @@ a {
 	border: 1px solid red;
 }
 
+
+.img-box.img-box-auto>img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+}
+
+.width-100p {
+  width: 100%;
+}
+
+
+
 .img-box>img, .video-box>video {
-	width: 70%;
+	width: 100%;
+/* 	width: 70%; */
 	display: block;
 	margin-right: auto;
 	margin-left: auto;
+}
+
+.video-box>video {
+  width: 100%;
+  display: block;
+}
+
+.img-box>img, .img-box>svg {
+  width: 100%;
+  display: block;
 }
 
 .table-box table th {
@@ -138,6 +162,15 @@ a {
 .flex-wrap {
 	flex-wrap: wrap;
 }
+
+flex-row-wrap {
+  flex-flow: row wrap;
+}
+
+.flex-1-0-0 {
+  flex: 1 0 0;
+}
+
 
 /* 테이블 관련 */
 .table-box>table {
@@ -335,6 +368,34 @@ a {
 
 
 
+
+
+@media ( max-width :800px ) {
+  .table-box>table>colgroup>col:first-child {
+    width: 100% !important;
+  }
+  .table-box>table>colgroup>col {
+    width: auto !important;
+  }
+  .table-box, .table-box head, .table-box tbody, .table-box tr, .table-box td, .table-box th {
+    display: block;
+  }
+  .table-box tr.flex {
+    display: flex;
+  }
+  .table-box>table th, .table-box>table td {
+    border: 0;
+    padding: 0;
+    text-align: left;
+  }
+  .table-box>table tr {
+    padding-top: 20px;
+  }
+}
+
+
+
+
 @media ( max-width :800px ) {
   .table-box.table-box-vertical>table td {
     margin-top: 10px;
@@ -355,6 +416,36 @@ a {
     display: none !important;
   }
 }
+
+
+
+@media ( max-width :800px ) {
+  .table-box.table-box-data thead, .table-box.table-box-data th, .table-box.table-box-data td {
+    display: none;
+  }
+  .table-box.table-box-data td.visible-on-sm-down {
+    display: block;
+  }
+  .table-box.table-box-data td.visible-on-sm-down {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .table-box.table-box-data td.visible-on-sm-down a {
+    text-decoration: none;
+  }
+  .btn-box>.btn {
+    display: block;
+    width: 100%;
+    margin-left: 0 !important;
+    border-radius: 4px;
+    margin-top: 10px !important;
+  }
+  .btn-box>.btn:first-chid {
+    margin-top: 0 !important;
+  }
+}
+
+
 
 
 .te-ww-container .tui-editor-contents {
