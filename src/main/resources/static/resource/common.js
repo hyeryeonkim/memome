@@ -60,6 +60,7 @@ function getHtmlEncoded(raw) {
 	});
 }
 
+//ios 모바일 접속을 체크하는
 function iOS() {
 	return [ 'iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod' ].includes(navigator.platform)
 	// iPad on iOS 13 detection
