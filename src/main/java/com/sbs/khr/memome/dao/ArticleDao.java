@@ -60,5 +60,8 @@ public interface ArticleDao {
 
 	List<Article> getForPrintArticlesSearchCountFromOtherMember(@Param("memberId") Integer memberId, @Param("tag") String searchKeywordType);
 
+	Board getBoardByBoardId(@Param("boardId") int boardId);
+
+
 
 }

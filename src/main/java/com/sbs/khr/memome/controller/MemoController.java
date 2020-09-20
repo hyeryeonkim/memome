@@ -286,7 +286,6 @@ public class MemoController {
 				articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId, itemsInAPage, limitFrom);
 				totalCount = articleService.getForPrintMemoMeAndYouListArticlesCount();
 			}
-			
 			Member member = memberService.getMemberById(loginedMemberId);
 			model.addAttribute("member", member);
 		}

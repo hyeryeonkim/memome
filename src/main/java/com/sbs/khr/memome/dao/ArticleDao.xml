@@ -23,7 +23,15 @@
 		WHERE
 		code = #{boardCode}
 	</select>
+	
+	<select id="getBoardByBoardId" resultType="Board">
+		SELECT *
+		FROM board
+		WHERE
+		id = #{boardId}
+	</select>
 
+	
 
 	<!-- ON 은 조건을 의미(원하는 값) -->
 	<select id="getForPrintAllArticles" resultMap="article">

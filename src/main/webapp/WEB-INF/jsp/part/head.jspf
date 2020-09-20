@@ -80,9 +80,11 @@ var param = ${paramJson};
 					<li><a href="../article/notice-list">공지사항</a></li>
 					<li><a href="../article/free-list">자유게시판</a></li>
 					<li><a href="../memo/memoYOU-memoList">memoYOU</a></li>
+					
 					<c:if test="${isLogined }">
 						<li><a href="../memo/memoME-memoList">memoME</a></li>
 					</c:if>
+					<li><a href="../memo/unicon-memoList">UNICON</a></li>
 					<c:if test="${isLogined == false}">
 						<li><a href="../member/join">회원가입</a></li>
 					</c:if>
@@ -167,6 +169,7 @@ var param = ${paramJson};
 						<c:if test="${isLogined }">
 							<li><a href="../memo/memoME-memoList">memoME</a></li>
 						</c:if>
+						<li><a href="../memo/unicon-memoList">UNICON</a></li>
 						<c:if test="${isLogined == false}">
 							<li><a href="../member/join">회원가입</a></li>
 						</c:if>

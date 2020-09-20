@@ -6,6 +6,19 @@
 <%@ include file="../part/toastuiEditor.jspf"%>
 
 
+<c:if test="${isLogined == false }">
+	<div class="unicon-intro-box con">
+		<div class="unicon-title">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
+		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
+		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
+		<div class="unicon-login">
+		<button type="button" class="btn black"
+		onclick="location.href='/usr/member/login'">로그인이동</button>			
+		</div>
+	</div>
+</c:if>
+
+
 <c:if test="${board.code eq 'memoYOU'}">
 	<h1 class="con">
 		<strong style="color: green">${board.code}</strong> 모두의 메모장
@@ -23,15 +36,16 @@
 </c:if>
 
 
-
-<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
-	<button type="button" class="btn black"
-		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
-</div>
-<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
-	<button type="button" class="btn black"
-		onclick="location.href='../article/${boardCode}-write'">MEMO</button>
-</div>
+<c:if test="${isLogined}">
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
+		<button type="button" class="btn black"
+			onclick="location.href='../article/${boardCode}-write'">MEMO</button>
+	</div>
+	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+		<button type="button" class="btn black"
+			onclick="location.href='../article/${boardCode}-write'">MEMO</button>
+	</div>
+</c:if>
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
 		onclick="location.href='../memo/${boardCode}-makeMemoCate'">메모
@@ -40,15 +54,14 @@
 <script>
 	
 </script>
-<c:if test="${boardCode eq 'memberPage' == false }">
+<c:if test="${boardCode eq 'memberPage' == false && isLogined}">
 	<div class="search con flex flex-jc-fe padding-10-0">
 		<div class="search-box ">
 			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
 			<form action="../memo/${boardCode}-tagSearchResult" class="flex">
 				<input type="hidden" name="page" value="1" />
 				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-				<input
-					type="hidden" name="searchKeywordType" value="tag" />
+				<input type="hidden" name="searchKeywordType" value="tag" />
 				<div class="tag-box flex flex-jc-sb">
 					<input type="text" name="searchKeyword"
 						placeholder="검색할 태그를 입력해주세요." value="${param.searchKeyword}"
@@ -64,7 +77,8 @@
 		</div>
 	</div>
 </c:if>
-<c:if test="${boardCode eq 'memberPage'}">
+
+<c:if test="${boardCode eq 'memberPage' && isLogined}">
 	<div class="search con flex flex-jc-fe padding-10-0">
 		<div class="search-box ">
 			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
@@ -84,6 +98,10 @@
 		</div>
 	</div>
 </c:if>
+
+
+
+
 
 
 <div class="memo-table-box con flex flex-jc-sb flex-wrap">
@@ -270,38 +288,65 @@
 		</c:if>
 	</c:forEach>
 </div>
-<c:if test="${boardCode eq 'memberPage' == false }">
-<div class="con page-box">
-	<ul class="flex flex-jc-c">
-		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
-		<li class="${i == cPage ? 'current' : ''}">
-	
-		<a
-			href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
-			class="block">${i}</a></li>
-		</c:forEach>
-	</ul>
-</div>
-</c:if>
-<c:if test="${boardCode eq 'memberPage' }">
-<div class="con page-box">
-	<ul class="flex flex-jc-c">
-		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
-		<li class="${i == cPage ? 'current' : ''}">
-	
-		<a
-			href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}"
-			class="block">${i}</a></li>
-		</c:forEach>
-	</ul>
-</div>
-</c:if>
-<div class="con">총 게시물 수 : ${totalCount}</div>
+<c:if test="${isLogined}">
+	<c:if test="${boardCode eq 'memberPage' == false }">
+		<div class="con page-box">
+			<ul class="flex flex-jc-c">
+				<c:forEach var="i" begin="1" end="${totalPage}" step="1">
+					<li class="${i == cPage ? 'current' : ''}"><a
+						href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
+						class="block">${i}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
+	</c:if>
+	<c:if test="${boardCode eq 'memberPage' }">
+		<div class="con page-box">
+			<ul class="flex flex-jc-c">
+				<c:forEach var="i" begin="1" end="${totalPage}" step="1">
+					<li class="${i == cPage ? 'current' : ''}"><a
+						href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}"
+						class="block">${i}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
+	</c:if>
 
+	<div class="con">총 게시물 수 : ${totalCount}</div>
+</c:if>
 
 
 <style>
+.unicon-intro-box {
+	margin-top: 100px;
+	text-align: center;
+	text-align: center;
+}
 
+.unicon-intro-box .unicon-title {
+	font-size:2.4rem;
+	font-weight:bold;
+}
+
+.unicon-intro-box .unicon-serve-title {
+	margin-top:50px;
+	font-size:1.7rem;
+	font-weight:bold;
+}
+
+.unicon-intro-box .unicon-serve-title2 {
+	margin-top:50px;
+	font-size:1.3rem;
+	font-weight:bold;
+}
+
+.unicon-intro-box .unicon-login {
+	margin-top:100px;
+	}
+
+.unicon-intro-box .unicon-login .btn {
+	width:300px;
+}
 
 .page-box>ul>li>a {
 	padding: 0 10px;
@@ -316,11 +361,6 @@
 .page-box>ul>li.current>a {
 	color: red;
 }
-
-
-
-
-
 
 input[type="submit"] {
 	font-family: FontAwesome;

@@ -311,3 +311,10 @@ CREATE TABLE reply (
     relTypeCode CHAR(50) NOT NULL
 );
 
+
+
+INSERT INTO `board`
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'unicon',
+`name` = '유니콘';

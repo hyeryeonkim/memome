@@ -109,6 +109,7 @@ public class ArticleController {
 	public String doWrite(@RequestParam Map<String, Object> param, Model model,
 			@PathVariable("boardCode") String boardCode, HttpServletRequest request) {
 
+		
 		ResultData resultData = hashtagService.getChechTagDup(Util.getAsStr(param.get("tag")));
 
 		if (resultData.isFail()) {
@@ -123,15 +124,21 @@ public class ArticleController {
 			boardCode = "memoME";
 		}
 		
+		
+		
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
-		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr");
+		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr", "invite1", "invite2", "invite3", "invite4"
+				,"invite5", "invite6", "invite7", "invite8", "invite9", "invite10", "invite11", "invite12");
+		
+		System.out.println("초대하기 input test : " + newParam);
 
 		newParam.put("boardId", board.getId());
 		newParam.put("memberId", loginedMemberId);
-
+		
 		int newArticleId = articleService.write(newParam);
-
+		
+		
 		String tag = Util.getAsStr(param.get("tag"));
 		String relTypeCode = Util.getAsStr(param.get("relTypeCode"));
 		hashtagService.tagWrite(newArticleId, tag, loginedMemberId, relTypeCode);
