@@ -60,8 +60,9 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
+				
 			</c:if>
+			<tr>
 			<th>제목</th>
 			<td>
 				<div class="form-control-box">
@@ -132,121 +133,10 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 
 
 <script>
-	/* 	for (var a = 1; a <= 12; a++) {
-	 var $input__invite = $('.input-invite' + a);
-	 $(document).ready(function() {
-	 $input__invite.keydown(function(key) {
-	 if (key.keyCode == 13) {
-	
-	 alert(a);
-	 input__invite.next().addClass('block');
-	 }
-	 });
-	 });
-	 } */
 
 	function ArticleWriteForm__submit(form) {
 		if (isNowLoading()) {
 			alert('처리중입니다.');
-			return;
-		}
-
-		//1번
-		form.invite1.value = form.invite1.value.trim();
-
-		if (form.invite1.value.length > 0) {
-			$(form.invite2).addClass('block');
-			form.invite2.focus();
-		}
-
-		//2번
-		form.invite2.value = form.invite2.value.trim();
-
-		if (form.invite2.value.length > 0) {
-			$(form.invite3).addClass('block');
-			form.invite3.focus();
-		}
-
-		//3번
-		form.invite3.value = form.invite3.value.trim();
-
-		if (form.invite3.value.length > 0) {
-			$(form.invite4).addClass('block');
-			form.invite4.focus();
-		}
-
-		//4번
-		form.invite4.value = form.invite4.value.trim();
-
-		if (form.invite4.value.length > 0) {
-			$(form.invite5).addClass('block');
-			form.invite5.focus();
-		}
-
-		//5번
-		form.invite5.value = form.invite5.value.trim();
-
-		if (form.invite5.value.length > 0) {
-			$(form.invite6).addClass('block');
-			form.invite6.focus();
-		}
-
-		//6번
-		form.invite6.value = form.invite6.value.trim();
-
-		if (form.invite6.value.length > 0) {
-			$(form.invite7).addClass('block');
-			form.invite7.focus();
-		}
-
-		//7번
-		form.invite7.value = form.invite7.value.trim();
-
-		if (form.invite7.value.length > 0) {
-			$(form.invite8).addClass('block');
-			form.invite8.focus();
-		}
-
-		//8번
-		form.invite8.value = form.invite8.value.trim();
-
-		if (form.invite8.value.length > 0) {
-			$(form.invite9).addClass('block');
-			form.invite9.focus();
-		}
-
-		//9번
-		form.invite9.value = form.invite9.value.trim();
-
-		if (form.invite9.value.length > 0) {
-			$(form.invite10).addClass('block');
-			form.invite10.focus();
-		}
-
-		//10번
-		form.invite10.value = form.invite10.value.trim();
-
-		if (form.invite10.value.length > 0) {
-			$(form.invite11).addClass('block');
-			form.invite11.focus();
-		}
-
-		//11번
-		form.invite11.value = form.invite11.value.trim();
-
-		if (form.invite11.value.length > 0) {
-			$(form.invite12).addClass('block');
-			form.invite12.focus();
-		}
-
-		//12번
-		form.invite12.value = form.invite12.value.trim();
-
-		form.title.value = form.title.value.trim();
-		if (form.title.value.length == 0) {
-			//alert('제목을 입력해주세요.');
-			$(form.title).addClass('border-red-3');
-			form.title.focus();
 			return;
 		}
 
@@ -381,6 +271,20 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 		 실행순서 1번의 var startUploadFiles = ~~~ { 이게 실행된다. ! }
 		 */
 	}
+
+
+	
+	function ArticleWriteForm__init() {
+		$('form input[type="email"][name^="invite"]').click(function() {
+			$(this).next().addClass('block');
+		});
+	}
+
+	ArticleWriteForm__init();
+
+
+	
+	
 </script>
 
 <style>

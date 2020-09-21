@@ -120,7 +120,7 @@ public class ArticleController {
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 		
-		if ( boardCode.equals("memoYOU")) {
+		if ( boardCode.equals("memoYOU") ) {
 			boardCode = "memoME";
 		}
 		
@@ -128,10 +128,11 @@ public class ArticleController {
 		
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
+		
 		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr", "invite1", "invite2", "invite3", "invite4"
 				,"invite5", "invite6", "invite7", "invite8", "invite9", "invite10", "invite11", "invite12");
 		
-		System.out.println("초대하기 input test : " + newParam);
+		System.out.println("body!!!"  + Util.getAsStr(newParam.get("body")));
 
 		newParam.put("boardId", board.getId());
 		newParam.put("memberId", loginedMemberId);
@@ -145,8 +146,12 @@ public class ArticleController {
 
 		String redirectUri = Util.getAsStr(param.get("redirectUri"));
 		redirectUri = redirectUri.replace("#id", newArticleId + "");
+		
+		if ( boardCode.contains("memberPage")) {
+			redirectUri = "/usr/memo/memoME-memoList";
+		}
 
-		if (boardCode.contains("memo")) {
+		if (boardCode.contains("memo") || boardCode.contains("unicon")) {
 			redirectUri = "/usr/memo/" + boardCode + "-memoList";
 		}
 

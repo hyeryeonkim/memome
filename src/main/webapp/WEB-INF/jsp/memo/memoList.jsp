@@ -6,7 +6,7 @@
 <%@ include file="../part/toastuiEditor.jspf"%>
 
 
-<c:if test="${isLogined == false }">
+<c:if test="${isLogined == false && board.code eq 'unicon'}">
 	<div class="unicon-intro-box con">
 		<div class="unicon-title">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
 		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>

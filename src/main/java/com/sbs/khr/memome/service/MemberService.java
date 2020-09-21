@@ -281,5 +281,9 @@ public class MemberService {
 		return "";
 	}
 
+	public Member getMemberByEmail(String email) {
+		return memberDao.getMemberByEmail(email);
+	}
+
 	
 }

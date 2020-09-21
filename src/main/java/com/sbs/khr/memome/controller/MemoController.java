@@ -286,6 +286,12 @@ public class MemoController {
 				articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId, itemsInAPage, limitFrom);
 				totalCount = articleService.getForPrintMemoMeAndYouListArticlesCount();
 			}
+			
+			if ( boardCode.equals("unicon")) {
+				articles = articleService.getForMakeArticlesByUniconAuthCode(board, loginedMemberId, itemsInAPage, limitFrom); 
+				totalCount = articleService.getForMakeArticlesCountByUnicon(board, loginedMemberId);
+			}
+			
 			Member member = memberService.getMemberById(loginedMemberId);
 			model.addAttribute("member", member);
 		}
@@ -307,6 +313,11 @@ public class MemoController {
 			totalCount = articleService.getForPrintArticlesByMemberIdFromBoardId34(id);
 		}
 		
+		
+		
+		
+		
+		
 
 		// memo를 관리할 폴더 관련 코드를 없애서 관련 코드는 사용하지 않음. 검토해서 관련 코드 다 삭제하기.
 		// List<Article> articles = articleService.getForPrintArticlesByMemo();
@@ -326,6 +337,7 @@ public class MemoController {
 	}
 
 
+	
 
 	@RequestMapping("/usr/memo/{boardCode}-memoWrite")
 	public String showMemoWrite(@PathVariable("boardCode") String boardCode, Model model) {
