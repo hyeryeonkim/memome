@@ -156,11 +156,10 @@
 					</tr> --%>
 
 						<tr class="title">
-							<th>제목</th>
-
-							<td>${article.title}
-								<div class="border-title">회원번호${member.id},
-									게시물회원번호${article.memberId}</div>
+							<th>Date</th>
+				<%-- 회원번호${member.id},	게시물회원번호${article.memberId} --%>
+							<td>${article.updateDate}
+								<div class="border-title"></div>
 							</td>
 						</tr>
 						<tr>
@@ -242,11 +241,11 @@
 					</tr> --%>
 
 						<tr class="title">
-							<th>제목</th>
-
-							<td>${article.title}
-								<div class="border-title">회원번호${member.id},
-									게시물회원번호${article.memberId}</div>
+							<th>Date</th>
+							<%-- 회원번호${member.id},
+									게시물회원번호${article.memberId} --%>
+							<td>${article.updateDate}
+								<div class="border-title"></div>
 							</td>
 						</tr>
 						<tr>
@@ -452,7 +451,6 @@ table {
 }
 
 .memo-table-box {
-
 }
 
 
@@ -464,8 +462,8 @@ html>body .memo-table-box .memo-box {
 .memo-table-box .memo-box {
 	padding-top: 20px;
 	margin-top: 40px;
-	margin-left: 35px;
-	margin-rigth: 35px;
+	margin-left: 65px;
+	margin-rigth: 85px;
 }
 
 .memo-table-box .memo-box .video-box video, .memo-table-box .memo-box .img-box img
