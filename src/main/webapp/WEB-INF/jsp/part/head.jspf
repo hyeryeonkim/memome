@@ -72,9 +72,11 @@ var param = ${paramJson};
 			<div></div>
 		</div>
 	</div>
+	<!-- style="position:fixed; left:10%; right:10%;" -->
 	<div class="outer-box ">
-		<div class="top-bar margin-top-10 visible-on-md-up">
-			<div class="menu-box">
+		<div class="top-bar-top-back"></div>
+		<div class="top-bar margin-top-10 visible-on-md-up " style="margin-bottom:130px;" >
+			<div class="menu-box" >
 				<ul>
 					<li><a href="../home/main">홈</a></li>
 					<li><a href="../article/notice-list">공지사항</a></li>

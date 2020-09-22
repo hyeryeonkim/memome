@@ -66,3 +66,23 @@ function iOS() {
 	// iPad on iOS 13 detection
 	|| (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 } 
+
+
+
+function MobileSideBar__init() {
+  $(".btn-toggle-mobile-side-bar, .mobile-side-bar-bg").click(MobileSideBar__toggle);
+  $(".mobile-side-bar ul>li").click(function(e) {
+    if ( $(this).hasClass('active') ) {
+      $(this).removeClass('active');
+    }
+    else {
+      $(this).addClass('active');
+    }
+    e.stopPropagation();
+  });
+ 
+}
+
+$(function() {
+    MobileSideBar__init();
+});

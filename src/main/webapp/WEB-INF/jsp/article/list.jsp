@@ -59,17 +59,19 @@
 		</div>
 	</div>
 </c:if>
-
+<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
 <div class="table-box con margin-top-10">
-	<table>
+	<table >
 		<colgroup>
-			<col class="table-first-col" />
-			<col width="200" />
+			<col width="80" />
+			<col width="200"  />
+			<col width="100"  />
 		</colgroup>
 		<thead>
 			<tr>
 				<th>번호</th>
 				<th>날짜</th>
+				<th>작성자</th>
 				<th>제목</th>
 			</tr>
 		</thead>
@@ -78,16 +80,16 @@
 				<tr>
 					<td>${article.id}</td>
 					<td>${article.regDate}</td>
+					<td>${article.extra.writer}</td>
 					<td><a href="${article.getDetailLink(board.code)}">${article.title}</a>
 					</td>
-					<%-- <br />
-						작성 : ${article.extra.writer} --%>
+						
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 </div>
-<div class="con page-box">
+<div class="con page-box ">
 	<ul class="flex flex-jc-c">
 		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
 		<li class="${i == cPage ? 'current' : ''}"><a
@@ -95,10 +97,22 @@
 			class="block">${i}</a></li>
 		</c:forEach>
 	</ul>
+	
 </div>
-<div class="con">총 게시물 수 : ${totalCount}</div>
+
 
 <style>
+
+.table-box {
+	/* border:10px solid blue; */
+	height:600px;
+}
+
+.page-box {
+	/* border:10px solid red; */
+	margin-bottom:100px;
+}
+
 input[type="submit"] {
 	font-family: FontAwesome;
 }
@@ -110,12 +124,14 @@ input[type="submit"] {
 
 .search .search-box form .tag-box {
 	padding: 10px 0;
-	width: 280px;
+	width: 240px;
+	
 	font-size: 1.5rem;
 }
 
 .search .search-box form .tag-box input {
 	padding: 5px;
+	margin-top:5px;
 	border: 1px solid black;
 }
 

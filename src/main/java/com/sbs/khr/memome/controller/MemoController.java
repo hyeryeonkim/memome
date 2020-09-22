@@ -314,15 +314,15 @@ public class MemoController {
 		System.out.println("boardCode한번 보자 : " + boardCode);
 
 		List<Article> articles = null;
+		
+		boolean isLogined = (boolean)request.getAttribute("isLogined");
 
 		if (id == null) {
 			if (boardCode.equals("memoME")) {
-				articles = articleService.getForPrintArticlesByMemberId(loginedMemberId, board.getId(), itemsInAPage,
-						limitFrom);
+				articles = articleService.getForPrintArticlesByMemberId(loginedMemberId, board.getId(), itemsInAPage, limitFrom);
 			}
 			if (boardCode.equals("memoYOU")) {
-				articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId, itemsInAPage,
-						limitFrom);
+				articles = articleService.getForPrintAllArticles(board.getId(), loginedMemberId, itemsInAPage, limitFrom);
 				totalCount = articleService.getForPrintMemoMeAndYouListArticlesCount();
 			}
 
@@ -336,12 +336,12 @@ public class MemoController {
 			model.addAttribute("member", member);
 		}
 
-		if (loginedMemberId > 0 && boardCode.equals("memoME")) {
-			totalCount = articleService.getForPrintListArticlesCountFromMemberId(board.getId(), loginedMemberId);
+		if ( loginedMemberId > 0  && boardCode.equals("memoME")) {
+			 totalCount = articleService.getForPrintListArticlesCountFromMemberId(board.getId(), loginedMemberId);
 		}
-
-		if (loginedMemberId > 0 && boardCode.equals("memoYOU")) {
-			totalCount = articleService.getForPrintListArticlesCountRemoveMe(loginedMemberId);
+		
+		if ( loginedMemberId > 0  && boardCode.equals("memoYOU")) {
+			 totalCount = articleService.getForPrintListArticlesCountRemoveMe(loginedMemberId);
 		}
 
 		if (boardCode.equals("memberPage")) {
@@ -361,7 +361,7 @@ public class MemoController {
 
 		int totalPage = (int) Math.ceil(totalCount / (double) itemsInAPage);
 		model.addAttribute("totalCount", totalCount);
-		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("totalPage", totalPage);	
 		model.addAttribute("cPage", page);
 
 		return "memo/memoList";

@@ -6,7 +6,11 @@
 <%@ include file="../part/head.jspf"%>
 <%@ include file="../part/toastuiEditor.jspf"%>
 
-
+<c:if test="${board.code eq 'unicon'}">
+	<h1 class="con">
+		<strong style="color: blue">${board.code}</strong> 특★한 메모장
+	</h1>
+</c:if>
 <c:if test="${isLogined == false && board.code eq 'unicon'}">
 	<div class="unicon-intro-box con">
 		<div class="unicon-title">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
@@ -22,8 +26,6 @@
 
 
 
-
-
 <c:if test="${board.code eq 'memoYOU'}">
 	<h1 class="con">
 		<strong style="color: green">${board.code}</strong> 모두의 메모장
@@ -34,6 +36,7 @@
 		<strong style="color: blue">${board.code}</strong> 나만의 메모장
 	</h1>
 </c:if>
+
 <c:if test="${board.code eq 'memberPage'}">
 	<h1 class="con">
 		<strong style="color: orange">이웃 <strong style="color: green">MEMO</strong>${member.nickname}</strong>
@@ -105,13 +108,13 @@
 </c:if>
 
 
-<c:if test="${totalCount == 0 && boardCode eq 'unicon' }">
+<c:if test="${totalCount == 0 && boardCode eq 'unicon' && isLogined }">
 	<div class="unicon-login-intro-box con">
 		<div class="unicon-login-title">아직 작성하신 UNICON이 없으시네요.</div>
 		<div class="unicon-login-title margin-top-50">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
 		<div class="unicon-login-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를
 			공유해보세요.</div>
-		<div class="unicon-login-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지
+		<div class="unicon-login-serve-title2">UNICON에 작성하신 메모는 초대한 지인 외에는 공개되지
 			않습니다.</div>
 	</div>
 </c:if>
@@ -124,8 +127,9 @@
 	</div>
 </c:if>
 
-
-
+<c:if test="${isLogined } ">
+<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
+</c:if>
 <div class="memo-table-box con flex flex-wrap flex-row">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId == loginedMemberId}">
@@ -310,7 +314,7 @@
 		</c:if>
 	</c:forEach>
 </div>
-<c:if test="${isLogined}">
+<%-- <c:if test="${isLogined}"> --%>
 	<c:if test="${boardCode eq 'memberPage' == false }">
 		<div class="con page-box">
 			<ul class="flex flex-jc-c">
@@ -334,8 +338,8 @@
 		</div>
 	</c:if>
 
-	<div class="con">총 게시물 수 : ${totalCount}</div>
-</c:if>
+	<%-- <div class="con">총 게시물 수 : ${totalCount}</div> --%>
+<%-- </c:if> --%>
 
 
 <style>
@@ -395,10 +399,18 @@
 
 /* 로그인 후 UNICON __ 게시물 0개일때 끝 */
 
+.page-box {
+	margin-bottom:100px;
+	margin-top:50px;
+}
+
+
+
 .page-box>ul>li>a {
 	padding: 0 10px;
 	text-decoration: underline;
 	color: #787878;
+	margin-bottom:30px;	
 }
 
 .page-box>ul>li:hover>a {
@@ -419,12 +431,13 @@ input[type="submit"] {
 
 .search .search-box form .tag-box {
 	padding: 10px 0;
-	width: 280px;
+	width: 240px;
 	font-size: 1.5rem;
 }
 
 .search .search-box form .tag-box input {
 	padding: 5px;
+	margin-top:5px;
 	border: 1px solid black;
 }
 

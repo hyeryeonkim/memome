@@ -58,7 +58,7 @@ public class ArticleService {
 		Member member = memberService.getMemberById(memberId);
 
 		articleDao.write(param);
-		
+
 		int id = Util.getAsInt(param.get("id"));
 
 		String fileIdsStr = (String) param.get("fileIdsStr");
@@ -90,13 +90,10 @@ public class ArticleService {
 			}
 		}
 
-		
-
 		if (board.getCode().equals("unicon")) {
 			// attrService.setValue("article", id, "extra", "usingUnicon", memberId + "",
 			// null);
 
-			
 			String usingUniconAuthCode = Util.getTempPassword(10);
 
 			attrService.setValue("article", id, memberId + "", "usingUniconAuthCode", usingUniconAuthCode, null);
@@ -109,20 +106,24 @@ public class ArticleService {
 					Member member2 = memberService.getMemberByEmail(email);
 
 					if (member2 != null) {
-						
-						String mailTitle = String.format("[%s] %s님으로부터 UNICON 초대를 받으셨습니다. 이메일 인증 후 이용해주세요.", siteName, member.getNickname());
+
+						String mailTitle = String.format("[%s] %s님으로부터 UNICON 초대를 받으셨습니다. 이메일 인증 후 이용해주세요.", siteName,
+								member.getNickname());
 						StringBuilder mailBodySb = new StringBuilder();
 						mailBodySb.append("<h1>여러 지인과 함께 UNICON을 공유해보세요.</h1>");
 						mailBodySb.append("<h2>무엇이든 메모할 수 있습니다.</h2>");
-						mailBodySb.append(String.format("<p><a href=\"%s?usingUniconAuthCode=" + usingUniconAuthCode + "&articleId=" + id + "&memberId=" + member2.getId() +   "\" target=\"_blank\">%s</a>로 이동</p>", "http://localhost:8085/usr/member/uniconValidCheck",siteName));
-						
+						mailBodySb.append(String.format(
+								"<p><a href=\"%s?usingUniconAuthCode=" + usingUniconAuthCode + "&articleId=" + id
+										+ "&memberId=" + member2.getId() + "\" target=\"_blank\">%s</a>로 이동</p>",
+								"http://localhost:8085/usr/member/uniconValidCheck", siteName));
+
 						mailService.send(email, mailTitle, mailBodySb.toString());
-						attrService.setValue("article", id, member2.getId() + "", "usingUniconAuthCodeConfirm",	usingUniconAuthCode, null);
+						attrService.setValue("article", id, member2.getId() + "", "usingUniconAuthCodeConfirm",
+								usingUniconAuthCode, null);
 					}
 				}
 			}
 		}
-
 
 		return id;
 	}
@@ -326,51 +327,46 @@ public class ArticleService {
 	public List<Article> getForMakeArticlesByUniconAuthCode(Board board, int loginedMemberId, int itemsInAPage,
 			int limitFrom) {
 		
-		//List<Article> articles = articleDao.getForPrintArticles(board.getId(), itemsInAPage, limitFrom);
-		List<Article> articles2 = articleDao.getForPrintAllArticlesByBoardId(board.getId());
-		
-		List<Article> uniconArticles = getUniconArticles(articles2, loginedMemberId, itemsInAPage, limitFrom);
-		
-		
-		
+		//방법1
+		 List<Article> articles = articleDao.getForPrintArticles(board.getId(), itemsInAPage, limitFrom);
+		 
+		 
+		 //방법2
+		//List<Article> articles2 = articleDao.getForPrintAllArticlesByBoardId(board.getId());
+
+		List<Article> uniconArticles = getUniconArticles(articles, loginedMemberId, itemsInAPage, limitFrom);
+
 		return uniconArticles;
+
 	}
 
-	private List<Article> getUniconArticles(List<Article> articles, int loginedMemberId, int itemsInAPage, int limitFrom) {
-		List<Article> uniconArticles = new ArrayList<>();
+	private List<Article> getUniconArticles(List<Article> articles, int loginedMemberId, int itemsInAPage,
+			int limitFrom) {
 
+		List<Article> uniconArticles = new ArrayList<>();
 		
-			for ( int i = limitFrom; i < itemsInAPage; i++ ) {
-				String getValue = attrService.getValue("article", articles.get(limitFrom).getId(), loginedMemberId + "", "usingUniconAuthCode");
-				if (getValue.length() > 0 ) {
-					//if ( loginedMemberId == article.getMemberId()) {
-						uniconArticles.add(articles.get(limitFrom));
-					//}
+		//방법1
+		for (Article article : articles) {
+			if (article != null) {
+				String getValue = attrService.getValue("article", article.getId(), loginedMemberId + "",
+						"usingUniconAuthCode");
+				if (getValue.length() > 0) {
+					uniconArticles.add(article);
 				}
 			}
-		
+		}
 
 		return uniconArticles;
+
 	}
 
 	public int getForMakeArticlesCountByUnicon(Board board, int loginedMemberId, int itemsInAPage, int limitFrom) {
-		
-		List<Article> articles = articleDao.getForPrintArticlesByMemo();
-		
-		List<Article> uniconArticles = getUniconArticles(articles, loginedMemberId, itemsInAPage, limitFrom);
-		
-		System.out.println("uniconArticles 개수를 못구하나?? : " + uniconArticles);
-		
-		//return uniconArticles.size();
-		return 10;
-	}
 
-	/*
-	 * public List<Article> getForPrintAllArticleContainsTags(int id, String
-	 * searchKeyword) { return articleDao.getForPrintAllArticleContainsTags(id,
-	 * searchKeyword); }
-	 */
-	
-	
+		List<Article> articles = articleDao.getForPrintArticlesByMemo();
+		List<Article> uniconArticles = getUniconArticles(articles, loginedMemberId, itemsInAPage, limitFrom);
+		System.out.println("articles 뭔데??????? " + articles);
+
+		return uniconArticles.size();
+	}
 
 }
