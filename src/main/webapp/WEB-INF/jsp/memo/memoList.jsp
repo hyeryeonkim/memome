@@ -130,6 +130,11 @@
 <c:if test="${isLogined } ">
 <div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
 </c:if>
+
+<c:if test="${isLogined == false && board.code eq 'memoYOU'}">
+<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
+</c:if>
+
 <div class="memo-table-box con flex flex-wrap flex-row">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId == loginedMemberId}">
