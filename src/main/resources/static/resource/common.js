@@ -69,18 +69,24 @@ function iOS() {
 
 
 
+
+
+
+
+
 function MobileSideBar__init() {
-  $(".btn-toggle-mobile-side-bar, .mobile-side-bar-bg").click(MobileSideBar__toggle);
-  $(".mobile-side-bar ul>li").click(function(e) {
-    if ( $(this).hasClass('active') ) {
-      $(this).removeClass('active');
-    }
-    else {
-      $(this).addClass('active');
-    }
-    e.stopPropagation();
-  });
- 
+    var $btnToggleSideTopBar = $('.btn-toggle-mobile-top-bar');
+
+    $btnToggleSideTopBar.click(function() {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('.mobile-side-bar').removeClass('active');
+        }
+        else {
+            $(this).addClass('active');
+            $('.mobile-side-bar').addClass('active');
+        }
+    });
 }
 
 $(function() {

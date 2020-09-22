@@ -25,10 +25,11 @@
 				<td><input type="password" name="loginPw" autofocus/></td>
 			</tr>
 			<tr>
-				<th>비밀번호 확인</th>
+				<th></th>
 				<td class="mobile-btn flex">
-					<button type="submit" class="btn black">확인</button>
-					<button type="button" class="btn black" onclick="location.href='/usr/home/main'">취소</button>
+					<!-- <button type="submit" class="btn black">확인</button> -->
+					<input type="submit" class="btn black" value="확인"/>
+					<!-- <button type="button" class="btn black" onclick="location.href='/usr/home/main'">취소</button> -->
 				</td>
 			</tr>
 		</tbody>

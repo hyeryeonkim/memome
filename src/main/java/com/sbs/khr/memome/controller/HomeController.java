@@ -19,11 +19,6 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("/usr/home/mobileMain")
-	public String showMobileMain() {
-		return "home/mobileMain";
-	}
-	
 
 	@RequestMapping("/usr/home/mainTest")
 	public String showIndex2() {

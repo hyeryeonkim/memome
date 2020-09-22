@@ -137,7 +137,7 @@
 	} */
 }
 </style>
-
+<!-- 
 <script>
 	setTimeout(function() {
 		jQuery('#img').addClass('remove');
@@ -145,6 +145,6 @@
 	setTimeout(function() {
 		jQuery('#body').addClass('add');
 	}, 2000);
-</script>
+</script> -->
 
 <%@ include file="../part/foot.jspf"%>

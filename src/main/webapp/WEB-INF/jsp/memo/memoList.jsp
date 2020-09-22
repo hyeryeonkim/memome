@@ -443,10 +443,13 @@ input[type="submit"] {
 
 table {
 	border-collapse: collapse;
+	
 }
 
 .memo-table-box {
+
 }
+
 
 html>body .memo-table-box .memo-box {
 	overflow: hidden;
@@ -503,9 +506,27 @@ html>body .memo-table-box .memo-box {
 }
 
 html>body .memo-table-box .memo-box td {
-	backtground-color: red;
 	overflow: auto;
 }
+
+
+@media ( max-width :800px ) {
+	/* PC버전 memo 테이블 관련 */
+	.memo-table-box .memo-box {
+		border: 7px solid black;
+		width: 350px;
+		height: 400px;
+		/* margin: 10px 0; */
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:5px;
+	}
+	h1 {
+		text-align:center;
+	}
+}
+
+
 </style>
 
 

@@ -149,6 +149,17 @@ input[type="submit"] {
 .page-box>ul>li.current>a {
 	color: red;
 }
+
+
+
+
+
+@media ( max-width :800px ) {
+	/* PC버전 memo 테이블 관련 */
+	h1 {
+		text-align:center;
+	}
+}
 </style>
 
 
