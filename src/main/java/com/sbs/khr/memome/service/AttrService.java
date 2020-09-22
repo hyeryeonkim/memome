@@ -1,5 +1,7 @@
 package com.sbs.khr.memome.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -117,6 +119,10 @@ public class AttrService {
 		}
 
 		return -1;
+	}
+
+	public List<Integer> getRelIdByTypeCodeSameMemberId(int memberId) {
+		return attrDao.getRelIdByTypeCodeSameMemberId(memberId);
 	}
 
 	

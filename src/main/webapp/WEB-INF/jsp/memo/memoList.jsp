@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%-- <c:set var="pageTitle" value="메인" /> --%>
 <%@ include file="../part/head.jspf"%>
 <%@ include file="../part/toastuiEditor.jspf"%>
@@ -12,11 +13,15 @@
 		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
 		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
 		<div class="unicon-login">
-		<button type="button" class="btn black"
-		onclick="location.href='/usr/member/login'">로그인이동</button>			
+			<button type="button" class="btn black"
+				onclick="location.href='/usr/member/login'">로그인이동</button>
 		</div>
 	</div>
 </c:if>
+
+
+
+
 
 
 <c:if test="${board.code eq 'memoYOU'}">
@@ -100,11 +105,28 @@
 </c:if>
 
 
+<c:if test="${totalCount == 0 && boardCode eq 'unicon' }">
+	<div class="unicon-login-intro-box con">
+		<div class="unicon-login-title">아직 작성하신 UNICON이 없으시네요.</div>
+		<div class="unicon-login-title margin-top-50">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
+		<div class="unicon-login-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를
+			공유해보세요.</div>
+		<div class="unicon-login-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지
+			않습니다.</div>
+	</div>
+</c:if>
+
+
+<c:if test="${totalCount == 0 && boardCode eq 'unicon' == false && boardCode eq 'memoME'}">
+	<div class="unicon-login-intro-box con">
+		<div class="unicon-login-title">아직 작성하신 MEMO가 없으시네요.</div>
+		<div class="unicon-login-title margin-top-50">나만의 메모를 작성해서 잊지 못할 순간들을 기록해보세요.</div>
+	</div>
+</c:if>
 
 
 
-
-<div class="memo-table-box con flex flex-jc-sb flex-wrap">
+<div class="memo-table-box con flex flex-wrap flex-row">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId == loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
@@ -324,29 +346,54 @@
 }
 
 .unicon-intro-box .unicon-title {
-	font-size:2.4rem;
-	font-weight:bold;
+	font-size: 2.4rem;
+	font-weight: bold;
 }
 
 .unicon-intro-box .unicon-serve-title {
-	margin-top:50px;
-	font-size:1.7rem;
-	font-weight:bold;
+	margin-top: 50px;
+	font-size: 1.7rem;
+	font-weight: bold;
 }
 
 .unicon-intro-box .unicon-serve-title2 {
-	margin-top:50px;
-	font-size:1.3rem;
-	font-weight:bold;
+	margin-top: 50px;
+	font-size: 1.3rem;
+	font-weight: bold;
 }
 
 .unicon-intro-box .unicon-login {
-	margin-top:100px;
-	}
+	margin-top: 100px;
+}
 
 .unicon-intro-box .unicon-login .btn {
-	width:300px;
+	width: 300px;
 }
+
+/* 로그인 후 UNICON __ 게시물 0개일때 시작  */
+.unicon-login-intro-box {
+	text-align: center;
+	margin-bottom:200px;
+}
+
+.unicon-login-intro-box .unicon-login-title {
+	font-size: 2.4rem;
+	font-weight: bold;
+}
+
+.unicon-login-intro-box .unicon-login-serve-title {
+	margin-top: 50px;
+	font-size: 1.7rem;
+	font-weight: bold;
+}
+
+.unicon-login-intro-box .unicon-login-serve-title2 {
+	margin-top: 50px;
+	font-size: 1.3rem;
+	font-weight: bold;
+}
+
+/* 로그인 후 UNICON __ 게시물 0개일때 끝 */
 
 .page-box>ul>li>a {
 	padding: 0 10px;
@@ -385,13 +432,19 @@ table {
 	border-collapse: collapse;
 }
 
+.memo-table-box {
+}
+
 html>body .memo-table-box .memo-box {
 	overflow: hidden;
+	
 }
 
 .memo-table-box .memo-box {
 	padding-top: 20px;
 	margin-top: 40px;
+	margin-left: 35px;
+	margin-rigth: 35px;
 }
 
 .memo-table-box .memo-box .video-box video, .memo-table-box .memo-box .img-box img

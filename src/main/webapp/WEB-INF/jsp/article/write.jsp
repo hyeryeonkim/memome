@@ -40,7 +40,7 @@
 					<td>
 						<div class="form-control-box invite-control-box  flex flex-wrap">
 							<input type="email" name="invite1" placeholder="이메일을 입력해주세요."
-								autofocus maxlength="20" /> <input type="email" name="invite2"
+								 maxlength="20" /> <input type="email" name="invite2"
 								placeholder="이메일을 입력해주세요." maxlength="20" /> <input
 								type="email" name="invite3" placeholder="이메일을 입력해주세요."
 								maxlength="20" /> <input type="email" name="invite4"
@@ -137,6 +137,15 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 	function ArticleWriteForm__submit(form) {
 		if (isNowLoading()) {
 			alert('처리중입니다.');
+			return;
+		}
+
+		
+		form.title.value = form.title.value.trim();
+
+		if ( form.title.value.length == 0 ) {
+			alert('제목을 입력해주세요.');
+			form.title.focus();
 			return;
 		}
 

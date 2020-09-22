@@ -23,7 +23,7 @@
 		WHERE
 		code = #{boardCode}
 	</select>
-	
+
 	<select id="getBoardByBoardId" resultType="Board">
 		SELECT *
 		FROM board
@@ -31,7 +31,7 @@
 		id = #{boardId}
 	</select>
 
-	
+
 
 	<!-- ON 은 조건을 의미(원하는 값) -->
 	<select id="getForPrintAllArticles" resultMap="article">
@@ -247,6 +247,14 @@
 	</select>
 
 
+	<!-- <select id="getForPrintAllArticleContainsTags" resultMap="article"> 
+		SELECT A.*, GROUP_CONCAT(HT2.tag) AS extra__hashTagsStr FROM article AS A 
+		INNER JOIN hashtag AS HT2 ON A.id = HT2.relId INNER JOIN hashtag AS HT ON 
+		A.id = HT.relId WHERE HT.tag = #{tag} AND HT.relTypeCode = 'article' AND 
+		A.displayStatus = 1 AND A.delStatus = 0 AND A.boardId = #{boardId} GROUP 
+		BY A.id ORDER BY A.id DESC </select> -->
+
+
 	<select id="getForPrintArticlesSearchCount" resultMap="article">
 		SELECT
 		A.*,
@@ -363,7 +371,8 @@
 		AND
 		A.displayStatus = 1
 		AND A.memberId = #{memberId}
-		AND A.delStatus = 0
+		AND
+		A.delStatus = 0
 		AND
 		A.boardId IN (3,4)
 		GROUP BY A.id
@@ -380,6 +389,19 @@
 		AND memberId = #{memberId}
 
 	</select>
+
+	<select id="getForPrintAllArticlesByBoardId" resultMap="article">
+		SELECT *
+		FROM article
+		WHERE displayStatus = 1
+		AND delStatus = 0
+		AND boardId = #{boardId}
+
+	</select>
+
+
+
+
 
 
 	<!-- extra__writer를 사용하기 위해서는 자동 매핑이 되지 않으므로 수동 매핑을 통해서 활용해야 한다. 작성자를 extra__writer로 

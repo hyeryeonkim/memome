@@ -1,6 +1,5 @@
 package com.sbs.khr.memome.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sbs.khr.memome.dto.Hashtag;
 import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.dto.ResultData;
+import com.sbs.khr.memome.service.AttrService;
 import com.sbs.khr.memome.service.HashtagService;
 import com.sbs.khr.memome.service.MemberService;
 import com.sbs.khr.memome.util.Util;
@@ -26,8 +25,12 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+
 	@Autowired
 	private HashtagService hashtagService;
+
+	@Autowired
+	private AttrService attrService;
 
 	// 회원가입
 	@RequestMapping("/usr/member/join")
@@ -53,9 +56,43 @@ public class MemberController {
 		return "common/redirect";
 	}
 
+	@RequestMapping("/usr/member/uniconValidCheck")
+	public String showUniconValidCheck(Model model, String usingUniconAuthCode, String memberId, String articleId) {
+
+			System.out.println("usingUniconAuthCode이 제대로 가지고 있나?" + usingUniconAuthCode);
+			System.out.println("memberId이 제대로 가지고 있나?" + memberId);
+
+			int id = Integer.parseInt(articleId);
+			
+			String getValue = attrService.getValue("article", id, memberId, "usingUniconAuthCodeConfirm"); 
+			
+			if ( getValue.length() > 0 && getValue.equals(usingUniconAuthCode) ) {
+				attrService.setValue("article", id, memberId + "", "usingUniconAuthCode", usingUniconAuthCode, null);
+			}
+			
+			model.addAttribute("alertMsg", id + "번 UNICON 이메일 인증이 완료되었습니다." );
+			model.addAttribute("redirectUri", "/usr/member/login" );
+			
+
+		return "common/redirect";
+	}
+
 	// 로그인
 	@RequestMapping("/usr/member/login")
 	public String showLogin() {
+
+		/*
+		 * String usingUniconAuthCode, String memberId, String articleId if (
+		 * usingUniconAuthCode.length() > 0 ) {
+		 * System.out.println("usingUniconAuthCode이 제대로 가지고 있나?" + usingUniconAuthCode);
+		 * System.out.println("memberId이 제대로 가지고 있나?" + memberId);
+		 * 
+		 * int id = Integer.parseInt(articleId);
+		 * 
+		 * attrService.setValue("article", id, memberId + "", "usingUniconAuthCode",
+		 * usingUniconAuthCode, null); }
+		 */
+
 		return "member/login";
 	}
 
@@ -105,13 +142,13 @@ public class MemberController {
 		// \n을 사용하기 위해 혹시 \앞에 \을 1개 더 입력했더니 원하는대로 작동하였음.
 		else if (getDateForpasswordModify) {
 			System.out.println("악 또 뭐야 ");
-			model.addAttribute("alertMsg", String.format("%s 님. 비밀번호를 변경하지 않은지 3개월이 경과하였습니다.\\n개인정보 보호를 위하여 비밀번호를 변경해주세요.", member.getNickname()));
+			model.addAttribute("alertMsg", String
+					.format("%s 님. 비밀번호를 변경하지 않은지 3개월이 경과하였습니다.\\n개인정보 보호를 위하여 비밀번호를 변경해주세요.", member.getNickname()));
 		}
 
 		else {
 			model.addAttribute("alertMsg", String.format("%s님 반갑습니다.", member.getNickname()));
 		}
-
 
 		model.addAttribute("redirectUri", redirectUri);
 
@@ -138,7 +175,7 @@ public class MemberController {
 		Member member = memberService.getMemberById(Util.getAsInt(request.getAttribute("loginedMemberId")));
 
 		model.addAttribute("member", member);
-		
+
 		List<String> hashtags = hashtagService.getForPrintHashtagsById(member.getId());
 		List<String> myhashtags = hashtagService.getHashtagStrForMypagePrint(hashtags);
 		model.addAttribute("myhashtags", myhashtags);
@@ -151,8 +188,6 @@ public class MemberController {
 		}
 		return "member/myPage";
 	}
-
-	
 
 	// 개인정보 변경
 	@RequestMapping("/usr/member/modify")

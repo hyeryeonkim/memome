@@ -85,7 +85,9 @@ public class ArticleController {
 		model.addAttribute("member", member);
 
 		return "article/list";
+		
 	}
+	
 
 	@RequestMapping("/usr/article/{boardCode}-write")
 	public String showWrite(Model model, @PathVariable("boardCode") String boardCode, String memoId) {

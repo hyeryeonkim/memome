@@ -51,12 +51,21 @@
 		updateDate = NOW() , `value` =
 		#{value}, expireDate = #{expireDate}
 	</insert>
-	
+
 	<update id="updateValue">
-		UPDATE  attr 
+		UPDATE attr
 		SET updateDate = NOW();
 	</update>
 
+	
+	<select id="getRelIdByTypeCodeSameMemberId" resultType="int">
+
+		SELECT relId
+		FROM attr
+		WHERE typeCode = #{memberId}
+		AND type2Code = 'usingUniconAuthCode';
+		
+	</select>
 
 
 

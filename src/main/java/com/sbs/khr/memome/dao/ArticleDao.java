@@ -62,6 +62,10 @@ public interface ArticleDao {
 
 	Board getBoardByBoardId(@Param("boardId") int boardId);
 
+	List<Article> getForPrintAllArticlesByBoardId(@Param("boardId") int id);
+
+	//List<Article> getForPrintAllArticleContainsTags(@Param("boardId") int id, @Param("tag") String searchKeyword);
+
 
 
 }
