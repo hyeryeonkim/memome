@@ -8,6 +8,25 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
+
+
+
+<div class="join-top-bar">
+	<h1>Login</h1>
+	<h2>메모미에 로그인 하세요.</h2>
+</div>
+
+<style>
+.join-top-bar {
+	position: absolute;
+	top: 130px;
+	right: 25%;
+	text-align: right;
+}
+</style>
+
+
+
 <form action="doLogin" method="POST" class="form1 table-box con con2 margin-top-50"
 	onsubmit="MemberLoginForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal"/>
