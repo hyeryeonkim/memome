@@ -1,6 +1,7 @@
 package com.sbs.khr.memome.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.sbs.khr.memome.dao.MemberDao;
+import com.sbs.khr.memome.dto.Article;
+import com.sbs.khr.memome.dto.File;
 import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.dto.ResultData;
 import com.sbs.khr.memome.util.Util;
@@ -24,12 +27,17 @@ public class MemberService {
 
 	@Autowired
 	private AttrService attrService;
+	
+	@Autowired
+	private ArticleService articleService;
 
 	@Value("${custom.siteMainUri}")
 	private String siteMainUri;
 
 	@Value("${custom.siteName}")
 	private String siteName;
+
+
 	
 	
 	// 회원가입 
@@ -182,6 +190,25 @@ public class MemberService {
 	
 	// 회원탈퇴 
 	public void accountDelete(Map<String, Object> param) {
+		
+		System.out.println("param 아닌가?? " + param);
+		
+		int memberId = Util.getAsInt(param.get("memberId"));
+		
+		System.out.println("memberId가 아닌가?? " + memberId);
+		
+		List<Article> articles = articleService.getForAccountDeleteArticlesByMemberId(memberId);
+		
+		System.out.println("뭐야??  :" +   articles );
+		
+		for ( Article article : articles ) {
+			Map<String, Object> newParam = Util.getNewMapOf(param, "memberId");
+			System.out.println(newParam);
+			newParam.put("id", article.getId());
+			articleService.memoDelete(newParam);
+		}
+		
+		
 		memberDao.accountDelete(param);
 	}
 	

@@ -75,8 +75,7 @@
 				<th>내용</th>
 				<td>
 					<div class="form-control-box">
-						<script type="text/x-template">
-# 제목
+<!-- 					<div> # 제목
 ![img](https://placekitten.com/200/287)
 이미지는 이렇게 씁니다.
 
@@ -86,7 +85,9 @@
 
 ```youtube
 https://www.youtube.com/watch?v=LmgWxezH7cc
-```
+```	</div> -->
+						<script type="text/x-template">
+
                         </script>
 						<div data-relTypeCode="article" data-relId="0"
 							class="toast-editor input-body"></div>

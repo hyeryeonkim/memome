@@ -369,4 +369,8 @@ public class ArticleService {
 		return uniconArticles.size();
 	}
 
+	public List<Article> getForAccountDeleteArticlesByMemberId(int memberId) {
+		return articleDao.getForAccountDeleteArticlesByMemberId(memberId);
+	}
+
 }

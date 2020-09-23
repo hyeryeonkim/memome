@@ -6,26 +6,18 @@
 <%@ include file="../part/head.jspf"%>
 <%@ include file="../part/toastuiEditor.jspf"%>
 
+
+
+
+
+
+
+
 <c:if test="${board.code eq 'unicon'}">
 	<h1 class="con">
 		<strong style="color: blue">${board.code}</strong> 특★한 메모장
 	</h1>
 </c:if>
-<c:if test="${isLogined == false && board.code eq 'unicon'}">
-	<div class="unicon-intro-box con">
-		<div class="unicon-title">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
-		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
-		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
-		<div class="unicon-login">
-			<button type="button" class="btn black"
-				onclick="location.href='/usr/member/login'">로그인이동</button>
-		</div>
-	</div>
-</c:if>
-
-
-
-
 <c:if test="${board.code eq 'memoYOU'}">
 	<h1 class="con">
 		<strong style="color: green">${board.code}</strong> 모두의 메모장
@@ -42,6 +34,8 @@
 		<strong style="color: orange">이웃 <strong style="color: green">MEMO</strong>${member.nickname}</strong>
 	</h1>
 </c:if>
+
+
 
 
 <c:if test="${isLogined}">
@@ -108,6 +102,28 @@
 </c:if>
 
 
+<c:if test="${isLogined == false && boardCode eq 'memoYOU'}">
+<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
+</c:if>
+<c:if test="${isLogined && totalCount != 0}">
+<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
+</c:if>
+
+
+
+<c:if test="${isLogined == false && board.code eq 'unicon'}">
+	<div class="unicon-intro-box con">
+		<div class="unicon-title">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
+		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
+		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
+		<div class="unicon-login">
+			<button type="button" class="btn black"
+				onclick="location.href='/usr/member/login'">로그인이동</button>
+		</div>
+	</div>
+</c:if>
+
+
 <c:if test="${totalCount == 0 && boardCode eq 'unicon' && isLogined }">
 	<div class="unicon-login-intro-box con">
 		<div class="unicon-login-title">아직 작성하신 UNICON이 없으시네요.</div>
@@ -127,13 +143,10 @@
 	</div>
 </c:if>
 
-<c:if test="${isLogined } ">
-<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
-</c:if>
 
-<c:if test="${isLogined == false && board.code eq 'memoYOU'}">
-<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
-</c:if>
+
+
+
 
 <div class="memo-table-box con flex flex-wrap flex-row">
 	<c:forEach items="${articles}" var="article">
@@ -178,6 +191,9 @@
 							<th>메모</th>
 							<td>
 								<div class=" body-box " style="height: 250px;">
+									<%-- <c:if test="${article.delStatus eq 1}">
+									<h1>삭제된 메모입니다.</h1>
+									</c:if> --%>
 									<script type="text/x-template">${article.body}</script>
 									<div class="toast-editor toast-editor-viewer"></div>
 									<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
@@ -342,8 +358,6 @@
 		</div>
 	</c:if>
 
-	<%-- <div class="con">총 게시물 수 : ${totalCount}</div> --%>
-<%-- </c:if> --%>
 
 
 <style>

@@ -38,8 +38,17 @@
 			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
 	</div>
 </c:if>
+
 <c:if test="${boardCode eq 'memberPage' == false }">
-	<div class="search con flex flex-jc-fe padding-10-0">
+	<c:if test="${boardCode eq 'notice' }">
+		<script>
+ 			$( document ).ready( function() {
+		        $( '.search' ).addClass( 'margin-top-105' );
+		        
+		      }); 
+		</script>
+	</c:if>
+	<div  class="search con flex flex-jc-fe padding-10-0">
 		<div class="search-box ">
 			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
 			<form action="../article/${boardCode}-list" class="flex">
@@ -59,6 +68,7 @@
 		</div>
 	</div>
 </c:if>
+	
 <div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
 <div class="table-box con margin-top-10">
 	<table >
@@ -108,6 +118,18 @@
 	height:600px;
 }
 
+
+.table-box {
+	/* border:5px solid red; */
+	
+}
+
+.table-box table {
+	border:5px solid black;
+}
+
+
+
 .page-box {
 	/* border:10px solid red; */
 	margin-bottom:100px;
@@ -150,7 +172,11 @@ input[type="submit"] {
 	color: red;
 }
 
-
+.table-box>table th, .table-box>table td {
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+}
 
 
 

@@ -373,14 +373,18 @@ public class MemberController {
 
 	@RequestMapping("/usr/member/passwordAccountDelete")
 	public String passwordAccountDelete() {
+		
+
+		
 		return "member/passwordAccountDelete";
 	}
 
 	@RequestMapping("/usr/member/accountDelete")
-	public String doAccountDelete(Model model, HttpSession session, @RequestParam Map<String, Object> param) {
+	public String doAccountDelete(Model model, HttpSession session, @RequestParam Map<String, Object> param, HttpServletRequest request) {
 
+		//Member loginedMember = (Member)request.getAttribute("loginedMember");
 		memberService.accountDelete(param);
-
+		
 		session.removeAttribute("loginedMemberId");
 
 		String redirectUri = "/usr/home/main";

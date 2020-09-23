@@ -30,6 +30,14 @@
 		WHERE
 		id = #{boardId}
 	</select>
+	
+	
+	<select id="getForAccountDeleteArticlesByMemberId" resultMap="article">
+		SELECT *
+		FROM article
+		WHERE memberId = #{memberId}
+		AND delStatus = 0
+	</select>
 
 
 
@@ -43,9 +51,9 @@
 		A.memberId = M.id
 		WHERE A.displayStatus = 1
 		AND A.delStatus = 0
-		AND
-		A.boardId IN (3, 4)
+		AND	A.boardId IN (3, 4)
 		AND A.memberId NOT IN(#{memberId})
+		AND M.delStatus = 0
 		ORDER BY A.id
 		DESC
 		LIMIT #{limitFrom}, #{itemsInAPage}
@@ -68,6 +76,7 @@
 		AND A.boardId = #{id}
 		AND
 		A.delStatus= 0
+		AND M.delStatus = 0
 		ORDER BY A.id DESC
 		LIMIT #{limitFrom}, #{itemsInAPage}
 	</select>
@@ -85,6 +94,7 @@
 		AND A.memberId = #{memberId}
 		AND A.delStatus = 0
 		AND A.boardId IN (3, 4)
+		AND M.delStatus = 0
 		ORDER BY A.id DESC
 		LIMIT
 		#{limitFrom}, #{itemsInAPage}
@@ -101,6 +111,7 @@
 		ON A.memberId = M.id
 		WHERE A.displayStatus = 1
 		AND A.delStatus = 0
+		AND M.delStatus = 0
 		ORDER BY A.id DESC
 	</select>
 
@@ -116,8 +127,8 @@
 		A.memberId = M.id
 		WHERE A.displayStatus = 1
 		AND A.id = #{id}
-		AND
-		A.delStatus = 0
+		AND	A.delStatus = 0
+		AND M.delStatus = 0
 	</select>
 
 	<update id="memoModify">
@@ -161,8 +172,8 @@
 		#{memberId},
 		AND A.delStatus = 0
 		AND A.boardId IN (3, 4)
-		AND A.id =
-		#{relId}
+		AND A.id = #{relId}
+		AND M.delStatus = 0
 		ORDER BY
 		A.id DESC
 	</select>
@@ -292,7 +303,8 @@
 
 
 
-
+	
+	
 	<select id="getForPrintMemoMeAndYouListArticlesCount"
 		resultType="int">
 		SELECT COUNT(*) AS cnt
@@ -320,7 +332,6 @@
 		AND delStatus = 0
 		AND boardId IN (3, 4)
 		AND memberId NOT IN(#{memberId})
-
 	</select>
 
 
@@ -394,6 +405,7 @@
 		WHERE displayStatus = 1
 		AND delStatus = 0
 		AND boardId = #{boardId}
+		
 
 	</select>
 
