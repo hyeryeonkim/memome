@@ -103,18 +103,22 @@
 
 
 <c:if test="${isLogined == false && boardCode eq 'memoYOU'}">
-<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
+	<div class="con" style="font-size: 1.2rem;">총 게시물 수 :
+		${totalCount}</div>
 </c:if>
 <c:if test="${isLogined && totalCount != 0}">
-<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
+	<div class="con" style="font-size: 1.2rem;">총 게시물 수 :
+		${totalCount}</div>
 </c:if>
 
 
 
 <c:if test="${isLogined == false && board.code eq 'unicon'}">
 	<div class="unicon-intro-box ">
-		
-		<div class="unicon-title">소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.</div>
+
+		<div class="unicon-title">
+			소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.
+		</div>
 		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
 		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
 		<div class="unicon-login">
@@ -129,23 +133,29 @@
 
 <c:if test="${totalCount == 0 && boardCode eq 'unicon' && isLogined }">
 	<div class="unicon-login-intro-box unicon-login-box">
-		<div class="unicon-login-title1">아직 작성하신 <span>UNICON</span>이 없으시네요.</div>
-		<div class="unicon-login-title2 margin-top-50">소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.</div>
+		<div class="unicon-login-title1">
+			아직 작성하신 <span>UNICON</span>이 없으시네요.
+		</div>
+		<div class="unicon-login-title2 margin-top-50">
+			소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.
+		</div>
 		<div class="unicon-login-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를
 			공유해보세요.</div>
-		<div class="unicon-login-serve-title2">UNICON에 작성하신 메모는 초대한 지인 외에는 공개되지
-			않습니다.</div>
+		<div class="unicon-login-serve-title2">UNICON에 작성하신 메모는 초대한 지인
+			외에는 공개되지 않습니다.</div>
 	</div>
 </c:if>
 
 
-<c:if test="${totalCount == 0 && boardCode eq 'unicon' == false && boardCode eq 'memoME'}">
+<c:if
+	test="${totalCount == 0 && boardCode eq 'unicon' == false && boardCode eq 'memoME'}">
 	<div class="unicon-login-intro-box unicon-intro-box">
-	<div class="back-img">
-		<img src="/resource/img/memo-list.PNG" alt="" />
-	</div>
+		<div class="back-img">
+			<img src="/resource/img/memo-list.PNG" alt="" />
+		</div>
 		<div class="unicon-login-title1">아직 작성하신 MEMO가 없으시네요.</div>
-		<div class="unicon-login-title2 margin-top-50">나만의 메모를 작성해서 잊지 못할 순간들을 기록해보세요.</div>
+		<div class="unicon-login-title2 margin-top-50">나만의 메모를 작성해서 잊지
+			못할 순간들을 기록해보세요.</div>
 	</div>
 </c:if>
 
@@ -162,61 +172,65 @@
 
 
 
-<div class="con " >
-<input class="onclick-list-big btn"  type="button" onclick="" value="크게보기"/>
+<div class="con ">
+	<input class="onclick-list-big btn" type="button" onclick=""
+		value="크게보기" />
 </div>
 <div class="con">
-<input class="onclick-list-small btn " type="button" onclick="" value="작게보기"/>
+	<input class="onclick-list-small btn " type="button" onclick=""
+		value="작게보기" />
 </div>
 <script>
-$(".onclick-list-small").click(function () {
-    $(".memo-table-box").addClass("memo-table-box-none");
-    $(".onclick-list-big").addClass("onclick-list-big-block");
-    $(".onclick-list-small").addClass("onclick-list-small-none");
-});
+	$(".onclick-list-small").click(function() {
+		$(".memo-table-box").addClass("memo-table-box-none");
+		$(".onclick-list-big").addClass("onclick-list-big-block");
+		$(".onclick-list-small").addClass("onclick-list-small-none");
+		$(".memo-table-list").addClass("memo-table-list-block");
+	});
 
-$(".onclick-list-big").click(function () {
-	$(".memo-table-box").removeClass("memo-table-box-none");
-    $(".memo-table-box").removeClass("onclick-list-big-block");
-	 $(".memo-table-box").addClass("memo-table-box-none");
-	 $(".onclick-list-big").addClass("onclick-list-big-block");
-    $(".onclick-list-small").removeClass("onclick-list-small-none");
-    $(".onclick-list-small").addClass("onclick-list-small-block");
-    $(".onclick-list-big").addClass("onclick-list-big-none");
-});
-
+	$(".onclick-list-big").click(function() {
+		$(".memo-table-box").removeClass("memo-table-box-none");
+		$(".onclick-list-big").removeClass("onclick-list-big-block");
+		$(".onclick-list-small").removeClass("onclick-list-small-none");
+		$(".memo-table-list").removeClass("memo-table-list-block");
+	});
 </script>
 <style>
+.memo-table-list {
+	display: none;
+}
+
+.memo-table-list-block {
+	display: block;
+}
 
 .onclick-list-big {
-	display:none;
+	display: none;
 }
 
 .memo-table-box-none {
-	display:none;
+	display: none;
 }
 
 .onclick-list-big-block {
-	display:block;
+	display: block;
 }
 
 .onclick-list-small-none {
-	display:none;
+	display: none;
 }
 
 .memo-table-box-block {
-	display:block;
+	display: block;
 }
 
 .onclick-list-small-block {
-	display:block;
+	display: block;
 }
 
 .onclick-list-big-none {
-	display:none;
+	display: none;
 }
-
-
 </style>
 
 
@@ -225,17 +239,162 @@ $(".onclick-list-big").click(function () {
 
 
 
+<div class="memo-table-list con  ">
+	<c:forEach items="${articles}" var="article">
+		<c:if test="${article.memberId == loginedMemberId }">
+			<div class="memo-table-list-box">
+				<div class="contents-box">
+					<div class="title">${article.title }</div>
+					<div class="body">
+						<c:forEach items="${hashtags}" var="hashtag">
+							<c:if test="${article.id == hashtag.relId }">
+								<strong ><a
+									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+							</c:if>
+						</c:forEach>
+					</div>
+					<div class="writer-box">
+						<div class="writer">${article.extra.writer}</div>
+						<div class="regDate">${article.regDate }</div>
+					</div>
+				</div>
+				<div class="file-box">
+					<c:set var="fileNo" value="${String.valueOf(3)}" />
+					<c:set var="file"
+						value="${article.extra.file__common__attachment[fileNo]}" />
+					<c:if test="${file != null}">
+						<c:if test="${file.fileExtTypeCode == 'video'}">
+							<div class="video-box">
+								<video controls
+									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+							</div>
+						</c:if>
+						<c:if test="${file.fileExtTypeCode == 'img'}">
+							<div class="img-box img-box-auto">
+								<img
+									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+									alt="" />
+							</div>
+						</c:if>
+					</c:if>
+				</div>
+			</div>
+		</c:if>
+	</c:forEach>
+</div>
+
+<div class="memo-table-list con  ">
+	<c:forEach items="${articles}" var="article">
+		<c:if test="${article.memberId != loginedMemberId }">
+			<div class="memo-table-list-box">
+				<div class="contents-box">
+					<div class="title">${article.title }</div>
+					<div class="body">
+						<c:forEach items="${hashtags}" var="hashtag">
+							<c:if test="${article.id == hashtag.relId }">
+								<strong ><a
+									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+							</c:if>
+						</c:forEach>
+					</div>
+					<div class="writer-box">
+						<div class="writer">${article.extra.writer}</div>
+						<div class="regDate">${article.regDate }</div>
+					</div>
+				</div>
+				<div class="file-box">
+					<c:set var="fileNo" value="${String.valueOf(3)}" />
+					<c:set var="file"
+						value="${article.extra.file__common__attachment[fileNo]}" />
+					<c:if test="${file != null}">
+						<c:if test="${file.fileExtTypeCode == 'video'}">
+							<div class="video-box">
+								<video controls
+									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+							</div>
+						</c:if>
+						<c:if test="${file.fileExtTypeCode == 'img'}">
+							<div class="img-box img-box-auto">
+								<img
+									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+									alt="" />
+							</div>
+						</c:if>
+					</c:if>
+				</div>
+			</div>
+		</c:if>
+	</c:forEach>
+</div>
+
+
+<style>
+.memo-table-list .memo-table-list-box .file-box {
+	/* border: 3px solid blue; */
+	hegith: 100%;
+	width: 20%;
+}
+
+.memo-table-list .memo-table-list-box {
+	/* border: 3px solid red; */
+	height: 160px;
+	display: flex;
+	padding-bottom:10px;
+	border-bottom:3px solid black;
+	margin-top:20px;
+}
+
+.memo-table-list .memo-table-list-box:first-child {
+	margin-top: 50px;
+}
+
+.memo-table-list .memo-table-list-box .contents-box {
+	/* border: 3px solid blue; */
+	height: 100%;
+	width: 80%;
+}
+
+.memo-table-list .memo-table-list-box .contents-box .title {
+	/* border: 3px solid gold; */
+	height: 60px;
+	width: 100%;
+	font-size:2.5rem;
+}
+
+/* body를 태그로 바꿔서 사용중....  */
+.memo-table-list .memo-table-list-box .contents-box .body {
+	/* border: 3px solid orange; */
+	height: 50px;
+	width: 100%;
+	font-size:1.2rem;
+	opacity: 0.7;
+}
+
+.memo-table-list .memo-table-list-box .writer-box {
+	/* border: 3px solid black; */ 
+	height: 30px;
+	display: flex;
+	margin-top:20px;
+}
+
+.memo-table-list .memo-table-list-box .writer-box .writer, .regDate {
+	/* border: 3px solid green; */
+	width: 200px;
+	height: 30px;
+	text-align:left;
+	
+}
+</style>
 
 
 
 
 
 
-
-
-
-
-<div class="memo-table-box con flex flex-wrap flex-row ">
+<div
+	class="memo-table-box con flex flex-wrap flex-row ">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId == loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
@@ -257,7 +416,7 @@ $(".onclick-list-big").click(function () {
 
 						<tr class="title">
 							<th>Date</th>
-				<%-- 회원번호${member.id},	게시물회원번호${article.memberId} --%>
+							<%-- 회원번호${member.id},	게시물회원번호${article.memberId} --%>
 							<td>${article.updateDate}
 								<div class="border-title"></div>
 							</td>
@@ -422,28 +581,28 @@ $(".onclick-list-big").click(function () {
 	</c:forEach>
 </div>
 <%-- <c:if test="${isLogined}"> --%>
-	<c:if test="${boardCode eq 'memberPage' == false }">
-		<div class="con page-box">
-			<ul class="flex flex-jc-c">
-				<c:forEach var="i" begin="1" end="${totalPage}" step="1">
-					<li class="${i == cPage ? 'current' : ''}"><a
-						href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
-						class="block">${i}</a></li>
-				</c:forEach>
-			</ul>
-		</div>
-	</c:if>
-	<c:if test="${boardCode eq 'memberPage' }">
-		<div class="con page-box">
-			<ul class="flex flex-jc-c">
-				<c:forEach var="i" begin="1" end="${totalPage}" step="1">
-					<li class="${i == cPage ? 'current' : ''}"><a
-						href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}"
-						class="block">${i}</a></li>
-				</c:forEach>
-			</ul>
-		</div>
-	</c:if>
+<c:if test="${boardCode eq 'memberPage' == false }">
+	<div class="con page-box">
+		<ul class="flex flex-jc-c">
+			<c:forEach var="i" begin="1" end="${totalPage}" step="1">
+				<li class="${i == cPage ? 'current' : ''}"><a
+					href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
+					class="block">${i}</a></li>
+			</c:forEach>
+		</ul>
+	</div>
+</c:if>
+<c:if test="${boardCode eq 'memberPage' }">
+	<div class="con page-box">
+		<ul class="flex flex-jc-c">
+			<c:forEach var="i" begin="1" end="${totalPage}" step="1">
+				<li class="${i == cPage ? 'current' : ''}"><a
+					href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}"
+					class="block">${i}</a></li>
+			</c:forEach>
+		</ul>
+	</div>
+</c:if>
 
 
 
@@ -452,8 +611,8 @@ $(".onclick-list-big").click(function () {
 	margin-top: 40px;
 	text-align: center;
 	text-align: center;
-	width:100%;
-	padding:50px 0;
+	width: 100%;
+	padding: 50px 0;
 	/* background-color:#fff5f5; */
 }
 
@@ -461,12 +620,12 @@ $(".onclick-list-big").click(function () {
 	font-size: 2.4rem;
 	font-weight: bold;
 	/* border:3px solid red; */
-	opacity:0.7;
+	opacity: 0.7;
 }
 
 .unicon-intro-box .unicon-title:hover {
-	opacity:1;
-	cursor:pointer;
+	opacity: 1;
+	cursor: pointer;
 }
 
 .unicon-intro-box .unicon-serve-title {
@@ -474,15 +633,12 @@ $(".onclick-list-big").click(function () {
 	font-size: 1.7rem;
 	font-weight: bold;
 	/* border:3px solid red; */
-	opacity:0.7;
-	
+	opacity: 0.7;
 }
 
-
 .unicon-intro-box .unicon-serve-title:hover {
-		opacity:1;
-		cursor:pointer;
-	
+	opacity: 1;
+	cursor: pointer;
 }
 
 .unicon-intro-box .unicon-serve-title2 {
@@ -491,13 +647,11 @@ $(".onclick-list-big").click(function () {
 	font-weight: bold;
 	/* border:3px solid red; */
 	opacity: 0.7;
-	
 }
 
 .unicon-intro-box .unicon-serve-title2:hover {
 	opacity: 1;
-	cursor:pointer;
-	
+	cursor: pointer;
 }
 
 .unicon-intro-box .unicon-login {
@@ -508,63 +662,59 @@ $(".onclick-list-big").click(function () {
 	width: 300px;
 }
 
-
-
 .unicon-login-box {
 	margin-top: 40px;
 	text-align: center;
 	text-align: center;
-	width:100%;
-	padding:50px 0;
-	background-color:#fff5f5;
-	 
+	width: 100%;
+	padding: 50px 0;
+	background-color: #fff5f5;
 }
-
 
 /* 로그인 후 UNICON __ 게시물 0개일때 시작  */
 .unicon-login-intro-box {
 	text-align: center;
-	margin-bottom:200px;
+	margin-bottom: 200px;
 }
-
 
 .unicon-intro-box {
 	margin-top: 40px;
 	text-align: center;
 	text-align: center;
-	width:100%;
-	padding:50px 0;
+	width: 100%;
+	padding: 50px 0;
 	/* background-color:#fff5f5; */
 }
+
 .unicon-login-intro-box .back-img img {
-	position:absolute;
-	width:100%;
-	height:400px;
-	top:45%;
-	left:0;
-	z-index:-1;
+	position: absolute;
+	width: 100%;
+	height: 400px;
+	top: 45%;
+	left: 0;
+	z-index: -1;
 }
 
 .unicon-login-intro-box .unicon-login-title1 {
-	margin-top:100px;
+	margin-top: 100px;
 	font-size: 2.4rem;
 	font-weight: bold;
-	opacity:0.7;
+	opacity: 0.7;
 }
 
 .unicon-login-intro-box .unicon-login-title1 span {
-	margin-left:10px;
-	margin-right:10px;
+	margin-left: 10px;
+	margin-right: 10px;
 	/* opacity:0; */
 }
 
 .unicon-login-intro-box .unicon-login-title1:hover {
-	opacity:1;
+	opacity: 1;
 	cursor: pointer;
 }
 
 .unicon-login-intro-box .unicon-login-title1:hover  span {
-	border-bottom:5px solid red;
+	border-bottom: 5px solid red;
 	/* opacity:1;
 	transition: opacity 0.7s; */
 }
@@ -572,22 +722,21 @@ $(".onclick-list-big").click(function () {
 .unicon-login-intro-box .unicon-login-title2 {
 	font-size: 2.4rem;
 	font-weight: bold;
-	opacity:0.7;
+	opacity: 0.7;
 }
 
-.unicon-login-intro-box .unicon-login-title2 span{
-	margin-left:10px;
-	margin-right:10px;
+.unicon-login-intro-box .unicon-login-title2 span {
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .unicon-login-intro-box .unicon-login-title2:hover {
-	opacity:1;
+	opacity: 1;
 	cursor: pointer;
-	
 }
 
 .unicon-login-intro-box .unicon-login-title2:hover  span {
-	border-bottom:5px solid red;
+	border-bottom: 5px solid red;
 	/* opacity:1;
 	transition: opacity 0.7s; */
 }
@@ -597,13 +746,11 @@ $(".onclick-list-big").click(function () {
 	font-size: 1.7rem;
 	font-weight: bold;
 	opacity: 0.7;
-	
 }
 
 .unicon-login-intro-box .unicon-login-serve-title:hover {
 	opacity: 1;
 	cursor: pointer;
-	
 }
 
 .unicon-login-intro-box .unicon-login-serve-title2 {
@@ -611,29 +758,24 @@ $(".onclick-list-big").click(function () {
 	font-size: 1.3rem;
 	font-weight: bold;
 	opacity: 0.7;
-	
 }
 
 .unicon-login-intro-box .unicon-login-serve-title2:hover {
 	opacity: 1;
 	cursor: pointer;
-	
 }
 
 /* 로그인 후 UNICON __ 게시물 0개일때 끝 */
-
 .page-box {
-	margin-bottom:100px;
-	margin-top:50px;
+	margin-bottom: 100px;
+	margin-top: 50px;
 }
-
-
 
 .page-box>ul>li>a {
 	padding: 0 10px;
 	text-decoration: underline;
 	color: #787878;
-	margin-bottom:30px;	
+	margin-bottom: 30px;
 }
 
 .page-box>ul>li:hover>a {
@@ -660,22 +802,20 @@ input[type="submit"] {
 
 .search .search-box form .tag-box input {
 	padding: 5px;
-	margin-top:5px;
+	margin-top: 5px;
 	border: 1px solid black;
 }
 
 table {
 	border-collapse: collapse;
-	
 }
 
 .memo-table-box {
+	
 }
-
 
 html>body .memo-table-box .memo-box {
 	overflow: hidden;
-	
 }
 
 .memo-table-box .memo-box {
@@ -731,7 +871,6 @@ html>body .memo-table-box .memo-box td {
 	overflow: auto;
 }
 
-
 @media ( max-width :800px ) {
 	/* PC버전 memo 테이블 관련 */
 	.memo-table-box .memo-box {
@@ -739,16 +878,14 @@ html>body .memo-table-box .memo-box td {
 		width: 350px;
 		height: 400px;
 		/* margin: 10px 0; */
-		margin-left:auto;
-		margin-right:auto;
-		margin-top:5px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 5px;
 	}
 	h1 {
-		text-align:center;
+		text-align: center;
 	}
 }
-
-
 </style>
 
 
