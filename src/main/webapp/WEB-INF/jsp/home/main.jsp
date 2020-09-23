@@ -81,8 +81,7 @@
 		<p>메모는</p>
 		<p>
 			<span class="word wisteria">우리의 소중한 추억</span> <span
-				class="word belize">잊지못할 기억들</span> <span class="word pomegranate">돌이킬
-				수 없는 순간</span> <span class="word green">좋은 습관의 시작</span> <span
+				class="word belize">잊지못할 기억들</span> <span class="word pomegranate">기억하고 싶은 순간</span> <span class="word green">좋은 습관의 시작</span> <span
 				class="word midnight">성장하는 지름길</span>
 		</p>
 	</div>

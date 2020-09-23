@@ -90,10 +90,18 @@ public class ArticleController {
 	
 
 	@RequestMapping("/usr/article/{boardCode}-write")
-	public String showWrite(Model model, @PathVariable("boardCode") String boardCode, String memoId) {
+	public String showWrite(Model model, @PathVariable("boardCode") String boardCode, String memoId, HttpServletRequest request) {
 
 		model.addAttribute("boardCode", boardCode);
 		model.addAttribute("memoId", memoId);
+		
+		int loginedMemberId =  (int)request.getAttribute("loginedMemberId");
+		
+		if ( boardCode.equals("notice") && loginedMemberId != 1 ) {
+			model.addAttribute("alertMsg", "공지사항 게시물은 관리자만 작성할 수 있습니다.");
+			model.addAttribute("redirectUri", "/usr/home/main");
+			return "common/redirect";
+		}
 
 		return "article/write";
 	}
@@ -110,6 +118,10 @@ public class ArticleController {
 	@RequestMapping("/usr/article/{boardCode}-doWrite")
 	public String doWrite(@RequestParam Map<String, Object> param, Model model,
 			@PathVariable("boardCode") String boardCode, HttpServletRequest request) {
+		
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+		
+		
 
 		
 		ResultData resultData = hashtagService.getChechTagDup(Util.getAsStr(param.get("tag")));
@@ -120,7 +132,7 @@ public class ArticleController {
 			return "common/redirect";
 		}
 
-		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+		
 		
 		if ( boardCode.equals("memoYOU") ) {
 			boardCode = "memoME";

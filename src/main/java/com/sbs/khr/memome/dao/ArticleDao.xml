@@ -222,6 +222,7 @@
 		= 'article'
 		AND A.displayStatus = 1
 		AND A.memberId NOT IN(#{memberId})
+		AND A.boardId NOT IN(6)
 		AND A.delStatus = 0
 		GROUP BY A.id
 		ORDER BY A.id DESC

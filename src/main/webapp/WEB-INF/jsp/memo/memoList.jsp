@@ -112,8 +112,9 @@
 
 
 <c:if test="${isLogined == false && board.code eq 'unicon'}">
-	<div class="unicon-intro-box con">
-		<div class="unicon-title">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
+	<div class="unicon-intro-box ">
+		
+		<div class="unicon-title">소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.</div>
 		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
 		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
 		<div class="unicon-login">
@@ -124,10 +125,12 @@
 </c:if>
 
 
+
+
 <c:if test="${totalCount == 0 && boardCode eq 'unicon' && isLogined }">
-	<div class="unicon-login-intro-box con">
-		<div class="unicon-login-title">아직 작성하신 UNICON이 없으시네요.</div>
-		<div class="unicon-login-title margin-top-50">소중한 지인들과 소소한 추억을 쌓아보세요.</div>
+	<div class="unicon-login-intro-box unicon-login-box">
+		<div class="unicon-login-title1">아직 작성하신 <span>UNICON</span>이 없으시네요.</div>
+		<div class="unicon-login-title2 margin-top-50">소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.</div>
 		<div class="unicon-login-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를
 			공유해보세요.</div>
 		<div class="unicon-login-serve-title2">UNICON에 작성하신 메모는 초대한 지인 외에는 공개되지
@@ -137,9 +140,12 @@
 
 
 <c:if test="${totalCount == 0 && boardCode eq 'unicon' == false && boardCode eq 'memoME'}">
-	<div class="unicon-login-intro-box con">
-		<div class="unicon-login-title">아직 작성하신 MEMO가 없으시네요.</div>
-		<div class="unicon-login-title margin-top-50">나만의 메모를 작성해서 잊지 못할 순간들을 기록해보세요.</div>
+	<div class="unicon-login-intro-box unicon-intro-box">
+	<div class="back-img">
+		<img src="/resource/img/memo-list.PNG" alt="" />
+	</div>
+		<div class="unicon-login-title1">아직 작성하신 MEMO가 없으시네요.</div>
+		<div class="unicon-login-title2 margin-top-50">나만의 메모를 작성해서 잊지 못할 순간들을 기록해보세요.</div>
 	</div>
 </c:if>
 
@@ -362,26 +368,55 @@
 
 <style>
 .unicon-intro-box {
-	margin-top: 100px;
+	margin-top: 40px;
 	text-align: center;
 	text-align: center;
+	width:100%;
+	padding:50px 0;
+	/* background-color:#fff5f5; */
 }
 
 .unicon-intro-box .unicon-title {
 	font-size: 2.4rem;
 	font-weight: bold;
+	/* border:3px solid red; */
+	opacity:0.7;
+}
+
+.unicon-intro-box .unicon-title:hover {
+	opacity:1;
+	cursor:pointer;
 }
 
 .unicon-intro-box .unicon-serve-title {
 	margin-top: 50px;
 	font-size: 1.7rem;
 	font-weight: bold;
+	/* border:3px solid red; */
+	opacity:0.7;
+	
+}
+
+
+.unicon-intro-box .unicon-serve-title:hover {
+		opacity:1;
+		cursor:pointer;
+	
 }
 
 .unicon-intro-box .unicon-serve-title2 {
 	margin-top: 50px;
 	font-size: 1.3rem;
 	font-weight: bold;
+	/* border:3px solid red; */
+	opacity: 0.7;
+	
+}
+
+.unicon-intro-box .unicon-serve-title2:hover {
+	opacity: 1;
+	cursor:pointer;
+	
 }
 
 .unicon-intro-box .unicon-login {
@@ -392,27 +427,115 @@
 	width: 300px;
 }
 
+
+
+.unicon-login-box {
+	/* margin-top: 40px; */
+	text-align: center;
+	text-align: center;
+	width:100%;
+	padding:50px 0;
+	background-color:#fff5f5; 
+}
+
+
 /* 로그인 후 UNICON __ 게시물 0개일때 시작  */
 .unicon-login-intro-box {
 	text-align: center;
 	margin-bottom:200px;
 }
 
-.unicon-login-intro-box .unicon-login-title {
+
+.unicon-intro-box {
+	margin-top: 40px;
+	text-align: center;
+	text-align: center;
+	width:100%;
+	padding:50px 0;
+	/* background-color:#fff5f5; */
+}
+.unicon-login-intro-box .back-img img {
+	position:absolute;
+	width:100%;
+	height:400px;
+	top:45%;
+	left:0;
+	z-index:-1;
+}
+
+.unicon-login-intro-box .unicon-login-title1 {
+	margin-top:100px;
 	font-size: 2.4rem;
 	font-weight: bold;
+	opacity:0.7;
+}
+
+.unicon-login-intro-box .unicon-login-title1 span {
+	margin-left:10px;
+	margin-right:10px;
+	/* opacity:0; */
+}
+
+.unicon-login-intro-box .unicon-login-title1:hover {
+	opacity:1;
+	cursor: pointer;
+}
+
+.unicon-login-intro-box .unicon-login-title1:hover  span {
+	border-bottom:5px solid red;
+	/* opacity:1;
+	transition: opacity 0.7s; */
+}
+
+.unicon-login-intro-box .unicon-login-title2 {
+	font-size: 2.4rem;
+	font-weight: bold;
+	opacity:0.7;
+}
+
+.unicon-login-intro-box .unicon-login-title2 span{
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.unicon-login-intro-box .unicon-login-title2:hover {
+	opacity:1;
+	cursor: pointer;
+	
+}
+
+.unicon-login-intro-box .unicon-login-title2:hover  span {
+	border-bottom:5px solid red;
+	/* opacity:1;
+	transition: opacity 0.7s; */
 }
 
 .unicon-login-intro-box .unicon-login-serve-title {
 	margin-top: 50px;
 	font-size: 1.7rem;
 	font-weight: bold;
+	opacity: 0.7;
+	
+}
+
+.unicon-login-intro-box .unicon-login-serve-title:hover {
+	opacity: 1;
+	cursor: pointer;
+	
 }
 
 .unicon-login-intro-box .unicon-login-serve-title2 {
 	margin-top: 50px;
 	font-size: 1.3rem;
 	font-weight: bold;
+	opacity: 0.7;
+	
+}
+
+.unicon-login-intro-box .unicon-login-serve-title2:hover {
+	opacity: 1;
+	cursor: pointer;
+	
 }
 
 /* 로그인 후 UNICON __ 게시물 0개일때 끝 */
