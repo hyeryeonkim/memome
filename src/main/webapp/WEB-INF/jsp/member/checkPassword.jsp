@@ -25,7 +25,7 @@
 				<td><input type="password" name="loginPw" autofocus/></td>
 			</tr>
 			<tr>
-				<th></th>
+				<th>확인</th>
 				<td class="mobile-btn flex">
 					<!-- <button type="submit" class="btn black">확인</button> -->
 					<input type="submit" class="btn black" value="확인"/>

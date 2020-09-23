@@ -15,6 +15,21 @@
 	</h1>
 </c:if>
 
+<c:if test="${boardCode eq 'free' }">
+	<div class="free-top-bar">
+		<h1>Story</h1>
+		<h2>메모미의 다양한 이야기들을 만나보세요</h2>
+	</div>
+</c:if>
+
+<style>
+.free-top-bar {
+	position:absolute;
+	top:130px;
+	right:19%;
+	text-align:right;
+}
+</style>
 
 
 
@@ -42,20 +57,27 @@
 <c:if test="${boardCode eq 'memberPage' == false }">
 	<c:if test="${boardCode eq 'notice' }">
 		<script>
- 			$( document ).ready( function() {
-		        $( '.search' ).addClass( 'margin-top-105' );
-		        
-		      }); 
+			$(document).ready(function() {
+				$('.search').addClass('margin-top-105');
+			});
 		</script>
 	</c:if>
-	<div  class="search con flex flex-jc-fe padding-10-0">
+	<c:if test="${boardCode eq 'notice' && loginedMemberId == 1}">
+		<script>
+			$(document).ready(function() {
+				$('.search').removeClass('margin-top-105');
+			});
+		</script>
+	</c:if>
+	
+	<div class="search con flex flex-jc-fe padding-10-0">
 		<div class="search-box ">
 			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
 			<form action="../article/${boardCode}-list" class="flex">
 				<input type="hidden" name="page" value="1" />
 				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-				<input type="hidden" name="searchKeywordType" value="tag" />
-				<input type="hidden" name="boardCode" value="${boardCode}"/>
+				<input type="hidden" name="searchKeywordType" value="tag" /> <input
+					type="hidden" name="boardCode" value="${boardCode}" />
 				<div class="tag-box flex flex-jc-sb">
 					<input type="text" name="searchKeyword"
 						placeholder="검색할 태그를 입력해주세요." value="${param.searchKeyword}"
@@ -68,14 +90,15 @@
 		</div>
 	</div>
 </c:if>
-	
-<div class="con" style="font-size:1.2rem;">총 게시물 수 : ${totalCount}</div>
+
+<div class="con" style="font-size: 1.2rem;">총 게시물 수 :
+	${totalCount}</div>
 <div class="table-box con margin-top-10">
-	<table >
+	<table>
 		<colgroup>
 			<col width="80" />
-			<col width="200"  />
-			<col width="100"  />
+			<col width="200" />
+			<col width="100" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -93,7 +116,7 @@
 					<td>${article.extra.writer}</td>
 					<td><a href="${article.getDetailLink(board.code)}">${article.title}</a>
 					</td>
-						
+
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -102,22 +125,20 @@
 <div class="con page-box ">
 	<ul class="flex flex-jc-c">
 		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
-		<li class="${i == cPage ? 'current' : ''}"><a
-			href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
-			class="block">${i}</a></li>
+			<li class="${i == cPage ? 'current' : ''}"><a
+				href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
+				class="block">${i}</a></li>
 		</c:forEach>
 	</ul>
-	
+
 </div>
 
 
 <style>
-
 .table-box {
 	/* border:10px solid blue; */
-	height:600px;
+	height: 600px;
 }
-
 
 .table-box {
 	/* border:5px solid red; */
@@ -125,20 +146,17 @@
 }
 
 .table-box table {
-	border:5px solid black;
+	border: 5px solid black;
 }
-
-
 
 .page-box {
 	/* border:10px solid red; */
-	margin-bottom:100px;
+	margin-bottom: 100px;
 }
 
 input[type="submit"] {
 	font-family: FontAwesome;
 }
-
 
 .search .search-box button {
 	padding: 0 20px;
@@ -147,16 +165,14 @@ input[type="submit"] {
 .search .search-box form .tag-box {
 	padding: 10px 0;
 	width: 240px;
-	
 	font-size: 1.5rem;
 }
 
 .search .search-box form .tag-box input {
 	padding: 5px;
-	margin-top:5px;
+	margin-top: 5px;
 	border: 1px solid black;
 }
-
 
 .page-box>ul>li>a {
 	padding: 0 10px;
@@ -178,12 +194,10 @@ input[type="submit"] {
 	text-align: center;
 }
 
-
-
 @media ( max-width :800px ) {
 	/* PC버전 memo 테이블 관련 */
 	h1 {
-		text-align:center;
+		text-align: center;
 	}
 }
 </style>

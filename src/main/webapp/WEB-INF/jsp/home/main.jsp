@@ -171,7 +171,7 @@ body {
 
 .title {
 	font-weight: bold;
-	font-size: 2.6rem;
+	font-size: 2.2rem;
 }
 
 .serve-title {
@@ -211,9 +211,9 @@ body {
 .text {
 	position: absolute;
 	height: 40px;
-	left: 23%;
+	left: 33%;
 	top: 12%;
-	font-size: 6rem;
+	font-size: 4rem;
 }
 
 p {

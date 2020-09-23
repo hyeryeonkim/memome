@@ -154,7 +154,88 @@
 
 
 
-<div class="memo-table-box con flex flex-wrap flex-row">
+
+
+
+
+
+
+
+
+<div class="con " >
+<input class="onclick-list-big btn"  type="button" onclick="" value="크게보기"/>
+</div>
+<div class="con">
+<input class="onclick-list-small btn " type="button" onclick="" value="작게보기"/>
+</div>
+<script>
+$(".onclick-list-small").click(function () {
+    $(".memo-table-box").addClass("memo-table-box-none");
+    $(".onclick-list-big").addClass("onclick-list-big-block");
+    $(".onclick-list-small").addClass("onclick-list-small-none");
+});
+
+$(".onclick-list-big").click(function () {
+	$(".memo-table-box").removeClass("memo-table-box-none");
+    $(".memo-table-box").removeClass("onclick-list-big-block");
+	 $(".memo-table-box").addClass("memo-table-box-none");
+	 $(".onclick-list-big").addClass("onclick-list-big-block");
+    $(".onclick-list-small").removeClass("onclick-list-small-none");
+    $(".onclick-list-small").addClass("onclick-list-small-block");
+    $(".onclick-list-big").addClass("onclick-list-big-none");
+});
+
+</script>
+<style>
+
+.onclick-list-big {
+	display:none;
+}
+
+.memo-table-box-none {
+	display:none;
+}
+
+.onclick-list-big-block {
+	display:block;
+}
+
+.onclick-list-small-none {
+	display:none;
+}
+
+.memo-table-box-block {
+	display:block;
+}
+
+.onclick-list-small-block {
+	display:block;
+}
+
+.onclick-list-big-none {
+	display:none;
+}
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="memo-table-box con flex flex-wrap flex-row ">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId == loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
@@ -430,12 +511,13 @@
 
 
 .unicon-login-box {
-	/* margin-top: 40px; */
+	margin-top: 40px;
 	text-align: center;
 	text-align: center;
 	width:100%;
 	padding:50px 0;
-	background-color:#fff5f5; 
+	background-color:#fff5f5;
+	 
 }
 
 

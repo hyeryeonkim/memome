@@ -285,8 +285,8 @@ flex-row-wrap {
 
 .outer-box .top-bar .menu-box ul>li {
 	display: inline-block;
-	font-size: 1.4rem;
-	margin: 0 30px;
+	font-size: 1rem;
+	/* margin: 0 10px; */
 	width: 120px;
 }
 

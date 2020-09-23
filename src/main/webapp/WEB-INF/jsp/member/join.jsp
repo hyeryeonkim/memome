@@ -9,7 +9,22 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 
-<form action="doJoin" method="POST" class="table-box con form1 margin-top-50"
+<div class="join-top-bar">
+	<h1>Sign up</h1>
+	<h2>메모미를 바로 시작해보세요</h2>
+</div>
+
+<style>
+.join-top-bar {
+	position: absolute;
+	top: 130px;
+	right: 25%;
+	text-align: right;
+}
+</style>
+
+<form action="doJoin" method="POST"
+	class="table-box con form1 margin-top-50"
 	onsubmit="MemberJoinForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal" /> <input type="hidden"
 		name="redirectUri" value="../member/login" />
@@ -81,9 +96,10 @@
 				<th>휴대전화</th>
 				<td>
 					<div class="form-control-box">
-						<input type="tel" name="cellphoneNo" onkeyup="JoinForm__checkCellphoneNoDup(this);"
+						<input type="tel" name="cellphoneNo"
+							onkeyup="JoinForm__checkCellphoneNoDup(this);"
 							placeholder="휴대전화 번호를 -없이 입력해주세요." maxlength="11" />
-							<div class="message-msg"></div>
+						<div class="message-msg"></div>
 					</div>
 				</td>
 			</tr>
@@ -507,35 +523,30 @@ function JoinForm__checkCellphoneNoDup(input) {
 
 <style>
 .con {
-	width:50%;
+	width: 50%;
 }
+
 .table-box table th {
-	text-align:center;
-	
+	text-align: center;
 }
 
 .table-box {
-	border:5px solid black;
+	border: 5px solid black;
 }
+
 .btn {
-	padding:0 25px;
-	font-size:1rem;
+	padding: 0 25px;
+	font-size: 1rem;
 }
 
 /* 모바일 버전 */
-
-@media (max-width :1210px)  {
-    .con {
-    	width:80%;
-    	margin-left:auto;
-    	margin-right:auto;
-    }
+@media ( max-width :1210px) {
+	.con {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
-
-
-
-
-
 </style>
 
 
