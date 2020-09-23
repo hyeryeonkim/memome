@@ -19,3 +19,5 @@ function endLoading() {
 function isNowLoading() {
 	return nowLoading;
 }
+
+

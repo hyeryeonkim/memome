@@ -238,17 +238,17 @@
 
 
 
-
 <div class="memo-table-list con  ">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId == loginedMemberId }">
-			<div class="memo-table-list-box">
+			<div class="memo-table-list-box "
+				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
 				<div class="contents-box">
 					<div class="title">${article.title }</div>
 					<div class="body">
 						<c:forEach items="${hashtags}" var="hashtag">
 							<c:if test="${article.id == hashtag.relId }">
-								<strong ><a
+								<strong><a
 									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
 										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 							</c:if>
@@ -287,13 +287,14 @@
 <div class="memo-table-list con  ">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId != loginedMemberId }">
-			<div class="memo-table-list-box">
+			<div class="memo-table-list-box"
+				onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }'">
 				<div class="contents-box">
 					<div class="title">${article.title }</div>
 					<div class="body">
 						<c:forEach items="${hashtags}" var="hashtag">
 							<c:if test="${article.id == hashtag.relId }">
-								<strong ><a
+								<strong><a
 									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
 										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 							</c:if>
@@ -341,9 +342,13 @@
 	/* border: 3px solid red; */
 	height: 160px;
 	display: flex;
-	padding-bottom:10px;
-	border-bottom:3px solid black;
-	margin-top:20px;
+	padding-bottom: 10px;
+	border-bottom: 3px solid black;
+	margin-top: 20px;
+}
+
+.memo-table-list .memo-table-list-box:hover {
+	cursor: pointer;
 }
 
 .memo-table-list .memo-table-list-box:first-child {
@@ -360,7 +365,7 @@
 	/* border: 3px solid gold; */
 	height: 60px;
 	width: 100%;
-	font-size:2.5rem;
+	font-size: 2.5rem;
 }
 
 /* body를 태그로 바꿔서 사용중....  */
@@ -368,23 +373,34 @@
 	/* border: 3px solid orange; */
 	height: 50px;
 	width: 100%;
-	font-size:1.2rem;
+	font-size: 1.2rem;
 	opacity: 0.7;
 }
 
 .memo-table-list .memo-table-list-box .writer-box {
-	/* border: 3px solid black; */ 
+	/* border: 3px solid black; */
 	height: 30px;
 	display: flex;
-	margin-top:20px;
+	margin-top: 20px;
 }
 
 .memo-table-list .memo-table-list-box .writer-box .writer, .regDate {
 	/* border: 3px solid green; */
 	width: 200px;
 	height: 30px;
-	text-align:left;
-	
+	text-align: left;
+}
+
+@media ( max-width :800px ) {
+	.memo-table-list .memo-table-list-box .contents-box .title {
+		font-size: 1.6rem;
+	}
+
+	/* body를 태그로 바꿔서 사용중....  */
+	.memo-table-list .memo-table-list-box .contents-box .body {
+		font-size: 1rem;
+		opacity: 0.7;
+	}
 }
 </style>
 
@@ -393,8 +409,7 @@
 
 
 
-<div
-	class="memo-table-box con flex flex-wrap flex-row ">
+<div class="memo-table-box con flex flex-wrap flex-row ">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId == loginedMemberId}">
 			<div class="memo-box  flex flex-jc-sa "
