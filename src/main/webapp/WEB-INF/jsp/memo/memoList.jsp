@@ -169,17 +169,16 @@
 
 
 
-
-
-
-<div class="con ">
-	<input class="onclick-list-big btn" type="button" onclick=""
-		value="크게보기" />
-</div>
-<div class="con">
-	<input class="onclick-list-small btn " type="button" onclick=""
-		value="작게보기" />
-</div>
+<c:if test="${totalCount != 0 }">
+	<div class="con ">
+		<input class="onclick-list-big btn" type="button" onclick=""
+			value="크게보기" />
+	</div>
+	<div class="con">
+		<input class="onclick-list-small btn " type="button" onclick=""
+			value="작게보기" />
+	</div>
+</c:if>
 <script>
 	$(".onclick-list-small").click(function() {
 		$(".memo-table-box").addClass("memo-table-box-none");
@@ -240,7 +239,7 @@
 
 <div class="memo-table-list con  ">
 	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.memberId == loginedMemberId }">
+		<c:if test="${article.memberId == loginedMemberId  }">
 			<div class="memo-table-list-box "
 				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
 				<div class="contents-box">
@@ -283,6 +282,53 @@
 		</c:if>
 	</c:forEach>
 </div>
+
+<div class="memo-table-list con  ">
+	<c:forEach items="${articles}" var="article">
+		<c:if test="${article.memberId == loginedMemberId  }">
+			<div class="memo-table-list-box "
+				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
+				<div class="contents-box">
+					<div class="title">${article.title }</div>
+					<div class="body">
+						<c:forEach items="${hashtags}" var="hashtag">
+							<c:if test="${article.id == hashtag.relId }">
+								<strong><a
+									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+							</c:if>
+						</c:forEach>
+					</div>
+					<div class="writer-box">
+						<div class="writer">${article.extra.writer}</div>
+						<div class="regDate">${article.regDate }</div>
+					</div>
+				</div>
+				<div class="file-box">
+					<c:set var="fileNo" value="${String.valueOf(3)}" />
+					<c:set var="file"
+						value="${article.extra.file__common__attachment[fileNo]}" />
+					<c:if test="${file != null}">
+						<c:if test="${file.fileExtTypeCode == 'video'}">
+							<div class="video-box">
+								<video controls
+									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+							</div>
+						</c:if>
+						<c:if test="${file.fileExtTypeCode == 'img'}">
+							<div class="img-box img-box-auto">
+								<img
+									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+									alt="" />
+							</div>
+						</c:if>
+					</c:if>
+				</div>
+			</div>
+		</c:if>
+	</c:forEach>
+</div>
+
 
 <div class="memo-table-list con  ">
 	<c:forEach items="${articles}" var="article">
