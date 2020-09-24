@@ -68,6 +68,7 @@
 					<input type="text" name="searchKeyword"
 						placeholder="검색할 태그를 입력해주세요." value="${param.searchKeyword}"
 						class="box" />
+						<input type="hidden" name="mode" value="${param.mode }"/>
 					<button type="submit" class="search-button btn black">
 						<i style="font-size: 1.2rem;" class="fas fa-search"></i>
 					</button>
@@ -200,6 +201,26 @@
 					value="크게보기" />
 			</div>
 		</c:if>
+	</c:if>
+	<c:if test="${empty param.page == false }">
+		<c:if test="${boardCode eq 'memberPage' }">
+		<c:if test="${param.mode eq 'big' || param.mode eq ''}">
+			<div class="con">
+				<input class="onclick-list-small btn " type="button"
+					onclick="click__small();  location.replace('${boardCode}-memoList?searchKeywordType=${param.searchKeywordType}
+					&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}&mode=${param.mode}'); "
+					value="작게보기" />
+			</div>
+		</c:if>
+		<c:if test="${param.mode eq 'small' }">
+			<div class="con ">
+				<input class="onclick-list-big btn" type="button"
+					onclick="click__big(); location.replace('${boardCode}-memoList?searchKeywordType=${param.searchKeywordType}
+					&searchKeyword=${param.searchKeyword}&page=${param.page}&id=${param.id}&mode=${param.mode}'); "
+					value="크게보기" />
+			</div>
+		</c:if>
+	</c:if>
 	</c:if>
 </c:if>
 
