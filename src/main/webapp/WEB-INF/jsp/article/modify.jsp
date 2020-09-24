@@ -49,6 +49,18 @@
 				</td>
 			</tr>
 			<tr>
+				<th>공개여부</th>
+				<td>
+					<div class="form-control-box select">
+						<select name="displayStatus" id="">
+							<option value="1">공개</option>
+							<option value="0">비공개</option>
+						</select>
+					</div>
+
+				</td>
+			<tr>
+			<tr>
 				<th>제목</th>
 				<td>
 					<div class="form-control-box">

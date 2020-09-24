@@ -22,7 +22,7 @@
 
 
 
-<form method="POST" action="${boardCode}-doWrite"
+<form method="POST" action="${boardCode}-doWrite?mode=${param.mode}"
 	class="form1 table-box table-box-vertical con"
 	onsubmit="ArticleWriteForm__submit(this); return false;">
 	<input type="hidden" name="fileIdsStr" /> <input type="hidden"
@@ -40,7 +40,7 @@
 					<td>
 						<div class="form-control-box invite-control-box  flex flex-wrap">
 							<input type="email" name="invite1" placeholder="이메일을 입력해주세요."
-								 maxlength="20" /> <input type="email" name="invite2"
+								maxlength="20" /> <input type="email" name="invite2"
 								placeholder="이메일을 입력해주세요." maxlength="20" /> <input
 								type="email" name="invite3" placeholder="이메일을 입력해주세요."
 								maxlength="20" /> <input type="email" name="invite4"
@@ -60,22 +60,37 @@
 						</div>
 					</td>
 				</tr>
-				
+
+			</c:if>
+			<c:if
+				test="${boardCode ne 'free' || boardCode ne 'notice' || boardCode ne 'unicon' }">
+				<tr>
+					<th>공개여부</th>
+					<td>
+						<div class="form-control-box select">
+							<select name="displayStatus" id="">
+								<option value="1">공개</option>
+								<option value="0">비공개</option>
+							</select>
+						</div>
+
+					</td>
 			</c:if>
 			<tr>
-			<th>제목</th>
-			<td>
-				<div class="form-control-box">
-					<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus
-						maxlength="200" />
-				</div>
-			</td>
+
+				<th>제목</th>
+				<td>
+					<div class="form-control-box">
+						<input type="text" name="title" placeholder="제목을 입력해주세요."
+							autofocus maxlength="200" />
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
 				<td>
 					<div class="form-control-box">
-<!-- 					<div> # 제목
+						<!-- 					<div> # 제목
 ![img](https://placekitten.com/200/287)
 이미지는 이렇게 씁니다.
 
@@ -134,17 +149,15 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 
 
 <script>
-
 	function ArticleWriteForm__submit(form) {
 		if (isNowLoading()) {
 			alert('처리중입니다.');
 			return;
 		}
 
-		
 		form.title.value = form.title.value.trim();
 
-		if ( form.title.value.length == 0 ) {
+		if (form.title.value.length == 0) {
 			alert('제목을 입력해주세요.');
 			form.title.focus();
 			return;
@@ -282,8 +295,6 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 		 */
 	}
 
-
-	
 	function ArticleWriteForm__init() {
 		$('form input[type="email"][name^="invite"]').click(function() {
 			$(this).next().addClass('block');
@@ -291,10 +302,6 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 	}
 
 	ArticleWriteForm__init();
-
-
-	
-	
 </script>
 
 <style>

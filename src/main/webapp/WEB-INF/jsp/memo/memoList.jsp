@@ -41,11 +41,11 @@
 <c:if test="${isLogined}">
 	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
 		<button type="button" class="btn black"
-			onclick="location.href='../article/${boardCode}-write'">MEMO</button>
+			onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 	</div>
 	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
 		<button type="button" class="btn black"
-			onclick="location.href='../article/${boardCode}-write'">MEMO</button>
+			onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 	</div>
 </c:if>
 <%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
@@ -311,7 +311,7 @@
 		<c:forEach items="${articles}" var="article">
 			<c:if test="${article.memberId == loginedMemberId  }">
 				<div class="memo-table-list-box "
-					onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
+					onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}&mode=${param.mode }'">
 					<div class="contents-box">
 						<div class="title">${article.title }</div>
 						<div class="body">
@@ -482,7 +482,7 @@
 		<c:forEach items="${articles}" var="article">
 			<c:if test="${article.memberId == loginedMemberId}">
 				<div class="memo-box  flex flex-jc-sa "
-					onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
+					onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}&mode=${param.mode }'">
 					<table>
 						<colgroup>
 							<col width="50" />

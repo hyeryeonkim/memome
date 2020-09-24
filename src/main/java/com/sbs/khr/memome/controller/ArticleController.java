@@ -117,7 +117,7 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/{boardCode}-doWrite")
 	public String doWrite(@RequestParam Map<String, Object> param, Model model,
-			@PathVariable("boardCode") String boardCode, HttpServletRequest request) {
+			@PathVariable("boardCode") String boardCode, HttpServletRequest request, String mode) {
 		
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 		
@@ -143,7 +143,7 @@ public class ArticleController {
 		Board board = articleService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
 		
-		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr", "invite1", "invite2", "invite3", "invite4"
+		Map<String, Object> newParam = Util.getNewMapOf(param, "title", "body", "fileIdsStr", "displayStatus", "invite1", "invite2", "invite3", "invite4"
 				,"invite5", "invite6", "invite7", "invite8", "invite9", "invite10", "invite11", "invite12");
 		
 		System.out.println("body!!!"  + Util.getAsStr(newParam.get("body")));
@@ -166,14 +166,16 @@ public class ArticleController {
 		}
 
 		if (boardCode.contains("memo") || boardCode.contains("unicon")) {
-			redirectUri = "/usr/memo/" + boardCode + "-memoList";
+			redirectUri = "/usr/memo/" + boardCode + "-memoList?mode=" + mode;
 		}
 
 		else {
 			redirectUri = "./" + boardCode + "-list";
 		}
+		
+		
 
-		if (newArticleId != -1) {
+		if (newArticleId != -1 ) {
 			model.addAttribute("redirectUri", redirectUri);
 			model.addAttribute("alertMsg", newArticleId + "번 게시물이 생성되었습니다.");
 			return "common/redirect";

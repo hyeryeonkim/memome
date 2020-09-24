@@ -60,7 +60,7 @@
 	
 </script>
 
-<c:if test="${param.mode eq 'big' }">
+<c:if test="${param.mode eq 'big' || param.mode eq ''}">
 	<div class="memo-table-box con flex flex-jc-sb flex-wrap">
 		<c:forEach items="${articles}" var="article">
 			<c:if test="${article.memberId == loginedMemberId}">

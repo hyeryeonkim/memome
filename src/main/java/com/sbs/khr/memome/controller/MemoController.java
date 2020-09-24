@@ -180,7 +180,7 @@ public class MemoController {
 
 	@RequestMapping("/usr/memo/{boardCode}-memoModify")
 	public String showMemoModify(@PathVariable("boardCode") String boardCode, Model model, HttpServletRequest request,
-			int id) {
+			int id, String mode) {
 
 		Article article = articleService.getForPrintArticleById(id);
 		model.addAttribute("article", article);
@@ -193,13 +193,14 @@ public class MemoController {
 		tagBits.toString();
 		model.addAttribute("tagBits", tagBits);
 		System.out.println("tagBits : " + tagBits);
+		model.addAttribute("mode", mode);
 
 		return "memo/memoModify";
 	}
 
 	@RequestMapping("/usr/memo/{boardCode}-doMemoModify")
 	public String doMemoModify(@RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCode,
-			Model model, HttpServletRequest request) {
+			Model model, HttpServletRequest request, String mode) {
 
 		ResultData resultData = hashtagService.getChechTagDup(Util.getAsStr(param.get("tag")));
 
@@ -211,12 +212,12 @@ public class MemoController {
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 		Map<String, Object> newParam = Util.getNewMapOf(param, "relTypeCode", "fileIdsStr", "id", "title", "body",
-				"tag");
+				"tag", "displayStatus");
 		System.out.println("param file수정 시작 : " + param);
 		System.out.println("newParam file수정 시작 : " + newParam);
 		articleService.memoModify(newParam, loginedMemberId);
 
-		String redirectUri = "/usr/memo/" + boardCode + "-memoList";
+		String redirectUri = "/usr/memo/" + boardCode + "-memoList?mode=" + mode;
 		model.addAttribute("redirectUri", redirectUri);
 
 		return "common/redirect";
@@ -377,8 +378,11 @@ public class MemoController {
 	}
 
 	@RequestMapping("/usr/memo/{boardCode}-memoWrite")
-	public String showMemoWrite(@PathVariable("boardCode") String boardCode, Model model) {
+	public String showMemoWrite(@PathVariable("boardCode") String boardCode, Model model, String mode) {
 		model.addAttribute("boardCode", boardCode);
+		
+		model.addAttribute("mode", mode);
+		
 		return "article/write";
 	}
 

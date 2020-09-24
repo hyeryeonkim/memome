@@ -238,6 +238,12 @@ flex-row-wrap {
 	padding: 10px;
 }
 
+.table-box > table select {
+	height:40px;
+	width:80px;
+	
+}
+
 /* 모바일 버전 memo 테이블 관련 */
 .memo-table-box>table {
 	/* 	border-collapse: collapse; */

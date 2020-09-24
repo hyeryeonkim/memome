@@ -22,7 +22,7 @@ public interface ArticleDao {
 
 	List<Article> getForPrintArticlesByMemo();
 
-	List<Article> getForPrintArticlesByMemberId(@Param("memberId") int memberId, @Param("boardId") int boardId, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom);
+	List<Article> getForPrintArticlesByMemberId(@Param("memberId") int memberId, @Param("boardId") int boardId, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom );
 
 	List<Article> getForPrintAllArticles(@Param("boardId") int boardId, @Param("memberId") int memberId, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom);
 
