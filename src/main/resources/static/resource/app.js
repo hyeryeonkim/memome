@@ -21,17 +21,4 @@ function isNowLoading() {
 }
 
 
-function click__big() {
-	$(".memo-table-box").removeClass("memo-table-box-none");
-	$(".onclick-list-big").removeClass("onclick-list-big-block");
-	$(".onclick-list-small").removeClass("onclick-list-small-none");
-	$(".memo-table-list").removeClass("memo-table-list-block");
-}
-
-function click__small() {
-	$(".memo-table-box").addClass("memo-table-box-none");
-	$(".onclick-list-big").addClass("onclick-list-big-block");
-	$(".onclick-list-small").addClass("onclick-list-small-none");
-	$(".memo-table-list").addClass("memo-table-list-block");
-
-}
+var test = false;

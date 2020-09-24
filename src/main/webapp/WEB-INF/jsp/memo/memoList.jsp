@@ -169,15 +169,38 @@
 
 
 <c:if test="${totalCount != 0 }">
-	<div class="con">
-		<input class="onclick-list-small btn " type="button"
-			onclick="click__small(); " value="작게보기" />
-	</div>
-	<div class="con ">
-		<input class="onclick-list-big btn" type="button"
-			onclick="click__big();  " value="크게보기" />
-	</div>
-
+	<c:if test="${boardCode ne 'memberPage' }">
+		<c:if test="${param.mode eq 'big' || param.mode eq ''}">
+			<div class="con">
+				<input class="onclick-list-small btn " type="button"
+					onclick="click__small();  location.replace('${boardCode}-memoList?mode=small'); "
+					value="작게보기" />
+			</div>
+		</c:if>
+		<c:if test="${param.mode eq 'small' }">
+			<div class="con ">
+				<input class="onclick-list-big btn" type="button"
+					onclick="click__big(); location.replace('${boardCode}-memoList?mode=big'); "
+					value="크게보기" />
+			</div>
+		</c:if>
+	</c:if>
+	<c:if test="${boardCode eq 'memberPage' }">
+		<c:if test="${param.mode eq 'big' || param.mode eq ''}">
+			<div class="con">
+				<input class="onclick-list-small btn " type="button"
+					onclick="click__small();  location.replace('${boardCode}-memoList?mode=small&id=${param.id }'); "
+					value="작게보기" />
+			</div>
+		</c:if>
+		<c:if test="${param.mode eq 'small' }">
+			<div class="con ">
+				<input class="onclick-list-big btn" type="button"
+					onclick="click__big(); location.replace('${boardCode}-memoList?mode=big&id=${param.id }'); "
+					value="크게보기" />
+			</div>
+		</c:if>
+	</c:if>
 </c:if>
 
 
@@ -192,33 +215,42 @@
 				/\+/g, " "));
 	}
 
+	var sch = location.search;
+
+	var params = new URLSearchParams(sch);
+
+	var sch__keyword = params.get('mode');
+
 	function click__big() {
-		if (getParameterByName("mode") == 'small') {
-			$(".memo-table-box").removeClass("memo-table-box-none");
-			$(".onclick-list-big").removeClass("onclick-list-big-block");
-			$(".onclick-list-small").removeClass("onclick-list-small-none");
-			$(".memo-table-list").removeClass("memo-table-list-block");
-		}
-		location.replace(boardCode + '-memoList?mode=big');
-	}
+		//if (getParameterByName("mode") == 'small') {
+		$(".memo-table-box").removeClass("memo-table-box-none");
+		$(".onclick-list-big").removeClass("onclick-list-big-block");
+		$(".onclick-list-small").removeClass("onclick-list-small-none");
+		$(".memo-table-list").removeClass("memo-table-list-block");
+		//	}
+
+		//}
+		//location.replace(boardCode + '-memoList?mode=big');
+	};
 
 	function click__small() {
-		if (getParameterByName("mode") == 'big') {
-			$(".memo-table-box").addClass("memo-table-box-none");
-			$(".onclick-list-big").addClass("onclick-list-big-block");
-			$(".onclick-list-small").addClass("onclick-list-small-none");
-			$(".memo-table-list").addClass("memo-table-list-block");
-		}
-		 location.replace(boardCode + '-memoList?mode=small'); 
-	}
+		//		if (getParameterByName("mode") == 'big') {
+		$(".memo-table-box").addClass("memo-table-box-none");
+		$(".onclick-list-big").addClass("onclick-list-big-block");
+		$(".onclick-list-small").addClass("onclick-list-small-none");
+		$(".memo-table-list").addClass("memo-table-list-block");
+		//params.set('mode', 'small');
+		//	}
+		//location.replace(boardCode + '-memoList?mode=small');
+		//}
+
+	};
 </script>
 <style>
 .memo-table-list {
-	display: none;
-}
-
-.memo-table-list-block {
-	display: block;
+	/* display: none;
+} */ .memo-table-list-block { display:block;
+	
 }
 
 .onclick-list-big {
@@ -253,96 +285,96 @@
 
 
 
-
-
-<div class="memo-table-list con  ">
-	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.memberId == loginedMemberId  }">
-			<div class="memo-table-list-box "
-				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
-				<div class="contents-box">
-					<div class="title">${article.title }</div>
-					<div class="body">
-						<c:forEach items="${hashtags}" var="hashtag">
-							<c:if test="${article.id == hashtag.relId }">
-								<strong><a
-									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+<c:if test="${param.mode eq 'small' }">
+	<div class="memo-table-list con  ">
+		<c:forEach items="${articles}" var="article">
+			<c:if test="${article.memberId == loginedMemberId  }">
+				<div class="memo-table-list-box "
+					onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
+					<div class="contents-box">
+						<div class="title">${article.title }</div>
+						<div class="body">
+							<c:forEach items="${hashtags}" var="hashtag">
+								<c:if test="${article.id == hashtag.relId }">
+									<strong><a
+										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+											#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div class="writer-box">
+							<div class="writer">${article.extra.writer}</div>
+							<div class="regDate">${article.regDate }</div>
+						</div>
+					</div>
+					<div class="file-box">
+						<c:set var="fileNo" value="${String.valueOf(3)}" />
+						<c:set var="file"
+							value="${article.extra.file__common__attachment[fileNo]}" />
+						<c:if test="${file != null}">
+							<c:if test="${file.fileExtTypeCode == 'video'}">
+								<div class="video-box">
+									<video controls
+										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+								</div>
 							</c:if>
-						</c:forEach>
-					</div>
-					<div class="writer-box">
-						<div class="writer">${article.extra.writer}</div>
-						<div class="regDate">${article.regDate }</div>
-					</div>
-				</div>
-				<div class="file-box">
-					<c:set var="fileNo" value="${String.valueOf(3)}" />
-					<c:set var="file"
-						value="${article.extra.file__common__attachment[fileNo]}" />
-					<c:if test="${file != null}">
-						<c:if test="${file.fileExtTypeCode == 'video'}">
-							<div class="video-box">
-								<video controls
-									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-							</div>
-						</c:if>
-						<c:if test="${file.fileExtTypeCode == 'img'}">
-							<div class="img-box img-box-auto">
-								<img
-									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-									alt="" />
-							</div>
-						</c:if>
-					</c:if>
-				</div>
-			</div>
-		</c:if>
-	</c:forEach>
-	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.memberId != loginedMemberId }">
-			<div class="memo-table-list-box"
-				onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }'">
-				<div class="contents-box">
-					<div class="title">${article.title }</div>
-					<div class="body">
-						<c:forEach items="${hashtags}" var="hashtag">
-							<c:if test="${article.id == hashtag.relId }">
-								<strong><a
-									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+							<c:if test="${file.fileExtTypeCode == 'img'}">
+								<div class="img-box img-box-auto">
+									<img
+										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+										alt="" />
+								</div>
 							</c:if>
-						</c:forEach>
-					</div>
-					<div class="writer-box">
-						<div class="writer">${article.extra.writer}</div>
-						<div class="regDate">${article.regDate }</div>
+						</c:if>
 					</div>
 				</div>
-				<div class="file-box">
-					<c:set var="fileNo" value="${String.valueOf(3)}" />
-					<c:set var="file"
-						value="${article.extra.file__common__attachment[fileNo]}" />
-					<c:if test="${file != null}">
-						<c:if test="${file.fileExtTypeCode == 'video'}">
-							<div class="video-box">
-								<video controls
-									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-							</div>
+			</c:if>
+		</c:forEach>
+		<c:forEach items="${articles}" var="article">
+			<c:if test="${article.memberId != loginedMemberId }">
+				<div class="memo-table-list-box"
+					onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }&mode=${param.mode }'">
+					<div class="contents-box">
+						<div class="title">${article.title }</div>
+						<div class="body">
+							<c:forEach items="${hashtags}" var="hashtag">
+								<c:if test="${article.id == hashtag.relId }">
+									<strong><a
+										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+											#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div class="writer-box">
+							<div class="writer">${article.extra.writer}</div>
+							<div class="regDate">${article.regDate }</div>
+						</div>
+					</div>
+					<div class="file-box">
+						<c:set var="fileNo" value="${String.valueOf(3)}" />
+						<c:set var="file"
+							value="${article.extra.file__common__attachment[fileNo]}" />
+						<c:if test="${file != null}">
+							<c:if test="${file.fileExtTypeCode == 'video'}">
+								<div class="video-box">
+									<video controls
+										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+								</div>
+							</c:if>
+							<c:if test="${file.fileExtTypeCode == 'img'}">
+								<div class="img-box img-box-auto">
+									<img
+										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+										alt="" />
+								</div>
+							</c:if>
 						</c:if>
-						<c:if test="${file.fileExtTypeCode == 'img'}">
-							<div class="img-box img-box-auto">
-								<img
-									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-									alt="" />
-							</div>
-						</c:if>
-					</c:if>
+					</div>
 				</div>
-			</div>
-		</c:if>
-	</c:forEach>
-</div>
+			</c:if>
+		</c:forEach>
+	</div>
+</c:if>
 
 
 
@@ -424,19 +456,19 @@
 
 
 
-
-<div class="memo-table-box con flex flex-wrap flex-row ">
-	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.memberId == loginedMemberId}">
-			<div class="memo-box  flex flex-jc-sa "
-				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
-				<table>
-					<colgroup>
-						<col width="50" />
-						<col width="200" />
-					</colgroup>
-					<tbody>
-						<%-- <tr>
+<c:if test="${param.mode eq 'big' || param.mode eq ''}">
+	<div class="memo-table-box con flex flex-wrap flex-row ">
+		<c:forEach items="${articles}" var="article">
+			<c:if test="${article.memberId == loginedMemberId}">
+				<div class="memo-box  flex flex-jc-sa "
+					onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
+					<table>
+						<colgroup>
+							<col width="50" />
+							<col width="200" />
+						</colgroup>
+						<tbody>
+							<%-- <tr>
 						<th>작성자</th>
 						<td><a href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
 					</tr>
@@ -445,86 +477,86 @@
 						<td>${article.updateDate}</td>
 					</tr> --%>
 
-						<tr class="title">
-							<th>Date</th>
-							<%-- 회원번호${member.id},	게시물회원번호${article.memberId} --%>
-							<td>${article.updateDate}
-								<div class="border-title"></div>
-							</td>
-						</tr>
-						<tr>
-							<th></th>
-							<td></td>
-						</tr>
-						<tr>
-							<th></th>
-							<td></td>
-						</tr>
-						<tr>
-							<th></th>
-							<td></td>
-						</tr>
-						<tr class="body-tr">
-							<th>메모</th>
-							<td>
-								<div class=" body-box " style="height: 250px;">
-									<%-- <c:if test="${article.delStatus eq 1}">
+							<tr class="title">
+								<th>Date</th>
+								<%-- 회원번호${member.id},	게시물회원번호${article.memberId} --%>
+								<td>${article.updateDate}
+									<div class="border-title"></div>
+								</td>
+							</tr>
+							<tr>
+								<th></th>
+								<td></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td></td>
+							</tr>
+							<tr class="body-tr">
+								<th>메모</th>
+								<td>
+									<div class=" body-box " style="height: 250px;">
+										<%-- <c:if test="${article.delStatus eq 1}">
 									<h1>삭제된 메모입니다.</h1>
 									</c:if> --%>
-									<script type="text/x-template">${article.body}</script>
-									<div class="toast-editor toast-editor-viewer"></div>
-									<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
-									<c:forEach var="i" begin="1" end="3" step="1">
-										<c:set var="fileNo" value="${String.valueOf(i)}" />
-										<c:set var="file"
-											value="${article.extra.file__common__attachment[fileNo]}" />
-										<c:if test="${file != null}">
-											<c:if test="${file.fileExtTypeCode == 'video'}">
-												<div class="video-box">
-													<video controls
-														src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-												</div>
+										<script type="text/x-template">${article.body}</script>
+										<div class="toast-editor toast-editor-viewer"></div>
+										<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
+										<c:forEach var="i" begin="1" end="3" step="1">
+											<c:set var="fileNo" value="${String.valueOf(i)}" />
+											<c:set var="file"
+												value="${article.extra.file__common__attachment[fileNo]}" />
+											<c:if test="${file != null}">
+												<c:if test="${file.fileExtTypeCode == 'video'}">
+													<div class="video-box">
+														<video controls
+															src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+													</div>
+												</c:if>
+												<c:if test="${file.fileExtTypeCode == 'img'}">
+													<div class="img-box img-box-auto">
+														<img
+															src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+															alt="" />
+													</div>
+												</c:if>
 											</c:if>
-											<c:if test="${file.fileExtTypeCode == 'img'}">
-												<div class="img-box img-box-auto">
-													<img
-														src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-														alt="" />
-												</div>
-											</c:if>
-										</c:if>
-									</c:forEach>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th></th>
-						</tr>
+										</c:forEach>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th></th>
+							</tr>
 
-						<tr>
-							<th>태그</th>
-							<td><c:forEach items="${hashtags}" var="hashtag">
-									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"><a
-											href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-												#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-									</c:if>
-								</c:forEach></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</c:if>
-		<c:if test="${article.memberId != loginedMemberId}">
-			<div class="memo-box  flex flex-jc-sa "
-				onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }'">
-				<table>
-					<colgroup>
-						<col width="50" />
-						<col width="200" />
-					</colgroup>
-					<tbody>
-						<%-- <tr>
+							<tr>
+								<th>태그</th>
+								<td><c:forEach items="${hashtags}" var="hashtag">
+										<c:if test="${article.id == hashtag.relId }">
+											<strong style="font-size: 0.8rem;"><a
+												href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+													#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+										</c:if>
+									</c:forEach></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</c:if>
+			<c:if test="${article.memberId != loginedMemberId}">
+				<div class="memo-box  flex flex-jc-sa "
+					onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }&mode=${param.mode }'">
+					<table>
+						<colgroup>
+							<col width="50" />
+							<col width="200" />
+						</colgroup>
+						<tbody>
+							<%-- <tr>
 						<th>작성자</th>
 						<td><a href="../memo/${article.extra.writer}-memoMemberPage?id=${article.memberId}">${article.extra.writer}</a></td>
 					</tr>
@@ -533,91 +565,93 @@
 						<td>${article.updateDate}</td>
 					</tr> --%>
 
-						<tr class="title">
-							<th>Date</th>
-							<%-- 회원번호${member.id},
+							<tr class="title">
+								<th>Date</th>
+								<%-- 회원번호${member.id},
 									게시물회원번호${article.memberId} --%>
-							<td>${article.updateDate}
-								<div class="border-title"></div>
-							</td>
-						</tr>
-						<tr>
-							<th></th>
-							<td></td>
-						</tr>
-						<tr>
-							<th></th>
-							<td></td>
-						</tr>
-						<tr>
-							<th></th>
-							<td></td>
-						</tr>
-						<tr class="body-tr">
-							<th>메모</th>
-							<td>
-								<div class=" body-box " style="height: 250px;">
-									<script type="text/x-template">${article.body}</script>
-									<div class="toast-editor toast-editor-viewer"></div>
-									<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
-									<c:forEach var="i" begin="1" end="3" step="1">
-										<c:set var="fileNo" value="${String.valueOf(i)}" />
-										<c:set var="file"
-											value="${article.extra.file__common__attachment[fileNo]}" />
-										<c:if test="${file != null}">
-											<c:if test="${file.fileExtTypeCode == 'video'}">
-												<div class="video-box">
-													<video controls
-														src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-												</div>
+								<td>${article.updateDate}
+									<div class="border-title"></div>
+								</td>
+							</tr>
+							<tr>
+								<th></th>
+								<td></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td></td>
+							</tr>
+							<tr class="body-tr">
+								<th>메모</th>
+								<td>
+									<div class=" body-box " style="height: 250px;">
+										<script type="text/x-template">${article.body}</script>
+										<div class="toast-editor toast-editor-viewer"></div>
+										<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
+										<c:forEach var="i" begin="1" end="3" step="1">
+											<c:set var="fileNo" value="${String.valueOf(i)}" />
+											<c:set var="file"
+												value="${article.extra.file__common__attachment[fileNo]}" />
+											<c:if test="${file != null}">
+												<c:if test="${file.fileExtTypeCode == 'video'}">
+													<div class="video-box">
+														<video controls
+															src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+													</div>
+												</c:if>
+												<c:if test="${file.fileExtTypeCode == 'img'}">
+													<div class="img-box img-box-auto">
+														<img
+															src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+															alt="" />
+													</div>
+												</c:if>
 											</c:if>
-											<c:if test="${file.fileExtTypeCode == 'img'}">
-												<div class="img-box img-box-auto">
-													<img
-														src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-														alt="" />
-												</div>
-											</c:if>
-										</c:if>
-									</c:forEach>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th></th>
-						</tr>
+										</c:forEach>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th></th>
+							</tr>
 
-						<tr>
-							<th>태그</th>
-							<td><c:forEach items="${hashtags}" var="hashtag">
-									<c:if test="${article.id == hashtag.relId }">
-										<strong style="font-size: 0.8rem;"> <c:if
-												test="${board.code eq 'memberPage' }">
-												<a
-													href="../memo/${board.code}-tagSearchResult?id=${member.id}&searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-													#${hashtag.tag}</a>
-											</c:if> <c:if test="${board.code eq 'memberPage' == false }">
-												<a
-													href="../memo/${board.code}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-													#${hashtag.tag}</a>
-											</c:if> &nbsp;&nbsp;&nbsp;&nbsp;
-										</strong>
-									</c:if>
-								</c:forEach></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</c:if>
-	</c:forEach>
-</div>
+							<tr>
+								<th>태그</th>
+								<td><c:forEach items="${hashtags}" var="hashtag">
+										<c:if test="${article.id == hashtag.relId }">
+											<strong style="font-size: 0.8rem;"> <c:if
+													test="${board.code eq 'memberPage' }">
+													<a
+														href="../memo/${board.code}-tagSearchResult?id=${member.id}&searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+														#${hashtag.tag}</a>
+												</c:if> <c:if test="${board.code eq 'memberPage' == false }">
+													<a
+														href="../memo/${board.code}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+														#${hashtag.tag}</a>
+												</c:if> &nbsp;&nbsp;&nbsp;&nbsp;
+											</strong>
+										</c:if>
+									</c:forEach></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</c:if>
+		</c:forEach>
+	</div>
+</c:if>
 <%-- <c:if test="${isLogined}"> --%>
 <c:if test="${boardCode eq 'memberPage' == false }">
 	<div class="con page-box">
 		<ul class="flex flex-jc-c">
 			<c:forEach var="i" begin="1" end="${totalPage}" step="1">
 				<li class="${i == cPage ? 'current' : ''}"><a
-					href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}"
+					href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}
+					&mode=${param.mode}"
 					class="block">${i}</a></li>
 			</c:forEach>
 		</ul>
@@ -628,7 +662,7 @@
 		<ul class="flex flex-jc-c">
 			<c:forEach var="i" begin="1" end="${totalPage}" step="1">
 				<li class="${i == cPage ? 'current' : ''}"><a
-					href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}"
+					href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}&mode=${param.mode}"
 					class="block">${i}</a></li>
 			</c:forEach>
 		</ul>

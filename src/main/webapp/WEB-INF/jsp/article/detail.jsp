@@ -30,7 +30,7 @@
 			<tr>
 				<th>작성자</th>
 				<td><a
-					href="../memo/memberPage-memoList?id=${article.memberId}">${article.extra.writer}</a></td>
+					href="../memo/memberPage-memoList?id=${article.memberId}&mode=${param.mode}">${article.extra.writer}</a></td>
 			</tr>
 			<tr>
 				<th>제목</th>
