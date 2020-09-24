@@ -296,6 +296,10 @@ public class MemoController {
 	@RequestMapping("/usr/memo/{boardCode}-memoList")
 	public String showMemoList(@RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCode,
 			Model model, HttpServletRequest request, Integer id) {
+		
+		
+		
+		
 		Board board = memoService.getBoardByCode(boardCode);
 		model.addAttribute("board", board);
 
@@ -363,6 +367,11 @@ public class MemoController {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("totalPage", totalPage);	
 		model.addAttribute("cPage", page);
+		
+		/*
+		 * if ( mode != null ) { model.addAttribute("mode", mode); return
+		 * "memo/memoList"; }
+		 */
 
 		return "memo/memoList";
 	}

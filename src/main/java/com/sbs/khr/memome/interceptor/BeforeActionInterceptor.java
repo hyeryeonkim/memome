@@ -49,12 +49,14 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 			System.out.println("그럼 queryString은 뭔데 : " + queryString);
 		}
 
-		System.out.println("requestUri가 뭔데?????" + requestUri);
 
 		String encodedRequestUri = Util.getUriEncoded(requestUri);
 
 		request.setAttribute("requestUri", requestUri);
 		request.setAttribute("encodedRequestUri", encodedRequestUri);
+		
+		System.out.println("encodedRequestUri가 뭔데?????" + encodedRequestUri);
+		System.out.println("requestUri가 대체 뭔데?????" + requestUri);
 
 		String afterLoginUri = requestUri;
 
@@ -71,6 +73,9 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("encodedAfterLoginUri", encodedAfterLoginUri);
 		request.setAttribute("param", param);
 		request.setAttribute("paramJson", paramJson);
+		
+		System.out.println("param은 뭔데? : " + param);
+		System.out.println("paramJson은 뭔데? : " + paramJson);
 
 		// 해당 요청이 ajax 요청인지 아닌지 체크
 		boolean isAjax = requestUri.endsWith("Ajax");

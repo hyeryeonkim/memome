@@ -168,31 +168,49 @@
 
 
 
-
 <c:if test="${totalCount != 0 }">
-	<div class="con ">
-		<input class="onclick-list-big btn" type="button" onclick=""
-			value="크게보기" />
-	</div>
 	<div class="con">
-		<input class="onclick-list-small btn " type="button" onclick=""
-			value="작게보기" />
+		<input class="onclick-list-small btn " type="button"
+			onclick="click__small(); " value="작게보기" />
 	</div>
-</c:if>
-<script>
-	$(".onclick-list-small").click(function() {
-		$(".memo-table-box").addClass("memo-table-box-none");
-		$(".onclick-list-big").addClass("onclick-list-big-block");
-		$(".onclick-list-small").addClass("onclick-list-small-none");
-		$(".memo-table-list").addClass("memo-table-list-block");
-	});
+	<div class="con ">
+		<input class="onclick-list-big btn" type="button"
+			onclick="click__big();  " value="크게보기" />
+	</div>
 
-	$(".onclick-list-big").click(function() {
-		$(".memo-table-box").removeClass("memo-table-box-none");
-		$(".onclick-list-big").removeClass("onclick-list-big-block");
-		$(".onclick-list-small").removeClass("onclick-list-small-none");
-		$(".memo-table-list").removeClass("memo-table-list-block");
-	});
+</c:if>
+
+
+<script>
+	var boardCode = "${boardCode}";
+
+	function getParameterByName(name) {
+		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex
+				.exec(location.search);
+		return results === null ? "" : decodeURIComponent(results[1].replace(
+				/\+/g, " "));
+	}
+
+	function click__big() {
+		if (getParameterByName("mode") == 'small') {
+			$(".memo-table-box").removeClass("memo-table-box-none");
+			$(".onclick-list-big").removeClass("onclick-list-big-block");
+			$(".onclick-list-small").removeClass("onclick-list-small-none");
+			$(".memo-table-list").removeClass("memo-table-list-block");
+		}
+		location.replace(boardCode + '-memoList?mode=big');
+	}
+
+	function click__small() {
+		if (getParameterByName("mode") == 'big') {
+			$(".memo-table-box").addClass("memo-table-box-none");
+			$(".onclick-list-big").addClass("onclick-list-big-block");
+			$(".onclick-list-small").addClass("onclick-list-small-none");
+			$(".memo-table-list").addClass("memo-table-list-block");
+		}
+		 location.replace(boardCode + '-memoList?mode=small'); 
+	}
 </script>
 <style>
 .memo-table-list {
@@ -281,56 +299,6 @@
 			</div>
 		</c:if>
 	</c:forEach>
-</div>
-
-<div class="memo-table-list con  ">
-	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.memberId == loginedMemberId  }">
-			<div class="memo-table-list-box "
-				onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}'">
-				<div class="contents-box">
-					<div class="title">${article.title }</div>
-					<div class="body">
-						<c:forEach items="${hashtags}" var="hashtag">
-							<c:if test="${article.id == hashtag.relId }">
-								<strong><a
-									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-							</c:if>
-						</c:forEach>
-					</div>
-					<div class="writer-box">
-						<div class="writer">${article.extra.writer}</div>
-						<div class="regDate">${article.regDate }</div>
-					</div>
-				</div>
-				<div class="file-box">
-					<c:set var="fileNo" value="${String.valueOf(3)}" />
-					<c:set var="file"
-						value="${article.extra.file__common__attachment[fileNo]}" />
-					<c:if test="${file != null}">
-						<c:if test="${file.fileExtTypeCode == 'video'}">
-							<div class="video-box">
-								<video controls
-									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-							</div>
-						</c:if>
-						<c:if test="${file.fileExtTypeCode == 'img'}">
-							<div class="img-box img-box-auto">
-								<img
-									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-									alt="" />
-							</div>
-						</c:if>
-					</c:if>
-				</div>
-			</div>
-		</c:if>
-	</c:forEach>
-</div>
-
-
-<div class="memo-table-list con  ">
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.memberId != loginedMemberId }">
 			<div class="memo-table-list-box"
@@ -377,10 +345,12 @@
 </div>
 
 
+
+
+
 <style>
 .memo-table-list .memo-table-list-box .file-box {
-	/* border: 3px solid blue; */
-	hegith: 100%;
+	height: 100%;
 	width: 20%;
 }
 

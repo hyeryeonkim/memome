@@ -82,12 +82,12 @@ var param = ${paramJson};
 					<li><a href="../home/main">홈</a></li>
 					<li><a href="../article/notice-list">공지사항</a></li>
 					<li><a href="../article/free-list">자유게시판</a></li>
-					<li><a href="../memo/memoYOU-memoList">memoYOU</a></li>
+					<li><a href="../memo/memoYOU-memoList?mode=big">memoYOU</a></li>
 
 					<c:if test="${isLogined }">
-						<li><a href="../memo/memoME-memoList">memoME</a></li>
+						<li><a href="../memo/memoME-memoList?mode=big">memoME</a></li>
 					</c:if>
-					<li><a href="../memo/unicon-memoList">UNICON</a></li>
+					<li><a href="../memo/unicon-memoList?mode=big">UNICON</a></li>
 					<c:if test="${isLogined == false}">
 						<li><a href="../member/join">회원가입</a></li>
 					</c:if>

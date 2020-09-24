@@ -326,17 +326,19 @@ public class ArticleService {
 	// unicon에 보여줄 메모들을 attr변수로 찾아오는 메서드
 	public List<Article> getForMakeArticlesByUniconAuthCode(Board board, int loginedMemberId, int itemsInAPage,
 			int limitFrom) {
-		
-		//방법1
-		 List<Article> articles = articleDao.getForPrintArticles(board.getId(), itemsInAPage, limitFrom);
-		 
-		 
-		 //방법2
-		//List<Article> articles2 = articleDao.getForPrintAllArticlesByBoardId(board.getId());
+
+		// 방법1
+		List<Article> articles = articleDao.getForPrintArticles(board.getId(), itemsInAPage, limitFrom);
+
+		// 방법2
+		// List<Article> articles2 =
+		// articleDao.getForPrintAllArticlesByBoardId(board.getId());
 
 		List<Article> uniconArticles = getUniconArticles(articles, loginedMemberId, itemsInAPage, limitFrom);
 
-		return uniconArticles;
+		List<Article> getArticlesPutFiles = getArticlesPutFiles(uniconArticles);
+
+		return getArticlesPutFiles;
 
 	}
 
@@ -344,8 +346,8 @@ public class ArticleService {
 			int limitFrom) {
 
 		List<Article> uniconArticles = new ArrayList<>();
-		
-		//방법1
+
+		// 방법1
 		for (Article article : articles) {
 			if (article != null) {
 				String getValue = attrService.getValue("article", article.getId(), loginedMemberId + "",
