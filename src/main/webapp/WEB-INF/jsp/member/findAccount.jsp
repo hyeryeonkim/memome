@@ -8,95 +8,83 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-
-<form action="doFindLoginId" method="POST" class="table-box con form1"
-	onsubmit="findLoginIdForm__submit(this); return false;">
-	<div class="table-box-title">로그인 아이디 찾기</div>
-	<table>
-		<colgroup>
-			<col width="100" />
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>이름</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="name" placeholder="이름을 입력해주세요."
-							maxlength="30" autofocus />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>
-					<div class="form-control-box">
-						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-							maxlength="50" style="ime-mode:inactive;"/>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>로그인 아이디 찾기</th>
-				<td>
-					<button type="submit" class="btn black">아이디 찾기</button>
-				</td>
-			</tr>
-
-		</tbody>
-	</table>
-</form>
+<div class="find-page-box flex flex-jc-sb">
+	<div class="find-page con find-loginId-box">
+		<div class="form">
+			<form action="doFindLoginId" method="POST" class=" "
+				onsubmit="findLoginIdForm__submit(this); return false;">
+				<div class="table-box-title">로그인 아이디 찾기</div>
+				<div class="form-control-box">
+					<input name="name" type="text" placeholder="username" autofocus
+						maxlength="30" />
+				</div>
+				<div class="form-control-box">
+					<input type="email" name="email" placeholder="useremail"
+						maxlength="50" style="ime-mode: inactive;" />
+				</div>
+				<div class="form-control-box">
+					<button type="submit" class="loginId-find-btn">check</button>
+				</div>
+				<div class="form-control-box">
+					<button type="button" class="find-loginpw-btn find-btn" onclick="find__loginPw__btn();">Forgot
+						password ?</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 
 
-
-<form action="doFindLoginPw" method="POST" class="table-box con form1"
-	onsubmit="findLoginPwForm__submit(this); return false;">
-	<div class="table-box-title">비밀번호 찾기</div>
-	<input type="hidden" name="redirectUri" value="/usr/member/login" />
-	<table>
-		<colgroup>
-			<col width="100" />
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>로그인 아이디</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요."
-							maxlength="30" autofocus />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>
-					<div class="form-control-box">
-						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-							maxlength="50" style="ime-mode:inactive;"/>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>로그인 비밀번호 찾기</th>
-				<td>
-					<button type="submit" class="btn black">비밀번호 찾기</button>
-				</td>
-			</tr>
-
-		</tbody>
-	</table>
-</form>
-
+	<div class="find-page con find-password-box">
+		<div class="form">
+			<form action="doFindLoginPw" method="POST" class=""
+				onsubmit="findLoginPwForm__submit(this); return false;">
+				<div class="table-box-title">비밀번호 찾기</div>
+				<input type="hidden" name="redirectUri" value="/usr/member/login" />
+				<div class="form-control-box">
+					<input type="text" name="loginId" placeholder="userID"
+						maxlength="30" autofocus />
+				</div>
+				<div class="form-control-box">
+					<input type="email" name="email" placeholder="useremail"
+						maxlength="50" style="ime-mode: inactive;" />
+				</div>
+				<button type="submit" class="">check</button>
+				
+				<div class="form-control-box">
+					<button type="button" class="find-loginId-btn find-btn" onclick="find__loginId__btn();">Forgot
+						userID ?</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 
 
 
 
 <script>
+
+
+	function find__loginPw__btn() {
+		$(".find-password-box").addClass("find-loginPw-box-block");
+		$(".find-loginId-box").addClass("find-loginId-box-none");
+	}
+
+	function find__loginId__btn() {
+		$(".find-password-box").removeClass("find-loginPw-box-block");
+		$(".find-loginId-box").removeClass("find-loginId-box-none");
+	}
+	
+
+
+
+
 	// 로그인 아이디 찾는 자바스크립트
 	function findLoginIdForm__submit(form) {
 
-		if ( isNowLoading() ) {
+		if (isNowLoading()) {
 			alert('처리중입니다.');
 			return;
 		}
@@ -122,7 +110,7 @@
 	// 로그인 비밀번호 찾는 자바스크립트 
 	function findLoginPwForm__submit(form) {
 
-		if ( isNowLoading() ) {
+		if (isNowLoading()) {
 			alert('처리중입니다.');
 			return;
 		}
@@ -161,40 +149,72 @@
 
 <style>
 .con {
-	margin-top:3%;
-	width:30%;
-}
-.btn {
-	padding:0 25px;
-	font-size:1rem;
+	margin-top: 3%;
+	width: 30%;
 }
 
+.btn {
+	padding: 0 25px;
+	font-size: 1rem;
+}
 
 .table-box {
-	border:5px solid black;
+	border: 5px solid black;
 }
 
 .table-box table th {
-	text-align:center;
-	
+	text-align: center;
 }
 
-.table-box .table-box-title {
-	font-size:1.2rem;
-	padding:10px;
-	font-weight:bold;
+.find-page-box {
+	width: 1600px;
+	margin-left: auto;
+	margin-right: auto;
 }
+
+.find-page .form {
+	height: 300px;
+}
+
+.find-page-box .find-password-box {
+	display:none;
+}
+
+.find-page .form form .table-box-title {
+	font-size: 1.2rem;
+	padding: 10px;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+
+
+
+.find-page .form form .form-control-box .find-btn {
+	margin-top: 30px;
+	background: white;
+	color: #2346f6;
+	font-weight: bold;
+}
+
+.find-page-box .find-loginPw-box-block {
+	display:block;
+}
+
+.find-page-box .find-loginId-box-none {
+	display:none;
+}
+
+
+
 
 /* 모바일 버전 */
-
-@media (max-width :1210px)  {
-    .con {
-    	width:80%;
-    	margin-left:auto;
-    	margin-right:auto;
-    }
+@media ( max-width :1210px) {
+	.con {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
-
 </style>
 
 
