@@ -23,96 +23,50 @@
 }
 </style>
 
-<form action="doJoin" method="POST"
-	class="table-box con form1 margin-top-50"
-	onsubmit="MemberJoinForm__submit(this); return false;">
-	<input type="hidden" name="loginPwReal" /> <input type="hidden"
-		name="redirectUri" value="../member/login" />
-	<table>
-		<colgroup>
-			<col width="100" />
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>로그인 아이디</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요."
-							onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30"
-							autofocus />
-						<div class="message-msg"></div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>로그인 비밀번호</th>
-				<td>
-					<div class="form-control-box">
-						<input type="password" name="loginPw"
-							placeholder="로그인 비밀번호를 입력해주세요." maxlength="50" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td>
-					<div class="form-control-box">
-						<input type="password" name="loginPwConfirm"
-							placeholder="비밀번호 확인을 입력해주세요." maxlength="50" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="name" placeholder="이름을 입력해주세요."
-							maxlength="30" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>닉네임</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="nickname" placeholder="닉네임을 입력해주세요."
-							onkeyup="JoinForm__checkNicknameDup(this);" maxlength="30" />
-						<div class="message-msg"></div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>
-					<div class="form-control-box">
-						<input type="email" name="email" placeholder="이메일을 입력해주세요."
-							onkeyup="JoinForm__checkEmailDup(this);" maxlength="50"
-							style="ime-mode: inactive;" />
-						<div class="message-msg"></div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>휴대전화</th>
-				<td>
-					<div class="form-control-box">
-						<input type="tel" name="cellphoneNo"
-							onkeyup="JoinForm__checkCellphoneNoDup(this);"
-							placeholder="휴대전화 번호를 -없이 입력해주세요." maxlength="11" />
-						<div class="message-msg"></div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>가입</th>
-				<td><input type="submit" class=" btn black" value="가입" /> <!-- 					<button type="submit" >가입</button> -->
-				</td>
-			</tr>
-
-		</tbody>
-	</table>
-</form>
-
+<div class="join-page con">
+	<div class="form">
+		<form action="doJoin" method="POST"
+			class=""
+			onsubmit="MemberJoinForm__submit(this); return false;">
+			<input type="hidden" name="loginPwReal" /> <input type="hidden"
+				name="redirectUri" value="../member/login" />
+			<div class="form-control-box">
+				<input type="text" name="loginId" placeholder="userID"
+					onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30" autofocus />
+				<div class="message-msg" style="margin-bottom:10px;"></div>
+			</div>
+			<div class="form-control-box">
+				<input type="password" name="loginPw" placeholder="password"
+					maxlength="50" />
+			</div>
+			<div class="form-control-box">
+				<input type="password" name="loginPwConfirm"
+					placeholder="password confirm" maxlength="50" />
+			</div>
+			<div class="form-control-box">
+				<input type="text" name="name" placeholder="userName" maxlength="30" />
+			</div>
+			<div class="form-control-box">
+				<input type="text" name="nickname" placeholder="nickName"
+					onkeyup="JoinForm__checkNicknameDup(this);" maxlength="30" />
+				<div class="message-msg" style="margin-bottom:10px;"></div>
+			</div>
+			<div class="form-control-box">
+				<input type="email" name="email" placeholder="user email"
+					onkeyup="JoinForm__checkEmailDup(this);" maxlength="50"
+					style="ime-mode: inactive;" />
+				<div class="message-msg" style="margin-bottom:10px;"></div>
+			</div>
+			<div class="form-control-box">
+				<input type="tel" name="cellphoneNo"
+					onkeyup="JoinForm__checkCellphoneNoDup(this);"
+					placeholder="user cellphoneNo ( -없이 입력해주세요. )" maxlength="11" />
+				<div class="message-msg" style="margin-bottom:10px;"></div>
+			</div>
+			<button type="submit">Sign up</button>
+		</form>
+	</div>
+</div>
 
 
 
@@ -352,7 +306,7 @@ var checkLoginIdDup = _.debounce(function(form) {
 			
 	},`json`);
 	
-}, 1000);
+}, 300);
 
 function JoinForm__checkLoginIdDup(input) {
 	var form = input.form;
@@ -401,7 +355,7 @@ var checkNicknameDup = _.debounce(function(form) {
 
 			
 	}, `json`);
-}, 1000);
+}, 300);
 
 
 function JoinForm__checkNicknameDup(input) {
@@ -451,7 +405,7 @@ var checkEmailDup = _.debounce(function(form) {
 			}
 			
 	}, `json`);
-}, 1000);
+},  300);
 
 
 function JoinForm__checkEmailDup(input) {
@@ -502,7 +456,7 @@ var checkCellphoneNoDup = _.debounce(function(form) {
 			}
 			
 	}, `json`);
-}, 500);
+}, 300);
 
 
 function JoinForm__checkCellphoneNoDup(input) {
@@ -522,9 +476,7 @@ function JoinForm__checkCellphoneNoDup(input) {
 
 
 <style>
-.con {
-	width: 50%;
-}
+
 
 .table-box table th {
 	text-align: center;
@@ -547,6 +499,20 @@ function JoinForm__checkCellphoneNoDup(input) {
 		margin-right: auto;
 	}
 }
+
+.join-page {
+}
+
+.join-page .form {
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:190px;
+}
+
+
+
+
+
 </style>
 
 

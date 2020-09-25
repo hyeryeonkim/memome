@@ -8,77 +8,71 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
+<div class="password-modify-page con">
+	<div class="form">
+		<form method="POST" action="doPasswordModify" class="password-modify"
+			onsubmit="SubmitPasswordModify(this); return false;">
+			<input type="hidden" name="loginPwReal" /> <input type="hidden"
+				name="id" value="${loginedMemberId }" /> <input type="hidden"
+				name="loginId" value="${loginedMember.loginId}" /> <input
+				type="hidden" name="email" value="${loginedMember.email}" />
+			<div class="table-control-box">
+				<div class="title">비밀번호를 변경해주세요.</div>
+			</div>
+			<div class="table-control-box">
+				<!-- <div class="title">새 비밀번호</div> -->
+				<input type="password" name="loginPw" autofocus
+					placeholder="new password" />
+			</div>
 
-<form method="POST" action="doPasswordModify" class="form1 table-box con con2 margin-top-50"
-	onsubmit="SubmitPasswordModify(this); return false;">
-	<input type="hidden" name="loginPwReal"/>
-	<input type="hidden" name="id" value="${loginedMemberId }"/>
-	<input type="hidden" name="loginId" value="${loginedMember.loginId}"/>
-	<input type="hidden" name="email" value="${loginedMember.email}"/>
-	
-	<table>
-		<colgroup>
-			<col width="110" />
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>비밀번호 입력</th>
-				<!-- 가능 -->
-				<td><input type="password" name="loginPw" autofocus /></td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td><input type="password" name="loginPwConfirm"  autofocus /></td>
-			</tr>
-			<tr>
-				<th>회원정보 변경</th>
-				<td><input type="submit"  class="btn black" value="변경"/></td>
-			</tr>
-		</tbody>
-	</table>
-</form>
+			<div class="table-control-box">
+				<input type="password" name="loginPwConfirm" autofocus
+					placeholder="new password confirm" />
+			</div>
+			<div class="table-control-box">
+				<!-- <input type="submit" class="btn black" value="변경" /> -->
+				<button type="submit" class="">modify</button>
+			</div>
+		</form>
+	</div>
+</div>
+
 
 <script>
+	function SubmitPasswordModify(form) {
+		if (isNowLoading()) {
+			alert('처리중입니다.')
+			return;
+		}
 
-function SubmitPasswordModify(form) {
-	if ( isNowLoading() ) {
-		alert('처리중입니다.')
-		return;
+		form.loginPw.value = form.loginPw.value.trim();
+		if (form.loginPw.value.length == 0) {
+			alert('비밀번호를 입력해주세요.');
+			form.loginPw.focus();
+			return;
+		}
+
+		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+		if (form.loginPwConfirm.value.length == 0) {
+			alert('비밀번호 확인을 입력해주세요.');
+			form.loginPwConfirm.focus();
+			return;
+		}
+
+		if (form.loginPw.value != form.loginPwConfirm.value) {
+			alert('비밀번호가 일치하지 않습니다.');
+			form.loginPw.focus();
+			return;
+		}
+
+		form.loginPwReal.value = sha256(form.loginPw.value);
+		form.loginPw.value = '';
+		form.loginPwConfirm.value = '';
+
+		form.submit();
+		startLoading();
+
 	}
-
-
-	form.loginPw.value = form.loginPw.value.trim();
-	if ( form.loginPw.value.length == 0 ) {
-		alert('비밀번호를 입력해주세요.');
-		form.loginPw.focus();
-		return;
-	}
-
-	form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
-	if ( form.loginPwConfirm.value.length == 0 ) {
-		alert('비밀번호 확인을 입력해주세요.');
-		form.loginPwConfirm.focus();
-		return;
-	}
-
-	if ( form.loginPw.value != form.loginPwConfirm.value ) {
-		alert('비밀번호가 일치하지 않습니다.');
-		form.loginPw.focus();
-		return;
-	}
-
-	form.loginPwReal.value = sha256(form.loginPw.value);
-	form.loginPw.value = '';
-	form.loginPwConfirm.value = '';
-
-	
-
-	form.submit();
-	startLoading();
-
-	
-
-}
 </script>
 
 
@@ -87,34 +81,64 @@ function SubmitPasswordModify(form) {
 
 <style>
 .btn {
-	padding:0 25px;
-	font-size:1rem;
+	padding: 0 25px;
+	font-size: 1rem;
 }
 
-.con2 {
-	width:50%;
-	
-}
-.table-box table th {
-	text-align:center;
+.password-modify-page {
+}	
+
+.password-modify-page .form {
+	max-width: 800px;
+	margin-top:200px;
 	
 }
 
-.table-box {
-	border:5px solid black;
+
+.password-modify-page .title {
+	margin-bottom: 30px;
+	font-weight: bold;
+	font-size: 1.2rem;
+	
 }
+
+
+.password-modify-page .form .form-control-box {
+	/* border: 3px solid blue; */
+	display:flex;
+	align-items:center;
+	margin: 10px 0;
+}
+
+
+
+.password-modify-page .form {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 700px;
+}
+
+.password-modify-form .form form button {
+	margin-top: 30px;
+	background: #fdbe3f;
+}
+
+
+
+
+
+
 
 /* 모바일 버전 */
-
-@media (max-width :1210px)  {
-    .con {
-    	width:80%;
-    	margin-left:auto;
-    	margin-right:auto;
-    }
-    .btn {
-    
-    }
+@media ( max-width :1210px) {
+	.con {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.btn {
+		
+	}
 }
 </style>
 

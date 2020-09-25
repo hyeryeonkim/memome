@@ -12,7 +12,8 @@
 	<strong style="color: red;">${boardCode}</strong>게시물 내용
 </h1>
 
-<div class="table-box con margin-top-50">
+<div class="table-none-box con margin-top-50">
+	
 	<table>
 		<colgroup>
 			<%-- 			<col width="200"/> --%>

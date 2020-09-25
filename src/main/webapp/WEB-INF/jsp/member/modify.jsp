@@ -8,123 +8,138 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-
-<form method="POST" action="doModify" class="form1 table-box con margin-top-50"
-	onsubmit="submitMemberDataModify(this); return false;">
-	<table>
-		<colgroup>
-			<col width="110" />
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>회원번호</th>
-				<td><input type="text" name="id" value="${loginedMember.id}" readonly />
-				</td>
-			</tr>
-			<tr>
-				<th>회원가입일</th>
-				<td><input type="text" name="regDate" value="${loginedMember.regDate}"
-					readonly /></td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td><input type="text" name="name" value="${loginedMember.name}"
-					readonly /></td>
-			</tr>
-			<tr>
-				<th>닉네임(선택)</th>
-				<!-- 가능 -->
-				<td><input class="border-red-1" type="text" name="nickname"
-					value="${loginedMember.nickname}" /></td>
-			</tr>
-			<tr>
-				<th>이메일(선택)</th>
-				<!-- 가능 -->
-				<td><input class="border-red-1" type="email" name="email"
-					value="${loginedMember.email}" /></td>
-			</tr>
-			<tr>
-				<th>마지막 수정일</th>
-				<td><input type="text" name="updateDate"
-					value="${loginedMember.updateDate}" readonly /></td>
-			</tr>
-			<tr>
-				<th>회원정보 변경</th>
-				<td>
-				<input class="btn black" type="submit" value="변경"/>
-				</td>
-			</tr>
-			<tr>
-				<th>취소</th>
-				<td>
-				<button type="button" class="btn black" onclick="location.href='../member/myPage'">취소</button>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</form>
+<div class="modify-page con">
+	<div class="form">
+		<form method="POST" action="doModify" class=""
+			onsubmit="submitMemberDataModify(this); return false;">
+			<div class="table-control-box">
+				<div class="modify-title">회원정보를 변경해주세요.</div>
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">Sign in date</div>
+				<input type="text" name="regDate" value="${loginedMember.regDate}"
+					readonly />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">name</div>
+				<input type="text" name="name" value="${loginedMember.name}"
+					readonly />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">
+					nickname <strong style="color: red;">(choice)</strong>
+				</div>
+				<input class="border-red-1" type="text" name="nickname"
+					value="${loginedMember.nickname}" />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">
+					email <strong style="color: red;">(choice)</strong>
+				</div>
+				<input class="border-red-1" type="email" name="email"
+					value="${loginedMember.email}" />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">last updateDate</div>
+				<input type="text" name="updateDate"
+					value="${loginedMember.updateDate}" readonly />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">modify</div>
+				<button type="submit">modify</button>
+			</div>
+		</form>
+	</div>
+</div>
 
 <script>
+	function submitMemberDataModify(form) {
+		if (isNowLoading()) {
+			alert('처리중입니다.')
+			return;
+		}
 
-function submitMemberDataModify(form) {
-	if ( isNowLoading() ) {
-		alert('처리중입니다.')
-		return;
+		form.nickname.value = form.nickname.value.trim();
+		if (form.nickname.value.length == 0) {
+			alert('닉네임을 입력해주세요.');
+			form.nickname.focus();
+			return;
+		}
+
+		form.email.value = form.emali.value.trim();
+		if (form.email.value.length == 0) {
+			alert('이메일을 입력해주세요.');
+			form.email.focus();
+			return;
+		}
+
+		form.submit();
+		startLoading();
+
 	}
-
-
-	form.nickname.value = form.nickname.value.trim();
-	if ( form.nickname.value.length == 0 ) {
-		alert('닉네임을 입력해주세요.');
-		form.nickname.focus();
-		return;
-	}
-
-	form.email.value = form.emali.value.trim();
-	if ( form.email.value.length == 0 ) {
-		alert('이메일을 입력해주세요.');
-		form.email.focus();
-		return;
-	}
-
-	form.submit();
-	startLoading();
-
-	
-
-}
 </script>
 
 
 
 <style>
 
-.con {
-	width:50%;
+/* 모바일 버전 */
+@media ( max-width :1210px) {
+	.con {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
-.table-box table th {
-	text-align:center;
+
+.modify-page {
 	
 }
 
-.table-box {
-	border:5px solid black;
+.modify-page .form {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 200px;
 }
+
+.modify-page .modify-title {
+	margin-bottom: 30px;
+	font-weight: bold;
+	font-size: 1.2rem;
+	
+}
+
+
+.modify-page .form .form-control-box {
+	display: flex;
+	align-items: center;
+	margin: 10px 0;
+}
+
+.modify-page .form .form-control-box  input {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.modify-page .form .form-control-box:nth-child(3) input,
+	.form-control-box:nth-child(4) input {
+	background: #cccccc;
+}
+
+.modify-page .form form button {
+	background: #fdbe3f;
+}
+
+.modify-page .form .form-control-box .title {
+	/* font-size: 1.2rem; */
+	width: 300px;
+}
+
 .btn {
-	padding:0 25px;
-	font-size:1rem;
+	padding: 0 25px;
+	font-size: 1rem;
 }
-
-/* 모바일 버전 */
-
-@media (max-width :1210px)  {
-    .con {
-    	width:80%;
-    	margin-left:auto;
-    	margin-right:auto;
-    }
-}
-
 </style>
 
 

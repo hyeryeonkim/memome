@@ -8,65 +8,53 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-<div class="myPage-box  con border-red-1 margin-top-50 flex flex-jc-sb">
-	<div class="table-box">
-		<table>
-			<colgroup>
-				<col width="110" />
-			</colgroup>
-			<tbody>
-				<tr>
-					<th>회원번호</th>
-					<td><input type="text" name="id" value="${member.id}" readonly />
-					</td>
-				</tr>
-				<tr>
-					<th>회원가입일</th>
-					<td><input type="text" name="regDate"
-						value="${member.regDate}" readonly /></td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td><input type="text" name="name" value="${member.name}"
-						readonly /></td>
-				</tr>
-				<tr>
-					<th>닉네임</th>
-					<td><input type="text" name="nickname"
-						value="${member.nickname}" readonly /></td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td><input type="email" name="email" value="${member.email}"
-						readonly /></td>
-				</tr>
-				<tr>
-					<th>마지막 수정일</th>
-					<td><input type="text" name="updateDate"
-						value="${member.updateDate}" readonly /></td>
-				</tr>
-				<tr>
-					<th>회원정보 변경</th>
-					<td><button type="button" class="btn black"
-							onclick="location.href='../member/modify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">회원정보
-							변경</button></td>
-				</tr>
-				<tr>
-					<th>비밀번호 변경</th>
-					<td><button type="button" class="btn black"
-							onclick="location.href='../member/passwordModify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">비밀번호
-							변경</button></td>
-				</tr>
-				<tr>
-					<th>회원탈퇴</th>
-					<td><button type="button" class="btn black"
-							onclick="location.href='../member/passwordAccountDelete'">회원탈퇴</button></td>
-				</tr>
-			</tbody>
-		</table>
+<div class="mypage-box flex flex-jc-sb con">
+	<div class="mypage-page ">
+		<div class="form">
+			<div class="form-control-box flex">
+				<div class="title">Sign in date</div>
+				<input type="text" name="regDate" value="${member.regDate}" readonly />
+			</div>
+
+			<div class="form-control-box flex">
+				<div class="title">name</div>
+				<input type="text" name="name" value="${member.name}" readonly />
+			</div>
+
+			<div class="form-control-box flex">
+				<div class="title">nickname</div>
+				<input type="text" name="nickname" value="${member.nickname}"
+					readonly />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">email</div>
+				<input type="email" name="email" value="${member.email}" readonly />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">last updateDate</div>
+				<input type="text" name="updateDate" value="${member.updateDate}"
+					readonly />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">user information</div>
+				<button type="button" class=""
+					onclick="location.href='../member/modify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">modify</button>
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">new password</div>
+				<button type="button" class=""
+					onclick="location.href='../member/passwordModify?checkPasswordAuthCode=${param.checkPasswordAuthCode}'">password modify</button>
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">sign out</div>
+				<button type="button" class=""
+					onclick="location.href='../member/passwordAccountDelete'">sign
+					out</button>
+			</div>
+		</div>
 	</div>
-	<div class="hashtag-box">
-		<h1>HASHTAG LIST</h1>
+	<div class="form hashtag-box">
+		<h1>MY HASHTAG LIST</h1>
 		<div class="hashtag-list">
 			<div class="hashtag-contents flex flex-wrap">
 				<c:forEach items="${myhashtags }" var="myhashtag">
@@ -79,14 +67,45 @@
 
 
 <style>
-.con2 {
-	width: 50%;
+
+.mypage-box {
 }
 
-.table-box, .hashtag-box {
-	border: 5px solid black;
-	width: 400px;
+
+
+.mypage-box .form {
+	max-width: 800px;
 }
+
+.mypage-box .form .form-control-box {
+	/* border: 3px solid blue; */
+	display:flex;
+	align-items:center;
+	margin: 10px 0;
+}
+
+.mypage-box .form .form-control-box  input {
+	margin-top:auto;
+	margin-bottom:auto;
+}
+
+
+.checkPassword-page .form {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 700px;
+}
+
+.checkPassword-page .form form button {
+	margin-top: 30px;
+	background: #fdbe3f;
+}
+
+.mypage-box .form .form-control-box .title {
+	/* font-size: 1.2rem; */
+	width:300px;
+}
+
 
 .myPage-box .hashtag-box {
 	border: 5px solid black;
@@ -106,9 +125,13 @@
 	font-size: 1rem;
 }
 
-.myPage-box .hashtag-box .hashtag-list .hashtag-contents > div {
-	padding:10px;
-	
+.mypage-box .hashtag-box  h1 {
+	margin-bottom:30px;
+}
+
+.mypage-box .hashtag-box .hashtag-list .hashtag-contents>div {
+	padding: 10px;
+	/* border:3px solid red; */
 }
 
 /* 모바일 버전 */

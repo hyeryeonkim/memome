@@ -10,95 +10,89 @@
 
 
 
-
-<form method="POST" action="doCheckPassword" class="table-box con margin-top-50 con2" 
-	onsubmit="MemberCheckPasswordForm__submit(this); return false;">
-	<input type="hidden" name="loginPwReal"/>
-	<input type="hidden" name="redirectUri" value="${param.redirectUri}"/>
-	<table>
-		<colgroup>
-			<col width="130" />
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>비밀번호 입력</th>
-				<td><input type="password" name="loginPw" autofocus/></td>
-			</tr>
-			<tr>
-				<th>확인</th>
-				<td class="mobile-btn flex">
-					<!-- <button type="submit" class="btn black">확인</button> -->
-					<input type="submit" class="btn black" value="확인"/>
-					<!-- <button type="button" class="btn black" onclick="location.href='/usr/home/main'">취소</button> -->
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</form>
-
+<div class="checkPassword-page con">
+	<div class="form">
+		<form method="POST" action="doCheckPassword" class=""
+			onsubmit="MemberCheckPasswordForm__submit(this); return false;">
+			<input type="hidden" name="loginPwReal" /> <input type="hidden"
+				name="redirectUri" value="${param.redirectUri}" />
+			<div class="table-control-box">
+				<div class="title">Check your password !</div>
+			</div>
+			<div class="table-control-box">
+				<input type="password" name="loginPw" autofocus />
+			</div>
+			<div class="table-control-box">
+				<button type="submit" class="">check</button>
+			</div>
+		</form>
+	</div>
+</div>
 
 <script>
-function MemberCheckPasswordForm__submit(form) {
-	if ( isNowLoading() ) {
-		alert('처리중입니다.');
-		return;
+	function MemberCheckPasswordForm__submit(form) {
+		if (isNowLoading()) {
+			alert('처리중입니다.');
+			return;
+		}
+
+		form.loginPw.value = form.loginPw.value.trim();
+		if (form.loginPw.value.length == 0) {
+			alert('비밀번호를 입력해주세요.');
+			form.loginPw.focus();
+			return;
+		}
+
+		form.loginPwReal.value = sha256(form.loginPw.value);
+		form.loginPw.value = '';
+
+		form.submit();
+		startLoading();
+
 	}
-
-	
-	form.loginPw.value = form.loginPw.value.trim();
-	if ( form.loginPw.value.length == 0 ) {
-		alert('비밀번호를 입력해주세요.');
-		form.loginPw.focus();
-		return;
-	}
-
-	form.loginPwReal.value = sha256(form.loginPw.value);
-	form.loginPw.value = '';
-
-	form.submit();
-	startLoading();
-	
-}
 </script>
 
 
 <style>
-.con2 {
-	width:50%;
-	
+.checkPassword-page {
+	margin-top: 200px;
 }
-.table-box table th {
-	text-align:center;
+
+.checkPassword-page .title {
+	margin-bottom: 30px;
+	font-weight: bold;
+	font-size: 1.2rem;
 	
 }
 
-.table-box {
-	border:5px solid black;
+.checkPassword-page .form {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 700px;
+	
 }
+
+.checkPassword-page .form form button {
+	margin-top: 30px;
+	background: #fdbe3f;
+}
+
 .btn {
-	padding:0 25px;
-	font-size:1rem;
+	padding: 0 25px;
+	font-size: 1rem;
 }
-
 
 /* 모바일 버전 */
-
-@media (max-width :1210px)  {
-    .con {
-    	width:80%;
-    	margin-left:auto;
-    	margin-right:auto;
-    }
-    .btn {
-    	padding: 5px 20px;
-    }
+@media ( max-width :1210px) {
+	.con {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.btn {
+		padding: 5px 20px;
+	}
 }
-
-
-
-
-
-
 </style>
 
 

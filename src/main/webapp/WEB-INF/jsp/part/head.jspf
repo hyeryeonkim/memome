@@ -96,7 +96,7 @@ var param = ${paramJson};
 					</c:if>
 					<c:if test="${isLogined}">
 						<li><a
-							href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">회원정보</a></li>
+							href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">settings</a></li>
 						<li><a href="../member/logout">로그아웃</a></li>
 					</c:if>
 
@@ -119,24 +119,24 @@ var param = ${paramJson};
 		<%-- <c:if test="${pageTitle eq '메인' }">
 			<h1 class="page-title-box con" style="color: red;">${pageTitle}</h1>
 		</c:if> --%>
-		<c:if test="${pageTitle eq '비밀번호 확인' }">
+		<%-- <c:if test="${pageTitle eq '비밀번호 확인' }">
 			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if>
-		<c:if test="${pageTitle eq 'My Page' }">
+		</c:if> --%>
+		<%-- <c:if test="${pageTitle eq 'My Page' }">
 			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if>
-		<c:if test="${pageTitle eq '회원정보 변경' }">
+		</c:if> --%>
+	<%-- 	<c:if test="${pageTitle eq '회원정보 변경' }">
 			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if>
-		<c:if test="${pageTitle eq '비밀번호 변경' }">
+		</c:if> --%>
+		<%-- <c:if test="${pageTitle eq '비밀번호 변경' }">
 			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if>
-		<c:if test="${pageTitle eq '회원탈퇴' }">
+		</c:if> --%>
+		<%-- <c:if test="${pageTitle eq '회원탈퇴' }">
 			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if>
-		<c:if test="${pageTitle eq '회원가입' }">
+		</c:if> --%>
+		<%-- <c:if test="${pageTitle eq '회원가입' }">
 			<h1 class="page-title-box con" style="color: blue;">${pageTitle}</h1>
-		</c:if>
+		</c:if> --%>
 		<%-- <c:if test="${pageTitle eq '로그인' }">
 			<h1 class="page-title-box con" style="color: purple;">${pageTitle}</h1>
 		</c:if>
@@ -190,7 +190,7 @@ var param = ${paramJson};
 						</c:if>
 						<c:if test="${isLogined}">
 							<li><a
-								href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">회원정보</a></li>
+								href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">settings</a></li>
 							<li><a href="../member/logout">로그아웃</a></li>
 						</c:if>
 
