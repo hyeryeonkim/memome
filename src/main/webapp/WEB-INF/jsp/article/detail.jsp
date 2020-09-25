@@ -12,37 +12,59 @@
 	<strong style="color: red;">${boardCode}</strong>게시물 내용
 </h1>
 
-<div class="table-none-box con margin-top-50">
-	
-	<table>
-		<colgroup>
-			<%-- 			<col width="200"/> --%>
-			<col class="table-first-col">
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>번호</th>
-				<td>${article.id }</td>
-			</tr>
-			<tr>
-				<th>작성일</th>
-				<td>${article.regDate}</td>
-			</tr>
-			<tr>
-				<th>작성자</th>
-				<td><a
-					href="../memo/memberPage-memoList?id=${article.memberId}&mode=${param.mode}">${article.extra.writer}</a></td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td>${article.title}</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<%--<td>${article.body}</td> --%>
-				<td><script type="text/x-template">${article.body}</script>
-					<div class="toast-editor toast-editor-viewer"></div></td>
-			</tr>
+<style>
+
+
+
+</style>
+
+<div class="not-table-box con margin-top-50">
+
+	<div class="not-table-box-controler">
+		<div class="title">${article.title}</div>
+	</div>
+	<div class="not-table-box-controler">
+		<div class="writer">
+			<a
+				href="../memo/memberPage-memoList?id=${article.memberId}&mode=${param.mode}">${article.extra.writer}</a>
+		</div>
+		|
+		<div class="no">${article.id }</div>
+		|
+		<div class="regDate">${article.regDate}</div>
+		<c:if test="${ boardCode eq 'memberPage' == false}">
+		|	<div class="button">
+				<button type="button" class="btn black"
+					onclick="location.href=	'${listUrl}'">List</button>
+			</div>
+		</c:if>
+		<c:if test="${fn:contains(boardCode, 'memo') }">
+		| <div class="button">
+			<button type="button" class="btn black"
+				onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
+				</div>
+		</c:if>
+
+		<c:if
+			test="${fn:contains(boardCode, 'memo') == false && article.extra.memberCanModify}">
+		|	<div class="button">
+			<button type="button" class="btn black"
+				onclick="location.href='../article/${boardCode}-modify?id=${param.id}'">Modify</button>
+				</div>
+		</c:if>
+		<c:if test="${ boardCode eq 'memberPage' }">
+		|	<div class="button">
+			<button type="button" class="btn black"
+				onclick="location.href='../memo/${boardCode}-memoList?id=${param.memberId}'">List</button>
+				</div>
+		</c:if>
+
+	</div>
+	<div class="border-body"></div>
+	<div class="not-table-box-controler">
+		<div class="body">
+			<script type="text/x-template">${article.body}</script>
+			<div class="toast-editor toast-editor-viewer"></div>
 			<c:forEach var="i" begin="1" end="3" step="1">
 				<c:set var="fileNo" value="${String.valueOf(i)}" />
 				<c:set var="file"
@@ -65,36 +87,19 @@
 					</tr>
 				</c:if>
 			</c:forEach>
-			<tr>
-				<th>태그</th>
-				<td><c:forEach items="${hashtags}" var="hashtag">
+		</div>
+	</div>
+	<div class="not-table-box-controler">
+		<div class="hashtag">
+			<c:forEach items="${hashtags}" var="hashtag">
 				#<strong><a href="#">${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-					</c:forEach></td>
-			</tr>
-		</tbody>
-	</table>
+			</c:forEach>
+		</div>
+	</div>
 </div>
 
-<div class="con margin-top-20 margin-bottom-20 button-box">
-	<c:if test="${ boardCode eq 'memberPage' == false}">
-		<button type="button" class="btn black"
-			onclick="location.href=	'${listUrl}'">List</button>
-	</c:if>
-	<c:if test="${fn:contains(boardCode, 'memo') }">
-		<button type="button" class="btn black"
-			onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
-	</c:if>
+<div class="con margin-top-20 margin-bottom-20 button-box"></div>
 
-	<c:if
-		test="${fn:contains(boardCode, 'memo') == false && article.extra.memberCanModify}">
-		<button type="button" class="btn black"
-			onclick="location.href='../article/${boardCode}-modify?id=${param.id}'">Modify</button>
-	</c:if>
-	<c:if test="${ boardCode eq 'memberPage' }">
-		<button type="button" class="btn black"
-			onclick="location.href='../memo/${boardCode}-memoList?id=${param.memberId}'">List</button>
-	</c:if>
-</div>
 <style>
 .table-box {
 	

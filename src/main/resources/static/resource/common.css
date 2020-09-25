@@ -789,3 +789,39 @@ body {
 }
 
 /* 로그인(login), 회원가입(join) form 관련 끝 */
+
+
+
+/* not-table 관련 CSS 시작 */
+
+.not-table-box {
+/* 	border: 3px solid red; */
+}
+
+.not-table-box .border-body{
+	border-bottom:1px solid #cccccc;
+	margin-top:10px;
+}
+
+.not-table-box .not-table-box-controler:nth-child(2) {
+	/* border: 3px solid blue; */
+	display: flex;
+	height:40px;
+	align-items:center;
+}
+
+.not-table-box .not-table-box-controler:nth-child(2) div {
+	margin: 0 20px;
+}
+
+.not-table-box .not-table-box-controler .title {
+	/* border: 5px solid green; */
+	height: 60px;
+	font-size: 2rem;
+}
+
+
+.not-table-box .not-table-box-controler .body {
+	margin-top:50px;
+}
+/* not-table 관련 CSS 끝 */
