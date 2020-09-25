@@ -103,6 +103,7 @@ var param = ${paramJson};
 				</ul>
 			</div>
 		</div>
+		<!-- 회원정보 변경을 닉네임을 누르면 이동할 수 있도록 수정하기. -->
 		<c:if test="${isLogined}">
 			<div class="con hi-user">
 				반갑습니다. <strong>${loginedMember.nickname}</strong> 님.

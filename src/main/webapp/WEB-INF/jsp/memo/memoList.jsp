@@ -175,14 +175,14 @@
 			<div class="con">
 				<input class="onclick-list-small btn " type="button"
 					onclick="click__small();  location.replace('${boardCode}-memoList?mode=small'); "
-					value="작게보기" />
+					value="From 제목" />
 			</div>
 		</c:if>
 		<c:if test="${param.mode eq 'small' }">
 			<div class="con ">
 				<input class="onclick-list-big btn" type="button"
 					onclick="click__big(); location.replace('${boardCode}-memoList?mode=big'); "
-					value="크게보기" />
+					value="From 내용" />
 			</div>
 		</c:if>
 	</c:if>

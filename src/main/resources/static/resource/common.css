@@ -526,6 +526,16 @@ flex-row-wrap {
 	padding-right: 0 !important;
 }
 
+
+
+
+
+.hi-user {
+	position: fixed;
+		top: 4%;
+		right: 5%;
+		z-index: 3;
+}
 @media ( max-width :800px ) {
 	.hi-user {
 		position: fixed;
