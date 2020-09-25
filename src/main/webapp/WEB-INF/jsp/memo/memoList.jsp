@@ -15,17 +15,20 @@
 
 <c:if test="${board.code eq 'unicon'}">
 	<h1 class="con">
-		<strong style="color: blue">${board.code}</strong> 특★한 메모장
+		<strong style="color: orange">${board.code}</strong>
+		<div style="font-size: 1.2rem;">특별한 유저에게 단 하나의 메모를 선사해보세요.</div>
 	</h1>
 </c:if>
 <c:if test="${board.code eq 'memoYOU'}">
 	<h1 class="con">
-		<strong style="color: green">${board.code}</strong> 모두의 메모장
+		<strong style="color: green">${board.code}</strong>
+		<div style="font-size: 1.2rem;">모든 유저의 메모장을 참고해보세요.</div>
 	</h1>
 </c:if>
 <c:if test="${board.code eq 'memoME'}">
 	<h1 class="con">
-		<strong style="color: blue">${board.code}</strong> 나만의 메모장
+		<strong style="color: blue">${board.code}</strong>
+		<div style="font-size: 1.2rem;">나만의 메모장을 만들어보세요.</div>
 	</h1>
 </c:if>
 
@@ -35,84 +38,212 @@
 	</h1>
 </c:if>
 
+<style>
+.memo-contents-box {
+}
+
+.memo-contents-box .memo-contents-box-1{
+	width:300px;
+}
+
+.memo-contents-box .memo-contents-box-2{
+	width:300px;
+	height:100px;
+	margin-bottom:0;
+	margin-top:auto;
+}
+
+.memo-contents-box .memo-contents-box-2 .total-count {
+	margin-bottom:10px;
+}
 
 
+</style>
 
-<c:if test="${isLogined}">
-	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
-		<button type="button" class="btn black"
-			onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
+<div class="memo-contents-box con flex flex-jc-sb">
+	
+	<div class="memo-contents-box-2">
+		<c:if test="${isLogined == false && boardCode eq 'memoYOU'}">
+			<div class="total-count con" style="font-size: 1.2rem;">총 게시물 수 :
+				${totalCount}</div>
+		</c:if>
+		<c:if test="${isLogined && totalCount != 0}">
+			<div class="total-count  con" style="font-size: 1.2rem;">총 게시물 수 :
+				${totalCount}</div>
+		</c:if>
+
+
+		<c:if test="${totalCount != 0 }">
+			<c:if test="${boardCode ne 'memberPage' }">
+				<c:if test="${param.mode eq 'big' || param.mode eq ''}">
+					<div class="con from-button">
+						<input class="onclick-list-small btn " type="button"
+							onclick="click__small();  location.replace('${boardCode}-memoList?mode=small'); "
+							value="From 제목" />
+					</div>
+				</c:if>
+				<c:if test="${param.mode eq 'small' }">
+					<div class="con from-button">
+						<input class="onclick-list-big btn" type="button"
+							onclick="click__big(); location.replace('${boardCode}-memoList?mode=big'); "
+							value="From 내용" />
+					</div>
+				</c:if>
+			</c:if>
+			<c:if test="${boardCode eq 'memberPage' }">
+				<c:if test="${param.mode eq 'big' || param.mode eq ''}">
+					<div class="con from-button">
+						<input class="onclick-list-small btn " type="button"
+							onclick="click__small();  location.replace('${boardCode}-memoList?mode=small&id=${param.id }'); "
+							value="From 제목" />
+					</div>
+				</c:if>
+				<c:if test="${param.mode eq 'small' }">
+					<div class="con  from-button">
+						<input class="onclick-list-big btn" type="button"
+							onclick="click__big(); location.replace('${boardCode}-memoList?mode=big&id=${param.id }'); "
+							value="From 내용" />
+					</div>
+				</c:if>
+			</c:if>
+			<c:if test="${empty param.page == false }">
+				<c:if test="${boardCode eq 'memberPage' }">
+					<c:if test="${param.mode eq 'big' || param.mode eq ''}">
+						<div class="con from-button">
+							<input class="onclick-list-small btn " type="button"
+								onclick="click__small();  location.replace('${boardCode}-memoList?searchKeywordType=${param.searchKeywordType}
+					&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}&mode=${param.mode}'); "
+								value="From 제목" />
+						</div>
+					</c:if>
+					<c:if test="${param.mode eq 'small' }">
+						<div class="con from-button">
+							<input class="onclick-list-big btn" type="button"
+								onclick="click__big(); location.replace('${boardCode}-memoList?searchKeywordType=${param.searchKeywordType}
+					&searchKeyword=${param.searchKeyword}&page=${param.page}&id=${param.id}&mode=${param.mode}'); "
+								value="From 내용" />
+						</div>
+					</c:if>
+				</c:if>
+			</c:if>
+		</c:if>
 	</div>
-	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
-		<button type="button" class="btn black"
-			onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
-	</div>
-</c:if>
-<%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
+	<!-- <div class="memo-color-page">
+		<div class="color-box">
+			파랑<input id="checkbox_id" type="checkbox" value="1"/>
+			노랑<input id="checkbox_id" type="checkbox" value="2"/>
+			녹색<input id="checkbox_id" type="checkbox" value="3"/>
+		</div>
+	</div> -->
+	<div class="memo-contents-box-1">
+		<!-- <div>
+			<button type="button" class="btn start" onclick="memo__color();">MEMO COLOR</button>
+		</div>
+		<div>
+			<button type="button" class="btn choice__color" onclick="choice__color();">CHOICE</button>
+		</div>
+		<script>
+			function memo__color() {
+				$(".memo-color-page").addClass("memo-color-open");
+				$(".choice__color").addClass("choice__color__open");
+				$(".start").addClass("start-none");
+			}
+			function choice__color() {
+				$(".memo-color-page").removeClass("memo-color-open");
+				$(".choice__color").removeClass("choice__color__open");
+				$(".start").removeClass("start-none");
+			}
+
+			var color = window.document.$('input:checkbox[id="checkbox_id"]').val();
+			if ( color == 2 ) {
+				alert(color);
+			}
+
+
+
+			
+		</script>
+		<style>
+			.memo-color-page {
+				display:none;
+			}
+			.start-none {
+				display:none;
+			}
+			.memo-color-open {
+				display:block;
+			}
+			.choice__color {
+				display:none;
+			}
+			.choice__color__open {
+				display:block;
+			}
+		</style> -->
+		<c:if test="${isLogined}">
+			<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
+			</div>
+			<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
+			</div>
+		</c:if>
+		<%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
 		onclick="location.href='../memo/${boardCode}-makeMemoCate'">메모
 		폴더 생성</button>
 </div> --%>
-<script>
-	
-</script>
-<c:if test="${boardCode eq 'memberPage' == false && isLogined}">
-	<div class="search con flex flex-jc-fe padding-10-0">
-		<div class="search-box ">
-			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
-			<form action="../memo/${boardCode}-tagSearchResult" class="flex">
-				<input type="hidden" name="page" value="1" />
-				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-				<input type="hidden" name="searchKeywordType" value="tag" />
-				<div class="tag-box flex flex-jc-sb">
-					<input type="text" name="searchKeyword"
-						placeholder="검색할 태그를 입력해주세요." value="${param.searchKeyword}"
-						class="box" />
-						<input type="hidden" name="mode" value="${param.mode }"/>
-					<button type="submit" class="search-button btn black">
-						<i style="font-size: 1.2rem;" class="fas fa-search"></i>
-					</button>
-				</div>
-			</form>
-			<!-- <script>
+
+
+		<c:if test="${boardCode eq 'memberPage' == false && isLogined}">
+			<div class="search con flex flex-jc-fe padding-10-0">
+				<div class="search-box ">
+					<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
+					<form action="../memo/${boardCode}-tagSearchResult" class="flex">
+						<input type="hidden" name="page" value="1" />
+						<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
+						<input type="hidden" name="searchKeywordType" value="tag" />
+						<div class="tag-box flex flex-jc-sb">
+							<input type="text" name="searchKeyword"
+								placeholder="검색할 태그를 입력해주세요." value="${param.searchKeyword}"
+								class="box" /> <input type="hidden" name="mode"
+								value="${param.mode }" />
+							<button type="submit" class="search-button btn black">
+								<i style="font-size: 1.2rem;" class="fas fa-search"></i>
+							</button>
+						</div>
+					</form>
+					<!-- <script>
 					form.searchKeyword.value = '';
 				</script> -->
-		</div>
-	</div>
-</c:if>
-
-<c:if test="${boardCode eq 'memberPage' && isLogined}">
-	<div class="search con flex flex-jc-fe padding-10-0">
-		<div class="search-box ">
-			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
-			<form action="../memo/${boardCode}-tagSearchResult" class="flex">
-				<!-- <input type="hidden" name="page" value="1" /> -->
-				<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
-				<input type="hidden" name="id" value="${param.id}" /> <input
-					type="hidden" name="searchKeywordType" value="tag" />
-				<div class="tag-box flex flex-jc-sb">
-					<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
-						value="${param.searchKeyword}" class="box" />
-					<button type="submit" class="search-button btn black">
-						<i style="font-size: 1.2rem;" class="fas fa-search"></i>
-					</button>
 				</div>
-			</form>
-		</div>
+			</div>
+		</c:if>
+
+		<c:if test="${boardCode eq 'memberPage' && isLogined}">
+			<div class="search con flex flex-jc-fe padding-10-0">
+				<div class="search-box ">
+					<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
+					<form action="../memo/${boardCode}-tagSearchResult" class="flex">
+						<!-- <input type="hidden" name="page" value="1" /> -->
+						<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
+						<input type="hidden" name="id" value="${param.id}" /> <input
+							type="hidden" name="searchKeywordType" value="tag" />
+						<div class="tag-box flex flex-jc-sb">
+							<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
+								value="${param.searchKeyword}" class="box" />
+							<button type="submit" class="search-button btn black">
+								<i style="font-size: 1.2rem;" class="fas fa-search"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</c:if>
 	</div>
-</c:if>
-
-
-<c:if test="${isLogined == false && boardCode eq 'memoYOU'}">
-	<div class="con" style="font-size: 1.2rem;">총 게시물 수 :
-		${totalCount}</div>
-</c:if>
-<c:if test="${isLogined && totalCount != 0}">
-	<div class="con" style="font-size: 1.2rem;">총 게시물 수 :
-		${totalCount}</div>
-</c:if>
-
-
+</div>
 
 <c:if test="${isLogined == false && board.code eq 'unicon'}">
 	<div class="unicon-intro-box ">
@@ -168,61 +299,6 @@
 
 
 
-
-<c:if test="${totalCount != 0 }">
-	<c:if test="${boardCode ne 'memberPage' }">
-		<c:if test="${param.mode eq 'big' || param.mode eq ''}">
-			<div class="con">
-				<input class="onclick-list-small btn " type="button"
-					onclick="click__small();  location.replace('${boardCode}-memoList?mode=small'); "
-					value="From 제목" />
-			</div>
-		</c:if>
-		<c:if test="${param.mode eq 'small' }">
-			<div class="con ">
-				<input class="onclick-list-big btn" type="button"
-					onclick="click__big(); location.replace('${boardCode}-memoList?mode=big'); "
-					value="From 내용" />
-			</div>
-		</c:if>
-	</c:if>
-	<c:if test="${boardCode eq 'memberPage' }">
-		<c:if test="${param.mode eq 'big' || param.mode eq ''}">
-			<div class="con">
-				<input class="onclick-list-small btn " type="button"
-					onclick="click__small();  location.replace('${boardCode}-memoList?mode=small&id=${param.id }'); "
-					value="작게보기" />
-			</div>
-		</c:if>
-		<c:if test="${param.mode eq 'small' }">
-			<div class="con ">
-				<input class="onclick-list-big btn" type="button"
-					onclick="click__big(); location.replace('${boardCode}-memoList?mode=big&id=${param.id }'); "
-					value="크게보기" />
-			</div>
-		</c:if>
-	</c:if>
-	<c:if test="${empty param.page == false }">
-		<c:if test="${boardCode eq 'memberPage' }">
-		<c:if test="${param.mode eq 'big' || param.mode eq ''}">
-			<div class="con">
-				<input class="onclick-list-small btn " type="button"
-					onclick="click__small();  location.replace('${boardCode}-memoList?searchKeywordType=${param.searchKeywordType}
-					&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}&mode=${param.mode}'); "
-					value="작게보기" />
-			</div>
-		</c:if>
-		<c:if test="${param.mode eq 'small' }">
-			<div class="con ">
-				<input class="onclick-list-big btn" type="button"
-					onclick="click__big(); location.replace('${boardCode}-memoList?searchKeywordType=${param.searchKeywordType}
-					&searchKeyword=${param.searchKeyword}&page=${param.page}&id=${param.id}&mode=${param.mode}'); "
-					value="크게보기" />
-			</div>
-		</c:if>
-	</c:if>
-	</c:if>
-</c:if>
 
 
 <script>
@@ -693,6 +769,9 @@
 
 
 <style>
+.memo-table-box .memo-box .img-box img, .memo-table-box .memo-box  .video-box video {
+	max-width:100%;
+}
 .unicon-intro-box {
 	margin-top: 40px;
 	text-align: center;
@@ -972,6 +1051,14 @@ html>body .memo-table-box .memo-box td {
 		text-align: center;
 	}
 }
+
+
+.memo-table-box .memo-box {
+	background-color: #fffff5;
+}
+
+
+
 </style>
 
 

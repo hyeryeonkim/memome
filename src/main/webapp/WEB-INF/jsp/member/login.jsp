@@ -48,6 +48,9 @@
 			<div class="form-control-box">
 				<button type="button" class="findAccount-btn" onclick="location.href='../member/findAccount'" >Forgot userID or password ?</button>
 			</div>
+			<div class="form-control-box">
+				<button type="button" class="join-btn" onclick="location.href='../member/join'" >sign up for memome</button>
+			</div>
 		</form>
 	</div>
 </div>
@@ -112,12 +115,16 @@ function MemberLoginForm__submit(form) {
 	margin-top:30px;
 }
 
-.login-page .form form .form-control-box .findAccount-btn {
+.login-page .form form .form-control-box .findAccount-btn, .login-page .form form .form-control-box .join-btn {
 	margin-top:30px;
 	background: white;
-	color:#2346f6;
+	color:black;
 	font-weight:bold;
 }
+.login-page .form form .form-control-box .join-btn {
+	color:#2346f6;
+}
+
 .btn {
 	padding:0 25px;
 	font-size:1rem;

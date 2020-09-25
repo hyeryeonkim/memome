@@ -16,7 +16,7 @@
 </c:if>
 
 <c:if test="${boardCode eq 'free' }">
-	<div class="free-top-bar">
+	<div class="free-top-bar con">
 		<h1>Story</h1>
 		<h2>메모미의 다양한 이야기들을 만나보세요</h2>
 	</div>
@@ -24,10 +24,11 @@
 
 <style>
 .free-top-bar {
-	position:absolute;
-	top:130px;
-	right:19%;
-	text-align:right;
+	position: absolute;
+	top: 130px;
+	right: 15%; 
+	text-align: right; 
+	
 }
 </style>
 
@@ -69,7 +70,7 @@
 			});
 		</script>
 	</c:if>
-	
+
 	<div class="search con flex flex-jc-fe padding-10-0">
 		<div class="search-box ">
 			<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
@@ -93,7 +94,95 @@
 
 <div class="con" style="font-size: 1.2rem;">총 게시물 수 :
 	${totalCount}</div>
-<div class="table-box con margin-top-10">
+<div class="memo-table-list con  ">
+		<c:forEach items="${articles}" var="article">
+			<c:if test="${article.memberId == loginedMemberId  }">
+				<div class="memo-table-list-box "
+					onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}&mode=${param.mode }'">
+					<div class="contents-box">
+						<div class="title">${article.title }</div>
+						<div class="body">
+							<c:forEach items="${hashtags}" var="hashtag">
+								<c:if test="${article.id == hashtag.relId }">
+									<strong><a
+										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+											#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div class="writer-box">
+							<div class="writer">${article.extra.writer}</div>
+							<div class="regDate">${article.regDate }</div>
+						</div>
+					</div>
+					<div class="file-box">
+						<c:set var="fileNo" value="${String.valueOf(3)}" />
+						<c:set var="file"
+							value="${article.extra.file__common__attachment[fileNo]}" />
+						<c:if test="${file != null}">
+							<c:if test="${file.fileExtTypeCode == 'video'}">
+								<div class="video-box">
+									<video controls
+										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+								</div>
+							</c:if>
+							<c:if test="${file.fileExtTypeCode == 'img'}">
+								<div class="img-box img-box-auto">
+									<img
+										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+										alt="" />
+								</div>
+							</c:if>
+						</c:if>
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
+		<c:forEach items="${articles}" var="article">
+			<c:if test="${article.memberId != loginedMemberId }">
+				<div class="memo-table-list-box"
+					onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }&mode=${param.mode }'">
+					<div class="contents-box">
+						<div class="title">${article.title }</div>
+						<div class="body">
+							<c:forEach items="${hashtags}" var="hashtag">
+								<c:if test="${article.id == hashtag.relId }">
+									<strong><a
+										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+											#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div class="writer-box">
+							<div class="writer">${article.extra.writer}</div>
+							<div class="regDate">${article.regDate }</div>
+						</div>
+					</div>
+					<div class="file-box">
+						<c:set var="fileNo" value="${String.valueOf(3)}" />
+						<c:set var="file"
+							value="${article.extra.file__common__attachment[fileNo]}" />
+						<c:if test="${file != null}">
+							<c:if test="${file.fileExtTypeCode == 'video'}">
+								<div class="video-box">
+									<video controls
+										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+								</div>
+							</c:if>
+							<c:if test="${file.fileExtTypeCode == 'img'}">
+								<div class="img-box img-box-auto">
+									<img
+										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+										alt="" />
+								</div>
+							</c:if>
+						</c:if>
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
+	</div>
+<%-- <div class="table-box con margin-top-10">
 	<table>
 		<colgroup>
 			<col width="80" />
@@ -121,7 +210,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-</div>
+</div> --%>
 <div class="con page-box ">
 	<ul class="flex flex-jc-c">
 		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
@@ -135,9 +224,7 @@
 
 
 <style>
-.table-box {
-	/* border:10px solid blue; */
-	height: 600px;
+.memo-table-list {
 }
 
 .table-box {
@@ -152,6 +239,7 @@
 .page-box {
 	/* border:10px solid red; */
 	margin-bottom: 100px;
+	margin-top:100px;
 }
 
 input[type="submit"] {
@@ -193,6 +281,68 @@ input[type="submit"] {
 	padding: 10px;
 	text-align: center;
 }
+
+
+
+
+.memo-table-list .memo-table-list-box .file-box {
+	height: 100%;
+	width: 20%;
+}
+
+.memo-table-list .memo-table-list-box {
+	/* border: 3px solid red; */
+	height: 160px;
+	display: flex;
+	padding-bottom: 10px;
+	border-bottom: 3px solid black;
+	margin-top: 20px;
+}
+
+.memo-table-list .memo-table-list-box:hover {
+	cursor: pointer;
+}
+
+.memo-table-list .memo-table-list-box:first-child {
+	margin-top: 50px;
+}
+
+.memo-table-list .memo-table-list-box .contents-box {
+	/* border: 3px solid blue; */
+	height: 100%;
+	width: 80%;
+}
+
+.memo-table-list .memo-table-list-box .contents-box .title {
+	/* border: 3px solid gold; */
+	height: 60px;
+	width: 100%;
+	font-size: 2.5rem;
+}
+
+/* body를 태그로 바꿔서 사용중....  */
+.memo-table-list .memo-table-list-box .contents-box .body {
+	/* border: 3px solid orange; */
+	height: 50px;
+	width: 100%;
+	font-size: 1.2rem;
+	opacity: 0.7;
+}
+
+.memo-table-list .memo-table-list-box .writer-box {
+	/* border: 3px solid black; */
+	height: 30px;
+	display: flex;
+	margin-top: 20px;
+}
+
+.memo-table-list .memo-table-list-box .writer-box .writer, .regDate {
+	/* border: 3px solid green; */
+	width: 200px;
+	height: 30px;
+	text-align: left;
+}
+
 
 @media ( max-width :800px ) {
 	/* PC버전 memo 테이블 관련 */

@@ -422,7 +422,7 @@
 	<ul class="flex flex-jc-c">
 		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
 			<li class="${i == cPage ? 'current' : ''}"><a
-				href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}"
+				href="?searchKeywordType=${param.searchKeywordType}&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}&mode=${param.mode}"
 				class="block">${i}</a></li>
 		</c:forEach>
 	</ul>

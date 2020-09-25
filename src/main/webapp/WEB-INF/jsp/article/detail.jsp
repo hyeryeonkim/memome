@@ -13,9 +13,6 @@
 </h1>
 
 <style>
-
-
-
 </style>
 
 <div class="not-table-box con margin-top-50">
@@ -32,31 +29,48 @@
 		<div class="no">${article.id }</div>
 		|
 		<div class="regDate">${article.regDate}</div>
-		<c:if test="${ boardCode eq 'memberPage' == false}">
+	<%-- 	<c:if test="${ boardCode eq 'memberPage' == false}">
 		|	<div class="button">
 				<button type="button" class="btn black"
-					onclick="location.href=	'${listUrl}'">List</button>
+					onclick="location.href=	'${listUrl}&mode=${param.mode }'">List</button>
 			</div>
-		</c:if>
+		</c:if> --%>
 		<c:if test="${fn:contains(boardCode, 'memo') }">
 		| <div class="button">
-			<button type="button" class="btn black"
-				onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
-				</div>
+				<button type="button" class="btn black"
+					onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
+			</div>
 		</c:if>
 
 		<c:if
 			test="${fn:contains(boardCode, 'memo') == false && article.extra.memberCanModify}">
 		|	<div class="button">
-			<button type="button" class="btn black"
-				onclick="location.href='../article/${boardCode}-modify?id=${param.id}'">Modify</button>
-				</div>
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-modify?id=${param.id}'">Modify</button>
+			</div>
 		</c:if>
+		<c:if
+			test="${fn:contains(boardCode, 'memo')}">
+		|	<div class="button">
+				<button type="button" class="btn black"
+					onclick="location.href='../memo/${boardCode}-memoList?mode=${param.mode }'">List</button>
+			</div>
+		</c:if>
+		
+		<c:if
+			test="${fn:contains(boardCode, 'memo' ) == false && boardCode eq 'memberPage' == false }">
+			
+		|	<div class="button">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-list?mode=${param.mode }'">List</button>
+			</div>
+		</c:if>
+		
 		<c:if test="${ boardCode eq 'memberPage' }">
 		|	<div class="button">
-			<button type="button" class="btn black"
-				onclick="location.href='../memo/${boardCode}-memoList?id=${param.memberId}'">List</button>
-				</div>
+				<button type="button" class="btn black"
+					onclick="location.href='../memo/${boardCode}-memoList?id=${param.memberId}&mode=${param.mode }'">List</button>
+			</div>
 		</c:if>
 
 	</div>
@@ -122,10 +136,22 @@
 }
 </style>
 
-
-
+<c:if test="${isLogined == false}">
+	<div class="not-table-box margin-bottom-50">
+		<div class="not-table-box-controler con">
+			<div class="reply-count">
+				댓글 <strong>( <a href="../member/login" style="color: red;">로그인</a>
+					후 이용바랍니다. )
+				</strong>
+			</div>
+			<div class="reply-box">
+				<textarea maxlength="300" name="body" readonly class="height-300">댓글 작성 및 타인이 작성한 댓글 열람은 로그인 후 가능한 서비스 입니다.</textarea>
+			</div>
+		</div>
+	</div>
+</c:if>
 <c:if test="${isLogined}">
-	<h2 class="con">댓글 작성</h2>
+	<!-- <h2 class="con">댓글 작성</h2> -->
 
 	<script>
 		function WriteReplyForm__submit(form) {
@@ -221,58 +247,58 @@
 						form.file__reply__0__common__attachment__3.value = '';
 					}
 
+					close__file();
 					endLoading();
 				});
 			});
 		}
 	</script>
 
-	<form class="table-box table-box-vertical con form1"
+	<form class="not-table-box table-box-vertical con form1"
 		onsubmit="WriteReplyForm__submit(this); return false;">
 		<input type="hidden" name="relTypeCode" value="article" /> <input
 			type="hidden" name="relId" value="${article.id}" />
-
-		<table>
-			<colgroup>
-				<col class="table-first-col">
-			</colgroup>
-			<tbody>
-				<tr>
-					<th>내용</th>
-					<td>
-						<div class="form-control-box">
-							<textarea maxlength="300" name="body" placeholder="내용을 입력해주세요."
-								class="height-300"></textarea>
-						</div>
-					</td>
-				</tr>
+		<div class="not-table-box-controler flex">
+			<div class="reply-count">댓글</div>
+			&nbsp;&nbsp;
+			<div id="replyCount"></div>
+			개
+		</div>
+		<div class="not-table-box-controler">
+			<div class="reply-box">
+				<textarea maxlength="300" name="body"
+					placeholder="권리침해, 욕설, 특정대상을 비하하는 내용을 게시할 경우 이용약관 및 관련 법률에 의해 제재될 수 있습니다. 댓글 작성 시 상대방에 대한 배려와 책임을 담아주세요."
+					class="height-300"></textarea>
+			</div>
+			<div class="file-box">
 				<c:forEach var="i" begin="1" end="3" step="1">
 					<c:set var="fileNo" value="${String.valueOf(i)}" />
 					<c:set var="fileExtTypeCode"
 						value="${appConfig.getAttachmentFileExtTypeCode('reply', i)}" />
-					<tr>
-						<th>첨부${fileNo}
-							${appConfig.getAttachmentFileExtTypeDisplayName('reply', i)}</th>
-						<td>
-							<div class="form-control-box">
-								<input type="file"
-									accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
-									name="file__reply__0__common__attachment__${fileNo}">
-							</div>
-						</td>
-					</tr>
+					<!-- <div class="not-table-box-controler"> -->
+					<div>첨부${fileNo}${appConfig.getAttachmentFileExtTypeDisplayName('reply', i)}</div>
+					<div class="form-control-box">
+						<input type="file"
+							accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
+							name="file__reply__0__common__attachment__${fileNo}">
+						<!-- 	</div> -->
+					</div>
 				</c:forEach>
-				<tr class="tr-do">
-					<th>작성</th>
-					<td><input class="btn btn-primary" type="submit" value="작성">
-					</td>
-				</tr>
-			</tbody>
-		</table>
+			</div>
+		</div>
+
+		<div class="not-table-box-controler btns">
+			<!-- <input class="btn btn-primary" type="submit" value="작성"> -->
+			<button type="submit" class="btn">write</button>
+			<button type="button" class="btn add__file" onclick="add__file();">파일추가</button>
+			<button type="button" class="btn close__file"
+				onclick="close__file();">파일추가 닫기</button>
+		</div>
+		<div class="border-reply"></div>
 	</form>
 </c:if>
 
-<h2 class="con">댓글 목록</h2>
+<!-- <h2 class="con">댓글 목록</h2> -->
 
 <style>
 .reply-list-box .media-box>* {
@@ -283,15 +309,16 @@
 	display: none;
 }
 
-.reply-list-box .media-box>:first-chidl {
+.reply-list-box .media-box>:first-child {
 	margin-top: 10px;
 }
 </style>
 
+
 <div class="reply-list-box table-box table-box-data con">
 	<table>
 		<colgroup>
-			<col class="table-first-col">
+			<%-- <col class="table-first-col"> --%>
 			<col width="100">
 			<col width="140">
 			<col>
@@ -299,11 +326,11 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th>번호</th>
-				<th>날짜</th>
+				<!-- <th>번호</th> -->
+				<!-- 	<th>날짜</th>
 				<th>작성자</th>
 				<th>내용</th>
-				<th>비고</th>
+				<th>비고</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -389,8 +416,8 @@
 					<tr class="tr-do">
 						<th>수정</th>
 						<td>
-							<button class="btn btn-primary" type="submit">수정</button>
-							<button class="btn btn-info" type="button"
+							<button class="btn " type="submit">수정</button>
+							<button class="btn " type="button"
 								onclick="ReplyList__hideModifyFormModal();">취소</button>
 						</td>
 					</tr>
@@ -520,16 +547,16 @@
 		var onModifyReplyComplete = function(data) {
 			if (data.resultCode && data.resultCode.substr(0, 2) == 'S-') {
 				// 성공시에는 기존에 그려진 내용을 수정해야 한다.!!
-				$('.reply-list-box tbody > tr[data-id="' + id + '"]').data(
+				$('.reply-start[data-id="' + id + '"]').data(
 						'data-originBody', body);
 				$(
-						'.reply-list-box tbody > tr[data-id="' + id
+						'.reply-start[data-id="' + id
 								+ '"] .reply-body').empty().append(
 						getHtmlEncoded(body).replaceAll('\n', '<br>'));
 
-				$('.reply-list-box tbody > tr[data-id="' + id + '"] .video-box')
+				$('.reply-start[data-id="' + id + '"] .video-box')
 						.empty();
-				$('.reply-list-box tbody > tr[data-id="' + id + '"] .img-box')
+				$('.reply-start[data-id="' + id + '"] .img-box')
 						.empty();
 
 				if (data && data.body && data.body.file__common__attachment) {
@@ -543,14 +570,14 @@
 									+ file.updateDate
 									+ '">video not supported</video>';
 							$(
-									'.reply-list-box tbody > tr[data-id="' + id
+									'.reply-start[data-id="' + id
 											+ '"] [data-file-no="' + fileNo
 											+ '"].video-box').append(html);
 						} else {
 							var html = '<img src="/usr/file/img?id=' + file.id
 									+ '&updateDate=' + file.updateDate + '">';
 							$(
-									'.reply-list-box tbody > tr[data-id="' + id
+									'.reply-start[data-id="' + id
 											+ '"] [data-file-no="' + fileNo
 											+ '"].img-box').append(html);
 						}
@@ -571,7 +598,7 @@
 
 	function ReplyList__showModifyFormModal(el) {
 		$('html').addClass('reply-modify-form-modal-actived');
-		var $tr = $(el).closest('tr');
+		var $tr = $(el).closest('.reply-start');
 		var originBody = $tr.data('data-originBody');
 
 		var id = $tr.attr('data-id');
@@ -629,7 +656,7 @@
 	ReplyList__loadMoreInterval = 1 * 1000;
 
 	function ReplyList__loadMoreCallback(data) {
-		if (data.body.replies && data.body.replies.length > 0) {
+		if (data.body && data.body.replies.length > 0) {
 			ReplyList__lastLodedId = data.body.replies[data.body.replies.length - 1].id;
 			ReplyList__drawReplies(data.body.replies);
 		}
@@ -646,10 +673,12 @@
 	}
 
 	function ReplyList__drawReplies(replies) {
+		$("#replyCount").append(replies.length);
 		for (var i = 0; i < replies.length; i++) {
 			var reply = replies[i];
 			ReplyList__drawReply(reply);
 		}
+
 	}
 
 	function ReplyList__delete(el) {
@@ -718,17 +747,17 @@
 
 	function ReplyList__drawReply(reply) {
 		var html = '';
-		html += '<tr data-id="' + reply.id + '">';
-		html += '<td>' + reply.id + '</td>';
-		html += '<td class="visible-on-md-up">' + reply.regDate + '</td>';
-		html += '<td class="visible-on-md-up">' + reply.extra.writer + '</td>';
-		html += '<td>';
+		html += '<div class="reply-start" data-id="' + reply.id + '">';
+		/* html += '<td>' + reply.id + '</td>'; */
+		html += '<div class="reply-box">';
 		html += '<div class="reply-body">' + reply.forPrintBody + '</div>';
-
 		html += ReplyList__getMediaHtml(reply);
-
-		html += '</td>';
-		html += '<td>';
+		html += '<div class="visible-on-md-up writer-box">';
+		html += '<div class="visible-on-md-up writer-contents">'
+				+ reply.extra.writer + '</div>';
+		html += '<div class="visible-on-md-up writer-contents">'
+				+ reply.regDate + '</div>';
+		html += '<div class="extra">';
 
 		if (reply.extra.actorCanDelete) {
 			html += '<button class="btn btn-danger" type="button" onclick="ReplyList__delete(this);">삭제</button>';
@@ -738,9 +767,17 @@
 			html += '<button class="btn btn-info" type="button" onclick="ReplyList__showModifyFormModal(this);">수정</button>';
 		}
 
-		html += '</td>';
+		html += '</div>';
+		html += '</div>'
+		html += '</div>'
+		html += '<div class="border-reply"></div>';
+		html += '<div>';
 
-		html += '<td class="visible-on-sm-down">';
+		
+
+		html += '</div>';
+
+		html += '<div class="visible-on-sm-down">';
 
 		html += '<div class="flex flex-row-wrap flex-ai-c">';
 		html += '<span class="badge badge-primary bold margin-right-10">'
@@ -766,8 +803,8 @@
 
 		html += '</div>';
 
-		html += '</td>';
-		html += '</tr>';
+		html += '</div>';
+		html += '</div>';
 
 		var $tr = $(html);
 		$tr.data('data-originBody', reply.body);
@@ -776,6 +813,39 @@
 
 	ReplyList__loadMore();
 </script>
+
+<style>
+.btn {
+	margin: 0 5px;
+	
+}
+
+.button .btn{
+	width:100px;
+	height:40px;
+	margin-left:-10px;	
+}
+
+.table-box>table th, .table-box>table td {
+	border:none;
+}
+
+
+
+</style>
+<script>
+	function add__file() {
+		$(".file-box").addClass("file-box-block");
+		$(".add__file").addClass("add__file__none");
+		$(".close__file").addClass("close__file__block");
+	};
+	function close__file() {
+		$(".file-box").removeClass("file-box-block");
+		$(".add__file").removeClass("add__file__none");
+		$(".close__file").removeClass("close__file__block");
+	};
+</script>
+
 
 
 

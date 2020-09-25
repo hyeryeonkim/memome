@@ -21,76 +21,50 @@
 
 
 
+<div class="not-table-box con margin-top-50">
+	<form method="POST" action="${boardCode}-doWrite?mode=${param.mode}"
+		class="table-box-vertical form1"
+		onsubmit="ArticleWriteForm__submit(this); return false;">
+		<input type="hidden" name="fileIdsStr" /> <input type="hidden"
+			name="redirectUri" value="/usr/article/${board.code}-detail?id=#id" />
+		<input type="hidden" name="relTypeCode" value="article" /> <input
+			type="hidden" name="body" />
+		<c:if test="${boardCode eq 'unicon' }">
+			<div class="invite-title">UNICON email 초대<i style="margin-left:10px;" class="far fa-paper-plane"></i> </div>
+			<div class="not-table-box-controler">
+				<div class="form-control-box invite-control-box  flex flex-wrap">
+					<input type="email" name="invite1" placeholder="이메일을 입력해주세요."
+						maxlength="20" /> <input type="email" name="invite2"
+						placeholder="이메일을 입력해주세요." maxlength="20" /> <input type="email"
+						name="invite3" placeholder="이메일을 입력해주세요." maxlength="20" /> <input
+						type="email" name="invite4" placeholder="이메일을 입력해주세요."
+						maxlength="20" /> <input type="email" name="invite5"
+						placeholder="이메일을 입력해주세요." maxlength="20" /> <input type="email"
+						name="invite6" placeholder="이메일을 입력해주세요." maxlength="20" /> <input
+						type="email" name="invite7" placeholder="이메일을 입력해주세요."
+						maxlength="20" /> <input type="email" name="invite8"
+						placeholder="이메일을 입력해주세요." maxlength="20" /> <input type="email"
+						name="invite9" placeholder="이메일을 입력해주세요." maxlength="20" /> <input
+						type="email" name="invite10" placeholder="이메일을 입력해주세요."
+						maxlength="20" /> <input type="email" name="invite11"
+						placeholder="이메일을 입력해주세요." maxlength="20" /> <input type="email"
+						name="invite12" placeholder="이메일을 입력해주세요." maxlength="20" />
+				</div>
+			</div>
+		</c:if>
+		<c:if
+			test="${boardCode ne 'free' || boardCode ne 'notice' || boardCode ne 'unicon' }">
+			<div class="not-table-box-controler select flex flex-jc-sb">
+				<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus
+					maxlength="200" /> <select name="displayStatus" id="">
+					<option value="1">공개</option>
+					<option value="0">비공개</option>
+				</select>
 
-<form method="POST" action="${boardCode}-doWrite?mode=${param.mode}"
-	class="form1 table-box table-box-vertical con"
-	onsubmit="ArticleWriteForm__submit(this); return false;">
-	<input type="hidden" name="fileIdsStr" /> <input type="hidden"
-		name="redirectUri" value="/usr/article/${board.code}-detail?id=#id" />
-	<input type="hidden" name="relTypeCode" value="article" /> <input
-		type="hidden" name="body" />
-	<table>
-		<colgroup>
-			<col width="150" />
-		</colgroup>
-		<tbody>
-			<c:if test="${boardCode eq 'unicon' }">
-				<tr>
-					<th>초대하기</th>
-					<td>
-						<div class="form-control-box invite-control-box  flex flex-wrap">
-							<input type="email" name="invite1" placeholder="이메일을 입력해주세요."
-								maxlength="20" /> <input type="email" name="invite2"
-								placeholder="이메일을 입력해주세요." maxlength="20" /> <input
-								type="email" name="invite3" placeholder="이메일을 입력해주세요."
-								maxlength="20" /> <input type="email" name="invite4"
-								placeholder="이메일을 입력해주세요." maxlength="20" /> <input
-								type="email" name="invite5" placeholder="이메일을 입력해주세요."
-								maxlength="20" /> <input type="email" name="invite6"
-								placeholder="이메일을 입력해주세요." maxlength="20" /> <input
-								type="email" name="invite7" placeholder="이메일을 입력해주세요."
-								maxlength="20" /> <input type="email" name="invite8"
-								placeholder="이메일을 입력해주세요." maxlength="20" /> <input
-								type="email" name="invite9" placeholder="이메일을 입력해주세요."
-								maxlength="20" /> <input type="email" name="invite10"
-								placeholder="이메일을 입력해주세요." maxlength="20" /> <input
-								type="email" name="invite11" placeholder="이메일을 입력해주세요."
-								maxlength="20" /> <input type="email" name="invite12"
-								placeholder="이메일을 입력해주세요." maxlength="20" />
-						</div>
-					</td>
-				</tr>
-
-			</c:if>
-			<c:if
-				test="${boardCode ne 'free' || boardCode ne 'notice' || boardCode ne 'unicon' }">
-				<tr>
-					<th>공개여부</th>
-					<td>
-						<div class="form-control-box select">
-							<select name="displayStatus" id="">
-								<option value="1">공개</option>
-								<option value="0">비공개</option>
-							</select>
-						</div>
-
-					</td>
-			</c:if>
-			<tr>
-
-				<th>제목</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="title" placeholder="제목을 입력해주세요."
-							autofocus maxlength="200" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td>
-					<div class="form-control-box">
-						<!-- 					<div> # 제목
+			</div>
+		</c:if>
+		<div class="not-table-box-controler">
+			<!-- 					<div> # 제목
 ![img](https://placekitten.com/200/287)
 이미지는 이렇게 씁니다.
 
@@ -101,54 +75,55 @@
 ```youtube
 https://www.youtube.com/watch?v=LmgWxezH7cc
 ```	</div> -->
-						<script type="text/x-template">
-
+			<script type="text/x-template">
                         </script>
-						<div data-relTypeCode="article" data-relId="0"
-							class="toast-editor input-body"></div>
+			<div data-relTypeCode="article" data-relId="0"
+				class="toast-editor input-body"></div>
+		</div>
+		<div class="not-table-box-controler">
+			<div class="form-control-box">
+				<input type="text" name="tag" placeholder="#태그 입력" class="input-tag" />
+			</div>
+		</div>
+		<div class="not-table-box-controler">
+			<c:forEach var="i" begin="1" end="3" step="1">
+				<c:set var="fileNo" value="${String.valueOf(i)}" />
+				<c:set var="fileExtTypeCode"
+					value="${appConfig.getAttachmentFileExtTypeCode('article', i)}" />
+				<div class="file-box">
+					<div class="form-control-box file flex">
+						<div>첨부${fileNo}
+							${appConfig.getAttachmentFileExtTypeDisplayName('article', i)}</div>
+						<input type="file"
+							accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
+							name="file__article__0__common__attachment__${fileNo}">
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>태그(최대 10개)</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="tag" placeholder="#태그 입력"
-							class="input-tag" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<c:forEach var="i" begin="1" end="3" step="1">
-					<c:set var="fileNo" value="${String.valueOf(i)}" />
-					<c:set var="fileExtTypeCode"
-						value="${appConfig.getAttachmentFileExtTypeCode('article', i)}" />
-					<tr>
-						<th>첨부${fileNo}
-							${appConfig.getAttachmentFileExtTypeDisplayName('article', i)}</th>
-						<td>
-							<div class="form-control-box">
-								<input type="file"
-									accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
-									name="file__article__0__common__attachment__${fileNo}">
-							</div>
-						</td>
-					</tr>
-				</c:forEach>
-			<tr>
-				<th>등록</th>
-				<td>
-					<div class="form-control-box">
-						<input type="submit" value="등록" class="btn black" />
-					</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</form>
+				</div>
+			</c:forEach>
+		</div>
+		<div class="not-table-box-controler btns">
+			<button type="button" class="btn add__file" onclick="add__file();">파일추가</button>
+			<button type="button" class="btn close__file"
+				onclick="close__file();">파일추가 닫기</button>
+			<button type="submit" class="btn">write</button>
+
+		</div>
+	</form>
+</div>
 
 
 <script>
+	function add__file() {
+		$(".file-box").addClass("file-box-block");
+		$(".add__file").addClass("add__file__none");
+		$(".close__file").addClass("close__file__block");
+	};
+	function close__file() {
+		$(".file-box").removeClass("file-box-block");
+		$(".add__file").removeClass("add__file__none");
+		$(".close__file").removeClass("close__file__block");
+	};
+
 	function ArticleWriteForm__submit(form) {
 		if (isNowLoading()) {
 			alert('처리중입니다.');
@@ -318,7 +293,7 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 }
 
 .table-box {
-	border: 5px solid black;
+	
 }
 
 .btn {
@@ -326,17 +301,80 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 	font-size: 1rem;
 }
 
-.table-box .invite-control-box input {
-	width: 170px;
+.not-table-box .invite-title {
+	font-weight:bold;
+	font-size:1.3rem;
 }
 
-.table-box .invite-control-box input:not(:first-child ) {
+
+.not-table-box-controler .invite-control-box input:not(:first-child ) {
 	display: none;
 }
 
-body .table-box .invite-control-box .block {
+body .not-table-box-controler .invite-control-box .block {
 	display: block;
 }
+
+.not-table-box .not-table-box-controler {
+	/* 	border: none; */
+	margin-top: 20px;
+}
+
+.not-table-box .not-table-box-controler select {
+	height: 55px;
+	width: 100px;
+	font-weight: bold;
+}
+
+.not-table-box .btn {
+	height: 50px;
+	width: 300px;
+	margin-left: 40px;
+}
+
+.not-table-box .btns {
+	margin-bottom: 100px;
+}
+
+.not-table-box .not-table-box-controler input {
+	width: 90%;
+	font-size: 1.3rem;
+	font-weight: bold;
+	height: 50px;
+}
+
+.not-table-box .not-table-box-controler input:last-child {
+	width: 100%;
+	font-size: 1.1rem;
+	font-weight: bold;
+	height: 40px;
+}
+
+.not-table-box .not-table-box-controler .file-box {
+	width: 100%;
+}
+
+.not-table-box .not-table-box-controler .file-box .file div {
+	width: 100px;
+}
+
+.not-table-box .not-table-box-controler .file-box .file {
+	width: 100%;
+	padding: 10px;
+}
+
+.not-table-box .not-table-box-controler .file-box div, .not-table-box .not-table-box-controler .file-box input
+	{
+	margin-right: 40px;
+}
+
+.not-table-box .not-table-box-controler .invite-control-box input {
+	width: 200px;
+	height:50px;
+	font-size:1rem;
+	font-weight:normal;
+}
+
 </style>
 
 

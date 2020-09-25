@@ -156,12 +156,17 @@ a {
 	width: auto;
 }
 
+.img-box.img-box-auto>img {
+	display: block;
+	max-width: 50%;
+}
+
 .width-100p {
 	width: 100%;
 }
 
 .img-box>img, .video-box>video {
-	width: 100%;
+	max-width: 50%;
 	/* 	width: 70%; */
 	display: block;
 	margin-right: auto;
@@ -357,7 +362,7 @@ flex-row-wrap {
 }
 
 .form1 .form-control-box>textarea {
-	height: 400px;
+	height: 100px;
 	resize: none;
 }
 
@@ -825,3 +830,181 @@ body {
 	margin-top:50px;
 }
 /* not-table 관련 CSS 끝 */
+
+
+
+/* not-table reply 시작 */
+
+.not-table-box .not-table-box-controler .reply-box >textarea {
+	width: 100%;
+	padding: 0;
+	display: block;
+	box-sizing: border-box;
+	padding: 10px;
+	height: 100px;
+	resize: none;
+}
+
+
+	
+/* 댓글 관련 시작 */
+.table-box>table tr {
+	border: 3px solid black;
+}
+
+.table-box>table td:nth-child(1) {
+	border: 3px solid red;
+}
+
+.table-box>table td:nth-child(2) {
+	/* border: 3px solid orange; */
+}
+
+.table-box>table td:nth-child(3) {
+	border: 3px solid gold;
+}
+
+.table-box>table td:nth-child(4) {
+	border: 3px solid green;
+}
+
+.reply-box {
+	/* border:3px solid purple; */
+	
+}
+
+.reply-box .reply-body {
+	/* border:3px solid blue; */
+	height: 60px;
+}
+
+.border-reply {
+	margin: 20px 0;
+	border-bottom: 1px solid #cccccc;
+}
+
+.writer-box {
+	display: flex;
+	align-items: center;
+	margin-top:20px;
+}
+
+.writer-box .writer-contents {
+	margin-right: 30px;
+}
+
+.writer-box  .extra {
+	/* border: 3px solid blue; */
+	margin-right: 0;
+	margin-left: auto;
+}
+.file-box {
+	display:none;
+}
+.btns {
+	/* border:3px solid gold; */
+	margin-right:0;
+	margin-left:auto;
+	display:flex;
+	justify-content:flex-end;
+	margin-top:10px;
+	
+}
+
+.not-table-box-controler {
+	/* border: 3px solid red; */
+}
+.file-box-block {
+	display:block;
+}
+.close__file {
+	display:none;
+}
+.close__file__block {
+	display:block;
+}
+.add__file__none {
+	display:none;
+}
+/* 댓글 관련 끝 */
+
+
+
+
+/* 게시물 작성, 수정 폼 양식 시작(table 미사용) */
+
+
+.not-table-box .invite-title {
+	font-weight:bold;
+	font-size:1.3rem;
+}
+
+
+.not-table-box-controler .invite-control-box input:not(:first-child ) {
+	display: none;
+}
+
+body .not-table-box-controler .invite-control-box .block {
+	display: block;
+}
+
+.not-table-box .not-table-box-controler {
+	/* 	border: none; */
+	margin-top: 20px;
+}
+
+.not-table-box .not-table-box-controler select {
+	height: 55px;
+	width: 100px;
+	font-weight: bold;
+}
+
+.not-table-box .btn {
+	height: 50px;
+	width: 300px;
+	margin-left: 40px;
+}
+
+.not-table-box .btns {
+	margin-bottom: 100px;
+}
+
+.not-table-box .not-table-box-controler input {
+	width: 90%;
+	font-size: 1.3rem;
+	font-weight: bold;
+	height: 50px;
+}
+
+.not-table-box .not-table-box-controler input:last-child {
+	width: 100%;
+	font-size: 1.1rem;
+	font-weight: bold;
+	height: 40px;
+}
+
+.not-table-box .not-table-box-controler .file-box {
+	width: 100%;
+}
+
+.not-table-box .not-table-box-controler .file-box .file div {
+	width: 100px;
+}
+
+.not-table-box .not-table-box-controler .file-box .file {
+	width: 100%;
+	padding: 10px;
+}
+
+.not-table-box .not-table-box-controler .file-box div, .not-table-box .not-table-box-controler .file-box input
+	{
+	margin-right: 40px;
+}
+
+.not-table-box .not-table-box-controler .invite-control-box input {
+	width: 200px;
+	height:50px;
+	font-size:1rem;
+	font-weight:normal;
+}
+/* 테이블 미사용 끝 */ 
