@@ -21,4 +21,3 @@ function isNowLoading() {
 }
 
 
-var test = false;

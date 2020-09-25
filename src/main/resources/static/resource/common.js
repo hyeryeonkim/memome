@@ -92,3 +92,11 @@ function MobileSideBar__init() {
 $(function() {
     MobileSideBar__init();
 });
+
+
+
+
+//로그인(login), 회원가입(join) 관련 
+$('.message a').click(function(){
+	   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+	});

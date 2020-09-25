@@ -136,10 +136,10 @@ var param = ${paramJson};
 		<c:if test="${pageTitle eq '회원가입' }">
 			<h1 class="page-title-box con" style="color: blue;">${pageTitle}</h1>
 		</c:if>
-		<c:if test="${pageTitle eq '로그인' }">
+		<%-- <c:if test="${pageTitle eq '로그인' }">
 			<h1 class="page-title-box con" style="color: purple;">${pageTitle}</h1>
 		</c:if>
-
+ --%>
 
 		<!--모바일 버전 -->
 		<div class="loading-box flex-ai-c flex-jc-c visible-on-sm-down">

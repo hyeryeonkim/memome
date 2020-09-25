@@ -26,48 +26,31 @@
 </style>
 
 
+<div class="login-page">
+	<div class="form">
+		<form action="doLogin" method="POST" class="con login-form "
+			onsubmit="MemberLoginForm__submit(this); return false;">
 
-<form action="doLogin" method="POST" class="form1 table-box con con2 margin-top-50"
-	onsubmit="MemberLoginForm__submit(this); return false;">
-	<input type="hidden" name="loginPwReal"/>
-	<input type="hidden" name="redirectUri" value="${param.redirectUri }"/>
-	<table>
-		<colgroup>
-			<col width="100" />
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>로그인 아이디</th>
-				<td>
-					<div class="form-control-box">
-						<input name="loginId" type="text" placeholder="로그인 아이디를 입력해주세요." autofocus maxlength="30"/>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>로그인 비밀번호</th>
-				<td>
-					<div class="form-control-box">
-						<input name="loginPw" type="password" placeholder="비밀번호를 입력해주세요." maxlength="30" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>로그인</th>
-				<td>
-					<input type="submit" value="로그인" class="btn black"/>
-<!-- 					<button type="submit">로그인</button> -->
-				</td>
-			</tr>
-			<tr>
-				<th>아이디, 비밀번호 찾기</th>
-				<td>
-					<input type="button"  class="btn black" onclick="location.href='../member/findAccount'" value="찾기"/>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</form>
+			<input type="hidden" name="loginPwReal" /> <input type="hidden"
+				name="redirectUri" value="${param.redirectUri }" />
+			<div class="form-control-box">
+				<input name="loginId" type="text" placeholder="userID" autofocus
+					maxlength="30" />
+			</div>
+			<div class="form-control-box">
+				<input name="loginPw" type="password" placeholder="password"
+					maxlength="30" />
+			</div>
+			<div class="form-control-box">
+				<!-- <input type="submit" value="LOGIN" class="btn black" /> -->
+				<button type="submit" class="login-btn">LOGIN</button>
+			</div>
+			<div class="form-control-box">
+				<button type="button" class="findAccount-btn" onclick="location.href='../member/findAccount'" >Forgot userID or password ?</button>
+			</div>
+		</form>
+	</div>
+</div>
 
 
 
@@ -121,6 +104,19 @@ function MemberLoginForm__submit(form) {
 
 .table-box {
 	border:5px solid black;
+}
+
+
+
+.login-page .form form .form-control-box .login-btn {
+	margin-top:30px;
+}
+
+.login-page .form form .form-control-box .findAccount-btn {
+	margin-top:30px;
+	background: white;
+	color:#2346f6;
+	font-weight:bold;
 }
 .btn {
 	padding:0 25px;
