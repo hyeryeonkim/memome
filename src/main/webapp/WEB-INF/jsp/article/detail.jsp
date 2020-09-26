@@ -29,7 +29,7 @@
 		<div class="no">${article.id }</div>
 		|
 		<div class="regDate">${article.regDate}</div>
-	<%-- 	<c:if test="${ boardCode eq 'memberPage' == false}">
+		<%-- 	<c:if test="${ boardCode eq 'memberPage' == false}">
 		|	<div class="button">
 				<button type="button" class="btn black"
 					onclick="location.href=	'${listUrl}&mode=${param.mode }'">List</button>
@@ -49,14 +49,13 @@
 					onclick="location.href='../article/${boardCode}-modify?id=${param.id}'">Modify</button>
 			</div>
 		</c:if>
-		<c:if
-			test="${fn:contains(boardCode, 'memo')}">
+		<c:if test="${fn:contains(boardCode, 'memo')}">
 		|	<div class="button">
 				<button type="button" class="btn black"
 					onclick="location.href='../memo/${boardCode}-memoList?mode=${param.mode }'">List</button>
 			</div>
 		</c:if>
-		
+
 		<c:if
 			test="${fn:contains(boardCode, 'memo' ) == false && boardCode eq 'memberPage' == false }">
 			
@@ -65,7 +64,7 @@
 					onclick="location.href='../article/${boardCode}-list?mode=${param.mode }'">List</button>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${ boardCode eq 'memberPage' }">
 		|	<div class="button">
 				<button type="button" class="btn black"
@@ -283,16 +282,19 @@
 							name="file__reply__0__common__attachment__${fileNo}">
 						<!-- 	</div> -->
 					</div>
+					<div class="border-bottom"></div>
 				</c:forEach>
+
 			</div>
 		</div>
 
 		<div class="not-table-box-controler btns">
 			<!-- <input class="btn btn-primary" type="submit" value="작성"> -->
-			<button type="submit" class="btn">write</button>
+
 			<button type="button" class="btn add__file" onclick="add__file();">파일추가</button>
 			<button type="button" class="btn close__file"
 				onclick="close__file();">파일추가 닫기</button>
+			<button type="submit" class="btn">write</button>
 		</div>
 		<div class="border-reply"></div>
 	</form>
@@ -363,66 +365,50 @@
 
 <div class="popup-1 reply-modify-form-modal">
 	<div>
-		<h1>댓글 수정</h1>
+		<!-- <h1>댓글 수정</h1> -->
 		<form action="" class="form1 padding-10 table-box table-box-vertical"
 			onsubmit="ReplyList__submitModifyForm(this); return false;">
 			<input type="hidden" name="id" />
-			<table>
-				<colgroup>
-					<col class="table-first-col">
-				</colgroup>
-				<tbody>
-					<tr>
-						<th>내용</th>
-						<td>
-							<div class="form-control-box">
-								<textarea name="body" placeholder="내용을 입력해주세요."></textarea>
-							</div>
-						</td>
-					</tr>
+			<div class="reply-modify-title margin-bottom-10">댓글을 수정해주세요.</div>
+			<div class="form-control-box">
+				<textarea name="body" placeholder="내용을 입력해주세요."></textarea>
+			</div>
 
-					<c:forEach var="i" begin="1" end="3" step="1">
-						<c:set var="fileNo" value="${String.valueOf(i)}" />
-						<c:set var="fileExtTypeCode"
-							value="${appConfig.getAttachmentFileExtTypeCode('article', i)}" />
+			<c:forEach var="i" begin="1" end="3" step="1">
+				<c:set var="fileNo" value="${String.valueOf(i)}" />
+				<c:set var="fileExtTypeCode"
+					value="${appConfig.getAttachmentFileExtTypeCode('article', i)}" />
+				<div class="flex file-control">
+					<div class="add-file1">첨부${fileNo}</div>
+					<div class="add-file2">
+						<div class="form-control-box ">
+							<input type="file"
+								accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
+								data-name="file__reply__0__common__attachment__${fileNo}">
+						</div>
+						<div style="width: 100%"
+							class="video-box video-box-file-${fileNo}"></div>
+						<div style="width: 100%"
+							class="img-box img-box-auto img-box-file-${fileNo}"></div>
+					</div>
+				</div>
+				<div class="flex delete-box">
+					<div>첨부${fileNo} 삭제</div>
+					<div class="form-control-box">
+						<label> <input type="checkbox"
+							data-name="deleteFile__reply__0__common__attachment__${fileNo}"
+							value="Y" /> 삭제
+						</label>
+					</div>
+					<div class="border-bottom"></div>
+				</div>
+			</c:forEach>
+			<div class="btns">
+				<button class="btn " type="button"
+					onclick="ReplyList__hideModifyFormModal();">취소</button>
+				<button class="btn " type="submit">수정</button>
 
-						<tr>
-							<th>첨부${fileNo}</th>
-							<td>
-								<div class="form-control-box">
-									<input type="file"
-										accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
-										data-name="file__reply__0__common__attachment__${fileNo}">
-								</div>
-								<div style="width: 100%"
-									class="video-box video-box-file-${fileNo}"></div>
-								<div style="width: 100%"
-									class="img-box img-box-auto img-box-file-${fileNo}"></div>
-							</td>
-						</tr>
-
-						<tr>
-							<th>첨부${fileNo} 삭제</th>
-							<td>
-								<div class="form-control-box">
-									<label> <input type="checkbox"
-										data-name="deleteFile__reply__0__common__attachment__${fileNo}"
-										value="Y" /> 삭제
-									</label>
-								</div>
-							</td>
-						</tr>
-					</c:forEach>
-					<tr class="tr-do">
-						<th>수정</th>
-						<td>
-							<button class="btn " type="submit">수정</button>
-							<button class="btn " type="button"
-								onclick="ReplyList__hideModifyFormModal();">취소</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			</div>
 
 		</form>
 	</div>
@@ -547,17 +533,13 @@
 		var onModifyReplyComplete = function(data) {
 			if (data.resultCode && data.resultCode.substr(0, 2) == 'S-') {
 				// 성공시에는 기존에 그려진 내용을 수정해야 한다.!!
-				$('.reply-start[data-id="' + id + '"]').data(
-						'data-originBody', body);
-				$(
-						'.reply-start[data-id="' + id
-								+ '"] .reply-body').empty().append(
-						getHtmlEncoded(body).replaceAll('\n', '<br>'));
+				$('.reply-start[data-id="' + id + '"]').data('data-originBody',
+						body);
+				$('.reply-start[data-id="' + id + '"] .reply-body').empty()
+						.append(getHtmlEncoded(body).replaceAll('\n', '<br>'));
 
-				$('.reply-start[data-id="' + id + '"] .video-box')
-						.empty();
-				$('.reply-start[data-id="' + id + '"] .img-box')
-						.empty();
+				$('.reply-start[data-id="' + id + '"] .video-box').empty();
+				$('.reply-start[data-id="' + id + '"] .img-box').empty();
 
 				if (data && data.body && data.body.file__common__attachment) {
 					for ( var fileNo in data.body.file__common__attachment) {
@@ -673,7 +655,13 @@
 	}
 
 	function ReplyList__drawReplies(replies) {
+
+	
+		
 		$("#replyCount").append(replies.length);
+		
+		
+
 		for (var i = 0; i < replies.length; i++) {
 			var reply = replies[i];
 			ReplyList__drawReply(reply);
@@ -690,7 +678,7 @@
 			return;
 		}
 
-		var $tr = $(el).closest('tr');
+		var $tr = $(el).closest('.reply-start');
 
 		var id = $tr.attr('data-id');
 
@@ -773,8 +761,6 @@
 		html += '<div class="border-reply"></div>';
 		html += '<div>';
 
-		
-
 		html += '</div>';
 
 		html += '<div class="visible-on-sm-down">';
@@ -817,21 +803,51 @@
 <style>
 .btn {
 	margin: 0 5px;
-	
 }
 
-.button .btn{
-	width:100px;
-	height:40px;
-	margin-left:-10px;	
+.button .btn {
+	width: 100px;
+	height: 40px;
+	margin-left: -10px;
 }
 
 .table-box>table th, .table-box>table td {
-	border:none;
+	border: none;
 }
 
+.reply-modify-title {
+	font-weight: bold;
+}
 
+.file-control {
+	align-items: center;
+}
 
+.add-file1 {
+	width: 120px;
+}
+
+.add-file2 {
+	width: 80%;
+}
+
+.delete-box div:nth-child(1) {
+	width: 120px;
+}
+
+.delete-box div:nth-child(2) {
+	margin-left: 20px;
+}
+
+.border-bottom {
+	border-bottom: 1px solid black;
+	opacity: 0.6;
+	margin: 10px 0;
+}
+
+.btns {
+	
+}
 </style>
 <script>
 	function add__file() {
