@@ -17,133 +17,80 @@
 			style="color: blue;"> MEMO MODIFY</strong>
 	</h1>
 </c:if>
-
-<form method="POST" action="${boardCode}-doModify"
-	class="form1 table-box con"
-	onsubmit="ArticleModifyForm__submit(this); return false;">
-	<input type="hidden" name="relTypeCode" value="article" /> <input
-		type="hidden" name="fileIdsStr" /> <input type="hidden" name="id"
-		value="${param.id}" />
-	<input type="hidden" name="body"/>
-	<table>
-		<colgroup>
-			<col width="150" />
-		</colgroup>
-		<tbody>
-			<tr>
-				<th>번호</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="id" placeholder="제목을 입력해주세요." readonly
-							autofocus maxlength="200" value="${article.id}" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>작성일</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="id" placeholder="제목을 입력해주세요." readonly
-							autofocus maxlength="200" value="${article.updateDate}" />
-					</div>
-				</td>
-			</tr>
-		
-			<tr>
-				<th>제목</th>
-				<td>
-					<div class="form-control-box">
-						<input type="text" name="title" placeholder="제목을 입력해주세요."
-							autofocus maxlength="200" value="${article.title}" />
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td>
-					<div class="form-control-box">
-						<script type="text/x-template">${article.body}</script>
-						<div data-relTypeCode="article" data-relId="${article.id}"
-							class="toast-editor input-body"></div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>태그(최대 10개)</th>
-				<td>
-					<div class="form-control-box tag" id="tag">
-						<c:forEach items="tagBits" var="tag">
-							<%-- 							<c:if test="${tag.length() eq 0 == false }"> --%>
-							<input type="text" name="tag" placeholder="#태그 입력"
-								class="input-tag" value="${tagBits}" />
-							<%-- 							</c:if> --%>
-						</c:forEach>
-					</div>
-				</td>
-			</tr>
-			<c:forEach var="i" begin="1" end="3" step="1">
-				<c:set var="fileNo" value="${String.valueOf(i)}" />
-				<c:set var="file"
-					value="${article.extra.file__common__attachment[fileNo]}" />
-				<tr>
-					<th>첨부파일 ${fileNo}
-						${appConfig.getAttachmentFileExtTypeDisplayName('article', i)}</th>
-					<td>
-						<div class="form-control-box">
-							<input type="file"
-								accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
-								name="file__article__${article.id}__common__attachment__${fileNo}">
-						</div> <c:if test="${file != null && file.fileExtTypeCode == 'video'}">
-							<div class="video-box">
-								<video controls
-									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}">
-								</video>
-							</div>
-						</c:if> <c:if test="${file != null && file.fileExtTypeCode == 'img'}">
-							<div class="img-box img-box-auto">
-								<img
-									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}">
-							</div>
-						</c:if>
-					</td>
-				</tr>
-				<tr>
-					<th>첨부파일 ${fileNo} 삭제</th>
-					<td>
-						<div class="form-control-box">
-							<label><input type="checkbox"
-								name="deleteFile__article__${article.id}__common__attachment__${fileNo}"
-								value="Y" /> 삭제 </label>
-						</div>
-					</td>
-				</tr>
+<div class="not-table-box con margin-top-50">
+	<form method="POST" action="${boardCode}-doModify?mode=${mode}"
+		class="form1  con"
+		onsubmit="ArticleModifyForm__submit(this); return false;">
+		<input type="hidden" name="relTypeCode" value="article" /> <input
+			type="hidden" name="fileIdsStr" /> <input type="hidden" name="id"
+			value="${param.id}" /> <input type="hidden" name="body" />
+		<c:if test="${boardCode ne 'unicon' }">
+			<div class="not-table-box-controler select flex flex-jc-sb">
+				<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus
+					maxlength="200" value="${article.title}" />
+			</div>
+		</c:if>
+		<div class="not-table-box-controler">
+			<script type="text/x-template">${article.body}</script>
+			<div data-relTypeCode="article" data-relId="${article.id}"
+				class="toast-editor input-body"></div>
+		</div>
+		<div class="not-table-box-controler tag" id="tag">
+			<c:forEach items="tagBits" var="tag">
+				<%-- 							<c:if test="${tag.length() eq 0 == false }"> --%>
+				<input type="text" name="tag" placeholder="#태그 입력" class="input-tag"
+					value="${tagBits}" />
+				<%-- 							</c:if> --%>
 			</c:forEach>
-			<tr>
-				<th>수정</th>
-				<td>
-					<div class="form-control-box">
-						<input type="submit" value="수정" class="btn black" />
+		</div>
+		<c:forEach var="i" begin="1" end="3" step="1">
+			<c:set var="fileNo" value="${String.valueOf(i)}" />
+			<c:set var="file"
+				value="${article.extra.file__common__attachment[fileNo]}" />
+			<div class="form-control-box">첨부파일 ${fileNo}
+				${appConfig.getAttachmentFileExtTypeDisplayName('article', i)}</div>
+			<div class="form-control-box">
+				<input type="file"
+					accept="${appConfig.getAttachemntFileInputAccept('article', i)}"
+					name="file__article__${article.id}__common__attachment__${fileNo}" />
+				<c:if test="${file != null && file.fileExtTypeCode == 'video'}">
+					<div class="video-box">
+						<video controls
+							src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}">
+						</video>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>삭제</th>
-				<td>
-					<div class="form-control-box">
-						<button type="button" class="btn black"
-							onclick="if( confirm('삭제하시겠습니까?') == false ) return false; location.href='/usr/memo/${boardCode}-doDelete?id=${param.id}' ">삭제</button>
+				</c:if>
+				<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+					<div class="img-box img-box-auto">
+						<img
+							src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}">
 					</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</form>
+				</c:if>
+			</div>
+			<div class="form-control-box">
+				<div class="file-delete">첨부파일 ${fileNo} 삭제</div>
+				<label><input type="checkbox"
+					name="deleteFile__article__${article.id}__common__attachment__${fileNo}"
+					value="Y" /> 삭제 </label>
+			</div>
+			<div class="border-file-1"></div>
+		</c:forEach>
+		<div class="btns ">
+			
+			<div class="form-control-box">
+				<button type="button" class="btn black"
+					onclick="if( confirm('삭제하시겠습니까?') == false ) return false; location.href='/usr/article/${boardCode}-doDelete?id=${param.id}' ">DELETE</button>
+			</div>
+			<div class="form-control-box">
+				<button type="submit" class="btn">MODIFY</button>
+			</div>
+		</div>
+	</form>
+</div>
 
 
 
 <script>
-	/* var tag = "${tagBits}";
-	tag = tag.split('#'); */
 
 	function ArticleModifyForm__submit(form) {
 		if (isNowLoading()) {
@@ -212,7 +159,16 @@
 		var count = (temp.match(/#/g) || []).length;
 
 		var textCount = temp.split('#');
-		textCount = textCount - 1;
+		
+		textCount = textCount.length - 1;
+		
+		
+		if ( count != textCount  ) {
+			alert('# 입력을 확인해주세요.');
+			form.tag.focus();
+			return;	
+		}
+		
 
 		console.log(textCount);
 		if (count > 10) {
@@ -220,6 +176,8 @@
 			form.tag.focus();
 			return;
 		}
+
+		
 
 		var maxSizeMb = 50;
 		var maxSize = maxSizeMb * 1024 * 1024 // 50MB 
@@ -341,7 +299,7 @@
 </script>
 
 <style>
-.table-box {
+..table-box {
 	margin-top: 50px;
 }
 
@@ -360,6 +318,49 @@
 
 .table-box .form-control-box .img-box img {
 	width: 30px;
+}
+
+.file-box {
+	border: 3px solid green;
+}
+
+.file-box .file-no {
+	border: 3px solid red;
+}
+
+.file-box .file-control-box input {
+	width: 100%;
+	padding: 0;
+	display: block;
+	box-sizing: border-box;
+	padding: 10px;
+	border: 3px solid blue;
+}
+
+.form-control-box {
+	width: 100%;
+	margin: 20px 0;
+	font-size: 1.4rem;
+}
+
+.border-file-1 {
+	border-bottom: 2px solid black;
+}
+
+.form-control-box label input {
+	width: 20px;
+	height: 20px;
+}
+
+.btns {
+}
+
+.btns .form-control-box {
+	width:400px;
+}
+
+.btns .form-control-box button{
+	margin-right:0;
 }
 </style>
 

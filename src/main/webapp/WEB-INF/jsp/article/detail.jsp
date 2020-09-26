@@ -9,7 +9,7 @@
 
 
 <h1 class="con">
-	<strong style="color: red;">${boardCode}</strong>게시물 내용
+	<strong style="color: red;">${boardCode}</strong>
 </h1>
 
 <style>
@@ -83,23 +83,22 @@
 				<c:set var="file"
 					value="${article.extra.file__common__attachment[fileNo]}" />
 				<c:if test="${file != null}">
-					<tr>
-						<th>첨부파일 ${fileNo}</th>
-						<td><c:if test="${file.fileExtTypeCode == 'video'}">
-								<div class="video-box">
-									<video controls
-										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-								</div>
-							</c:if> <c:if test="${file.fileExtTypeCode == 'img'}">
-								<div class="img-box img-box-auto">
-									<img
-										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-										alt="" />
-								</div>
-							</c:if></td>
-					</tr>
+					<c:if test="${file.fileExtTypeCode == 'video'}">
+						<div class="video-box">
+							<video controls
+								src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+						</div>
+					</c:if>
+					<c:if test="${file.fileExtTypeCode == 'img'}">
+						<div class="img-box img-box-auto">
+							<img
+								src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+								alt="" />
+						</div>
+					</c:if>
 				</c:if>
 			</c:forEach>
+
 		</div>
 	</div>
 	<div class="not-table-box-controler">
@@ -138,6 +137,7 @@
 <c:if test="${isLogined == false}">
 	<div class="not-table-box margin-bottom-50">
 		<div class="not-table-box-controler con">
+
 			<div class="reply-count">
 				댓글 <strong>( <a href="../member/login" style="color: red;">로그인</a>
 					후 이용바랍니다. )
@@ -228,9 +228,9 @@
 
 				startWriteReply(idsStr, function(data) {
 
-					if (data.msg) {
+					/* if (data.msg) {
 						alert(data.msg);
-					}
+					} */
 
 					form.body.value = '';
 
@@ -260,7 +260,7 @@
 		<div class="not-table-box-controler flex">
 			<div class="reply-count">댓글</div>
 			&nbsp;&nbsp;
-			<div id="replyCount"></div>
+			<div id="replyCount"></div> 
 			개
 		</div>
 		<div class="not-table-box-controler">
@@ -567,9 +567,9 @@
 				}
 			}
 
-			if (data.msg) {
+			/* if (data.msg) {
 				alert(data.msg);
-			}
+			} */
 
 			ReplyList__hideModifyFormModal();
 			endLoading();
@@ -641,8 +641,8 @@
 		if (data.body && data.body.replies.length > 0) {
 			ReplyList__lastLodedId = data.body.replies[data.body.replies.length - 1].id;
 			ReplyList__drawReplies(data.body.replies);
-		}
 
+		}
 		setTimeout(ReplyList__loadMore, ReplyList__loadMoreInterval);
 	}
 
@@ -654,17 +654,35 @@
 		}, ReplyList__loadMoreCallback, 'json');
 	}
 
-	function ReplyList__drawReplies(replies) {
+	//댓글 개수 아작스로 출력하는 ㅠㅠ	
+	function ReplyCount__loadMore() {
 
-	
-		
-		$("#replyCount").append(replies.length);
-		
-		
+		$.get('../reply/getForPrintRepliesByRelId', {
+			articleId : param.id,
+		}, ReplyCount__loadMoreCallback, 'json');
+	}
+
+	function ReplyCount__loadMoreCallback(data) {
+
+			if (!data) {
+				$('#replyCount').text(0);
+			} else {
+				$('#replyCount').text(data.body.replies.length);
+
+		}
+
+		setTimeout(ReplyCount__loadMore, ReplyList__loadMoreInterval);
+	}
+	//댓글 개수 아작스로 출력하는 ㅠㅠ 셋투 셋투 
+
+	function ReplyList__drawReplies(replies) {
+		/* 		$('#replyCount').text(replies.length); */
+		/* $("#replyCount").append(replies.length); */
 
 		for (var i = 0; i < replies.length; i++) {
 			var reply = replies[i];
 			ReplyList__drawReply(reply);
+
 		}
 
 	}
@@ -688,7 +706,7 @@
 			id : id
 		}, function(data) {
 			if (data.msg) {
-				alert(data.msg);
+				/* alert(data.msg); */
 			}
 
 			if (data.resultCode.substr(0, 2) == 'S-') {
@@ -735,6 +753,7 @@
 
 	function ReplyList__drawReply(reply) {
 		var html = '';
+		/* html += '<div class="">댓글 ' + replyLength + '개</div>'; */
 		html += '<div class="reply-start" data-id="' + reply.id + '">';
 		/* html += '<td>' + reply.id + '</td>'; */
 		html += '<div class="reply-box">';
@@ -798,6 +817,7 @@
 	}
 
 	ReplyList__loadMore();
+	ReplyCount__loadMore()
 </script>
 
 <style>

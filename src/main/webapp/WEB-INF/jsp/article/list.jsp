@@ -26,9 +26,8 @@
 .free-top-bar {
 	position: absolute;
 	top: 130px;
-	right: 15%; 
-	text-align: right; 
-	
+	right: 15%;
+	text-align: right;
 }
 </style>
 
@@ -95,27 +94,27 @@
 <div class="con" style="font-size: 1.2rem;">총 게시물 수 :
 	${totalCount}</div>
 <div class="memo-table-list con  ">
-		<c:forEach items="${articles}" var="article">
-			<c:if test="${article.memberId == loginedMemberId  }">
-				<div class="memo-table-list-box "
-					onclick="location.href='../memo/${boardCode}-memoModify?id=${article.id}&mode=${param.mode }'">
-					<div class="contents-box">
-						<div class="title">${article.title }</div>
-						<div class="body">
-							<c:forEach items="${hashtags}" var="hashtag">
-								<c:if test="${article.id == hashtag.relId }">
-									<strong><a
-										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-											#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-								</c:if>
-							</c:forEach>
-						</div>
-						<div class="writer-box">
-							<div class="writer">${article.extra.writer}</div>
-							<div class="regDate">${article.regDate }</div>
-						</div>
+	<c:forEach items="${articles}" var="article">
+		<c:if test="${article.memberId == loginedMemberId  }">
+			<div class="memo-table-list-box "
+				onclick="location.href='../article/${boardCode}-modify?id=${article.id}&mode=${param.mode}'">
+				<div class="contents-box">
+					<div class="title">${article.title }</div>
+					<div class="body">
+						<c:forEach items="${hashtags}" var="hashtag">
+							<c:if test="${article.id == hashtag.relId }">
+								<strong><a
+									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }&mode="${param.mode }">
+										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+							</c:if>
+						</c:forEach>
 					</div>
-					<div class="file-box">
+					<div class="writer-box">
+						<div class="writer">${article.extra.writer}</div>
+						<div class="regDate">${article.regDate }</div>
+					</div>
+				</div>
+				<div class="file-control-box">
 						<c:set var="fileNo" value="${String.valueOf(3)}" />
 						<c:set var="file"
 							value="${article.extra.file__common__attachment[fileNo]}" />
@@ -135,30 +134,30 @@
 							</c:if>
 						</c:if>
 					</div>
-				</div>
-			</c:if>
-		</c:forEach>
-		<c:forEach items="${articles}" var="article">
-			<c:if test="${article.memberId != loginedMemberId }">
-				<div class="memo-table-list-box"
-					onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }&mode=${param.mode }'">
-					<div class="contents-box">
-						<div class="title">${article.title }</div>
-						<div class="body">
-							<c:forEach items="${hashtags}" var="hashtag">
-								<c:if test="${article.id == hashtag.relId }">
-									<strong><a
-										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
-											#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-								</c:if>
-							</c:forEach>
-						</div>
-						<div class="writer-box">
-							<div class="writer">${article.extra.writer}</div>
-							<div class="regDate">${article.regDate }</div>
-						</div>
+			</div>
+		</c:if>
+	</c:forEach>
+	<c:forEach items="${articles}" var="article">
+		<c:if test="${article.memberId != loginedMemberId }">
+			<div class="memo-table-list-box"
+				onclick="location.href='${article.getDetailLink(board.code)}&memberId=${article.memberId }&mode=${param.mode }'">
+				<div class="contents-box">
+					<div class="title">${article.title }</div>
+					<div class="body">
+						<c:forEach items="${hashtags}" var="hashtag">
+							<c:if test="${article.id == hashtag.relId }">
+								<strong><a
+									href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }&mode="${param.mode }">
+										#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+							</c:if>
+						</c:forEach>
 					</div>
-					<div class="file-box">
+					<div class="writer-box">
+						<div class="writer">${article.extra.writer}</div>
+						<div class="regDate">${article.regDate }</div>
+					</div>
+				</div>
+				<div class="file-control-box">
 						<c:set var="fileNo" value="${String.valueOf(3)}" />
 						<c:set var="file"
 							value="${article.extra.file__common__attachment[fileNo]}" />
@@ -178,39 +177,10 @@
 							</c:if>
 						</c:if>
 					</div>
-				</div>
-			</c:if>
-		</c:forEach>
-	</div>
-<%-- <div class="table-box con margin-top-10">
-	<table>
-		<colgroup>
-			<col width="80" />
-			<col width="200" />
-			<col width="100" />
-		</colgroup>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>날짜</th>
-				<th>작성자</th>
-				<th>제목</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${articles}" var="article">
-				<tr>
-					<td>${article.id}</td>
-					<td>${article.regDate}</td>
-					<td>${article.extra.writer}</td>
-					<td><a href="${article.getDetailLink(board.code)}">${article.title}</a>
-					</td>
-
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-</div> --%>
+			</div>
+		</c:if>
+	</c:forEach>
+</div>
 <div class="con page-box ">
 	<ul class="flex flex-jc-c">
 		<c:forEach var="i" begin="1" end="${totalPage}" step="1">
@@ -225,6 +195,7 @@
 
 <style>
 .memo-table-list {
+	
 }
 
 .table-box {
@@ -239,7 +210,7 @@
 .page-box {
 	/* border:10px solid red; */
 	margin-bottom: 100px;
-	margin-top:100px;
+	margin-top: 100px;
 }
 
 input[type="submit"] {
@@ -276,18 +247,24 @@ input[type="submit"] {
 	color: red;
 }
 
-.table-box>table th, .table-box>table td {
-	border: 1px solid black;
-	padding: 10px;
-	text-align: center;
+.memo-table-list .memo-table-list-box .file-control-box {
+	height: 100%;
+	width: 30%;
+	
 }
 
+.memo-table-list .memo-table-list-box .file-control-box .img-box, .memo-table-list .memo-table-list-box .file-control-box .video-box {
+	/* border:3px solid blue; */
+	max-width:100%;
+	height:100%;
+	overflow: hidden;
+}
 
-
-
-.memo-table-list .memo-table-list-box .file-box {
-	height: 100%;
-	width: 20%;
+.memo-table-list .memo-table-list-box .file-control-box img, .memo-table-list .memo-table-list-box .file-control-box video  {
+	 /* object-fit: cover; */
+	 max-width:100%;
+	 
+	
 }
 
 .memo-table-list .memo-table-list-box {
@@ -322,18 +299,18 @@ input[type="submit"] {
 
 /* body를 태그로 바꿔서 사용중....  */
 .memo-table-list .memo-table-list-box .contents-box .body {
-	/* border: 3px solid orange; */
-	height: 50px;
+	 /* border: 3px solid orange; */
+	 margin-top:30px; 
+	height: 30px;
 	width: 100%;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	opacity: 0.7;
 }
 
 .memo-table-list .memo-table-list-box .writer-box {
-	/* border: 3px solid black; */
+	 /* border: 3px solid black; */ 
 	height: 30px;
 	display: flex;
-	margin-top: 20px;
 }
 
 .memo-table-list .memo-table-list-box .writer-box .writer, .regDate {
@@ -343,11 +320,15 @@ input[type="submit"] {
 	text-align: left;
 }
 
-
 @media ( max-width :800px ) {
-	/* PC버전 memo 테이블 관련 */
-	h1 {
-		text-align: center;
+	.memo-table-list .memo-table-list-box .contents-box .title {
+		font-size: 1.6rem;
+	}
+
+	/* body를 태그로 바꿔서 사용중....  */
+	.memo-table-list .memo-table-list-box .contents-box .body {
+		font-size: 1rem;
+		opacity: 0.7;
 	}
 }
 </style>

@@ -18,6 +18,14 @@
 		]]>
 	</select>
 
+
+	<select id="getForPrintRepliesByRelId" resultMap="reply">
+		SELECT *
+		FROM reply
+		WHERE relId = #{articleId}
+		AND displayStatus = 1
+	</select>
+
 	<insert id="writeReply" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO reply
 		SET regDate = NOW(),

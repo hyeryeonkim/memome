@@ -76,6 +76,7 @@
 https://www.youtube.com/watch?v=LmgWxezH7cc
 ```	</div> -->
 			<script type="text/x-template">
+
                         </script>
 			<div data-relTypeCode="article" data-relId="0"
 				class="toast-editor input-body"></div>
@@ -161,12 +162,15 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 		var count = (temp.match(/#/g) || []).length;
 
 		var textCount = temp.split('#');
-		if ( (textCount - 1) != temp.length  ) {
+		textCount = textCount.length - 1;
+		
+		
+		if ( count != textCount  ) {
 			alert('# 입력을 확인해주세요.');
 			form.tag.focus();
 			return;	
 		}
-		textCount = textCount - 1;
+		
 
 		console.log(textCount);
 		if (count > 10) {

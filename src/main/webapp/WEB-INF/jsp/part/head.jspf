@@ -80,8 +80,8 @@ var param = ${paramJson};
 			<div class="menu-box">
 				<ul>
 					<li><a href="../home/main">홈</a></li>
-					<li><a href="../article/notice-list">공지사항</a></li>
-					<li><a href="../article/free-list">자유게시판</a></li>
+					<li><a href="../article/notice-list?mode=${param.mode }">공지사항</a></li>
+					<li><a href="../article/free-list?mode=${param.mode }">자유게시판</a></li>
 					<li><a href="../memo/memoYOU-memoList?mode=${param.mode }">memoYOU</a></li>
 
 					<c:if test="${isLogined }">

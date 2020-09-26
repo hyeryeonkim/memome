@@ -38,6 +38,19 @@ public class ReplyController {
 
 		return new ResultData("S-1", String.format("%d개의 댓글을 불러왔습니다.", replies.size()), rsDataBody);
 	}
+	@RequestMapping("/usr/reply/getForPrintRepliesByRelId")
+	@ResponseBody
+	public ResultData getForPrintRepliesByRelId(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		Map<String, Object> rsDataBody = new HashMap<>();
+
+		List<Reply> replies = replyService.getForPrintRepliesByRelId(Util.getAsInt(param.get("articleId")));
+		
+		rsDataBody.put("replies", replies);
+		System.out.println("replies" + replies);
+
+		return new ResultData("S-1", String.format("%d개의 댓글을 불러왔습니다.", replies.size()), rsDataBody);
+	}
+	
 
 	@RequestMapping("/usr/reply/doWriteReplyAjax")
 	@ResponseBody

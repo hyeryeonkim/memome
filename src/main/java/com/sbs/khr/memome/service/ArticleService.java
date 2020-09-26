@@ -134,6 +134,7 @@ public class ArticleService {
 
 	public List<Article> getForPrintArticles(int id, int itemsInAPage, int limitFrom) {
 		List<Article> articles = articleDao.getForPrintArticles(id, itemsInAPage, limitFrom);
+		List<Article> getArticlesPutFiles = getArticlesPutFiles(articles);
 
 		return articles;
 	}

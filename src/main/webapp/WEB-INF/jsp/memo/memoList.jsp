@@ -78,14 +78,14 @@
 					<div class="con from-button">
 						<input class="onclick-list-small btn " type="button"
 							onclick="click__small();  location.replace('${boardCode}-memoList?mode=small'); "
-							value="From 제목" />
+							value="제목으로" />
 					</div>
 				</c:if>
 				<c:if test="${param.mode eq 'small' }">
 					<div class="con from-button">
 						<input class="onclick-list-big btn" type="button"
 							onclick="click__big(); location.replace('${boardCode}-memoList?mode=big'); "
-							value="From 내용" />
+							value="내용으로" />
 					</div>
 				</c:if>
 			</c:if>
@@ -94,18 +94,18 @@
 					<div class="con from-button">
 						<input class="onclick-list-small btn " type="button"
 							onclick="click__small();  location.replace('${boardCode}-memoList?mode=small&id=${param.id }'); "
-							value="From 제목" />
+							value="제목으로" />
 					</div>
 				</c:if>
 				<c:if test="${param.mode eq 'small' }">
 					<div class="con  from-button">
 						<input class="onclick-list-big btn" type="button"
 							onclick="click__big(); location.replace('${boardCode}-memoList?mode=big&id=${param.id }'); "
-							value="From 내용" />
+							value="내용으로" />
 					</div>
 				</c:if>
 			</c:if>
-			</c:if>
+		</c:if>
 	</div>
 	<!-- <div class="memo-color-page">
 		<div class="color-box">
@@ -222,7 +222,8 @@
 							type="hidden" name="searchKeywordType" value="tag" />
 						<div class="tag-box flex flex-jc-sb">
 							<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
-								value="${param.searchKeyword}" class="box" />
+								value="${param.searchKeyword}" class="box" /> <input
+								type="hidden" name="mode" value="${param.mode }" />
 							<button type="submit" class="search-button btn black">
 								<i style="font-size: 1.2rem;" class="fas fa-search"></i>
 							</button>
@@ -243,7 +244,8 @@
 							type="hidden" name="searchKeywordType" value="tag" />
 						<div class="tag-box flex flex-jc-sb">
 							<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
-								value="${param.searchKeyword}" class="box" />
+								value="${param.searchKeyword}" class="box" /> <input
+								type="hidden" name="mode" value="${param.mode }" />
 							<button type="submit" class="search-button btn black">
 								<i style="font-size: 1.2rem;" class="fas fa-search"></i>
 							</button>
@@ -404,7 +406,7 @@
 							<c:forEach items="${hashtags}" var="hashtag">
 								<c:if test="${article.id == hashtag.relId }">
 									<strong><a
-										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }&mode=${param.mode}">
 											#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 								</c:if>
 							</c:forEach>
@@ -414,7 +416,7 @@
 							<div class="regDate">${article.regDate }</div>
 						</div>
 					</div>
-					<div class="file-box">
+					<div class="file-control-box">
 						<c:set var="fileNo" value="${String.valueOf(3)}" />
 						<c:set var="file"
 							value="${article.extra.file__common__attachment[fileNo]}" />
@@ -447,7 +449,7 @@
 							<c:forEach items="${hashtags}" var="hashtag">
 								<c:if test="${article.id == hashtag.relId }">
 									<strong><a
-										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+										href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }&mode=${param.mode}">
 											#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 								</c:if>
 							</c:forEach>
@@ -457,7 +459,7 @@
 							<div class="regDate">${article.regDate }</div>
 						</div>
 					</div>
-					<div class="file-box">
+					<div class="file-control-box">
 						<c:set var="fileNo" value="${String.valueOf(3)}" />
 						<c:set var="file"
 							value="${article.extra.file__common__attachment[fileNo]}" />
@@ -488,9 +490,9 @@
 
 
 <style>
-.memo-table-list .memo-table-list-box .file-box {
+.memo-table-list .memo-table-list-box .file-control-box {
 	height: 100%;
-	width: 20%;
+	width: 30%;
 }
 
 .memo-table-list .memo-table-list-box {
@@ -526,9 +528,10 @@
 /* body를 태그로 바꿔서 사용중....  */
 .memo-table-list .memo-table-list-box .contents-box .body {
 	/* border: 3px solid orange; */
-	height: 50px;
+	margin-top: 30px;
+	height: 30px;
 	width: 100%;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	opacity: 0.7;
 }
 
@@ -537,6 +540,20 @@
 	height: 30px;
 	display: flex;
 	margin-top: 20px;
+}
+
+.memo-table-list .memo-table-list-box .file-control-box .img-box,
+	.memo-table-list .memo-table-list-box .file-control-box .video-box {
+	/* border:3px solid blue;  */
+	max-width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.memo-table-list .memo-table-list-box .file-control-box img,
+	.memo-table-list .memo-table-list-box .file-control-box video {
+	/* object-fit: cover; */
+	max-width: 100%;
 }
 
 .memo-table-list .memo-table-list-box .writer-box .writer, .regDate {
@@ -645,7 +662,7 @@
 								<td><c:forEach items="${hashtags}" var="hashtag">
 										<c:if test="${article.id == hashtag.relId }">
 											<strong style="font-size: 0.8rem;"><a
-												href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+												href="../memo/${boardCode}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }&mode=${param.mode}">
 													#${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
 										</c:if>
 									</c:forEach></td>
@@ -733,11 +750,11 @@
 											<strong style="font-size: 0.8rem;"> <c:if
 													test="${board.code eq 'memberPage' }">
 													<a
-														href="../memo/${board.code}-tagSearchResult?id=${member.id}&searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+														href="../memo/${board.code}-tagSearchResult?id=${member.id}&searchKeywordType=tag&searchKeyword=${hashtag.tag }&mode=${param.mode}">
 														#${hashtag.tag}</a>
 												</c:if> <c:if test="${board.code eq 'memberPage' == false }">
 													<a
-														href="../memo/${board.code}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }">
+														href="../memo/${board.code}-tagSearchResult?searchKeywordType=tag&searchKeyword=${hashtag.tag }&mode=${param.mode}">
 														#${hashtag.tag}</a>
 												</c:if> &nbsp;&nbsp;&nbsp;&nbsp;
 											</strong>

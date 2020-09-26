@@ -122,4 +122,8 @@ public class ReplyService {
 
 		return new ResultData("S-1", String.format("%d번 댓글을 수정하였습니다.", Util.getAsInt(param.get("id"))), param);
 	}
+
+	public List<Reply> getForPrintRepliesByRelId(int articleId) {
+		return replyDao.getForPrintRepliesByRelId(articleId);
+	}
 }
