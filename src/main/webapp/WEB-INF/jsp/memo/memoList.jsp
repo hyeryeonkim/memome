@@ -40,36 +40,35 @@
 
 <style>
 .memo-contents-box {
+	
 }
 
-.memo-contents-box .memo-contents-box-1{
-	width:300px;
+.memo-contents-box .memo-contents-box-1 {
+	width: 300px;
 }
 
-.memo-contents-box .memo-contents-box-2{
-	width:300px;
-	height:100px;
-	margin-bottom:0;
-	margin-top:auto;
+.memo-contents-box .memo-contents-box-2 {
+	width: 300px;
+	height: 100px;
+	margin-bottom: 0;
+	margin-top: auto;
 }
 
 .memo-contents-box .memo-contents-box-2 .total-count {
-	margin-bottom:10px;
+	margin-bottom: 10px;
 }
-
-
 </style>
 
 <div class="memo-contents-box con flex flex-jc-sb">
-	
+
 	<div class="memo-contents-box-2">
 		<c:if test="${isLogined == false && boardCode eq 'memoYOU'}">
-			<div class="total-count con" style="font-size: 1.2rem;">총 게시물 수 :
-				${totalCount}</div>
+			<div class="total-count con" style="font-size: 1.2rem;">총 게시물 수
+				: ${totalCount}</div>
 		</c:if>
 		<c:if test="${isLogined && totalCount != 0}">
-			<div class="total-count  con" style="font-size: 1.2rem;">총 게시물 수 :
-				${totalCount}</div>
+			<div class="total-count  con" style="font-size: 1.2rem;">총 게시물
+				수 : ${totalCount}</div>
 		</c:if>
 
 
@@ -106,27 +105,7 @@
 					</div>
 				</c:if>
 			</c:if>
-			<c:if test="${empty param.page == false }">
-				<c:if test="${boardCode eq 'memberPage' }">
-					<c:if test="${param.mode eq 'big' || param.mode eq ''}">
-						<div class="con from-button">
-							<input class="onclick-list-small btn " type="button"
-								onclick="click__small();  location.replace('${boardCode}-memoList?searchKeywordType=${param.searchKeywordType}
-					&searchKeyword=${param.searchKeyword}&page=${i}&id=${param.id}&mode=${param.mode}'); "
-								value="From 제목" />
-						</div>
-					</c:if>
-					<c:if test="${param.mode eq 'small' }">
-						<div class="con from-button">
-							<input class="onclick-list-big btn" type="button"
-								onclick="click__big(); location.replace('${boardCode}-memoList?searchKeywordType=${param.searchKeywordType}
-					&searchKeyword=${param.searchKeyword}&page=${param.page}&id=${param.id}&mode=${param.mode}'); "
-								value="From 내용" />
-						</div>
-					</c:if>
-				</c:if>
 			</c:if>
-		</c:if>
 	</div>
 	<!-- <div class="memo-color-page">
 		<div class="color-box">
@@ -190,6 +169,16 @@
 					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 			</div>
 		</c:if>
+		<c:if test="${isLogined == false}">
+			<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
+			</div>
+			<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
+			</div>
+		</c:if>
 		<%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
 		onclick="location.href='../memo/${boardCode}-makeMemoCate'">메모
@@ -218,6 +207,27 @@
 					<!-- <script>
 					form.searchKeyword.value = '';
 				</script> -->
+				</div>
+			</div>
+		</c:if>
+		<c:if
+			test="${boardCode eq 'memberPage' == false && isLogined == false}">
+			<div class="search con flex flex-jc-fe padding-10-0">
+				<div class="search-box ">
+					<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
+					<form action="../memo/${boardCode}-tagSearchResult" class="flex">
+						<!-- <input type="hidden" name="page" value="1" /> -->
+						<!-- 검색하면 page를 모두 0으로 초기화해야 하니까..? -->
+						<input type="hidden" name="id" value="${param.id}" /> <input
+							type="hidden" name="searchKeywordType" value="tag" />
+						<div class="tag-box flex flex-jc-sb">
+							<input type="text" name="searchKeyword" placeholder="검색할 태그 입력"
+								value="${param.searchKeyword}" class="box" />
+							<button type="submit" class="search-button btn black">
+								<i style="font-size: 1.2rem;" class="fas fa-search"></i>
+							</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</c:if>
@@ -769,9 +779,11 @@
 
 
 <style>
-.memo-table-box .memo-box .img-box img, .memo-table-box .memo-box  .video-box video {
-	max-width:100%;
+.memo-table-box .memo-box .img-box img, .memo-table-box .memo-box  .video-box video
+	{
+	max-width: 100%;
 }
+
 .unicon-intro-box {
 	margin-top: 40px;
 	text-align: center;
@@ -1052,13 +1064,9 @@ html>body .memo-table-box .memo-box td {
 	}
 }
 
-
 .memo-table-box .memo-box {
 	background-color: #fffff5;
 }
-
-
-
 </style>
 
 

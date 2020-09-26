@@ -161,6 +161,11 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 		var count = (temp.match(/#/g) || []).length;
 
 		var textCount = temp.split('#');
+		if ( (textCount - 1) != temp.length  ) {
+			alert('# 입력을 확인해주세요.');
+			form.tag.focus();
+			return;	
+		}
 		textCount = textCount - 1;
 
 		console.log(textCount);
