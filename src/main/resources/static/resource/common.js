@@ -53,6 +53,14 @@ function getUriParams(uri) {
 	return params;
 }
 
+
+
+function getBodyFromXTemplate(selector) {
+	return $(selector).html().trim().replace(/<!--REPLACE:script-->/gi, 'script');
+} 
+
+
+
 // 댓글 수정 관련 
 function getHtmlEncoded(raw) {
 	return raw.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {

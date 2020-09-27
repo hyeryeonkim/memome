@@ -197,6 +197,7 @@ public class MemoController {
 		model.addAttribute("member", member);
 		model.addAttribute("hashtags", hashtags);
 		model.addAttribute("articles", articles);
+		model.addAttribute("searchKeyword", searchKeyword);
 
 		return "memo/tagSearchResult";
 	}

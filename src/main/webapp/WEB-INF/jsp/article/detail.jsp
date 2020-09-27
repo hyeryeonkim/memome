@@ -76,7 +76,7 @@
 	<div class="border-body"></div>
 	<div class="not-table-box-controler">
 		<div class="body">
-			<script type="text/x-template">${article.body}</script>
+			<script type="text/x-template">${article.getBodyForXTemplate()}</script>
 			<div class="toast-editor toast-editor-viewer"></div>
 			<c:forEach var="i" begin="1" end="3" step="1">
 				<c:set var="fileNo" value="${String.valueOf(i)}" />

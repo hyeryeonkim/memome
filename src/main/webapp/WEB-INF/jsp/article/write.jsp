@@ -79,11 +79,8 @@
 ```youtube
 https://www.youtube.com/watch?v=LmgWxezH7cc
 ```	</div> -->
-			<script type="text/x-template">
-
-                        </script>
-			<div data-relTypeCode="article" data-relId="0"
-				class="toast-editor input-body"></div>
+			<script type="text/x-template"></script>
+			<div data-relTypeCode="article" data-relId="0" class="toast-editor input-body"></div>
 		</div>
 		<div class="not-table-box-controler">
 			<div class="form-control-box">

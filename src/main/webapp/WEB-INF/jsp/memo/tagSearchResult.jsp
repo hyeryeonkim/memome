@@ -8,19 +8,19 @@
 
 <c:if test="${board.code eq 'memoYOU'}">
 	<h1 class="con">
-		<strong style="color: green">${board.code}</strong> 태그 검색 결과
+		<strong style="color: green">${board.code}</strong>&nbsp;&nbsp;&nbsp;${searchKeyword} &nbsp;&nbsp;검색 결과
 	</h1>
 </c:if>
 <c:if test="${board.code eq 'memoME'}">
 	<h1 class="con">
-		<strong style="color: blue">${board.code}</strong> 태그 검색 결과
+		<strong style="color: blue">${board.code}</strong>&nbsp;&nbsp;&nbsp;${searchKeyword} &nbsp;&nbsp;검색 결과
 	</h1>
 </c:if>
 <c:if test="${board.code eq 'memberPage'}">
 	<h1 class="con">
 		<strong style="color: gold">이웃 <strong style="color: skyblue">
 				${member.nickname }</strong>
-		</strong> 태그 검색 결과
+		</strong>&nbsp;&nbsp;&nbsp;${searchKeyword} &nbsp;&nbsp;검색 결과
 	</h1>
 </c:if>
 
@@ -206,7 +206,7 @@
 								<th>메모</th>
 								<td>
 									<div class=" body-box " style="height: 250px;">
-										<script type="text/x-template">${article.body}</script>
+										<script type="text/x-template">${article.getBodyForXTemplate()}</script>
 										<div class="toast-editor toast-editor-viewer"></div>
 										<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
 										<c:forEach var="i" begin="1" end="3" step="1">
@@ -299,7 +299,7 @@
 								<th>메모</th>
 								<td>
 									<div class=" body-box " style="height: 250px;">
-										<script type="text/x-template">${article.body}</script>
+										<script type="text/x-template">${article.getBodyForXTemplate()}</script>
 										<div class="toast-editor toast-editor-viewer"></div>
 										<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
 										<c:forEach var="i" begin="1" end="3" step="1">
@@ -390,7 +390,7 @@
 								<th>메모</th>
 								<td>
 									<div class=" body-box " style="height: 250px;">
-										<script type="text/x-template">${article.body}</script>
+										<script type="text/x-template">${article.getBodyForXTemplate()}</script>
 										<div class="toast-editor toast-editor-viewer"></div>
 										<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
 										<c:forEach var="i" begin="1" end="3" step="1">
@@ -475,7 +475,7 @@
 								<th>메모</th>
 								<td>
 									<div class=" body-box " style="height: 250px;">
-										<script type="text/x-template">${article.body}</script>
+										<script type="text/x-template">${article.getBodyForXTemplate()}</script>
 										<div class="toast-editor toast-editor-viewer"></div>
 										<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
 										<c:forEach var="i" begin="1" end="3" step="1">
@@ -813,7 +813,7 @@ html>body .memo-table-box .memo-box {
 }
 
 html>body .memo-table-box .memo-box td {
-	backtground-color: red;
+	max-width:200px;
 	overflow: auto;
 }
 

@@ -27,4 +27,8 @@ public class Article {
 		return "/usr/article/" + boardCode + "-detail?id=" + id;
 	}
 	
+	public String getBodyForXTemplate() {
+		return body.replaceAll("(?i)script", "<!--REPLACE:script-->").trim();
+	}
+	
 }

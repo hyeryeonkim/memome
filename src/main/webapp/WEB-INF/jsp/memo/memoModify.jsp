@@ -35,7 +35,7 @@
 			</div>
 		</c:if>
 		<div class="not-table-box-controler">
-			<script type="text/x-template">${article.body}</script>
+			<script type="text/x-template">${article.getBodyForXTemplate()}</script>
 			<div data-relTypeCode="article" data-relId="${article.id}"
 				class="toast-editor input-body"></div>
 		</div>

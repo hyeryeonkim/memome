@@ -627,7 +627,7 @@
 										<%-- <c:if test="${article.delStatus eq 1}">
 									<h1>삭제된 메모입니다.</h1>
 									</c:if> --%>
-										<script type="text/x-template">${article.body}</script>
+										<script type="text/x-template">${article.getBodyForXTemplate()}</script>
 										<div class="toast-editor toast-editor-viewer"></div>
 										<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
 										<c:forEach var="i" begin="1" end="3" step="1">
@@ -713,7 +713,7 @@
 								<th>메모</th>
 								<td>
 									<div class=" body-box " style="height: 250px;">
-										<script type="text/x-template">${article.body}</script>
+										<script type="text/x-template">${article.getBodyForXTemplate()}</script>
 										<div class="toast-editor toast-editor-viewer"></div>
 										<%-- 								<div class="body-box" style="height: 250px;">${article.body} --%>
 										<c:forEach var="i" begin="1" end="3" step="1">
@@ -1063,6 +1063,9 @@ html>body .memo-table-box .memo-box {
 
 html>body .memo-table-box .memo-box td {
 	overflow: auto;
+	max-width:200px;
+	
+	
 }
 
 @media ( max-width :800px ) {
@@ -1075,6 +1078,7 @@ html>body .memo-table-box .memo-box td {
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 5px;
+		
 	}
 	h1 {
 		text-align: center;
@@ -1083,7 +1087,10 @@ html>body .memo-table-box .memo-box td {
 
 .memo-table-box .memo-box {
 	background-color: #fffff5;
+	
+
 }
+
 </style>
 
 
