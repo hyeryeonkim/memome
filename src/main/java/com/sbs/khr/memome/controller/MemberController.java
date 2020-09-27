@@ -32,6 +32,8 @@ public class MemberController {
 	@Autowired
 	private AttrService attrService;
 
+	
+	
 	// 회원가입
 	@RequestMapping("/usr/member/join")
 	public String showMain() {
@@ -44,7 +46,6 @@ public class MemberController {
 
 		Util.changeMapKey(param, "loginPwReal", "loginPw");
 
-		// param에 id가 들어있다?????????? 샘한테 질문하기.
 		int newMemberId = memberService.join(param);
 
 		String nickname = Util.getAsStr(param.get("nickname"));
@@ -80,19 +81,7 @@ public class MemberController {
 	// 로그인
 	@RequestMapping("/usr/member/login")
 	public String showLogin() {
-
-		/*
-		 * String usingUniconAuthCode, String memberId, String articleId if (
-		 * usingUniconAuthCode.length() > 0 ) {
-		 * System.out.println("usingUniconAuthCode이 제대로 가지고 있나?" + usingUniconAuthCode);
-		 * System.out.println("memberId이 제대로 가지고 있나?" + memberId);
-		 * 
-		 * int id = Integer.parseInt(articleId);
-		 * 
-		 * attrService.setValue("article", id, memberId + "", "usingUniconAuthCode",
-		 * usingUniconAuthCode, null); }
-		 */
-
+		
 		return "member/login";
 	}
 
@@ -131,7 +120,6 @@ public class MemberController {
 		String lastPasswordModifyDate = memberService.getLastPasswordModify(member.getId());
 
 		boolean getDateForpasswordModify = Util.getDateForpasswordModify("2020-03-03");
-		System.out.println("boolean 뭐야?? : " + getDateForpasswordModify);
 
 		if (usingTempPassword) {
 			redirectUri = "/usr/member/checkPassword?redirectUri=%2Fusr%2Fmember%2FmyPage";

@@ -49,6 +49,7 @@ public class MailService {
 			messageHelper.setText(text, true);
 		}
 
+
 		public void send() {
 			try {
 				sender.send(message);

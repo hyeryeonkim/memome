@@ -54,6 +54,8 @@ public class MemberService {
 
 		return id;
 	}
+	
+	
 
 	// 회원가입 완료 메일 발송 메서드
 	private void sendJoinCompleteMail(String email) {
