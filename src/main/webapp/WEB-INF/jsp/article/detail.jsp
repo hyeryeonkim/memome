@@ -787,7 +787,7 @@
 		html += '<div class="flex flex-row-wrap flex-ai-c">';
 		html += '<span class="badge badge-primary bold margin-right-10">'
 				+ reply.id + '</span>';
-		html += '<div class="writer">' + reply.extra.writer + '</div>';
+		html += '<div class="writer"> ' + reply.extra.writer + '</div>';
 		html += '&nbsp;|&nbsp;';
 		html += '<div class="reg-date">' + reply.regDate + '</div>';
 		html += '<div class="width-100p"></div>';

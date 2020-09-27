@@ -102,7 +102,7 @@ $('.message a').click(function(){
 	});
 	
 	
-$('a').attr('target', '_blank');
+
 	
 	
 	
