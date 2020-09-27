@@ -207,6 +207,10 @@ public class ArticleController {
 		String relTypeCode = "article";
 		List<Hashtag> hashtags = hashtagService.getForPrintHashtags(article.getId(), relTypeCode);
 		model.addAttribute("hashtags", hashtags);
+		
+		
+		String redirectUri = "/usr/article/" + boardCode + "-detail?id=" + id;
+		model.addAttribute("redirectUri", redirectUri);
 
 		return "article/detail";
 	}

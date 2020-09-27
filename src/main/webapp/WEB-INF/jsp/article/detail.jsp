@@ -139,7 +139,7 @@
 		<div class="not-table-box-controler con">
 
 			<div class="reply-count">
-				댓글 <strong>( <a href="../member/login" style="color: red;">로그인</a>
+				댓글 <strong>( <a href="../member/login?redirectUri=${redirectUri }" style="color: red;">로그인</a>
 					후 이용바랍니다. )
 				</strong>
 			</div>
@@ -260,7 +260,7 @@
 		<div class="not-table-box-controler flex">
 			<div class="reply-count">댓글</div>
 			&nbsp;&nbsp;
-			<div id="replyCount"></div> 
+			<div id="replyCount"></div>
 			개
 		</div>
 		<div class="not-table-box-controler">
@@ -664,10 +664,10 @@
 
 	function ReplyCount__loadMoreCallback(data) {
 
-			if (!data) {
-				$('#replyCount').text(0);
-			} else {
-				$('#replyCount').text(data.body.replies.length);
+		if (!data) {
+			$('#replyCount').text(0);
+		} else {
+			$('#replyCount').text(data.body.replies.length);
 
 		}
 

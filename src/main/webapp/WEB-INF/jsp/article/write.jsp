@@ -30,6 +30,7 @@
 		<input type="hidden" name="relTypeCode" value="article" /> <input
 			type="hidden" name="body" />
 		<c:if test="${boardCode eq 'unicon' }">
+		<input type="hidden" name="displayStatus" value="1" />
 			<div class="invite-title">UNICON email 초대<i style="margin-left:10px;" class="far fa-paper-plane"></i> </div>
 			<div class="not-table-box-controler">
 				<div class="form-control-box invite-control-box  flex flex-wrap">
@@ -52,17 +53,20 @@
 				</div>
 			</div>
 		</c:if>
-		<c:if
-			test="${boardCode ne 'free' || boardCode ne 'notice' || boardCode ne 'unicon' }">
+		
 			<div class="not-table-box-controler select flex flex-jc-sb">
 				<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus
-					maxlength="200" /> <select name="displayStatus" id="">
+					maxlength="200" />
+					<c:if
+			test="${boardCode ne 'free' && boardCode ne 'notice' && boardCode ne 'unicon' }"> 
+					<select name="displayStatus" id="">
 					<option value="1">공개</option>
 					<option value="0">비공개</option>
 				</select>
+				</c:if>
 
 			</div>
-		</c:if>
+		
 		<div class="not-table-box-controler">
 			<!-- 					<div> # 제목
 ![img](https://placekitten.com/200/287)

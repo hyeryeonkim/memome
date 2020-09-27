@@ -114,7 +114,7 @@ public class ArticleService {
 						mailBodySb.append("<h2>무엇이든 메모할 수 있습니다.</h2>");
 						mailBodySb.append(String.format(
 								"<p><a href=\"%s?usingUniconAuthCode=" + usingUniconAuthCode + "&articleId=" + id
-										+ "&memberId=" + member2.getId() + "\" target=\"_blank\">%s</a>로 이동</p>",
+										+ "&memberId=" + member2.getId() + "\" target=\"_blank\">%s 인증하기</a></p>",
 								"http://localhost:8085/usr/member/uniconValidCheck", siteName));
 
 						mailService.send(email, mailTitle, mailBodySb.toString());
