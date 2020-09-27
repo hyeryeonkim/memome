@@ -21,4 +21,6 @@ public interface ReplyDao {
 	void modifyReply(Map<String, Object> param);
 
 	List<Reply> getForPrintRepliesByRelId(@Param("articleId") int relId);
+
+	List<Reply> getForPrintRepliesByMemberId(@Param("memberId") int memberId);
 }

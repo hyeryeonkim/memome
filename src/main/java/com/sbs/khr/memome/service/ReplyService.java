@@ -126,4 +126,8 @@ public class ReplyService {
 	public List<Reply> getForPrintRepliesByRelId(int articleId) {
 		return replyDao.getForPrintRepliesByRelId(articleId);
 	}
+
+	public List<Reply> getForPrintRepliesByMemberId(int memberId) {
+		return replyDao.getForPrintRepliesByMemberId(memberId);
+	}
 }

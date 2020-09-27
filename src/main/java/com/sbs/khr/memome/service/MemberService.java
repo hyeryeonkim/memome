@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.sbs.khr.memome.dao.MemberDao;
 import com.sbs.khr.memome.dto.Article;
-import com.sbs.khr.memome.dto.File;
 import com.sbs.khr.memome.dto.Member;
+import com.sbs.khr.memome.dto.Reply;
 import com.sbs.khr.memome.dto.ResultData;
 import com.sbs.khr.memome.util.Util;
 
@@ -30,12 +30,17 @@ public class MemberService {
 	
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private ReplyService replyService;
 
 	@Value("${custom.siteMainUri}")
 	private String siteMainUri;
 
 	@Value("${custom.siteName}")
 	private String siteName;
+
+
 
 
 	
@@ -191,21 +196,24 @@ public class MemberService {
 	// 회원탈퇴 
 	public void accountDelete(Map<String, Object> param) {
 		
-		System.out.println("param 아닌가?? " + param);
 		
 		int memberId = Util.getAsInt(param.get("memberId"));
 		
-		System.out.println("memberId가 아닌가?? " + memberId);
 		
 		List<Article> articles = articleService.getForAccountDeleteArticlesByMemberId(memberId);
 		
-		System.out.println("뭐야??  :" +   articles );
 		
 		for ( Article article : articles ) {
 			Map<String, Object> newParam = Util.getNewMapOf(param, "memberId");
-			System.out.println(newParam);
 			newParam.put("id", article.getId());
 			articleService.memoDelete(newParam);
+		}
+		
+		List<Reply> replies = replyService.getForPrintRepliesByMemberId(memberId);
+		
+		
+		for ( Reply reply : replies ) {
+			 replyService.deleteReply(reply.getId());
 		}
 		
 		

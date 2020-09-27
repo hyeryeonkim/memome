@@ -25,6 +25,14 @@
 		WHERE relId = #{articleId}
 		AND displayStatus = 1
 	</select>
+	
+	
+	<select id="getForPrintRepliesByMemberId" resultMap="reply">
+		SELECT *
+		FROM reply
+		WHERE memberId = #{memberId}
+		AND displayStatus = 1
+	</select>
 
 	<insert id="writeReply" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO reply
