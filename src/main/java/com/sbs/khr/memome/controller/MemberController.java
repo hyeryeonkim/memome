@@ -207,7 +207,8 @@ public class MemberController {
 	// 개인정보 변경
 	@RequestMapping("/usr/member/doModify")
 	public String doModify(@RequestParam Map<String, Object> param, Model model, HttpServletRequest request) {
-
+		
+		System.out.println("param에 nickname이 없나?" + param);
 		memberService.memberDataUpdate(param);
 
 		String redirectUri = "/usr/home/main";

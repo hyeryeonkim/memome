@@ -60,8 +60,7 @@
 	<update id="memberDataUpdate">
 		UPDATE member
 		SET updateDate = NOW(),
-		nickname =
-		#{nickname},
+		nickname = #{nickname},
 		email = #{email}
 		WHERE id = #{id}
 	</update>
