@@ -820,6 +820,217 @@ html>body .memo-table-box .memo-box td {
 .memo-table-box .memo-box {
 	background-color: #fffff5;
 }
+
+@media ( max-width :800px ) {
+	/* PC버전 memo 테이블 관련 */
+	.memo-table-box .memo-box {
+		border: 7px solid black;
+		width: 350px;
+		height: 400px;
+		/* margin: 10px 0; */
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 5px;
+	}
+	h1 {
+		text-align: left;
+	}
+	.from-button input {
+		width: 100px;
+		font-size: 1rem;
+	}
+	.memo-contents-box {
+		 margin-top: 80px; 
+		margin-bottom: 30px;
+	}
+	.memo-contents-box .memo-contents-box-2 {
+		/* flex-direction: column-reverse; */
+		/* flex-direction:row;   */
+		display: flex;
+		margin-bottom: 50px;
+		width: 100%;
+		height: 50px;
+	}
+	.memo-contents-box .memo-contents-box-2 .total-count {
+		font-size: 1rem;
+		height: 30px;
+		margin-top: 10px;
+		width: 150px;
+		margin-left: 0;
+	}
+	.memo-contents-box .memo-contents-box-2 .from-button {
+		margin-right: 0;
+	}
+	.memo-contents-box {
+		display: block;
+	}
+	.mobile-memo-button {
+		margin-right: 0;
+		width: 109%;
+		margin-top: 10px;
+	}
+	.search {
+		margin-right: 0;
+		width: 109%;
+	}
+
+	/* 제목으로 모바일모드 시작 */
+	.search {
+		margin-right: 1.3px;
+	}
+	.search .search-box button {
+		padding: 0 20px;
+	}
+	.search .search-box form .tag-box {
+		width: 220px;
+		font-size: 1.5rem;
+	}
+	.total-box {
+		width: 50%;
+		margin-right: 0;
+		margin-top: 20px;
+		text-align: right;
+	}
+	.memo-table-list {
+		margin-top: 80px;
+	}
+	.memo-table-list .memo-table-list-box .contents-box .title {
+		font-size: 1.3rem;
+		width: 95%;
+	}
+	.memo-table-list .memo-table-list-box .file-control-box {
+		height: 38%;
+	}
+	.memo-table-list .memo-table-list-box .file-control-box img {
+		height: 100%;
+		width: 100%;
+	}
+	.memo-table-list .memo-table-list-box {
+		height: 145px;
+	}
+
+	/* body를 태그로 바꿔서 사용중....  */
+	.memo-table-list .memo-table-list-box .contents-box .body {
+		width: 124%;
+		height: 50px;
+		font-size: 0.8rem;
+		opacity: 0.7;
+		margin-top: 10px;
+		/* word-break: keep-all; */
+	}
+	.memo-table-list .memo-table-list-box .writer-box {
+		display: flex;
+		font-size: 0.9rem;
+	}
+	.free-top-bar-mobile {
+		position: absolute;
+		top: 100px;
+		left: 4%;
+		font-weight: bold;
+	}
+	.free-top-bar-mobile .title {
+		font-size: 1.8rem;
+	}
+	.free-top-bar-mobile .body {
+		font-size: 1.3rem;
+	}
+	.write-btn {
+		margin-top: 250px;
+		margin-bottom: 0;
+	}
+	.memo-table-list .memo-table-list-box .writer-box {
+		margin-top: 0px;
+		height: 20px;
+	}
+	.memo-table-list .memo-table-list-box .writer-box .writer, .regDate {
+		/* border: 3px solid green; */
+		width: 280px;
+		height: 0;
+	}
+	.memo-table-box
+		 
+		.memo-box {
+		background-color: #fffff5;
+	}
+	
+	
+	.mobile-unicon-intro-box {
+		text-align: center;
+		text-align: center;
+		width: 100%;
+		/* padding: 50px 0; */
+		
+	}
+	.mobile-unicon-intro-box .unicon-title {
+		font-size: 1.1rem;
+		font-weight: bold;
+		opacity: 0.7;
+	}
+	.mobile-unicon-intro-box .unicon-title:hover {
+		opacity: 1;
+		cursor: pointer;
+	}
+	.mobile-unicon-intro-box .unicon-serve-title {
+		margin-top: 50px;
+		font-size: 0.9rem;
+		font-weight: bold;
+		/* border:3px solid red; */
+		opacity: 0.7;
+	}
+	.mobile-unicon-intro-box .unicon-serve-title:hover {
+		opacity: 1;
+		cursor: pointer;
+	}
+	.mobile-unicon-intro-box .unicon-serve-title2 {
+		margin-top: 50px;
+		font-size: 0.9rem;
+		font-weight: bold;
+		/* border:3px solid red; */
+		opacity: 0.7;
+	}
+	.mobile-unicon-intro-box .unicon-serve-title2:hover {
+		opacity: 1;
+		cursor: pointer;
+	}
+	.mobile-unicon-intro-box .unicon-login {
+		margin-top: 50px;
+	}
+	.mobile-unicon-intro-box .unicon-login .btn {
+		width: 300px;
+	}
+	.mobile-unicon-login-box {
+		text-align: center;
+		text-align: center;
+		width: 100%;
+		padding: 20px 0;
+		background-color: #fff5f5;
+		
+	}
+	.mobile-unicon-login-box .unicon-login-title1 {
+		font-size: 1.3rem;
+		font-weight: bold;
+		opacity: 0.7;
+	}
+	
+	.mobile-unicon-login-box .unicon-login-title2 {
+		font-size: 1.1rem;
+		font-weight: bold;
+		opacity: 0.7;
+		margin-top:20px;
+	}
+	
+	.mobile-unicon-login-box .unicon-login-serve-title1 {
+		font-size: 1.1rem;
+		opacity: 0.7;
+		margin-top:20px;
+	}
+	
+	.mobile-unicon-login-box .unicon-login-serve-title2 {
+		font-size: 1.1rem;
+		opacity: 0.7;
+		margin-top:20px;
+	}
+}
 </style>
 
 
