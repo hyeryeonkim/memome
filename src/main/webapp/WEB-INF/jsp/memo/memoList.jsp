@@ -12,29 +12,55 @@
 
 
 
-
+<!-- PC 버전 -->
 <c:if test="${board.code eq 'unicon'}">
-	<h1 class="con">
+	<h1 class="con visible-on-md-up">
 		<strong style="color: orange">${board.code}</strong>
 		<div style="font-size: 1.2rem;">특별한 유저에게 단 하나의 메모를 선사해보세요.</div>
 	</h1>
 </c:if>
 <c:if test="${board.code eq 'memoYOU'}">
-	<h1 class="con">
+	<h1 class="con visible-on-md-up" >
 		<strong style="color: green">${board.code}</strong>
 		<div style="font-size: 1.2rem;">모든 유저의 메모장을 참고해보세요.</div>
 	</h1>
 </c:if>
 <c:if test="${board.code eq 'memoME'}">
-	<h1 class="con">
+	<h1 class="con visible-on-md-up">
 		<strong style="color: blue">${board.code}</strong>
 		<div style="font-size: 1.2rem;">나만의 메모장을 만들어보세요.</div>
 	</h1>
 </c:if>
 
 <c:if test="${board.code eq 'memberPage'}">
-	<h1 class="con">
+	<h1 class="con visible-on-md-up">
 		<strong style="color: orange">이웃 <strong style="color: green">MEMO</strong>${member.nickname}</strong>
+	</h1>
+</c:if>
+
+<!-- 모바일 버전 -->
+<c:if test="${board.code eq 'unicon'}">
+	<h1 class="con visible-on-sm-down">
+		<strong style="color: orange">${board.code}</strong>
+		<div style="font-size: 1rem;">특별한 유저에게 단 하나의 메모를 선사해보세요.</div>
+	</h1>
+</c:if>
+<c:if test="${board.code eq 'memoYOU'}">
+	<h1 class="con visible-on-sm-down">
+		<strong style="color: green">${board.code}</strong>
+		<div style="font-size: 1rem;">모든 유저의 메모장을 참고해보세요.</div>
+	</h1>
+</c:if>
+<c:if test="${board.code eq 'memoME'}">
+	<h1 class="con visible-on-sm-down">
+		<strong style="color: blue">${board.code}</strong>
+		<div style="font-size: 1rem;">나만의 메모장을 만들어보세요.</div>
+	</h1>
+</c:if>
+
+<c:if test="${board.code eq 'memberPage'}">
+	<h1 class="con visible-on-sm-down">
+		<strong style="color: orange">이웃 <strong style="color: green">MEMO</strong><strong style="font-size: 1.3rem;">&nbsp;&nbsp;${member.nickname}</strong></strong>
 	</h1>
 </c:if>
 
@@ -62,18 +88,16 @@
 <div class="memo-contents-box con flex flex-jc-sb">
 
 	<div class="memo-contents-box-2">
-		<c:if test="${isLogined == false && boardCode eq 'memoYOU'}">
-			<div class="total-count con" style="font-size: 1.2rem;">총 게시물 수
-				: ${totalCount}</div>
+		<c:if test="${isLogined == false && totalCount != 0 }">
+			<div class="total-count con">총 게시물 수 : ${totalCount}</div>
 		</c:if>
-		<c:if test="${isLogined && totalCount != 0}">
-			<div class="total-count  con" style="font-size: 1.2rem;">총 게시물
-				수 : ${totalCount}</div>
+		<c:if test="${isLogined && totalCount != 0 }">
+			<div class="total-count  con">총 게시물 수 : ${totalCount}</div>
 		</c:if>
 
 
-		<c:if test="${totalCount != 0 }">
-			<c:if test="${boardCode ne 'memberPage' }">
+		<%-- <c:if test="${totalCount != 0 }"> --%>
+			<c:if test="${boardCode ne 'memberPage' && totalCount != 0 }">
 				<c:if test="${param.mode eq 'big' || param.mode eq ''}">
 					<div class="con from-button">
 						<input class="onclick-list-small btn " type="button"
@@ -81,7 +105,7 @@
 							value="제목으로" />
 					</div>
 				</c:if>
-				<c:if test="${param.mode eq 'small' }">
+				<c:if test="${param.mode eq 'small' && totalCount != 0 }">
 					<div class="con from-button">
 						<input class="onclick-list-big btn" type="button"
 							onclick="click__big(); location.replace('${boardCode}-memoList?mode=big'); "
@@ -89,7 +113,7 @@
 					</div>
 				</c:if>
 			</c:if>
-			<c:if test="${boardCode eq 'memberPage' }">
+			<c:if test="${boardCode eq 'memberPage' && totalCount != 0 }">
 				<c:if test="${param.mode eq 'big' || param.mode eq ''}">
 					<div class="con from-button">
 						<input class="onclick-list-small btn " type="button"
@@ -97,7 +121,7 @@
 							value="제목으로" />
 					</div>
 				</c:if>
-				<c:if test="${param.mode eq 'small' }">
+				<c:if test="${param.mode eq 'small' && totalCount != 0}">
 					<div class="con  from-button">
 						<input class="onclick-list-big btn" type="button"
 							onclick="click__big(); location.replace('${boardCode}-memoList?mode=big&id=${param.id }'); "
@@ -105,7 +129,7 @@
 					</div>
 				</c:if>
 			</c:if>
-		</c:if>
+		<%-- </c:if> --%>
 	</div>
 	<!-- <div class="memo-color-page">
 		<div class="color-box">
@@ -115,52 +139,9 @@
 		</div>
 	</div> -->
 	<div class="memo-contents-box-1">
-		<!-- <div>
-			<button type="button" class="btn start" onclick="memo__color();">MEMO COLOR</button>
-		</div>
-		<div>
-			<button type="button" class="btn choice__color" onclick="choice__color();">CHOICE</button>
-		</div>
-		<script>
-			function memo__color() {
-				$(".memo-color-page").addClass("memo-color-open");
-				$(".choice__color").addClass("choice__color__open");
-				$(".start").addClass("start-none");
-			}
-			function choice__color() {
-				$(".memo-color-page").removeClass("memo-color-open");
-				$(".choice__color").removeClass("choice__color__open");
-				$(".start").removeClass("start-none");
-			}
-
-			var color = window.document.$('input:checkbox[id="checkbox_id"]').val();
-			if ( color == 2 ) {
-				alert(color);
-			}
-
-
-
-			
-		</script>
-		<style>
-			.memo-color-page {
-				display:none;
-			}
-			.start-none {
-				display:none;
-			}
-			.memo-color-open {
-				display:block;
-			}
-			.choice__color {
-				display:none;
-			}
-			.choice__color__open {
-				display:block;
-			}
-		</style> -->
-		<c:if test="${isLogined}">
-			<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
+		<c:if test="${isLogined  && totalCount != 0 }">
+			<div
+				class="con margin-top-50 flex flex-jc-fe visible-on-sm-down mobile-memo-button ">
 				<button type="button" class="btn black"
 					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 			</div>
@@ -169,8 +150,9 @@
 					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 			</div>
 		</c:if>
-		<c:if test="${isLogined == false}">
-			<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down ">
+		<c:if test="${isLogined == false && totalCount != 0 }">
+			<div
+				class="con margin-top-50 flex flex-jc-fe visible-on-sm-down mobile-memo-button">
 				<button type="button" class="btn black"
 					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 			</div>
@@ -179,6 +161,8 @@
 					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 			</div>
 		</c:if>
+		
+		
 		<%-- <div class="con margin-top-20 flex flex-jc-fe border-red-1">
 	<button type="button"
 		onclick="location.href='../memo/${boardCode}-makeMemoCate'">메모
@@ -186,7 +170,7 @@
 </div> --%>
 
 
-		<c:if test="${boardCode eq 'memberPage' == false && isLogined}">
+		<c:if test="${boardCode eq 'memberPage' == false && isLogined && totalCount != 0}">
 			<div class="search con flex flex-jc-fe padding-10-0">
 				<div class="search-box ">
 					<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
@@ -211,7 +195,7 @@
 			</div>
 		</c:if>
 		<c:if
-			test="${boardCode eq 'memberPage' == false && isLogined == false}">
+			test="${boardCode eq 'memberPage' == false && isLogined == false && totalCount != 0}">
 			<div class="search con flex flex-jc-fe padding-10-0">
 				<div class="search-box ">
 					<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
@@ -233,7 +217,7 @@
 			</div>
 		</c:if>
 
-		<c:if test="${boardCode eq 'memberPage' && isLogined}">
+		<c:if test="${boardCode eq 'memberPage' && isLogined && totalCount != 0}">
 			<div class="search con flex flex-jc-fe padding-10-0">
 				<div class="search-box ">
 					<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
@@ -257,8 +241,8 @@
 	</div>
 </div>
 
-<c:if test="${isLogined == false && board.code eq 'unicon'}">
-	<div class="unicon-intro-box ">
+<c:if test="${isLogined == false && board.code eq 'unicon' }">
+	<div class="mobile-unicon-intro-box  visible-on-sm-down ">
 
 		<div class="unicon-title">
 			소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.
@@ -276,7 +260,38 @@
 
 
 <c:if test="${totalCount == 0 && boardCode eq 'unicon' && isLogined }">
-	<div class="unicon-login-intro-box unicon-login-box">
+	<div
+		class="mobile-unicon-login-intro-box mobile-unicon-login-box visible-on-sm-down ">
+		<div class="unicon-login-title1">
+			아직 작성하신 <span>UNICON</span>이 없으시네요.
+		</div>
+		<div class="unicon-login-title2 margin-top-50">
+			소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.
+		</div>
+		<div class="unicon-login-serve-title1">메모를 공개하고 싶은 지인을 초대해서 메모를
+			공유해보세요.</div>
+		<div class="unicon-login-serve-title2">UNICON에 작성하신 메모는 초대한 지인
+			외에는 공개되지 않습니다.</div>
+	</div>
+</c:if>
+
+<c:if test="${isLogined == false && board.code eq 'unicon'}">
+	<div class="unicon-intro-box  visible-on-md-up">
+		<div class="unicon-title">
+			소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.
+		</div>
+		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
+		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
+		<div class="unicon-login">
+			<button type="button" class="btn black"
+				onclick="location.href='/usr/member/login'">로그인이동</button>
+		</div>
+	</div>
+</c:if>
+
+
+<c:if test="${totalCount == 0 && boardCode eq 'unicon' && isLogined }">
+	<div class="unicon-login-intro-box unicon-login-box visible-on-md-up">
 		<div class="unicon-login-title1">
 			아직 작성하신 <span>UNICON</span>이 없으시네요.
 		</div>
@@ -293,10 +308,20 @@
 
 <c:if
 	test="${totalCount == 0 && boardCode eq 'unicon' == false && boardCode eq 'memoME'}">
-	<div class="unicon-login-intro-box unicon-intro-box">
+	<div class="unicon-login-intro-box unicon-intro-box visible-on-md-up">
 		<div class="back-img">
 			<img src="/resource/img/memo-list.PNG" alt="" />
 		</div>
+		<div class="unicon-login-title1">아직 작성하신 MEMO가 없으시네요.</div>
+		<div class="unicon-login-title2 margin-top-50">나만의 메모를 작성해서 잊지
+			못할 순간들을 기록해보세요.</div>
+	</div>
+</c:if>
+
+
+<c:if
+	test="${totalCount == 0 && boardCode eq 'unicon' == false && boardCode eq 'memoME'}">
+	<div class="mobile-unicon-login-box mobile-unicon-intro-box visible-on-sm-down">
 		<div class="unicon-login-title1">아직 작성하신 MEMO가 없으시네요.</div>
 		<div class="unicon-login-title2 margin-top-50">나만의 메모를 작성해서 잊지
 			못할 순간들을 기록해보세요.</div>
@@ -796,6 +821,10 @@
 
 
 <style>
+.total-count {
+	font-size: 1.2rem;
+}
+
 .memo-table-box .memo-box .img-box img, .memo-table-box .memo-box  .video-box video
 	{
 	max-width: 100%;
@@ -1063,9 +1092,7 @@ html>body .memo-table-box .memo-box {
 
 html>body .memo-table-box .memo-box td {
 	overflow: auto;
-	max-width:200px;
-	
-	
+	max-width: 200px;
 }
 
 @media ( max-width :800px ) {
@@ -1078,19 +1105,210 @@ html>body .memo-table-box .memo-box td {
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 5px;
-		
 	}
 	h1 {
+		text-align: left;
+	}
+	.from-button input {
+		width: 100px;
+		font-size: 1rem;
+	}
+	.memo-contents-box {
+		 margin-top: 80px; 
+		margin-bottom: 30px;
+	}
+	.memo-contents-box .memo-contents-box-2 {
+		/* flex-direction: column-reverse; */
+		/* flex-direction:row;   */
+		display: flex;
+		margin-bottom: 50px;
+		width: 100%;
+		height: 50px;
+	}
+	.memo-contents-box .memo-contents-box-2 .total-count {
+		font-size: 1rem;
+		height: 30px;
+		margin-top: 10px;
+		width: 150px;
+		margin-left: 0;
+	}
+	.memo-contents-box .memo-contents-box-2 .from-button {
+		margin-right: 0;
+	}
+	.memo-contents-box {
+		display: block;
+	}
+	.mobile-memo-button {
+		margin-right: 0;
+		width: 109%;
+		margin-top: 10px;
+	}
+	.search {
+		margin-right: 0;
+		width: 109%;
+	}
+
+	/* 제목으로 모바일모드 시작 */
+	.search {
+		margin-right: 1.3px;
+	}
+	.search .search-box button {
+		padding: 0 20px;
+	}
+	.search .search-box form .tag-box {
+		width: 220px;
+		font-size: 1.5rem;
+	}
+	.total-box {
+		width: 50%;
+		margin-right: 0;
+		margin-top: 20px;
+		text-align: right;
+	}
+	.memo-table-list {
+		margin-top: 80px;
+	}
+	.memo-table-list .memo-table-list-box .contents-box .title {
+		font-size: 1.3rem;
+		width: 95%;
+	}
+	.memo-table-list .memo-table-list-box .file-control-box {
+		height: 38%;
+	}
+	.memo-table-list .memo-table-list-box .file-control-box img {
+		height: 100%;
+		width: 100%;
+	}
+	.memo-table-list .memo-table-list-box {
+		height: 145px;
+	}
+
+	/* body를 태그로 바꿔서 사용중....  */
+	.memo-table-list .memo-table-list-box .contents-box .body {
+		width: 124%;
+		height: 50px;
+		font-size: 0.8rem;
+		opacity: 0.7;
+		margin-top: 10px;
+		/* word-break: keep-all; */
+	}
+	.memo-table-list .memo-table-list-box .writer-box {
+		display: flex;
+		font-size: 0.9rem;
+	}
+	.free-top-bar-mobile {
+		position: absolute;
+		top: 100px;
+		left: 4%;
+		font-weight: bold;
+	}
+	.free-top-bar-mobile .title {
+		font-size: 1.8rem;
+	}
+	.free-top-bar-mobile .body {
+		font-size: 1.3rem;
+	}
+	.write-btn {
+		margin-top: 250px;
+		margin-bottom: 0;
+	}
+	.memo-table-list .memo-table-list-box .writer-box {
+		margin-top: 0px;
+		height: 20px;
+	}
+	.memo-table-list .memo-table-list-box .writer-box .writer, .regDate {
+		/* border: 3px solid green; */
+		width: 280px;
+		height: 0;
+	}
+	.memo-table-box
+		 
+		.memo-box {
+		background-color: #fffff5;
+	}
+	
+	
+	.mobile-unicon-intro-box {
 		text-align: center;
+		text-align: center;
+		width: 100%;
+		/* padding: 50px 0; */
+		
+	}
+	.mobile-unicon-intro-box .unicon-title {
+		font-size: 1.1rem;
+		font-weight: bold;
+		opacity: 0.7;
+	}
+	.mobile-unicon-intro-box .unicon-title:hover {
+		opacity: 1;
+		cursor: pointer;
+	}
+	.mobile-unicon-intro-box .unicon-serve-title {
+		margin-top: 50px;
+		font-size: 0.9rem;
+		font-weight: bold;
+		/* border:3px solid red; */
+		opacity: 0.7;
+	}
+	.mobile-unicon-intro-box .unicon-serve-title:hover {
+		opacity: 1;
+		cursor: pointer;
+	}
+	.mobile-unicon-intro-box .unicon-serve-title2 {
+		margin-top: 50px;
+		font-size: 0.9rem;
+		font-weight: bold;
+		/* border:3px solid red; */
+		opacity: 0.7;
+	}
+	.mobile-unicon-intro-box .unicon-serve-title2:hover {
+		opacity: 1;
+		cursor: pointer;
+	}
+	.mobile-unicon-intro-box .unicon-login {
+		margin-top: 50px;
+	}
+	.mobile-unicon-intro-box .unicon-login .btn {
+		width: 300px;
+	}
+	.mobile-unicon-login-box {
+		text-align: center;
+		text-align: center;
+		width: 100%;
+		padding: 20px 0;
+		background-color: #fff5f5;
+		
+	}
+	.mobile-unicon-login-box .unicon-login-title1 {
+		font-size: 1.3rem;
+		font-weight: bold;
+		opacity: 0.7;
+	}
+	
+	.mobile-unicon-login-box .unicon-login-title2 {
+		font-size: 1.1rem;
+		font-weight: bold;
+		opacity: 0.7;
+		margin-top:20px;
+	}
+	
+	.mobile-unicon-login-box .unicon-login-serve-title1 {
+		font-size: 1.1rem;
+		opacity: 0.7;
+		margin-top:20px;
+	}
+	
+	.mobile-unicon-login-box .unicon-login-serve-title2 {
+		font-size: 1.1rem;
+		opacity: 0.7;
+		margin-top:20px;
 	}
 }
 
 .memo-table-box .memo-box {
 	background-color: #fffff5;
-	
-
 }
-
 </style>
 
 

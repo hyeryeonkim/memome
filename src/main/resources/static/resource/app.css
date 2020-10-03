@@ -181,3 +181,22 @@ h3 {
         width: 30px;
     }
 }
+
+@media (max-width :800px) {
+    .outer-box {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .page-title-box {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width :1210px) and (min-width :801px) {
+    .con {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}

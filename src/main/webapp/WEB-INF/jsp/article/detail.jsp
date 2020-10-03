@@ -8,26 +8,32 @@
 <%@ include file="../part/toastuiEditor.jspf"%>
 
 
-<h1 class="con">
+<!-- PC 모드  -->
+<h1 class="board-title con visible-on-md-up">
+	<strong style="color: red;">${boardCode}</strong>
+</h1>
+
+<!-- 모바일 모드  -->
+<h1 class="board-title con visible-on-sm-down">
 	<strong style="color: red;">${boardCode}</strong>
 </h1>
 
 <style>
 </style>
 
-<div class="not-table-box con margin-top-50">
+<div class="not-table-box con margin-top-50 visible-on-md-up">
 
 	<div class="not-table-box-controler">
 		<div class="title">${article.title}</div>
 	</div>
-	<div class="not-table-box-controler">
+	<div class="not-table-box-controler writer-box ">
 		<div class="writer">
 			<a
 				href="../memo/memberPage-memoList?id=${article.memberId}&mode=${param.mode}">${article.extra.writer}</a>
 		</div>
 		|
-		<div class="no">${article.id }</div>
-		|
+		<%-- <div class="no">${article.id }</div>
+		| --%>
 		<div class="regDate">${article.regDate}</div>
 		<%-- 	<c:if test="${ boardCode eq 'memberPage' == false}">
 		|	<div class="button">
@@ -71,8 +77,8 @@
 					onclick="location.href='../memo/${boardCode}-memoList?id=${param.memberId}&mode=${param.mode }'">List</button>
 			</div>
 		</c:if>
-
 	</div>
+
 	<div class="border-body"></div>
 	<div class="not-table-box-controler">
 		<div class="body">
@@ -110,6 +116,98 @@
 	</div>
 </div>
 
+<div class="not-table-box con margin-top-50 visible-on-sm-down">
+	<div class="not-table-box-controler">
+		<div class="title">${article.title}</div>
+	</div>
+	<div class="not-table-box-controler writer-box ">
+		<div class="writer">
+			<a
+				href="../memo/memberPage-memoList?id=${article.memberId}&mode=${param.mode}">${article.extra.writer}</a>
+		</div>
+		|
+		<%-- <div class="no">${article.id }</div>
+		| --%>
+		<div class="regDate">${article.regDate}</div>
+	</div>
+	<div class="button-box flex ">
+		<c:if test="${fn:contains(boardCode, 'memo') }">
+			<div class="button">
+				<button type="button" class="btn black"
+					onclick="location.href='../memo/${boardCode}-fork?id=${param.id}'">Fork</button>
+			</div>
+		</c:if>
+
+		<c:if
+			test="${fn:contains(boardCode, 'memo') == false && article.extra.memberCanModify}">
+			<div class="button">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-modify?id=${param.id}'">Modify</button>
+			</div>
+		</c:if>
+		<c:if test="${fn:contains(boardCode, 'memo')}">
+			<div class="button">
+				<button type="button" class="btn black"
+					onclick="location.href='../memo/${boardCode}-memoList?mode=${param.mode }'">List</button>
+			</div>
+		</c:if>
+
+		<c:if
+			test="${fn:contains(boardCode, 'memo' ) == false && boardCode eq 'memberPage' == false }">
+
+			<div class="button">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-list?mode=${param.mode }'">List</button>
+			</div>
+		</c:if>
+
+		<c:if test="${ boardCode eq 'memberPage' }">
+			<div class="button">
+				<button type="button" class="btn black"
+					onclick="location.href='../memo/${boardCode}-memoList?id=${param.memberId}&mode=${param.mode }'">List</button>
+			</div>
+		</c:if>
+	</div>
+	<div class="border-body visible-on-sm-down"></div>
+	<div class="not-table-box-controler visible-on-sm-down">
+		<div class="body">
+			<script type="text/x-template">${article.getBodyForXTemplate()}</script>
+			<div class="toast-editor toast-editor-viewer"></div>
+			<c:forEach var="i" begin="1" end="3" step="1">
+				<c:set var="fileNo" value="${String.valueOf(i)}" />
+				<c:set var="file"
+					value="${article.extra.file__common__attachment[fileNo]}" />
+				<c:if test="${file != null}">
+					<c:if test="${file.fileExtTypeCode == 'video'}">
+						<div class="video-box">
+							<video controls
+								src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+						</div>
+					</c:if>
+					<c:if test="${file.fileExtTypeCode == 'img'}">
+						<div class="img-box img-box-auto">
+							<img
+								src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+								alt="" />
+						</div>
+					</c:if>
+				</c:if>
+			</c:forEach>
+
+		</div>
+	</div>
+	<div class="not-table-box-controler ">
+		<div class="hashtag">
+			<c:forEach items="${hashtags}" var="hashtag">
+				#<strong><a href="#">${hashtag.tag}</a>&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+			</c:forEach>
+		</div>
+	</div>
+</div>
+
+
+</div>
+
 <div class="con margin-top-20 margin-bottom-20 button-box"></div>
 
 <style>
@@ -139,8 +237,9 @@
 		<div class="not-table-box-controler con">
 
 			<div class="reply-count">
-				댓글 <strong>( <a href="../member/login?redirectUri=${redirectUri }" style="color: red;">로그인</a>
-					후 이용바랍니다. )
+				댓글 <strong>( <a
+					href="../member/login?redirectUri=${redirectUri }"
+					style="color: red;">로그인</a> 후 이용바랍니다. )
 				</strong>
 			</div>
 			<div class="reply-box">
@@ -257,7 +356,7 @@
 		onsubmit="WriteReplyForm__submit(this); return false;">
 		<input type="hidden" name="relTypeCode" value="article" /> <input
 			type="hidden" name="relId" value="${article.id}" />
-		<div class="not-table-box-controler flex">
+		<div class="not-table-box-controler reply-box flex">
 			<div class="reply-count">댓글</div>
 			&nbsp;&nbsp;
 			<div id="replyCount"></div>
@@ -757,7 +856,8 @@
 		html += '<div class="reply-start" data-id="' + reply.id + '">';
 		/* html += '<td>' + reply.id + '</td>'; */
 		html += '<div class="reply-box">';
-		html += '<div class="reply-body">' + reply.forPrintBody + '</div>';
+		html += '<div class="reply-body visible-on-md-up">'
+				+ reply.forPrintBody + '</div>';
 		html += ReplyList__getMediaHtml(reply);
 		html += '<div class="visible-on-md-up writer-box">';
 		html += '<div class="visible-on-md-up writer-contents">'
@@ -767,11 +867,11 @@
 		html += '<div class="extra">';
 
 		if (reply.extra.actorCanDelete) {
-			html += '<button class="btn btn-danger" type="button" onclick="ReplyList__delete(this);">삭제</button>';
+			html += '<button class="btn btn-danger visible-on-md-up" type="button" onclick="ReplyList__delete(this);">삭제</button>';
 		}
 
 		if (reply.extra.actorCanModify) {
-			html += '<button class="btn btn-info" type="button" onclick="ReplyList__showModifyFormModal(this);">수정</button>';
+			html += '<button class="btn btn-info visible-on-md-up" type="button" onclick="ReplyList__showModifyFormModal(this);">수정</button>';
 		}
 
 		html += '</div>';
@@ -782,31 +882,37 @@
 
 		html += '</div>';
 
-		html += '<div class="visible-on-sm-down">';
+		html += '<div class="mobile-reply visible-on-sm-down">';
 
-		html += '<div class="flex flex-row-wrap flex-ai-c">';
-		html += '<span class="badge badge-primary bold margin-right-10">'
-				+ reply.id + '</span>';
-		html += '<div class="writer"> ' + reply.extra.writer + '</div>';
-		html += '&nbsp;|&nbsp;';
-		html += '<div class="reg-date">' + reply.regDate + '</div>';
-		html += '<div class="width-100p"></div>';
-		html += '<div class="body flex-1-0-0 margin-top-10 reply-body">'
+		html += '<div class=" mobile-reply-box">';
+		/* html += '<span class="badge badge-primary bold margin-right-10">'
+				+ reply.id + '</span>'; */
+		html += '<div class="body margin-top-10 reply-body">'
 				+ reply.forPrintBody + '</div>';
-		html += ReplyList__getMediaHtml(reply);
+		html += '<div class="writer-box">';
+		html += '<div class="writer-box-contents ">';
+		html += '<div class="writer"> ' + reply.extra.writer + '</div>';
+		/* html += '&nbsp;|&nbsp;'; */
+		html += '<div class="reg-date">' + reply.regDate + '</div>';
 		html += '</div>';
-
-		html += '<div class="margin-top-10 btn-inline-box">';
+		html += '<div class="reply-box-button visible-on-sm-down margin-top-10 ">';
 
 		if (reply.extra.actorCanDelete) {
-			html += '<button class="btn btn-danger" type="button" onclick="ReplyList__delete(this);">삭제</button>';
+			html += '<button class="btn  visible-on-sm-down" type="button" onclick="ReplyList__delete(this);">삭제</button>';
 		}
 
 		if (reply.extra.actorCanModify) {
-			html += '<button class="btn btn-info" type="button" onclick="ReplyList__showModifyFormModal(this);">수정</button>';
+			html += '<button class="btn  visible-on-sm-down" type="button" onclick="ReplyList__showModifyFormModal(this);">수정</button>';
 		}
 
 		html += '</div>';
+		html += '</div>';
+		html += '<div class="width-100p"></div>';
+
+		html += ReplyList__getMediaHtml(reply);
+		html += '</div>';
+
+		
 
 		html += '</div>';
 		html += '</div>';
@@ -860,13 +966,76 @@
 }
 
 .border-bottom {
-	border-bottom: 1px solid black;
 	opacity: 0.6;
 	margin: 10px 0;
 }
 
+.body .video-box, .body .img-box {
+	
+}
+
+.tui-editor-contents {
+	
+}
+
+.tui-editor-contents p>img {
+	margin-right: 25%;
+	margin-left: 25%;
+}
+
+.body vedio, .body img {
+	width: 50%;
+}
+
 .btns {
 	
+}
+
+@media ( max-width :800px ) {
+	.not-table-box {
+		margin-top: 80px;
+	}
+	.not-table-box .not-table-box-controler .hashtag {
+		
+	}
+	.not-table-box .title {
+		margin-bottom:50px;
+	}
+	.not-table-box .writer-box {
+		width: 100%;
+	}
+	.button-box {
+		justify-content: flex-end;
+		width: 100%;
+		margin-top: 30px;
+		margin-bottom: 10px;
+	}
+	.button-box .button {
+		position: block;
+		margin: 10px 0 10px 10px;
+	}
+	.button-box .button button {
+		height: 30px;
+		margin: 0;
+	}
+	.border-body {
+		border-bottom: 1px solid #cccccc;
+		margin-bottom: 50px;
+	}
+	.board-title {
+		text-align: left;
+	}
+	.not-table-box .btn {
+		margin-left: 10px;
+	}
+	.tui-editor-contents pre {
+		border: 3px solid green;
+		white-space: pre-wrap;
+		width: 100%;
+	}
+	.not-table-box .reply-box {
+		
+	}
 }
 </style>
 <script>

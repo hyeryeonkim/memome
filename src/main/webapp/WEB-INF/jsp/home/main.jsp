@@ -4,36 +4,31 @@
 <c:set var="pageTitle" value="메인" />
 <%@ include file="../part/head.jspf"%>
 
-<!-- 모바일 버전 -->
-<div id="body" class="con body visible-on-sm-down">
-	<p>
-		<strong>메모</strong>는 기억해야 하는 어떤 내용을 잊지 않기 위해서 기록하는 <strong>짧은
-			글</strong>을 말합니다.
-	</p>
-	<!-- <p>
-		메모는 대부분 글을 읽거나, 다른 사람에게 어떤 사항을 전달해야 하거나, 어떤 내용을 듣고 중요사항을 <strong>기억</strong>해야
-		할 때 작성합니다.
-	</p>
-	<p>
-		글을 읽을 때 메모를 하면 글에 <strong>집중</strong>할 수 있으며, 쉽게 잊을 수 있는 내용을 <strong>오래
-			기억 </strong>및 <strong>보존</strong>할 수 있습니다.
-	</p>
-	<p>
-		또한 <strong>중요한 사항</strong>이나 <strong>확인</strong>해야 하는 사항을 메모하게 되면 <strong>한번
-			더 확인</strong>할 수 있으며, 일이나 학업의 <strong>효율을 높일 수</strong> 있습니다.
-	</p> -->
-	<p>
-		메모를 작성할 때에는 긴 문장으로 기록하기 보다 <strong>짧고 간결한 문장</strong>이나 <strong>핵심
-			단어</strong>를 기재하는 것이 좋습니다.
-	</p>
-	<p>
-		이는 메모를 <strong>확인</strong>하여야 하는 <strong>상대방</strong> 혹은 <strong>자신</strong>이
-		<strong>쉽게</strong> 내용을 <strong>확인</strong>할 수 있도록 하기 위함입니다.
-	</p>
+
+
+
+<div class="text-box">
+	<div class="text">
+		<p>메모는</p>
+		<p>
+			<span class="word wisteria">우리의 소중한 추억</span> <span
+				class="word belize">잊지못할 기억들</span> <span class="word pomegranate">어느 한 순간</span> <span class="word green">좋은 습관의 시작</span> <span
+				class="word midnight">성장하는 지름길</span>
+		</p>
+	</div>
 </div>
 
+<!-- 모바일 버전 -->
+
+<div id="body" class="con body visible-on-sm-down mobile">
+	<div class="img-box main-img">
+		<img src="/resource/img/main8.PNG" alt="" />
+	</div>
+</div>	
+
+
 <!-- PC버전 -->
-<div class="con body-box ">
+<div class="con body-box visible-on-md-up">
 	<div class="back"></div>
 	<div class="back-img">
 		<img src="/resource/img/캡처.PNG" alt="" />
@@ -76,16 +71,7 @@
 		</div>
 	</div>
 </div>
-<div class="text-box">
-	<div class="text">
-		<p>메모는</p>
-		<p>
-			<span class="word wisteria">우리의 소중한 추억</span> <span
-				class="word belize">잊지못할 기억들</span> <span class="word pomegranate">기억하고 싶은 순간</span> <span class="word green">좋은 습관의 시작</span> <span
-				class="word midnight">성장하는 지름길</span>
-		</p>
-	</div>
-</div>
+
 
 <!-- <div class="logo-box con flex flex-jc-sb margin-top-50 flex-wrap">
 	<div class="">
@@ -120,10 +106,10 @@ body {
 }
 
 .body-contents {
-	/* border: 4px solid blue; */
 	position: absolute;
 	top: 79%;
-	left: auto;
+	left: 0;
+	width: 100%;
 }
 
 .body-box {
@@ -171,7 +157,7 @@ body {
 
 .title {
 	font-weight: bold;
-	font-size: 2.2rem;
+	font-size: 1.8rem;
 }
 
 .serve-title {
@@ -211,7 +197,7 @@ body {
 .text {
 	position: absolute;
 	height: 40px;
-	left: 33%;
+	left: 30%;
 	top: 12%;
 	font-size: 4rem;
 }
@@ -276,9 +262,7 @@ p {
 		
 	}
 	.body {
-		position: absolute;
-		top: 60%;
-		
+		position: fixed;
 	}
 	.body-contents {
 		/* border: 4px solid blue; */
@@ -288,7 +272,8 @@ p {
 	}
 	.body-box {
 		/* border: 4px solid red; */
-		height:100px;
+		/* height:100px; */
+		
 	}
 	.back {
 		/* border: 5px solid gold; */
@@ -301,24 +286,24 @@ p {
 		background-color: #efeff5;
 		z-index: -1;
 	}
-	.back-img img {
+	/* .back-img img {
 		position: absolute;
 		top: 3%;
 		left: 0;
 		width: 100%;
 		height: 30%;
 		z-index: -1;
-	}
-	  .body-box .back-text {
+	} */
+	.body-box .back-text {
 		width: 100%;
-		position: absolute;
-		 top: 77%; 
+		position: fixed;
+		top: 77%;
 		left: auto;
 		right: 0;
-		 height: 25%; 
+		height: 25%;
 		z-index: -1;
 		background-color: #e6e6e6;
-	}  
+	}
 	/* 
 	
 	.body  img {
@@ -328,17 +313,17 @@ p {
 	} */
 	.title {
 		font-weight: bold;
-		font-size: 2.6rem;
+		font-size: 1.8rem;
 	}
 	.serve-title {
 		font-weight: bold;
-		font-size: 1.8rem;
+		font-size: 1.2rem;
 	}
 	.body {
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 	}
 	.body>p:first-child {
-			margin-top: 3rem;
+		margin-top: 3rem;
 	}
 	.body>p:not(:first-child ) {
 		margin-top: 2rem;
@@ -348,31 +333,31 @@ p {
 	}
 	/* 모바일 버전 */
 	.text-box {
-		height: 17%;
+		height: 5%;
 		position: absolute;
-		top: 40%;
-		left:0;
-		background-color: white;
-		
+		top: 11%;
+		left: 0;
+		/* background-color: white; */
+		width: 100%;
 	}
 	.text {
 		position: absolute;
-		width: 250px;
-		height: 40px;
-		left: 15%;
+		left: 6%;
 		right: 15%;
-		top: 35%;
-		font-size: 1.7rem;
-		
+		top: -10%;
+		font-size: 1.6rem;
 	}
-	p {
+	p:first-child {
 		display: inline-block;
 		vertical-align: top;
-		margin: 0;
+		margin-left: 14%;
+	}
+	p {
+		margin-top: 2%;
 	}
 	.word {
 		position: absolute;
-		width: 220px;
+		width: 200px;
 		opacity: 0;
 	}
 	.letter {
@@ -407,6 +392,14 @@ p {
 	}
 	.midnight {
 		color: #2c3e50;
+	}
+	.main-img {
+		margin-top: 30px;
+		margin-right: 0px;
+		margin-left: -20px;
+	}
+	.main-img img {
+		max-width: 90%;
 	}
 }
 </style>
@@ -476,6 +469,10 @@ p {
 	changeWord();
 	setInterval(changeWord, 4000);
 </script>
+
+
+
+
 
 
 

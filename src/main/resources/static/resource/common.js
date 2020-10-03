@@ -84,8 +84,18 @@ function iOS() {
 
 function MobileSideBar__init() {
     var $btnToggleSideTopBar = $('.btn-toggle-mobile-top-bar');
+    var $text__box = $('.text-box');
 
     $btnToggleSideTopBar.click(function() {
+    	
+    	
+    	if (($text__box).hasClass('remove')) {
+    		$text__box.removeClass('remove');
+    	}
+    	else {
+    		$text__box.addClass('remove');
+    	} 
+    	
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
             $('.mobile-side-bar').removeClass('active');

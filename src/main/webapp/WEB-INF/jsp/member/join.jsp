@@ -9,9 +9,14 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 
-<div class="join-top-bar">
+<div class="join-top-bar visible-on-md-up">
 	<h1>Sign up</h1>
-	<h2>메모미를 바로 시작해보세요</h2>
+	<h2>메모미와 함께 소중한 기억을 담아보세요</h2>
+</div>
+
+<div class="mobile-join-top-bar visible-on-sm-down">
+	<div class="title">Sign up</div>
+	<div class="body">메모미와 함께 소중한 기억을 담아보세요</div>
 </div>
 
 <style>
@@ -23,7 +28,7 @@
 }
 </style>
 
-<div class="join-page con">
+<div class="join-page con visible-on-md-up">
 	<div class="form">
 		<form action="doJoin" method="POST"
 			class=""
@@ -68,7 +73,50 @@
 	</div>
 </div>
 
-
+<div class="mobile-join-page con visible-on-sm-down">
+	<div class="form">
+		<form action="doJoin" method="POST"
+			class=""
+			onsubmit="MemberJoinForm__submit(this); return false;">
+			<input type="hidden" name="loginPwReal" /> <input type="hidden"
+				name="redirectUri" value="../member/login" />
+			<div class="form-control-box">
+				<input type="text" name="loginId" placeholder="userID"
+					onkeyup="JoinForm__checkLoginIdDup(this);" maxlength="30" autofocus />
+				<div class="message-msg" "></div>
+			</div>
+			<div class="form-control-box">
+				<input type="password" name="loginPw" placeholder="password"
+					maxlength="50" />
+			</div>
+			<div class="form-control-box">
+				<input type="password" name="loginPwConfirm"
+					placeholder="password confirm" maxlength="50" />
+			</div>
+			<div class="form-control-box">
+				<input type="text" name="name" placeholder="userName" maxlength="30" />
+			</div>
+			<div class="form-control-box">
+				<input type="text" name="nickname" placeholder="nickName"
+					onkeyup="JoinForm__checkNicknameDup(this);" maxlength="30" />
+				<div class="message-msg" "></div>
+			</div>
+			<div class="form-control-box">
+				<input type="email" name="email" placeholder="user email"
+					onkeyup="JoinForm__checkEmailDup(this);" maxlength="50"
+					style="ime-mode: inactive;" />
+				<div class="message-msg" ></div>
+			</div>
+			<div class="form-control-box">
+				<input type="tel" name="cellphoneNo"
+					onkeyup="JoinForm__checkCellphoneNoDup(this);"
+					placeholder="user cellphoneNo ( -없이 입력해주세요. )" maxlength="11" />
+				<div class="message-msg" ></div>
+			</div>
+			<button type="submit">Sign up</button>
+		</form>
+	</div>
+</div>
 
 
 <script>
@@ -491,13 +539,32 @@ function JoinForm__checkCellphoneNoDup(input) {
 	font-size: 1rem;
 }
 
+.join-page {
+	width:30%;
+	margin-top:100px;
+}
+
 /* 모바일 버전 */
 @media ( max-width :1210px) {
-	.con {
-		width: 80%;
-		margin-left: auto;
-		margin-right: auto;
+	.mobile-join-page input {
+	height:10px;
+	font-size:0.77rem;
 	}
+	
+	.mobile-join-page .form{
+		padding-top:30px;
+		padding-bottom:30px;
+	}
+	
+	.mobile-join-top-bar .title {
+		font-weight:bold;
+			
+	}
+	
+	.mobile-join-top-bar .body {
+	}
+	
+	
 }
 
 .join-page {

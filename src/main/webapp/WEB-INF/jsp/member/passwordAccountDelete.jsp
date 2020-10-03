@@ -11,7 +11,7 @@
 
 
 
-<div class="delete-page con">
+<div class="delete-page con visible-on-md-up">
 	<div class="form">
 		<form method="POST" action="accountDelete" class=""
 			onsubmit="submitAccountDeleteForm(this); return false;">
@@ -35,6 +35,32 @@
 	</div>
 </div>
 
+
+
+
+<div class="mobile-delete-page con visible-on-sm-down">
+	<div class="form">
+		<form method="POST" action="accountDelete" class=""
+			onsubmit="submitAccountDeleteForm(this); return false;">
+			<input type="hidden" name="memberId" value="${loginedMemberId}" />
+			<div class="table-control-box">
+				<div class="modify-title">회원탈퇴를 결정하셨습니까?</div>
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">password</div>
+				<input type="password" name="loginPw"
+					placeholder="탈퇴 후 memome 이용제한이 있을 수 있습니다." autofocus />
+			</div>
+
+			<div class="form-control-box flex">
+				<div class="title">sign out</div>
+				<button type="submit"
+					onclick="if ( confirm('탈퇴하시겠습니까?') == false) return false;">sign
+					out</button>
+			</div>
+		</form>
+	</div>
+</div>
 
 <script>
 	function submitAccountDeleteForm(form) {
@@ -99,11 +125,36 @@
 }
 
 /* 모바일 버전 */
-@media ( max-width :1210px) {
-	.con {
-		width: 80%;
+@media ( max-width :800px ) {
+	.mobile-delete-page .form {
+		max-width: 800px;
 		margin-left: auto;
 		margin-right: auto;
+		margin-top: 200px;
+		padding:40px 5px;
+	}
+	.mobile-delete-page .modify-title {
+		margin-bottom: 30px;
+		font-weight: bold;
+		font-size: 1.1rem;
+	}
+	.mobile-delete-page .form .form-control-box {
+		display: flex;
+		align-items: center;
+		margin: 10px 0;
+	}
+	.mobile-delete-page .form .form-control-box  input {
+		margin-top: auto;
+		margin-bottom: auto;
+		font-size:0.6rem;
+	}
+	.mobile-delete-page .form form button {
+		background: #fdbe3f;
+	}
+	.mobile-delete-page .form .form-control-box .title {
+		/* font-size: 1.2rem; */
+		width: 100px;
+		font-size:0.9rem;
 	}
 }
 </style>

@@ -102,9 +102,6 @@ a {
 	margin-top: 120px;
 }
 
-
-
-
 .margin-bottom-10 {
 	margin-bottom: 10px;
 }
@@ -243,10 +240,9 @@ flex-row-wrap {
 	padding: 10px;
 }
 
-.table-box > table select {
-	height:40px;
-	width:80px;
-	
+.table-box>table select {
+	height: 40px;
+	width: 80px;
 }
 
 /* 모바일 버전 memo 테이블 관련 */
@@ -254,8 +250,6 @@ flex-row-wrap {
 	/* 	border-collapse: collapse; */
 	
 }
-
-
 
 .memo-table-box .memo-box {
 	border: 7px solid black;
@@ -288,6 +282,7 @@ flex-row-wrap {
 	top: 0;
 	z-index: -1;
 	background-color: #f2f2f2;
+	/* border:3px solid green; */
 }
 
 .outer-box .top-bar .menu-box ul {
@@ -531,16 +526,13 @@ flex-row-wrap {
 	padding-right: 0 !important;
 }
 
-
-
-
-
 .hi-user {
 	position: fixed;
-		top: 4%;
-		right: 5%;
-		z-index: 3;
+	top: 4%;
+	right: 5%;
+	z-index: 3;
 }
+
 @media ( max-width :800px ) {
 	.hi-user {
 		position: fixed;
@@ -552,8 +544,11 @@ flex-row-wrap {
 
 /* 모바일 탑바 */
 @media ( max-width :800px ) {
+	.outer-box .top-bar-top-back {
+		display: none;
+	}
 	.mobile-top-bar {
-		background-color: #efeff5;
+		background-color: #f2f2f2;
 		height: 50px;
 		color: white;
 		position: fixed;
@@ -561,20 +556,19 @@ flex-row-wrap {
 		top: 0;
 		left: 0;
 		width: 100%;
-	}
-	.mobile-top-bar .logo {
-		font-size: 3rem;
+		/* border:3px solid red; */
 	}
 	.mobile-top-bar .btn-toggle-mobile-top-bar {
 		margin-right: 20px;
 		margin-left: auto;
 		width: 30px;
 		height: 30px;
-		background-color: #3c3c5d;
+		background-color: #f2f2f2;
 		position: relative;
+		/* border:3px solid blue; */
 	}
 	.mobile-top-bar .btn-toggle-mobile-top-bar>div {
-		background-color: #50507c;
+		background-color: #262626;
 		width: 100%;
 		height: 15%;
 		top: 0;
@@ -586,7 +580,7 @@ flex-row-wrap {
 		transition: top .2s 0s, transform .2s .2s, visibility 0s;
 	}
 	.mobile-top-bar .btn-toggle-mobile-top-bar>div:nth-child(2) {
-		background-color: #50507c;
+		background-color: #262626;
 		width: 100%;
 		height: 15%;
 		top: 40%;
@@ -594,7 +588,7 @@ flex-row-wrap {
 		position: absolute;
 	}
 	.mobile-top-bar .btn-toggle-mobile-top-bar>div:nth-child(3) {
-		background-color: #50507c;
+		background-color: #262626;
 		width: 100%;
 		height: 15%;
 		top: 80%;
@@ -616,11 +610,11 @@ flex-row-wrap {
 
 	/* 모바일 사이드 바 시작 */
 	.mobile-side-bar {
-		background-color: #e0e0eb;
+		background-color: #f2f2f2;
 		position: fixed;
-		z-index: 1;
-		color: #28283e;
-		top: 0;
+		z-index: 2;
+		color: #000080;
+		top: 30px;
 		left: 0;
 		bottom: 0;
 		right: 0;
@@ -642,15 +636,26 @@ flex-row-wrap {
 	}
 	.mobile-side-bar .menu-box {
 		margin-top: 100px;
+		
+	}
+	
+	.mobile-side-bar .menu-box ul {
+		display:block;
+		
 	}
 	.mobile-side-bar  .menu-box  ul>li {
-		margin-top: 20px;
+		margin-top: 10px;
+		width:200px;
+		margin-right:auto;
+		margin-left:auto;
 	}
 	.mobile-side-bar  .menu-box  ul>li>a {
-		padding: 10px;
 		font-size: 1.6rem;
 		font-weight: bold;
 		text-decoration: none;
+		display:block;
+		padding: 10px;
+		
 	}
 	.mobile-side-bar .menu-box ul li:hover>a {
 		background-color: #d0d0e1;
@@ -675,10 +680,7 @@ flex-row-wrap {
 }
 /* 모바일 사이드바 끝 */
 
-
-
 /* 로그인(login), 회원가입(join) form 관련 시작 */
-
 .login-page {
   width: 360px;
   /* padding: 8% 0 0; */
@@ -793,26 +795,36 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 
+
 /* 로그인(login), 회원가입(join) form 관련 끝 */
 
-
-
-/* not-table 관련 CSS 시작 */
-
-.not-table-box {
-/* 	border: 3px solid red; */
+/* 모바일(mobile) 로그인(login), 회원가입(join) form 관련 시작 */
+@media ( max-width :800px ) {
+	.login-page {
+		width: 100%;
+		margin-top: 140px;
+	}
+	.login-page .form {
+		
+	}
 }
 
-.not-table-box .border-body{
-	border-bottom:1px solid #cccccc;
-	margin-top:10px;
+/* not-table 관련 CSS 시작 */
+.not-table-box {
+	/* 	border: 3px solid red; */
+	
+}
+
+.not-table-box .border-body {
+	border-bottom: 1px solid #cccccc;
+	margin-top: 10px;
 }
 
 .not-table-box .not-table-box-controler:nth-child(2) {
 	/* border: 3px solid blue; */
 	display: flex;
-	height:40px;
-	align-items:center;
+	height: 40px;
+	align-items: center;
 }
 
 .not-table-box .not-table-box-controler:nth-child(2) div {
@@ -825,17 +837,13 @@ body {
 	font-size: 2rem;
 }
 
-
 .not-table-box .not-table-box-controler .body {
-	margin-top:50px;
+	margin-top: 50px;
 }
 /* not-table 관련 CSS 끝 */
 
-
-
 /* not-table reply 시작 */
-
-.not-table-box .not-table-box-controler .reply-box >textarea {
+.not-table-box .not-table-box-controler .reply-box>textarea {
 	width: 100%;
 	padding: 0;
 	display: block;
@@ -845,8 +853,6 @@ body {
 	resize: none;
 }
 
-
-	
 /* 댓글 관련 시작 */
 .table-box>table tr {
 	border: 3px solid black;
@@ -858,6 +864,7 @@ body {
 
 .table-box>table td:nth-child(2) {
 	/* border: 3px solid orange; */
+	
 }
 
 .table-box>table td:nth-child(3) {
@@ -869,12 +876,10 @@ body {
 }
 
 .reply-box {
-	/* border:3px solid purple; */
 	
 }
 
 .reply-box .reply-body {
-	/* border:3px solid blue; */
 	height: 60px;
 }
 
@@ -886,7 +891,7 @@ body {
 .writer-box {
 	display: flex;
 	align-items: center;
-	margin-top:20px;
+	margin-top: 20px;
 }
 
 .writer-box .writer-contents {
@@ -898,47 +903,97 @@ body {
 	margin-right: 0;
 	margin-left: auto;
 }
+
 .file-box {
-	display:none;
+	display: none;
 }
+
 .btns {
 	/* border:3px solid gold; */
-	margin-right:0;
-	margin-left:auto;
-	display:flex;
-	justify-content:flex-end;
-	margin-top:10px;
-	
+	margin-right: 0;
+	margin-left: auto;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px;
 }
 
 .not-table-box-controler {
 	/* border: 3px solid red; */
+	
 }
+
 .file-box-block {
-	display:block;
+	display: block;
 }
+
 .close__file {
-	display:none;
+	display: none;
 }
+
 .close__file__block {
-	display:block;
+	display: block;
 }
+
 .add__file__none {
-	display:none;
+	display: none;
 }
 /* 댓글 관련 끝 */
 
-
-
-
-/* 게시물 작성, 수정 폼 양식 시작(table 미사용) */
-
-
-.not-table-box .invite-title {
-	font-weight:bold;
-	font-size:1.3rem;
+/* 모바일 버전 댓글 관련 시작 */
+@media ( max-width :800px ) {
+	.mobile-reply {
+		width:100%;
+	}
+	.mobile-reply .mobile-reply-box {
+	}
+	
+	.mobile-reply .mobile-reply-box .body{
+			height:40px;
+			width:100%;
+	}
+	
+	.mobile-reply .writer-box {
+		justify-content:space-between;
+						
+	}
+	
+	.mobile-reply .writer-box-contents {
+		width:160px;
+	}
+	.mobile-reply .writer-box {
+		
+	}
+	
+	.mobile-reply .writer {
+		width: 120px;
+		font-size:0.8rem;
+	}
+	.mobile-reply .reg-date {
+		width: 160px;
+		font-size:0.8rem;
+	}
+	.mobile-reply .body {
+		width: 100%;
+	}
+	
+	 .reply-box-button   {
+		margin-bottom:10px;
+		
+		
+	}
+	.reply-box-button button {
+		width:70px;
+		font-size:0.8rem;
+		margin-right:0;
+	}
+	
 }
 
+/* 게시물 작성, 수정 폼 양식 시작(table 미사용) */
+.not-table-box .invite-title {
+	font-weight: bold;
+	font-size: 1.3rem;
+}
 
 .not-table-box-controler .invite-control-box input:not(:first-child ) {
 	display: none;
@@ -1003,8 +1058,18 @@ body .not-table-box-controler .invite-control-box .block {
 
 .not-table-box .not-table-box-controler .invite-control-box input {
 	width: 200px;
-	height:50px;
-	font-size:1rem;
-	font-weight:normal;
+	height: 50px;
+	font-size: 1rem;
+	font-weight: normal;
 }
-/* 테이블 미사용 끝 */ 
+/* 테이블 미사용 끝 */
+.remove {
+	display: none;
+}
+
+pre {
+	/* background-color: #E6E6FA; */
+	/* padding:10px; */
+	overflow: auto;
+	white-space: pre-wrap; /* pre tag내에 word wrap */
+}

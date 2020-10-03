@@ -8,7 +8,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-<div class="modify-page con">
+<div class="modify-page con visible-on-md-up">
 	<div class="form">
 		<form method="POST" action="doModify" class=""
 			onsubmit="submitMemberDataModify(this); return false;">
@@ -34,10 +34,10 @@
 					value="${loginedMember.nickname}"
 					onkeyup="JoinForm__checkNicknameDup(this);" />
 			</div>
-			<div class="" >
-			<div class="message-msg-1" style="margin-bottom: 10px;"></div>
+			<div class="">
+				<div class="message-msg-1" style="margin-bottom: 10px;"></div>
 			</div>
-			
+
 			<div class="form-control-box flex">
 				<div class="title">
 					email <strong style="color: red;">(choice)</strong>
@@ -47,7 +47,7 @@
 					onkeyup="JoinForm__checkEmailDup(this);" />
 			</div>
 			<div class="">
-			<div class="message-msg-2" style="margin-bottom: 10px;"></div>
+				<div class="message-msg-2" style="margin-bottom: 10px;"></div>
 			</div>
 
 			<div class="form-control-box flex">
@@ -63,6 +63,62 @@
 	</div>
 </div>
 
+
+
+<div class="mobile-modify-page con visible-on-sm-down">
+	<div class="form">
+		<form method="POST" action="doModify" class=""
+			onsubmit="submitMemberDataModify(this); return false;">
+			<input type="hidden" name="id" value="${loginedMemberId }" />
+			<div class="table-control-box">
+				<div class="modify-title">회원정보를 변경해주세요.</div>
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">Sign in date</div>
+				<input type="text" name="regDate" value="${loginedMember.regDate}"
+					readonly />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">name</div>
+				<input type="text" name="name" value="${loginedMember.name}"
+					readonly />
+			</div>
+			<div class="form-control-box flex ">
+				<div class="title">
+					nickname <strong style="color: red;">(choice)</strong>
+				</div>
+				<input class="border-red-1" type="text" name="nickname"
+					value="${loginedMember.nickname}"
+					onkeyup="JoinForm__checkNicknameDup(this);" />
+			</div>
+			<div class="">
+				<div class="message-msg-1" style="margin-bottom: 10px;"></div>
+			</div>
+
+			<div class="form-control-box flex">
+				<div class="title">
+					email <strong style="color: red;">(choice)</strong>
+				</div>
+				<input class="border-red-1" type="email" name="email"
+					value="${loginedMember.email}"
+					onkeyup="JoinForm__checkEmailDup(this);" />
+			</div>
+			<div class="">
+				<div class="message-msg-2" style="margin-bottom: 10px;"></div>
+			</div>
+
+			<div class="form-control-box flex">
+				<div class="title">last updateDate</div>
+				<input type="text" name="updateDate"
+					value="${loginedMember.updateDate}" readonly />
+			</div>
+			<div class="form-control-box flex">
+				<div class="title">modify</div>
+				<button type="submit">modify</button>
+			</div>
+		</form>
+	</div>
+</div>
 <script>
 	function submitMemberDataModify(form) {
 		if (isNowLoading()) {
@@ -185,11 +241,54 @@
 <style>
 
 /* 모바일 버전 */
-@media ( max-width :1210px) {
-	.con {
-		width: 80%;
+@media ( max-width :800px ) {
+	.mobile-modify-page {
+		
+	}
+	.mobile-modify-page .form {
+		max-width: 800px;
 		margin-left: auto;
 		margin-right: auto;
+		margin-top: 130px;
+		padding: 40px 20px;
+	}
+	.mobile-modify-page .modify-title {
+		margin-bottom: 30px;
+		font-weight: bold;
+		font-size: 1.2rem;
+	}
+	.mobile-modify-page .form .form-control-box {
+		display: flex;
+		align-items: center;
+		margin: 10px 0;
+	}
+	.mobile-modify-page .form .form-control-box  input {
+		margin-top: auto;
+		margin-bottom: auto;
+	}
+	.mobile-modify-page .form .form-control-box  .form-control-box-contents {
+		width: 100%;
+		text-align: left;
+		height: 100%;
+		padding-bottom: 0;
+	}
+	.mobile-modify-page .form .message-msg-1, .modify-page .form .message-msg-2 {
+		text-align: right;
+	}
+	.mobile-modify-page .form .form-control-box:nth-child(3) input,
+		.form-control-box:nth-child(4) input {
+		background: #cccccc;
+	}
+	.mobile-modify-page .form form button {
+		background: #fdbe3f;
+	}
+	.mobile-modify-page .form .form-control-box .title {
+		/* font-size: 1.2rem; */
+		width: 140px;
+	}
+	.btn {
+		padding: 0 25px;
+		font-size: 1rem;
 	}
 }
 
@@ -230,8 +329,7 @@
 }
 
 .modify-page .form .message-msg-1, .modify-page .form .message-msg-2 {
-	
-	text-align:right;
+	text-align: right;
 }
 
 .modify-page .form .form-control-box:nth-child(3) input,

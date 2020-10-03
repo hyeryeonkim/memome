@@ -11,12 +11,24 @@
 			style="color: blue;"> 글쓰기</strong>
 	</h1>
 </c:if>
+
+<!-- PC 버전 -->
 <c:if test="${boardCode eq 'memoYOU' || boardCode eq 'memoME'}">
-	<h1 class="con">
+	<h1 class="con visible-on-md-up">
 		<strong style="color: black;">${boardCode}</strong><strong
 			style="color: blue;"> MEMO MODIFY</strong>
 	</h1>
 </c:if>
+
+
+<!-- 모바일 버전 -->
+<c:if test="${boardCode eq 'memoYOU' || boardCode eq 'memoME'}">
+	<h1 class="con visible-on-sm-down">
+		<strong style="color: black; font-size: 1.5rem;">${boardCode}</strong><strong
+			style="color: blue; font-size: 1.2rem;"> MEMO MODIFY</strong>
+	</h1>
+</c:if>
+
 <div class="not-table-box con margin-top-50">
 	<form method="POST" action="${boardCode}-doMemoModify?mode=${mode}"
 		class="form1  con"
@@ -26,9 +38,9 @@
 			value="${param.id}" /> <input type="hidden" name="body" />
 		<c:if test="${boardCode ne 'unicon' }">
 			<div class="not-table-box-controler select flex flex-jc-sb">
-				<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus
-					maxlength="200" value="${article.title}" /> <select
-					name="displayStatus" id="">
+				<input type="text" class="input-title" name="title"
+					placeholder="제목을 입력해주세요." autofocus maxlength="200"
+					value="${article.title}" /> <select name="displayStatus" id="">
 					<option value="1">공개</option>
 					<option value="0">비공개</option>
 				</select>
@@ -42,8 +54,8 @@
 		<div class="not-table-box-controler tag" id="tag">
 			<c:forEach items="tagBits" var="tag">
 				<%-- 							<c:if test="${tag.length() eq 0 == false }"> --%>
-				<input type="text" name="tag" placeholder="#태그 입력" class="input-tag"
-					value="${tagBits}" />
+				<input type="text" name="tag" class="input-tag" placeholder="#태그 입력"
+					class="input-tag" value="${tagBits}" />
 				<%-- 							</c:if> --%>
 			</c:forEach>
 		</div>
@@ -81,7 +93,6 @@
 			<div class="border-file-1"></div>
 		</c:forEach>
 		<div class="btns ">
-			
 			<div class="form-control-box">
 				<button type="button" class="btn black"
 					onclick="if( confirm('삭제하시겠습니까?') == false ) return false; location.href='/usr/memo/${boardCode}-doDelete?id=${param.id}' ">DELETE</button>
@@ -112,14 +123,15 @@
 }
 
 .btns {
+	
 }
 
 .btns .form-control-box {
-	width:400px;
+	width: 400px;
 }
 
-.btns .form-control-box button{
-	margin-right:0;
+.btns .form-control-box button {
+	margin-right: 0;
 }
 </style>
 
@@ -367,7 +379,27 @@
 	display: block;
 	box-sizing: border-box;
 	padding: 10px;
-	border: 3px solid blue;
+}
+
+@media ( max-width :800px ) {
+	.not-table-box .not-table-box-controler .input-title {
+		height: 45px;
+		font-size: 1rem;
+	}
+	.not-table-box .not-table-box-controler input:last-child {
+		max-width: 96%;
+		font-size: 0.9rem;
+	}
+	
+	.not-table-box .btns  .form-control-box {
+		width:100px;
+		margin-right:35px;
+	}
+	
+	.not-table-box .btns  button{
+		width:100px;
+	}
+	
 }
 </style>
 

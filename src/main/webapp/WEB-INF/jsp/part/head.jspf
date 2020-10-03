@@ -73,13 +73,14 @@ var param = ${paramJson};
 		</div>
 	</div>
 	<!-- style="position:fixed; left:10%; right:10%;" -->
+	
 	<div class="outer-box ">
-		<div class="top-bar-top-back"></div>
+<div class="top-bar-top-back"></div>
 		<div class="top-bar margin-top-10 visible-on-md-up "
 			style="margin-bottom: 130px;">
 			<div class="menu-box">
 				<ul>
-					<li><a href="../home/main">홈</a></li>
+					<li><a href="../home/main?mode=${param.mode}">홈</a></li>
 					<li><a href="../article/notice-list?mode=${param.mode }">공지사항</a></li>
 					<li><a href="../article/free-list?mode=${param.mode }">자유게시판</a></li>
 					<li><a href="../memo/memoYOU-memoList?mode=${param.mode }">memoYOU</a></li>
@@ -115,32 +116,7 @@ var param = ${paramJson};
 				</div>
 			</c:if>
 		</c:if>
-		
-		<%-- <c:if test="${pageTitle eq '메인' }">
-			<h1 class="page-title-box con" style="color: red;">${pageTitle}</h1>
-		</c:if> --%>
-		<%-- <c:if test="${pageTitle eq '비밀번호 확인' }">
-			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if> --%>
-		<%-- <c:if test="${pageTitle eq 'My Page' }">
-			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if> --%>
-	<%-- 	<c:if test="${pageTitle eq '회원정보 변경' }">
-			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if> --%>
-		<%-- <c:if test="${pageTitle eq '비밀번호 변경' }">
-			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if> --%>
-		<%-- <c:if test="${pageTitle eq '회원탈퇴' }">
-			<h1 class="page-title-box con" style="color: navy;">${pageTitle}</h1>
-		</c:if> --%>
-		<%-- <c:if test="${pageTitle eq '회원가입' }">
-			<h1 class="page-title-box con" style="color: blue;">${pageTitle}</h1>
-		</c:if> --%>
-		<%-- <c:if test="${pageTitle eq '로그인' }">
-			<h1 class="page-title-box con" style="color: purple;">${pageTitle}</h1>
-		</c:if>
- --%>
+
 
 		<!--모바일 버전 -->
 		<div class="loading-box flex-ai-c flex-jc-c visible-on-sm-down">
@@ -156,32 +132,28 @@ var param = ${paramJson};
 			</div>
 		</div>
 
-		<div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
-			<a href="#" class="btn-toggle-mobile-top-bar">
-				<div></div>
-				<div></div>
-				<div></div>
-			</a>
-		</div>
+
 
 		<div class="outer-box ">
+			<div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
+				<a href="#" class="btn-toggle-mobile-top-bar">
+					<div></div>
+					<div></div>
+					<div></div>
+				</a>
+			</div>
 			<div id="mobile-top-bar"
-				class="mobile-side-bar margin-top-10 visible-on-sm-down">
+				class="mobile-side-bar margin-top-10 visible-on-sm-down ">
 				<div class="menu-box">
-					<!-- <script>
-						setTimeout(function() {
-							jQuery('#mobile-top-bar').addClass('add');
-						});
-					</script> -->
 					<ul>
-						<li><a href="../home/main">홈</a></li>
-						<li><a href="../article/notice-list">공지사항</a></li>
-						<li><a href="../article/free-list">자유게시판</a></li>
-						<li><a href="../memo/memoYOU-memoList">memoYOU</a></li>
+						<li><a href="../home/main?mode=${param.mode}">홈</a></li>
+						<li><a href="../article/notice-list?mode=${param.mode }">공지사항</a></li>
+						<li><a href="../article/free-list?mode=${param.mode }">자유게시판</a></li>
+						<li><a href="../memo/memoYOU-memoList?mode=${param.mode }">memoYOU</a></li>
 						<c:if test="${isLogined }">
-							<li><a href="../memo/memoME-memoList">memoME</a></li>
+							<li><a href="../memo/memoME-memoList?mode=${param.mode }">memoME</a></li>
 						</c:if>
-						<li><a href="../memo/unicon-memoList">UNICON</a></li>
+						<li><a href="../memo/unicon-memoList?mode=${param.mode }">UNICON</a></li>
 						<c:if test="${isLogined == false}">
 							<li><a href="../member/join">회원가입</a></li>
 						</c:if>
@@ -193,8 +165,6 @@ var param = ${paramJson};
 								href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">settings</a></li>
 							<li><a href="../member/logout">로그아웃</a></li>
 						</c:if>
-
 					</ul>
 				</div>
 			</div>
-			

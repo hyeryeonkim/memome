@@ -5,22 +5,38 @@
 <%@ include file="../part/head.jspf"%>
 
 <c:if test="${boardCode eq 'notice' }">
-	<h1 class="con ">
+	<h1 class="con visible-on-md-up">
 		<strong style="color: orange;">${boardCode}</strong>게시판
 	</h1>
 </c:if>
 <c:if test="${boardCode eq 'free' }">
-	<h1 class="con ">
+	<h1 class="con visible-on-md-up">
 		<strong style="color: gold;">${boardCode}</strong>게시판
 	</h1>
 </c:if>
 
+<!-- PC 모드 -->
 <c:if test="${boardCode eq 'free' }">
-	<div class="free-top-bar con">
+	<div class="free-top-bar visible-on-md-up con">
 		<h1>Story</h1>
 		<h2>메모미의 다양한 이야기들을 만나보세요</h2>
 	</div>
 </c:if>
+
+<!-- 모바일 모드 -->
+<c:if test="${boardCode eq 'free' }">
+	<div class="free-top-bar-mobile visible-on-sm-down con">
+		<div class="title">Story</div>
+		<div class="body">메모미의 다양한 이야기들을 만나보세요</div>
+	</div>
+</c:if>
+
+<%-- <c:if test="${boardCode eq 'notice' }">
+	<div class="free-top-bar-mobile visible-on-sm-down con">
+		<div class="title">Notice</div>
+		<div class="body">메모미와 함께 시작하세요</div>
+	</div>
+</c:if> --%>
 
 <style>
 .free-top-bar {
@@ -34,21 +50,23 @@
 
 
 <c:if test="${member.id eq 1 && boardCode eq 'notice' }">
-	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+	<div
+		class="write-btn con margin-top-50 flex flex-jc-fe visible-on-md-up">
 		<button type="button" class="btn black  "
 			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
 	</div>
-	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down">
+	<div class="write-btn con  flex flex-jc-fe visible-on-sm-down">
 		<button type="button" class="btn black  "
 			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
 	</div>
 </c:if>
 <c:if test="${boardCode eq 'notice' == false }">
-	<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+	<div
+		class="write-btn con margin-top-50 flex flex-jc-fe visible-on-md-up">
 		<button type="button" class="btn black  "
 			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
 	</div>
-	<div class="con margin-top-50 flex flex-jc-fe visible-on-sm-down">
+	<div class="write-btn con  flex flex-jc-fe visible-on-sm-down">
 		<button type="button" class="btn black  "
 			onclick="location.href='../article/${boardCode}-write'">글쓰기</button>
 	</div>
@@ -91,7 +109,7 @@
 	</div>
 </c:if>
 
-<div class="con" style="font-size: 1.2rem;">총 게시물 수 :
+<div class="con total-box" style="font-size: 1.2rem;">총 게시물 수 :
 	${totalCount}</div>
 <div class="memo-table-list con  ">
 	<c:forEach items="${articles}" var="article">
@@ -115,25 +133,25 @@
 					</div>
 				</div>
 				<div class="file-control-box">
-						<c:set var="fileNo" value="${String.valueOf(3)}" />
-						<c:set var="file"
-							value="${article.extra.file__common__attachment[fileNo]}" />
-						<c:if test="${file != null}">
-							<c:if test="${file.fileExtTypeCode == 'video'}">
-								<div class="video-box">
-									<video controls
-										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-								</div>
-							</c:if>
-							<c:if test="${file.fileExtTypeCode == 'img'}">
-								<div class="img-box img-box-auto">
-									<img
-										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-										alt="" />
-								</div>
-							</c:if>
+					<c:set var="fileNo" value="${String.valueOf(3)}" />
+					<c:set var="file"
+						value="${article.extra.file__common__attachment[fileNo]}" />
+					<c:if test="${file != null}">
+						<c:if test="${file.fileExtTypeCode == 'video'}">
+							<div class="video-box">
+								<video controls
+									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+							</div>
 						</c:if>
-					</div>
+						<c:if test="${file.fileExtTypeCode == 'img'}">
+							<div class="img-box img-box-auto">
+								<img
+									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+									alt="" />
+							</div>
+						</c:if>
+					</c:if>
+				</div>
 			</div>
 		</c:if>
 	</c:forEach>
@@ -158,25 +176,25 @@
 					</div>
 				</div>
 				<div class="file-control-box">
-						<c:set var="fileNo" value="${String.valueOf(3)}" />
-						<c:set var="file"
-							value="${article.extra.file__common__attachment[fileNo]}" />
-						<c:if test="${file != null}">
-							<c:if test="${file.fileExtTypeCode == 'video'}">
-								<div class="video-box">
-									<video controls
-										src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
-								</div>
-							</c:if>
-							<c:if test="${file.fileExtTypeCode == 'img'}">
-								<div class="img-box img-box-auto">
-									<img
-										src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
-										alt="" />
-								</div>
-							</c:if>
+					<c:set var="fileNo" value="${String.valueOf(3)}" />
+					<c:set var="file"
+						value="${article.extra.file__common__attachment[fileNo]}" />
+					<c:if test="${file != null}">
+						<c:if test="${file.fileExtTypeCode == 'video'}">
+							<div class="video-box">
+								<video controls
+									src="/usr/file/streamVideo?id=${file.id}&updateDate=${file.updateDate}"></video>
+							</div>
 						</c:if>
-					</div>
+						<c:if test="${file.fileExtTypeCode == 'img'}">
+							<div class="img-box img-box-auto">
+								<img
+									src="/usr/file/img?id=${file.id}&updateDate=${file.updateDate}"
+									alt="" />
+							</div>
+						</c:if>
+					</c:if>
+				</div>
 			</div>
 		</c:if>
 	</c:forEach>
@@ -250,21 +268,20 @@ input[type="submit"] {
 .memo-table-list .memo-table-list-box .file-control-box {
 	height: 100%;
 	width: 30%;
-	
 }
 
-.memo-table-list .memo-table-list-box .file-control-box .img-box, .memo-table-list .memo-table-list-box .file-control-box .video-box {
+.memo-table-list .memo-table-list-box .file-control-box .img-box,
+	.memo-table-list .memo-table-list-box .file-control-box .video-box {
 	/* border:3px solid blue; */
-	max-width:100%;
-	height:100%;
+	max-width: 100%;
+	height: 100%;
 	overflow: hidden;
 }
 
-.memo-table-list .memo-table-list-box .file-control-box img, .memo-table-list .memo-table-list-box .file-control-box video  {
-	 /* object-fit: cover; */
-	 max-width:100%;
-	 
-	
+.memo-table-list .memo-table-list-box .file-control-box img,
+	.memo-table-list .memo-table-list-box .file-control-box video {
+	/* object-fit: cover; */
+	max-width: 100%;
 }
 
 .memo-table-list .memo-table-list-box {
@@ -299,8 +316,8 @@ input[type="submit"] {
 
 /* body를 태그로 바꿔서 사용중....  */
 .memo-table-list .memo-table-list-box .contents-box .body {
-	 /* border: 3px solid orange; */
-	 margin-top:30px; 
+	/* border: 3px solid orange; */
+	margin-top: 30px;
 	height: 30px;
 	width: 100%;
 	font-size: 1.1rem;
@@ -308,7 +325,7 @@ input[type="submit"] {
 }
 
 .memo-table-list .memo-table-list-box .writer-box {
-	 /* border: 3px solid black; */ 
+	/* border: 3px solid black; */
 	height: 30px;
 	display: flex;
 }
@@ -321,14 +338,78 @@ input[type="submit"] {
 }
 
 @media ( max-width :800px ) {
+	.search {
+		margin-right: 1.3px;
+	}
+	.search .search-box button {
+		padding: 0 20px;
+	}
+	.search .search-box form .tag-box {
+		width: 220px;
+		font-size: 1.5rem;
+	}
+	.total-box {
+		width: 50%;
+		margin-right: 0;
+		margin-top: 20px;
+		text-align: right;
+	}
+	.memo-table-list {
+		margin-top: 80px;
+	}
 	.memo-table-list .memo-table-list-box .contents-box .title {
-		font-size: 1.6rem;
+		font-size: 1.3rem;
+		width: 95%;
+	}
+	.memo-table-list .memo-table-list-box .file-control-box {
+		height: 38%;
+	}
+	.memo-table-list .memo-table-list-box .file-control-box img {
+		height: 100%;
+		width: 100%;
+	}
+	.memo-table-list .memo-table-list-box {
+		height:145px;
 	}
 
 	/* body를 태그로 바꿔서 사용중....  */
 	.memo-table-list .memo-table-list-box .contents-box .body {
-		font-size: 1rem;
+		width: 124%;
+		height: 50px;
+		font-size: 0.8rem;
 		opacity: 0.7;
+		margin-top: 10px;
+		/* word-break: keep-all; */
+	}
+	.memo-table-list .memo-table-list-box .writer-box {
+		display: flex;
+		font-size: 0.9rem;
+	}
+	.free-top-bar-mobile {
+		position: absolute;
+		top: 100px;
+		left: 4%;
+		font-weight: bold;
+	}
+	.free-top-bar-mobile .title {
+		font-size: 1.8rem;
+	}
+	.free-top-bar-mobile .body {
+		font-size: 1.3rem;
+		
+	}
+	.write-btn {
+		margin-top: 250px;
+		margin-bottom: 0;
+	}
+	.memo-table-list .memo-table-list-box .writer-box {
+		margin-top:0px;
+		height:20px;
+	}
+	.memo-table-list .memo-table-list-box .writer-box .writer, .regDate {
+		/* border: 3px solid green; */
+		width: 280px;
+		height:0;
 	}
 }
 </style>

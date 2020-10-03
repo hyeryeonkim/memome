@@ -8,7 +8,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-<div class="password-modify-page con">
+<div class="password-modify-page con ">
 	<div class="form">
 		<form method="POST" action="doPasswordModify" class="password-modify"
 			onsubmit="SubmitPasswordModify(this); return false;">
@@ -130,15 +130,7 @@
 
 
 /* 모바일 버전 */
-@media ( max-width :1210px) {
-	.con {
-		width: 80%;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	.btn {
-		
-	}
+@media ( max-width :800px ) {
 }
 </style>
 

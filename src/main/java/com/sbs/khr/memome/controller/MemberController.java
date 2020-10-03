@@ -88,10 +88,13 @@ public class MemberController {
 	// 로그인
 	@RequestMapping("/usr/member/doLogin")
 	public String doLogin(@RequestParam Map<String, Object> param, Model model, HttpSession session) {
+		
+		Member member = memberService.getMemberByLoginId(Util.getAsStr(param.get("loginId")));
+		 
 
 		Util.changeMapKey(param, "loginPwReal", "loginPw");
 
-		Member member = memberService.getMemberByLoginId(Util.getAsStr(param.get("loginId")));
+		
 
 		if (member == null || member.isDelStatus() == true) {
 			model.addAttribute("historyBack", true);
