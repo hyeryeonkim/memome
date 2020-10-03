@@ -98,6 +98,7 @@ public class MemberController {
 
 		if (member == null || member.isDelStatus() == true) {
 			model.addAttribute("historyBack", true);
+			model.addAttribute("disableLogin", true);
 			model.addAttribute("alertMsg", "존재하지 않는 회원입니다.");
 			return "common/redirect";
 		}
@@ -106,6 +107,7 @@ public class MemberController {
 
 		if (member.getLoginPw().equals(loginPw) == false) {
 			model.addAttribute("historyBack", true);
+			model.addAttribute("disableLogin", true);
 			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "common/redirect";
 		}

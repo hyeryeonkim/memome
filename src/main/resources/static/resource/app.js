@@ -21,3 +21,10 @@ function isNowLoading() {
 }
 
 
+var enableLogin = true;
+
+function disableLogin() {
+	enableLogin = false;
+	
+	return enableLogin;
+}

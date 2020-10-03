@@ -67,8 +67,20 @@
 
 
 <script>
-	function MemberLoginForm__submit(form) {
+	
 
+	$(document).ready(function() {
+		
+		if ( disableLogin() == false ) {
+			$html.removeClass('loading-box-actived'); 
+		}
+		  
+	});
+
+
+
+	
+	function MemberLoginForm__submit(form) {
 		
 		if (isNowLoading()) {
 			alert('처리중입니다.');
@@ -99,7 +111,6 @@
 
 		form.submit();
 		startLoading();
-
 	}
 </script>
 
