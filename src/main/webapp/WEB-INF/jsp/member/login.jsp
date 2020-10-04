@@ -71,7 +71,6 @@
 	$(document).ready(function() {
 		if (!disableLogin()) {
 			endLoading();
-			alert('아놔');
 		}
 	});
 

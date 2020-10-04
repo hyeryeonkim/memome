@@ -88,16 +88,16 @@
 <div class="memo-contents-box con flex flex-jc-sb">
 
 	<div class="memo-contents-box-2">
-		<c:if test="${isLogined == false && totalCount != 0 }">
+		<c:if test="${isLogined == false && totalCount != 0  }">
 			<div class="total-count con">총 게시물 수 : ${totalCount}</div>
 		</c:if>
-		<c:if test="${isLogined && totalCount != 0 }">
+		<c:if test="${isLogined && totalCount != 0  }">
 			<div class="total-count  con">총 게시물 수 : ${totalCount}</div>
 		</c:if>
 
 
 		<%-- <c:if test="${totalCount != 0 }"> --%>
-			<c:if test="${boardCode ne 'memberPage' && totalCount != 0 }">
+			<c:if test="${boardCode ne 'memberPage' && totalCount != 0  }">
 				<c:if test="${param.mode eq 'big' || param.mode eq ''}">
 					<div class="con from-button">
 						<input class="onclick-list-small btn " type="button"
@@ -121,7 +121,7 @@
 							value="제목으로" />
 					</div>
 				</c:if>
-				<c:if test="${param.mode eq 'small' && totalCount != 0}">
+				<c:if test="${param.mode eq 'small'&& totalCount != 0 }">
 					<div class="con  from-button">
 						<input class="onclick-list-big btn" type="button"
 							onclick="click__big(); location.replace('${boardCode}-memoList?mode=big&id=${param.id }'); "
@@ -139,7 +139,7 @@
 		</div>
 	</div> -->
 	<div class="memo-contents-box-1">
-		<c:if test="${isLogined  && totalCount != 0 }">
+		<c:if test="${isLogined   }">
 			<div
 				class="con margin-top-50 flex flex-jc-fe visible-on-sm-down mobile-memo-button ">
 				<button type="button" class="btn black"
@@ -150,7 +150,18 @@
 					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 			</div>
 		</c:if>
-		<c:if test="${isLogined == false && totalCount != 0 }">
+		<c:if test="${isLogined == false && boardCode eq 'unicon' }">
+			<div
+				class="con  flex flex-jc-fe visible-on-sm-down mobile-memo-unicon-button">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
+			</div>
+			<div class="con margin-top-50 flex flex-jc-fe visible-on-md-up">
+				<button type="button" class="btn black"
+					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
+			</div>
+		</c:if>
+		<c:if test="${isLogined == false && boardCode ne 'unicon' }">
 			<div
 				class="con margin-top-50 flex flex-jc-fe visible-on-sm-down mobile-memo-button">
 				<button type="button" class="btn black"
@@ -195,7 +206,7 @@
 			</div>
 		</c:if>
 		<c:if
-			test="${boardCode eq 'memberPage' == false && isLogined == false && totalCount != 0}">
+			test="${boardCode eq 'memberPage' == false && isLogined == false && totalCount != 0 }">
 			<div class="search con flex flex-jc-fe padding-10-0">
 				<div class="search-box ">
 					<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
@@ -217,7 +228,7 @@
 			</div>
 		</c:if>
 
-		<c:if test="${boardCode eq 'memberPage' && isLogined && totalCount != 0}">
+		<c:if test="${boardCode eq 'memberPage' && isLogined && totalCount != 0 }">
 			<div class="search con flex flex-jc-fe padding-10-0">
 				<div class="search-box ">
 					<!-- method="get"은 생략 가능하다. 무엇인지 찾아보기. method="get"-->
@@ -1303,6 +1314,10 @@ html>body .memo-table-box .memo-box td {
 		font-size: 1.1rem;
 		opacity: 0.7;
 		margin-top:20px;
+	}
+	
+	.mobile-memo-unicon-button {
+		 margin-top:-80px; 	
 	}
 }
 

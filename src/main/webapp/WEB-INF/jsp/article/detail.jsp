@@ -1029,7 +1029,6 @@
 		margin-left: 10px;
 	}
 	.tui-editor-contents pre {
-		border: 3px solid green;
 		white-space: pre-wrap;
 		width: 100%;
 	}

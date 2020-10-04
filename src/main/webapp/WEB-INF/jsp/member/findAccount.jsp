@@ -15,19 +15,19 @@
 				onsubmit="findLoginIdForm__submit(this); return false;">
 				<div class="table-box-title">로그인 아이디 찾기</div>
 				<div class="form-control-box">
-					<input name="name" type="text" placeholder="username" autofocus
+					<input name="name" type="text" placeholder="userName" autofocus
 						maxlength="30" />
 				</div>
 				<div class="form-control-box">
-					<input type="email" name="email" placeholder="useremail"
+					<input type="email" name="email" placeholder="userEmail"
 						maxlength="50" style="ime-mode: inactive;" />
 				</div>
 				<div class="form-control-box">
 					<button type="submit" class="loginId-find-btn">check</button>
 				</div>
 				<div class="form-control-box">
-					<button type="button" class="find-loginpw-btn find-btn" onclick="find__loginPw__btn();">Forgot
-						password ?</button>
+					<button type="button" class="find-loginpw-btn find-btn"
+						onclick="find__loginPw__btn();">Forgot password ?</button>
 				</div>
 			</form>
 		</div>
@@ -46,14 +46,14 @@
 						maxlength="30" autofocus />
 				</div>
 				<div class="form-control-box">
-					<input type="email" name="email" placeholder="useremail"
+					<input type="email" name="email" placeholder="userEmail"
 						maxlength="50" style="ime-mode: inactive;" />
 				</div>
 				<button type="submit" class="">check</button>
-				
+
 				<div class="form-control-box">
-					<button type="button" class="find-loginId-btn find-btn" onclick="find__loginId__btn();">Forgot
-						userID ?</button>
+					<button type="button" class="find-loginId-btn find-btn"
+						onclick="find__loginId__btn();">Forgot userID ?</button>
 				</div>
 			</form>
 		</div>
@@ -65,8 +65,6 @@
 
 
 <script>
-
-
 	function find__loginPw__btn() {
 		$(".find-password-box").addClass("find-loginPw-box-block");
 		$(".find-loginId-box").addClass("find-loginId-box-none");
@@ -76,10 +74,6 @@
 		$(".find-password-box").removeClass("find-loginPw-box-block");
 		$(".find-loginId-box").removeClass("find-loginId-box-none");
 	}
-	
-
-
-
 
 	// 로그인 아이디 찾는 자바스크립트
 	function findLoginIdForm__submit(form) {
@@ -148,11 +142,10 @@
 
 
 <style>
-.con {
+/* .con {
 	margin-top: 3%;
 	width: 30%;
-}
-
+} */
 .btn {
 	padding: 0 25px;
 	font-size: 1rem;
@@ -177,7 +170,7 @@
 }
 
 .find-page-box .find-password-box {
-	display:none;
+	display: none;
 }
 
 .find-page .form form .table-box-title {
@@ -187,8 +180,6 @@
 	margin-bottom: 30px;
 }
 
-
-
 .find-page .form form .form-control-box .find-btn {
 	margin-top: 30px;
 	background: white;
@@ -197,22 +188,26 @@
 }
 
 .find-page-box .find-loginPw-box-block {
-	display:block;
+	display: block;
 }
 
 .find-page-box .find-loginId-box-none {
-	display:none;
+	display: none;
 }
 
-
-
-
 /* 모바일 버전 */
-@media ( max-width :1210px) {
-	.con {
-		width: 80%;
+@media ( max-width :800px ) {
+	.find-page-box {
+		max-width: 100%;
 		margin-left: auto;
 		margin-right: auto;
+	}
+	.find-page .form {
+		height: 300px;
+		max-width: 100%;
+		padding:50px;
+				
+		
 	}
 }
 </style>

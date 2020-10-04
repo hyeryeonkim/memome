@@ -30,8 +30,11 @@
 		<input type="hidden" name="relTypeCode" value="article" /> <input
 			type="hidden" name="body" />
 		<c:if test="${boardCode eq 'unicon' }">
-		<input type="hidden" name="displayStatus" value="1" />
-			<div class="invite-title">UNICON email 초대<i style="margin-left:10px;" class="far fa-paper-plane"></i> </div>
+			<input type="hidden" name="displayStatus" value="1" />
+			<div class="invite-title">
+				UNICON email 초대<i style="margin-left: 10px;"
+					class="far fa-paper-plane"></i>
+			</div>
 			<div class="not-table-box-controler">
 				<div class="form-control-box invite-control-box  flex flex-wrap">
 					<input type="email" name="invite1" placeholder="이메일을 입력해주세요."
@@ -53,20 +56,20 @@
 				</div>
 			</div>
 		</c:if>
-		
-			<div class="not-table-box-controler select flex flex-jc-sb">
-				<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus
-					maxlength="200" />
-					<c:if
-			test="${boardCode ne 'free' && boardCode ne 'notice' && boardCode ne 'unicon' }"> 
-					<select name="displayStatus" id="">
+
+		<div class="not-table-box-controler select flex flex-jc-sb">
+			<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus
+				maxlength="200" />
+			<c:if
+				test="${boardCode ne 'free' && boardCode ne 'notice' && boardCode ne 'unicon' }">
+				<select name="displayStatus" id="">
 					<option value="1">공개</option>
 					<option value="0">비공개</option>
 				</select>
-				</c:if>
+			</c:if>
 
-			</div>
-		
+		</div>
+
 		<div class="not-table-box-controler">
 			<!-- 					<div> # 제목
 ![img](https://placekitten.com/200/287)
@@ -80,7 +83,8 @@
 https://www.youtube.com/watch?v=LmgWxezH7cc
 ```	</div> -->
 			<script type="text/x-template"></script>
-			<div data-relTypeCode="article" data-relId="0" class="toast-editor input-body"></div>
+			<div data-relTypeCode="article" data-relId="0"
+				class="toast-editor input-body"></div>
 		</div>
 		<div class="not-table-box-controler">
 			<div class="form-control-box">
@@ -164,14 +168,12 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 
 		var textCount = temp.split('#');
 		textCount = textCount.length - 1;
-		
-		
-		if ( count != textCount  ) {
+
+		if (count != textCount) {
 			alert('# 입력을 확인해주세요.');
 			form.tag.focus();
-			return;	
+			return;
 		}
-		
 
 		console.log(textCount);
 		if (count > 10) {
@@ -311,7 +313,57 @@ https://www.youtube.com/watch?v=LmgWxezH7cc
 	font-size: 1rem;
 }
 
+@media ( max-width :800px) {
+	.not-table-box .not-table-box-controler input:first-child {
+		height:42px;
+	}
 
+	.not-table-box .not-table-box-controler input {
+		width: 90%;
+		font-size: 1.3rem;
+		font-weight: bold;
+		height: 50px;
+	}
+	.not-table-box .not-table-box-controler input:last-child {
+		width: 100%;
+		font-size: 1.1rem;
+		font-weight: bold;
+		height: 40px;
+	}
+	.not-table-box .not-table-box-controler input:nth-child(2) {
+		width: 120%;
+	}
+	.not-table-box .not-table-box-controler .file-box {
+		width: 100%;
+		margin: 0;
+	}
+	.not-table-box .not-table-box-controler .file-box .file div {
+		width: 80px;
+	}
+	.not-table-box .not-table-box-controler .file-box .file {
+		width: 100%;
+		padding: 10px;
+	}
+	.not-table-box .not-table-box-controler .file-box div, .not-table-box .not-table-box-controler .file-box input
+		{
+		margin:0;
+	}
+	 .not-table-box .not-table-box-controler .invite-control-box input {
+		width: 200px;
+		height: 40px;
+		font-size: 0.8rem;
+		font-weight: normal;
+	}
+	
+	 .btns  {
+		max-width:400px;
+	}
+	
+	 .btns button {
+		max-width:120px;
+	}
+	
+}
 </style>
 
 

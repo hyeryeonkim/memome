@@ -1001,6 +1001,7 @@ body {
 
 body .not-table-box-controler .invite-control-box .block {
 	display: block;
+	
 }
 
 .not-table-box .not-table-box-controler {
@@ -1012,6 +1013,7 @@ body .not-table-box-controler .invite-control-box .block {
 	height: 55px;
 	width: 100px;
 	font-weight: bold;
+	
 }
 
 .not-table-box .btn {
@@ -1029,6 +1031,7 @@ body .not-table-box-controler .invite-control-box .block {
 	font-size: 1.3rem;
 	font-weight: bold;
 	height: 50px;
+	
 }
 
 .not-table-box .not-table-box-controler input:last-child {
@@ -1062,6 +1065,14 @@ body .not-table-box-controler .invite-control-box .block {
 	font-size: 1rem;
 	font-weight: normal;
 }
+
+
+
+
+
+
+
+
 /* 테이블 미사용 끝 */
 .remove {
 	display: none;
