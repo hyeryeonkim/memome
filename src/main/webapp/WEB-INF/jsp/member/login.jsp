@@ -25,63 +25,58 @@
 }
 </style>
 
-	<div class="login-page  ">
-		
-		
-		<div class="login-page-title con visible-on-sm-down ">지금 바로 memome를 시작해보세요.</div>
-		
-		<div class="border-main margin-bottom-40"></div>
+<div class="login-page  ">
 
-		<div class="form">
-			<form action="doLogin" method="POST" class="login-form "
-				onsubmit="MemberLoginForm__submit(this); return false;">
 
-				<input type="hidden" name="loginPwReal" /> <input type="hidden"
-					name="redirectUri" value="${param.redirectUri }" />
-				<div class="form-control-box">
-					<input name="loginId" type="text" placeholder="userID" autofocus
-						maxlength="30" />
-				</div>
-				<div class="form-control-box">
-					<input name="loginPw" type="password" placeholder="password"
-						maxlength="30" />
-				</div>
-				<div class="form-control-box">
-					<!-- <input type="submit" value="LOGIN" class="btn black" /> -->
-					<button type="submit" class="login-btn">LOGIN</button>
-				</div>
-				<div class="form-control-box">
-					<button type="button" class="findAccount-btn"
-						onclick="location.href='../member/findAccount'">Forgot
-						userID or password ?</button>
-				</div>
-				<div class="form-control-box">
-					<button type="button" class="join-btn"
-						onclick="location.href='../member/join'">sign up for
-						memome</button>
-				</div>
-			</form>
-		</div>
+	<div class="login-page-title con visible-on-sm-down ">지금 바로
+		memome를 시작해보세요.</div>
+
+	<div class="border-main margin-bottom-40"></div>
+
+	<div class="form">
+		<form action="doLogin" method="POST" class="login-form "
+			onsubmit="MemberLoginForm__submit(this); return false;">
+
+			<input type="hidden" name="loginPwReal" /> <input type="hidden"
+				name="redirectUri" value="${param.redirectUri }" />
+			<div class="form-control-box">
+				<input name="loginId" type="text" placeholder="userID" autofocus
+					maxlength="30" />
+			</div>
+			<div class="form-control-box">
+				<input name="loginPw" type="password" placeholder="password"
+					maxlength="30" />
+			</div>
+			<div class="form-control-box">
+				<!-- <input type="submit" value="LOGIN" class="btn black" /> -->
+				<button type="submit" class="login-btn">LOGIN</button>
+			</div>
+			<div class="form-control-box">
+				<button type="button" class="findAccount-btn"
+					onclick="location.href='../member/findAccount'">Forgot
+					userID or password ?</button>
+			</div>
+			<div class="form-control-box">
+				<button type="button" class="join-btn"
+					onclick="location.href='../member/join'">sign up for
+					memome</button>
+			</div>
+		</form>
 	</div>
+</div>
 
 
 
 <script>
-	
-
 	$(document).ready(function() {
-		
-		if ( disableLogin() == false ) {
-			$html.removeClass('loading-box-actived'); 
+		if (!disableLogin()) {
+			endLoading();
+			alert('아놔');
 		}
-		  
 	});
 
-
-
-	
 	function MemberLoginForm__submit(form) {
-		
+
 		if (isNowLoading()) {
 			alert('처리중입니다.');
 			return;
@@ -111,6 +106,7 @@
 
 		form.submit();
 		startLoading();
+
 	}
 </script>
 
@@ -151,16 +147,14 @@
 /* 모바일 버전 */
 @media ( max-width :800px ) {
 	.login-page {
-		margin-top:-30px;
+		margin-top: -30px;
 	}
-
-
 	.login-page .login-page-title {
 		width: 100%;
 		text-align: center;
-		margin-bottom:30px;
-		font-size:1rem;
-		font-weight:bold;
+		margin-bottom: 30px;
+		font-size: 1rem;
+		font-weight: bold;
 	}
 	.login-page .form {
 		margin-top: 0px;

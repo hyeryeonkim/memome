@@ -73,9 +73,9 @@ var param = ${paramJson};
 		</div>
 	</div>
 	<!-- style="position:fixed; left:10%; right:10%;" -->
-	
+
 	<div class="outer-box ">
-<div class="top-bar-top-back"></div>
+		<div class="top-bar-top-back"></div>
 		<div class="top-bar margin-top-10 visible-on-md-up "
 			style="margin-bottom: 130px;">
 			<div class="menu-box">

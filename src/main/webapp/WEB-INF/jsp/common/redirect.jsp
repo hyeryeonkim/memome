@@ -12,17 +12,20 @@
 		alert(alertMsg);
 	}
 	var alertMsg2 = '${alertMsg2}'.trim();
+	
 	if (alertMsg2) {
 		alert(alertMsg2);
 	}
+	
 	if (historyBack) {
 		history.back();
-		/* $html.removeClass('loading-box-actived'); */
+		
 	}
 
 	 if (disableLogin) {
 		 disableLogin();
 	} 
+		
 	var redirectUri = '${redirectUri}'.trim();
 	if (redirectUri) {
 		location.replace(redirectUri);
