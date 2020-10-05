@@ -150,7 +150,7 @@
 					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 			</div>
 		</c:if>
-		<c:if test="${isLogined == false && boardCode eq 'unicon' }">
+	<%-- 	<c:if test="${isLogined == false && boardCode eq 'unicon' }">
 			<div
 				class="con  flex flex-jc-fe visible-on-sm-down mobile-memo-unicon-button">
 				<button type="button" class="btn black"
@@ -160,7 +160,7 @@
 				<button type="button" class="btn black"
 					onclick="location.href='../article/${boardCode}-write?mode=${param.mode }'">MEMO</button>
 			</div>
-		</c:if>
+		</c:if> --%>
 		<c:if test="${isLogined == false && boardCode ne 'unicon' }">
 			<div
 				class="con margin-top-50 flex flex-jc-fe visible-on-sm-down mobile-memo-button">
@@ -258,7 +258,7 @@
 		<div class="unicon-title">
 			소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.
 		</div>
-		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
+		<div class="unicon-serve-title">메모를 공유하고 싶은 지인을 초대해보세요.</div>
 		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
 		<div class="unicon-login">
 			<button type="button" class="btn black"
@@ -279,8 +279,7 @@
 		<div class="unicon-login-title2 margin-top-50">
 			소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.
 		</div>
-		<div class="unicon-login-serve-title1">메모를 공개하고 싶은 지인을 초대해서 메모를
-			공유해보세요.</div>
+		<div class="unicon-login-serve-title1">메모를 공유하고 싶은 지인을 초대해보세요.</div>
 		<div class="unicon-login-serve-title2">UNICON에 작성하신 메모는 초대한 지인
 			외에는 공개되지 않습니다.</div>
 	</div>
@@ -291,7 +290,7 @@
 		<div class="unicon-title">
 			소중한 지인들과 <span>소소한 추억</span>을 쌓아보세요.
 		</div>
-		<div class="unicon-serve-title">메모를 공개하고 싶은 지인을 초대해서 메모를 공유해보세요.</div>
+		<div class="unicon-serve-title">메모를 공유하고 싶은 지인을 초대해보세요.</div>
 		<div class="unicon-serve-title2">UNICON에 작성한 메모는 모두에게 공개되지 않습니다.</div>
 		<div class="unicon-login">
 			<button type="button" class="btn black"
