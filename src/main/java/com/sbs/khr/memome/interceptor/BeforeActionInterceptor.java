@@ -22,13 +22,12 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 	@Value("${custom.logoText}")
 	private String siteName;
 
-	
-	  //@Value("${spring.profiles.active}") private String activeProfile;
-	 
+	@Value("${spring.profiles.active}")
+	private String activeProfile;
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	@Autowired
 	private AppConfig appConfig;
 
@@ -49,12 +48,11 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 			System.out.println("그럼 queryString은 뭔데 : " + queryString);
 		}
 
-
 		String encodedRequestUri = Util.getUriEncoded(requestUri);
 
 		request.setAttribute("requestUri", requestUri);
 		request.setAttribute("encodedRequestUri", encodedRequestUri);
-		
+
 		System.out.println("encodedRequestUri가 뭔데?????" + encodedRequestUri);
 		System.out.println("requestUri가 대체 뭔데?????" + requestUri);
 
@@ -63,7 +61,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		// 현재 페이지가 이미 로그인 페이지라면, 이 상태에서 로그인 버튼을 눌렀을 때 기존 param의 redirectUri가 계속 유지되도록
 		// 한다.
 		if (requestUri.contains("/usr/member/login") || requestUri.contains("/usr/member/join")
-				|| requestUri.contains("/usr/member/findLoginId") || requestUri.contains("/usr/member/findLoginPw")  ) {
+				|| requestUri.contains("/usr/member/findLoginId") || requestUri.contains("/usr/member/findLoginPw")) {
 			afterLoginUri = Util.getString(request, "redirectUri", "");
 		}
 
@@ -73,7 +71,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("encodedAfterLoginUri", encodedAfterLoginUri);
 		request.setAttribute("param", param);
 		request.setAttribute("paramJson", paramJson);
-		
+
 		System.out.println("param은 뭔데? : " + param);
 		System.out.println("paramJson은 뭔데? : " + paramJson);
 
@@ -109,16 +107,16 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 			isLogined = true;
 			System.out.println("loginedMemberId를 왜 불러와????? 7번 회원이 어디서 나와???  " + loginedMemberId);
 			loginedMember = memberService.getMemberByIdForSession(loginedMemberId);
-			
+
 		}
 
 		request.setAttribute("loginedMemberId", loginedMemberId);
 		request.setAttribute("isLogined", isLogined);
 		request.setAttribute("loginedMember", loginedMember);
-		
+
 		request.setAttribute("appConfig", appConfig);
 
-		// request.setAttribute("activeProfile", activeProfile);
+		request.setAttribute("activeProfile", activeProfile);
 
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
