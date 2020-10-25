@@ -151,6 +151,14 @@
 		</set>
 		WHERE id = #{id}
 	</update>
+	
+	<update id="delete">
+		UPDATE article
+		SET delDate = NOW(),
+		delStatus = 1
+		WHERE memberId = #{memberId}
+		AND id = #{id}
+	</update>
 
 	<update id="memoDelete">
 		UPDATE article

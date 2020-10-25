@@ -18,6 +18,7 @@ import com.sbs.khr.memome.dto.Hashtag;
 import com.sbs.khr.memome.dto.Member;
 import com.sbs.khr.memome.dto.ResultData;
 import com.sbs.khr.memome.service.ArticleService;
+import com.sbs.khr.memome.service.FileService;
 import com.sbs.khr.memome.service.HashtagService;
 import com.sbs.khr.memome.service.MemberService;
 import com.sbs.khr.memome.util.Util;
@@ -31,6 +32,9 @@ public class ArticleController {
 	private HashtagService hashtagService;
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private FileService fileService;
 
 	@RequestMapping("/usr/article/{boardCode}-list")
 	public String showList(@RequestParam Map<String, Object> param, Model model,
@@ -259,5 +263,26 @@ public class ArticleController {
 
 		return "common/redirect";
 	}
+	
+	@RequestMapping("/usr/article/{boardCode}-doDelete")
+	public String doDelete(@RequestParam Map<String, Object> param, @PathVariable("boardCode") String boardCode,
+			Model model, HttpServletRequest request) {
+
+		int memberId = (int) request.getAttribute("loginedMemberId");
+		Map<String, Object> newParam = Util.getNewMapOf(param, "id");
+		newParam.put("memberId", memberId);
+		hashtagService.hashtagDelete(newParam); // hashtag를 먼저 지우니까 삭제가 되네.... 흠...
+		articleService.delete(newParam);
+
+		fileService.deleteFiles("article", Util.getAsInt(newParam.get("id")));
+
+		// 게시물 삭제
+		// 태그 삭제
+		// 파일 삭제
+
+
+		return "home/main";
+	}
+
 
 }

@@ -44,7 +44,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/usr/memo/memoYOU-memoList").excludePathPatterns("/usr/memo/*-memoMemberPage")
 				.excludePathPatterns("/usr/file/streamVideo").excludePathPatterns("/usr/file/img")
 				.excludePathPatterns("/usr/memo/*-tagSearchResult").excludePathPatterns("/usr/home/mainTest")
-				.excludePathPatterns("/usr/home/mobileMain").excludePathPatterns("/usr/memo/unicon-memoList").excludePathPatterns("/usr/member/uniconValidCheck");
+				.excludePathPatterns("/usr/home/mobileMain").excludePathPatterns("/usr/memo/unicon-memoList")
+				.excludePathPatterns("/usr/member/uniconValidCheck").excludePathPatterns("/robots.txt");
 		
 		
 																					

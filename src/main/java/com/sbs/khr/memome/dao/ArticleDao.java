@@ -66,6 +66,8 @@ public interface ArticleDao {
 
 	List<Article> getForAccountDeleteArticlesByMemberId(@Param("memberId") int memberId);
 
+	void delete(Map<String, Object> param);
+
 	//List<Article> getForPrintAllArticleContainsTags(@Param("boardId") int id, @Param("tag") String searchKeyword);
 
 

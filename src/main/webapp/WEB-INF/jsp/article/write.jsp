@@ -67,6 +67,9 @@
 					<option value="0">비공개</option>
 				</select>
 			</c:if>
+			<c:if test="${boardCode eq 'free' || boardCode eq 'notice' || boardCode eq 'unicon' }">
+				<input type="hidden" name="displayStatus" value="1"/>
+			</c:if>
 
 		</div>
 

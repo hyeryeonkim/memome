@@ -14,6 +14,14 @@
 
 
 
+<!-- 구글 웹 마스터 인증코드(이렇게 인증코드를 입력해주어야, 인증을 해주어야 이 사이트에서 할 수 있는 것을 하게 해준다...?) -->
+<meta name="google-site-verification" content="PZeKGFdT9T7gdFI35X--_2uirE0kYQfS6-fmOUIcWVw" />
+
+<!-- 네이버 웹 마스터 인증코드(이렇게 인증코드를 입력해주어야, 인증을 해주어야 이 사이트에서 할 수 있는 것을 하게 해준다...?) -->
+<meta name="naver-site-verification" content="3835bf6f2ed9c2ecf4c93c51618a0cacf497efc1" />
+
+
+
 
 <!--  게시물 상세보기에서 오류나는 원인 검색해서보니 아래 link 입력해주면 에러가 사라진다고해서 추가함. 에러는 사라짐 favicon.ico:1 GET http://localhost:8085/favicon.ico 404  -->
 <link rel="shortcut icon" href="#">
@@ -71,6 +79,8 @@ var param = ${paramJson};
 	});
 </script>
 
+<!-- 구글 애드센스 인증용 코드 -->
+<script data-ad-client="ca-pub-3199743409312543" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 </head>
 <body>

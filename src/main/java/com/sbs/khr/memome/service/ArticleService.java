@@ -376,4 +376,8 @@ public class ArticleService {
 		return articleDao.getForAccountDeleteArticlesByMemberId(memberId);
 	}
 
+	public void delete(Map<String, Object> param) {
+		articleDao.delete(param);
+	}
+
 }
