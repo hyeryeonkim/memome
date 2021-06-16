@@ -72,8 +72,6 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("param", param);
 		request.setAttribute("paramJson", paramJson);
 
-		System.out.println("param은 뭔데? : " + param);
-		System.out.println("paramJson은 뭔데? : " + paramJson);
 
 		// 해당 요청이 ajax 요청인지 아닌지 체크
 		boolean isAjax = requestUri.endsWith("Ajax");

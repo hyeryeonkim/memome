@@ -33,6 +33,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		// 로그인 없이도 접속할 수 있는 URI 전부 기술
 		registry.addInterceptor(needToLoginInterceptor).addPathPatterns("/**").excludePathPatterns("/")
 				.excludePathPatterns("/resource/**").excludePathPatterns("/usr/home/main")
+				.excludePathPatterns("/usr/home/main2")
 				.excludePathPatterns("/usr/member/login").excludePathPatterns("/usr/member/doLogin")
 				.excludePathPatterns("/usr/member/join").excludePathPatterns("/usr/member/doJoin")
 				.excludePathPatterns("/usr/article/{boardCode}-list").excludePathPatterns("/usr/member/findAccount")
@@ -45,7 +46,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/usr/file/streamVideo").excludePathPatterns("/usr/file/img")
 				.excludePathPatterns("/usr/memo/*-tagSearchResult").excludePathPatterns("/usr/home/mainTest")
 				.excludePathPatterns("/usr/home/mobileMain").excludePathPatterns("/usr/memo/unicon-memoList")
-				.excludePathPatterns("/usr/member/uniconValidCheck").excludePathPatterns("/robots.txt");
+				.excludePathPatterns("/usr/member/uniconValidCheck").excludePathPatterns("/robots.txt");				;
 		
 		
 																					
