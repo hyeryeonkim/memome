@@ -5,6 +5,8 @@
 <%@ include file="../part/head.jspf"%>
 <%@ include file="../part/toastuiEditor.jspf"%>
 
+<div class="margin-top-250"></div>
+
 <c:if test="${boardCode ne 'memoYOU'  && boardCode ne 'memoME' }">
 	<h1 class="con">
 		<strong style="color: red;">${boardCode}</strong>게시판<strong
@@ -299,7 +301,10 @@
 </script>
 
 <style>
-..table-box {
+.not-table-box {
+	margin-top: 200px;
+}
+.table-box {
 	margin-top: 50px;
 }
 

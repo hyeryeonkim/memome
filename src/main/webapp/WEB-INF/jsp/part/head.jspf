@@ -10,15 +10,18 @@
 <!-- 모바일에서 사이트가 PC에서의 픽셀크기 기준으로 작동하게 하기(반응형 하려면 필요) -->
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <!-- 모바일에서 사이트가 PC에서의 픽셀크기 기준으로 작동하게 하기(반응형 하려면 필요) -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 
 
 <!-- 구글 웹 마스터 인증코드(이렇게 인증코드를 입력해주어야, 인증을 해주어야 이 사이트에서 할 수 있는 것을 하게 해준다...?) -->
-<meta name="google-site-verification" content="PZeKGFdT9T7gdFI35X--_2uirE0kYQfS6-fmOUIcWVw" />
+<meta name="google-site-verification"
+	content="PZeKGFdT9T7gdFI35X--_2uirE0kYQfS6-fmOUIcWVw" />
 
 <!-- 네이버 웹 마스터 인증코드(이렇게 인증코드를 입력해주어야, 인증을 해주어야 이 사이트에서 할 수 있는 것을 하게 해준다...?) -->
-<meta name="naver-site-verification" content="3835bf6f2ed9c2ecf4c93c51618a0cacf497efc1" />
+<meta name="naver-site-verification"
+	content="3835bf6f2ed9c2ecf4c93c51618a0cacf497efc1" />
 
 
 
@@ -51,6 +54,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
 
 
+
 <!-- 공통(라이브러리) CSS -->
 <link rel="stylesheet" href="/resource/common.css" />
 <!-- 공통(라이브러리) JS -->
@@ -61,6 +65,14 @@
 <link rel="stylesheet" href="/resource/keyframes.css" />
 <!-- 공통 JS -->
 <script src="/resource/app.js"></script>
+
+<!-- swiper CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+<!-- swiper jQuery -->
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 <%-- <%="<script>"%> --%>
 <%-- var activeProfile = '${activeProfile}'; --%>
@@ -80,7 +92,8 @@ var param = ${paramJson};
 </script>
 
 <!-- 구글 애드센스 인증용 코드 -->
-<script data-ad-client="ca-pub-3199743409312543" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script data-ad-client="ca-pub-3199743409312543" async
+	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 </head>
 <body>
@@ -99,17 +112,80 @@ var param = ${paramJson};
 	</div>
 	<!-- style="position:fixed; left:10%; right:10%;" -->
 
+
+
+	<!-- header 시작 -->
+	<div id="wrap">
+		<div id="header">
+			<div class="new_container">
+				<div class="header">
+					<div class="header-menu">
+							<a href="../home/main?mode=${param.mode}">홈</a>
+							<a href="../article/notice-list?mode=${param.mode }">공지사항</a>
+							<a href="../article/free-list?mode=${param.mode }">자유게시판</a>
+							<a href="../memo/memoYOU-memoList?mode=${param.mode }">memoYOU</a>
+
+							<c:if test="${isLogined }">
+								<a href="../memo/memoME-memoList?mode=${param.mode }">memoME</a>
+							</c:if>
+							<a href="../memo/unicon-memoList?mode=${param.mode }">UNICON</a>
+							<c:if test="${isLogined == false}">
+								<a href="../member/join">회원가입</a>
+							</c:if>
+							<c:if test="${isLogined == false}">
+								<a href="../member/login">로그인</a>
+							</c:if>
+							<c:if test="${isLogined}">
+								<a
+									href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">settings</a></li>
+								<a href="../member/logout">로그아웃</a>
+							</c:if>
+
+					</div>
+					<div class="header-title">
+						<h1>welcome to memome !</h1>
+						<br />
+						<a href="https://harry.ouo.nz">Habit is second nature.</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!--모바일 버전 -->
+	<div class="loading-box flex-ai-c flex-jc-c visible-on-sm-down">
+		<div class="lds-roller">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+
+
+
 	<div class="outer-box ">
-		<div class="top-bar-top-back"></div>
-		<div class="top-bar margin-top-10 visible-on-md-up "
-			style="margin-bottom: 130px;">
+		<div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
+			<a href="#" class="btn-toggle-mobile-top-bar">
+				<div></div>
+				<div></div>
+				<div></div>
+			</a>
+		</div>
+		<div id="mobile-top-bar"
+			class="mobile-side-bar margin-top-10 visible-on-sm-down ">
 			<div class="menu-box">
 				<ul>
 					<li><a href="../home/main?mode=${param.mode}">홈</a></li>
 					<li><a href="../article/notice-list?mode=${param.mode }">공지사항</a></li>
 					<li><a href="../article/free-list?mode=${param.mode }">자유게시판</a></li>
 					<li><a href="../memo/memoYOU-memoList?mode=${param.mode }">memoYOU</a></li>
-
 					<c:if test="${isLogined }">
 						<li><a href="../memo/memoME-memoList?mode=${param.mode }">memoME</a></li>
 					</c:if>
@@ -125,71 +201,7 @@ var param = ${paramJson};
 							href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">settings</a></li>
 						<li><a href="../member/logout">로그아웃</a></li>
 					</c:if>
-
 				</ul>
 			</div>
 		</div>
-		<!-- 회원정보 변경을 닉네임을 누르면 이동할 수 있도록 수정하기. -->
-		<c:if test="${isLogined}">
-			<div class="con hi-user">
-				반갑습니다. <strong>${loginedMember.nickname}</strong> 님.
-			</div>
-			<c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
-				<div class="use-temp-password con">
-					현재 임시 비밀번호를 사용하고 있습니다. 비밀번호를 <a href="../member/checkPassword"
-						style="color: red;">변경</a>해주세요.
-				</div>
-			</c:if>
-		</c:if>
-
-
-		<!--모바일 버전 -->
-		<div class="loading-box flex-ai-c flex-jc-c visible-on-sm-down">
-			<div class="lds-roller">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-		</div>
-
-
-
-		<div class="outer-box ">
-			<div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
-				<a href="#" class="btn-toggle-mobile-top-bar">
-					<div></div>
-					<div></div>
-					<div></div>
-				</a>
-			</div>
-			<div id="mobile-top-bar"
-				class="mobile-side-bar margin-top-10 visible-on-sm-down ">
-				<div class="menu-box">
-					<ul>
-						<li><a href="../home/main?mode=${param.mode}">홈</a></li>
-						<li><a href="../article/notice-list?mode=${param.mode }">공지사항</a></li>
-						<li><a href="../article/free-list?mode=${param.mode }">자유게시판</a></li>
-						<li><a href="../memo/memoYOU-memoList?mode=${param.mode }">memoYOU</a></li>
-						<c:if test="${isLogined }">
-							<li><a href="../memo/memoME-memoList?mode=${param.mode }">memoME</a></li>
-						</c:if>
-						<li><a href="../memo/unicon-memoList?mode=${param.mode }">UNICON</a></li>
-						<c:if test="${isLogined == false}">
-							<li><a href="../member/join">회원가입</a></li>
-						</c:if>
-						<c:if test="${isLogined == false}">
-							<li><a href="../member/login">로그인</a></li>
-						</c:if>
-						<c:if test="${isLogined}">
-							<li><a
-								href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">settings</a></li>
-							<li><a href="../member/logout">로그아웃</a></li>
-						</c:if>
-					</ul>
-				</div>
-			</div>
+		

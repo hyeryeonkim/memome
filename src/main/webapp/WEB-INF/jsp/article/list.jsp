@@ -5,23 +5,25 @@
 <%@ include file="../part/head.jspf"%>
 
 <c:if test="${boardCode eq 'notice' }">
-	<h1 class="con visible-on-md-up">
+	<h1 class="con visible-on-md-up list_h1">
 		<strong style="color: orange;">${boardCode}</strong>게시판
 	</h1>
 </c:if>
 <c:if test="${boardCode eq 'free' }">
-	<h1 class="con visible-on-md-up">
+	<h1 class="con visible-on-md-up list_h1">
 		<strong style="color: gold;">${boardCode}</strong>게시판
 	</h1>
 </c:if>
 
 <!-- PC 모드 -->
+<!-- 
 <c:if test="${boardCode eq 'free' }">
 	<div class="free-top-bar visible-on-md-up con">
 		<h1>Story</h1>
 		<h2>메모미의 다양한 이야기들을 만나보세요</h2>
 	</div>
 </c:if>
+ -->
 
 <!-- 모바일 모드 -->
 <c:if test="${boardCode eq 'free' }">

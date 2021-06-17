@@ -128,7 +128,7 @@
 
 <style>
 .mypage-box {
-	
+	margin-top: 200px;
 }
 
 .mypage-box .form {

@@ -9,6 +9,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 
+<!-- 
 <div class="join-top-bar visible-on-md-up">
 	<h1>Sign up</h1>
 	<h2>메모미와 함께 소중한 기억을 담아보세요</h2>
@@ -18,6 +19,7 @@
 	<div class="title">Sign up</div>
 	<div class="body">메모미와 함께 소중한 기억을 담아보세요</div>
 </div>
+ -->
 
 <style>
 .join-top-bar {
@@ -541,7 +543,7 @@ function JoinForm__checkCellphoneNoDup(input) {
 
 .join-page {
 	width:30%;
-	margin-top:100px;
+	margin-top:250px;
 }
 
 /* 모바일 버전 */

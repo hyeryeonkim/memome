@@ -22,6 +22,7 @@
 	top: 130px;
 	right: 25%;
 	text-align: right;
+	margin-top: 100px;
 }
 </style>
 

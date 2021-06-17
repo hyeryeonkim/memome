@@ -927,6 +927,10 @@
 </script>
 
 <style>
+
+.border-title {
+	margin-top: 200px;
+}
 .btn {
 	margin: 0 5px;
 }
@@ -991,6 +995,10 @@
 	
 }
 
+.not-table-box {
+	margin-top: 300px;
+}
+
 @media ( max-width :800px ) {
 	.not-table-box {
 		margin-top: 80px;
@@ -1024,6 +1032,7 @@
 	}
 	.board-title {
 		text-align: left;
+		
 	}
 	.not-table-box .btn {
 		margin-left: 10px;

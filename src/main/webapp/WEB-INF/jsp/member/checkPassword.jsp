@@ -55,7 +55,7 @@
 
 <style>
 .checkPassword-page {
-	margin-top: 200px;
+	margin-top: 300px;
 }
 
 .checkPassword-page .title {

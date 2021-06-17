@@ -10,7 +10,7 @@
 
 
 
-
+<div class="margin-top-300"></div>
 
 <!-- PC 버전 -->
 <c:if test="${board.code eq 'unicon'}">
@@ -901,7 +901,7 @@
 	text-align: center;
 	width: 100%;
 	padding: 50px 0;
-	background-color: #fff5f5;
+	/* background-color: #fff5f5; */
 }
 
 /* 로그인 후 UNICON __ 게시물 0개일때 시작  */
