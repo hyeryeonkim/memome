@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="메인" />
-<%@ include file="../part/head2.jspf"%>
+<%@ include file="../part/head.jspf"%>
 
 
 <div id="wrap">
@@ -44,9 +44,6 @@
 						<!-- 페이징 버튼 처리 -->
 						<div class="swiper-pagination"></div>
 
-						<!-- 방향 버튼 상황에 따라 추가 삭제가능 -->
-						<div class="swiper-button-prev"></div>
-						<div class="swiper-button-next"></div>
 					</div>
 
 				</div>
@@ -106,7 +103,7 @@
 		//한번에 보여지는 페이지 숫자
 		slidesPerView : 1,
 		//페이지와 페이지 사이의 간격
-		spaceBetween : 30,
+		spaceBetween : 0,
 		//드레그 기능 true 사용가능 false 사용불가
 		debugger : true,
 		//마우스 휠기능 true 사용가능 false 사용불가

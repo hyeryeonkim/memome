@@ -68,7 +68,8 @@
 
 <!-- swiper CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet"
+	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
 <!-- swiper jQuery -->
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
@@ -115,37 +116,37 @@ var param = ${paramJson};
 
 
 	<!-- header 시작 -->
-	<div id="wrap">
-		<div id="header">
+	<div id="wrap" class="visible-on-md-up">
+		<div id="header" >
 			<div class="new_container">
 				<div class="header">
 					<div class="header-menu">
-							<a href="../home/main?mode=${param.mode}">홈</a>
-							<a href="../article/notice-list?mode=${param.mode }">공지사항</a>
-							<a href="../article/free-list?mode=${param.mode }">자유게시판</a>
-							<a href="../memo/memoYOU-memoList?mode=${param.mode }">memoYOU</a>
+						<a href="../home/main?mode=${param.mode}">홈</a> <a
+							href="../article/notice-list?mode=${param.mode }">공지사항</a> <a
+							href="../article/free-list?mode=${param.mode }">자유게시판</a> <a
+							href="../memo/memoYOU-memoList?mode=${param.mode }">memoYOU</a>
 
-							<c:if test="${isLogined }">
-								<a href="../memo/memoME-memoList?mode=${param.mode }">memoME</a>
-							</c:if>
-							<a href="../memo/unicon-memoList?mode=${param.mode }">UNICON</a>
-							<c:if test="${isLogined == false}">
-								<a href="../member/join">회원가입</a>
-							</c:if>
-							<c:if test="${isLogined == false}">
-								<a href="../member/login">로그인</a>
-							</c:if>
-							<c:if test="${isLogined}">
-								<a
-									href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">settings</a></li>
-								<a href="../member/logout">로그아웃</a>
-							</c:if>
+						<c:if test="${isLogined }">
+							<a href="../memo/memoME-memoList?mode=${param.mode }">memoME</a>
+						</c:if>
+						<a href="../memo/unicon-memoList?mode=${param.mode }">UNICON</a>
+						<c:if test="${isLogined == false}">
+							<a href="../member/join">회원가입</a>
+						</c:if>
+						<c:if test="${isLogined == false}">
+							<a href="../member/login">로그인</a>
+						</c:if>
+						<c:if test="${isLogined}">
+							<a
+								href="/usr/member/checkPassword?redirectUri=${Util.getUriEncoded('/usr/member/myPage') }">settings</a>
+							</li>
+							<a href="../member/logout">로그아웃</a>
+						</c:if>
 
 					</div>
 					<div class="header-title">
 						<h1>welcome to memome !</h1>
-						<br />
-						<a href="https://harry.ouo.nz">Habit is second nature.</a>
+						<br /> <a href="https://harry.ouo.nz">Habit is second nature.</a>
 					</div>
 				</div>
 			</div>
@@ -171,12 +172,22 @@ var param = ${paramJson};
 
 
 	<div class="outer-box ">
+		<div id="header visible-on-sm-down">
+		<div class="new_container">
+			<div class="header">
+				<div class="header-title">
+					<h1>welcome to memome !</h1>
+					<br /> <a href="https://harry.ouo.nz">Habit is second nature.</a>
+				</div>
+			</div>
+		</div>
 		<div class="mobile-top-bar visible-on-sm-down flex flex-ai-c">
 			<a href="#" class="btn-toggle-mobile-top-bar">
 				<div></div>
 				<div></div>
 				<div></div>
 			</a>
+		</div>
 		</div>
 		<div id="mobile-top-bar"
 			class="mobile-side-bar margin-top-10 visible-on-sm-down ">
@@ -204,4 +215,3 @@ var param = ${paramJson};
 				</ul>
 			</div>
 		</div>
-		

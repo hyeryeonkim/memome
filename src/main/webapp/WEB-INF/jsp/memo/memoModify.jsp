@@ -5,6 +5,7 @@
 <%@ include file="../part/head.jspf"%>
 <%@ include file="../part/toastuiEditor.jspf"%>
 
+<div class="margin-top-300"></div>
 <c:if test="${boardCode ne 'memoYOU'  && boardCode ne 'memoME' }">
 	<h1 class="con">
 		<strong style="color: red;">${boardCode}</strong>게시판<strong

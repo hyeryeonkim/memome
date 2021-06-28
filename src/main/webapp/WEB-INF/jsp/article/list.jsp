@@ -389,7 +389,7 @@ input[type="submit"] {
 	}
 	.free-top-bar-mobile {
 		position: absolute;
-		top: 100px;
+		top: 200px;
 		left: 4%;
 		font-weight: bold;
 	}

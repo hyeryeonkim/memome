@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${logoText}-${pageTitle}</title>
+<c:set var="boardCode" value="${boardCode }" />
 
 <!-- 모바일에서 사이트가 PC에서의 픽셀크기 기준으로 작동하게 하기(반응형 하려면 필요) -->
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
@@ -146,7 +147,8 @@ var param = ${paramJson};
 						<h1>welcome to memome !</h1>
 						<br />
 						<a href="https://harry.ouo.nz">Habit is second nature.</a>
-					</div>
+					</div>	
+					
 				</div>
 			</div>
 		</div>

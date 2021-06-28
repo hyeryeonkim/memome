@@ -10,7 +10,7 @@
 
 
 
-<div class="margin-top-300"></div>
+<div class="margin-top-100"></div>
 
 <!-- PC 버전 -->
 <c:if test="${board.code eq 'unicon'}">
@@ -70,7 +70,8 @@
 }
 
 .memo-contents-box .memo-contents-box-1 {
-	width: 300px;
+	 width: 300px; 
+	
 }
 
 .memo-contents-box .memo-contents-box-2 {
@@ -83,6 +84,8 @@
 .memo-contents-box .memo-contents-box-2 .total-count {
 	margin-bottom: 10px;
 }
+
+
 </style>
 
 <div class="memo-contents-box con flex flex-jc-sb">
@@ -607,6 +610,13 @@
 	.memo-table-list .memo-table-list-box .contents-box .body {
 		font-size: 1rem;
 		opacity: 0.7;
+	}
+	
+	.memo-contents-box .memo-contents-box-1 {
+		width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 	}
 }
 </style>
